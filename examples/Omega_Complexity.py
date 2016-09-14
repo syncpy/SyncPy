@@ -18,7 +18,7 @@ print("This script computes Omega_Complexity for multiple monovariate signals \n
 print("**********************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFromManyPersons.Monovariate.Continuous.Linear.Omega_Complexity as Omega_Complexity
+import DataFromManyPersons.Univariate.Continuous.Linear.Omega_Complexity as Omega_Complexity
 from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ExtractSignal import ExtractSignalFromMAT
 from utils.Standardize import Standardize

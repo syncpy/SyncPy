@@ -3,7 +3,7 @@ Name,,,,,PartialCoherence
 Description,,,,,"PartialCoherence computes the partial coherence in a list of signals, 3 signals at a time."
 Type,,,,,Linear
 Data_Type,,,,,Continuous
-Signal_Type,,,,,Monovariate
+Signal_Type,,,,,Univariate
 Number_User_Type,,,,,DataFromManyPersons
 Parameter_name,fs,NFFT,detrend,noverlap,
 Parameter_type,float,int,int,int,

@@ -1,0 +1,9 @@
+MachineLearning package
+=======================================================
+
+.. automodule:: DataFromManyPersons.Univariate.Continuous.MachineLearning
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

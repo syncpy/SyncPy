@@ -254,7 +254,7 @@ class EditSignalWindow(QtGui.QMainWindow, Ui_EditSignalWindow):
                     if old_signal_type != new_signal_type :
                         self.my_signal._signal_type = new_signal_type
                         reply = QtGui.QMessageBox.information(self, 'Info',
-                                self.my_signal._signal_name + " is now a Monovariate signal. ")
+                                self.my_signal._signal_name + " is now a Univariate signal. ")
                         
                     #Update signal data type
                     self.updateSignalDataType(old_signal_data_type)                                       

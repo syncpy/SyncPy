@@ -3,7 +3,7 @@ Name,,,,,,Coherence
 Description,,,,,,Computes the linear correlation between two monovariate time series x and y (in DataFrame format) as a function of the frequency. It is the cross-spectral density function normalized by the autospectral density function of x and y.
 Type,,,,,,Linear
 Data_Type,,,,,,Continuous
-Signal_Type,,,,,,Monovariate
+Signal_Type,,,,,,Univariate
 Number_User_Type,,,,,,DataFrom2Persons
 Parameter_name,fs,NFFT,detrend,noverlap,plot,
 Parameter_type,float,int,int,int,bool,

@@ -3,7 +3,7 @@ Name,,,,GrangerCausality
 Description,,,,computes unidirectionnal causality test with a bivariate autoregressive model and test if the unrestricted model is statistically significant compared to the restricted one. An F-test is computed and then the interpretation is up to the user
 Type,,,,Linear
 Data_Type,,,,Continuous
-Signal_Type,,,,Monovariate
+Signal_Type,,,,Univariate
 Number_User_Type,,,,DataFrom2Persons
 Parameter_name,max_lag,criterion,plot,
 Parameter_type,int,str,bool,

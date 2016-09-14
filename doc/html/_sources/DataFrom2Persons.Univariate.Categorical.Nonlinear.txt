@@ -1,0 +1,18 @@
+Nonlinear package
+==========================================================
+
+.. automodule:: DataFrom2Persons.Univariate.Categorical.Nonlinear
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+EventSync module
+-------------------------------------------------------------------
+
+.. automodule:: DataFrom2Persons.Univariate.Categorical.Nonlinear.EventSync
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

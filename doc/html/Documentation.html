@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Documentation &mdash; Home Page</title>
@@ -14,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1',
+        VERSION:     '2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -75,7 +76,7 @@
 types, respectively. Four horizontal levels are identifiable:</p>
 <ol class="arabic simple">
 <li>Number of participants: two (<code class="docutils literal"><span class="pre">DataFrom2Persons</span></code> package) ore more than two involved in the interaction (<code class="docutils literal"><span class="pre">DataFromManyPersons</span></code> package)</li>
-<li>Number of variables in input signals: one (<code class="docutils literal"><span class="pre">Monovariate</span></code> package) or more than one (<code class="docutils literal"><span class="pre">Multivariate</span></code> package) that are available for each participant</li>
+<li>Number of variables in input signals: one (<code class="docutils literal"><span class="pre">Univariate</span></code> package) or more than one (<code class="docutils literal"><span class="pre">Multivariate</span></code> package) that are available for each participant</li>
 <li>Type of data in input signals continuous (<code class="docutils literal"><span class="pre">Continuous</span></code> pacakge) or categorical (<code class="docutils literal"><span class="pre">Categorical</span></code> package)</li>
 <li>Type of analysis will be carried out on signals (<code class="docutils literal"><span class="pre">Linear</span></code>, <code class="docutils literal"><span class="pre">NonLinear</span></code> or <code class="docutils literal"><span class="pre">MachineLearning</span></code> pacakges)</li>
 </ol>
@@ -85,33 +86,34 @@ types, respectively. Four horizontal levels are identifiable:</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="DataFrom2Persons.html">DataFrom2Persons package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="DataFrom2Persons.Monovariate.html">Monovariate package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="DataFrom2Persons.Monovariate.Categorical.html">Categorical package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Monovariate.Categorical.Linear.html">Linear package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Monovariate.Categorical.Linear.html#module-DataFrom2Persons.Monovariate.Categorical.Linear.BooleanTurnsActivity">BooleanTurnsActivity module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataFrom2Persons.Univariate.html">Univariate package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DataFrom2Persons.Univariate.Categorical.html">Categorical package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Univariate.Categorical.Linear.html">Linear package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Categorical.Linear.html#module-DataFrom2Persons.Univariate.Categorical.Linear.BooleanTurnsActivity">BooleanTurnsActivity module</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Monovariate.Categorical.MachineLearning.html">MachineLearning package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Monovariate.Categorical.Nonlinear.html">Nonlinear package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Monovariate.Categorical.Nonlinear.html#module-DataFrom2Persons.Monovariate.Categorical.Nonlinear.EventSync">EventSync module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Univariate.Categorical.MachineLearning.html">MachineLearning package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Univariate.Categorical.Nonlinear.html">Nonlinear package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Categorical.Nonlinear.html#module-DataFrom2Persons.Univariate.Categorical.Nonlinear.EventSync">EventSync module</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.html">Continuous package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.Linear.html">Linear package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.Linear.html#module-DataFrom2Persons.Monovariate.Continuous.Linear.Coherence">Coherence module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.Linear.html#module-DataFrom2Persons.Monovariate.Continuous.Linear.Correlation">Correlation module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.Linear.html#module-DataFrom2Persons.Monovariate.Continuous.Linear.WindowCrossCorrelation">WindowCrossCorrelation module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.Linear.html#module-DataFrom2Persons.Monovariate.Continuous.Linear.PeakPicking">PeakPicking module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.Linear.html#module-DataFrom2Persons.Monovariate.Continuous.Linear.GrangerCausality">GrangerCausality module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.Linear.html#module-DataFrom2Persons.Monovariate.Continuous.Linear.SpectralGrangerCausality">SpectralGrangerCausality module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.html">Continuous package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Linear.html">Linear package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Linear.html#module-DataFrom2Persons.Univariate.Continuous.Linear.Coherence">Coherence module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Linear.html#module-DataFrom2Persons.Univariate.Continuous.Linear.Correlation">Correlation module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Linear.html#module-DataFrom2Persons.Univariate.Continuous.Linear.WindowCrossCorrelation">WindowCrossCorrelation module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Linear.html#module-DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking">PeakPicking module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Linear.html#module-DataFrom2Persons.Univariate.Continuous.Linear.GrangerCausality">GrangerCausality module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Linear.html#module-DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality">SpectralGrangerCausality module</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.MachineLearning.html">MachineLearning package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.Nonlinear.html">Nonlinear package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.Nonlinear.html#module-DataFrom2Persons.Monovariate.Continuous.Nonlinear.NonlinearCorr">NonlinearCorr module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Monovariate.Continuous.Nonlinear.html#module-DataFrom2Persons.Monovariate.Continuous.Nonlinear.MutualInformation">MutualInformation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.MachineLearning.html">MachineLearning package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Nonlinear.html">Nonlinear package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Nonlinear.html#module-DataFrom2Persons.Univariate.Continuous.Nonlinear.NonlinearCorr">NonlinearCorr module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Nonlinear.html#module-DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation">MutualInformation module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFrom2Persons.Univariate.Continuous.Nonlinear.html#module-DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation">WindowMutualInformation module</a></li>
 </ul>
 </li>
 </ul>
@@ -136,24 +138,24 @@ types, respectively. Four horizontal levels are identifiable:</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="DataFromManyPersons.html">DataFromManyPersons package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="DataFromManyPersons.Monovariate.html">Monovariate package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="DataFromManyPersons.Monovariate.Categorical.html">Categorical package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Monovariate.Categorical.Linear.html">Linear package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Monovariate.Categorical.Nonlinear.html">Nonlinear package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Monovariate.Categorical.MachineLearning.html">MachineLearning package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataFromManyPersons.Univariate.html">Univariate package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DataFromManyPersons.Univariate.Categorical.html">Categorical package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Univariate.Categorical.Linear.html">Linear package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Univariate.Categorical.Nonlinear.html">Nonlinear package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Univariate.Categorical.MachineLearning.html">MachineLearning package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="DataFromManyPersons.Monovariate.Continuous.html">Continuous package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Monovariate.Continuous.Linear.html">Linear package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="DataFromManyPersons.Monovariate.Continuous.Linear.html#module-DataFromManyPersons.Monovariate.Continuous.Linear.ConditionalGrangerCausality">ConditionalGrangerCausality module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="DataFromManyPersons.Monovariate.Continuous.Linear.html#module-DataFromManyPersons.Monovariate.Continuous.Linear.MultipleGrangerCausality">MultipleGrangerCausality module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="DataFromManyPersons.Monovariate.Continuous.Linear.html#module-DataFromManyPersons.Monovariate.Continuous.Linear.Omega_Complexity">Omega_Complexity module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="DataFromManyPersons.Monovariate.Continuous.Linear.html#module-DataFromManyPersons.Monovariate.Continuous.Linear.PartialCoherence">PartialCoherence module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="DataFromManyPersons.Monovariate.Continuous.Linear.html#module-DataFromManyPersons.Monovariate.Continuous.Linear.S_Estimator">S-Estimator module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DataFromManyPersons.Univariate.Continuous.html">Continuous package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Univariate.Continuous.Linear.html">Linear package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="DataFromManyPersons.Univariate.Continuous.Linear.html#conditionalgrangercausality-module">ConditionalGrangerCausality module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFromManyPersons.Univariate.Continuous.Linear.html#module-DataFromManyPersons.Univariate.Continuous.Linear.MultipleGrangerCausality">MultipleGrangerCausality module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFromManyPersons.Univariate.Continuous.Linear.html#module-DataFromManyPersons.Univariate.Continuous.Linear.Omega_Complexity">Omega_Complexity module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFromManyPersons.Univariate.Continuous.Linear.html#module-DataFromManyPersons.Univariate.Continuous.Linear.PartialCoherence">PartialCoherence module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DataFromManyPersons.Univariate.Continuous.Linear.html#module-DataFromManyPersons.Univariate.Continuous.Linear.S_Estimator">S-Estimator module</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Monovariate.Continuous.MachineLearning.html">MachineLearning package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Monovariate.Continuous.Nonlinear.html">Nonlinear package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Univariate.Continuous.MachineLearning.html">MachineLearning package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DataFromManyPersons.Univariate.Continuous.Nonlinear.html">Nonlinear package</a></li>
 </ul>
 </li>
 </ul>
@@ -195,6 +197,8 @@ types, respectively. Four horizontal levels are identifiable:</p>
 <li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.Standardize">Standardize module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.Trafo">Trafo module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.Welch_psd">Welch_psd module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.Embedding">Embedding module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.CrossRecurrencePlot">CrossRecurrencePlot     module</a></li>
 </ul>
 </li>
 </ul>
@@ -270,8 +274,8 @@ types, respectively. Four horizontal levels are identifiable:</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Sep 02, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Last updated on Sep 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
     </div>
   </body>
 </html>

@@ -219,7 +219,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             item.setText(QtCore.QString(str_my_variables))
             self.tableWidget_exisitng_signals.setItem(count, 1, item) # Variables
             
-            str_my_signal_type = "Monovariate" if(self.signals_dict[key]._signal_type==0) else "Multivariate"
+            str_my_signal_type = "Univariate" if(self.signals_dict[key]._signal_type==0) else "Multivariate"
             item=QtGui.QTableWidgetItem()
             item.setText(QtCore.QString(str_my_signal_type))
             self.tableWidget_exisitng_signals.setItem(count, 2, item) # Signal's type
@@ -419,7 +419,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         key_list = self.signals_dict.keys()
         key_list.sort()
         for key in key_list : 
-            if self.method_selected._method_signal_type == 0 : # Monovariate signal, decompose multivariate with each variable
+            if self.method_selected._method_signal_type == 0 : # Univariate signal, decompose multivariate with each variable
                 for var in self.signals_dict[key]._signal_data.columns.values :
                     var_data_type = 1
                     number_val = len(sorted(set(self.signals_dict[key]._signal_data[var])))
@@ -446,7 +446,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                     
                     self.available_signals_dict[key] = self.signals_dict[key]
                 
-            str_my_signal_type = "Monovariate" if(self.method_selected._method_signal_type==0) else "Multivariate"
+            str_my_signal_type = "Univariate" if(self.method_selected._method_signal_type==0) else "Multivariate"
             str_my_data_type = "Continuous" if(self.method_selected._method_data_type==0) else "Categorical"
             self.label_available_signals.setText("Select signals : \n" +
                                                  "(The list presents only " +

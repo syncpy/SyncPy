@@ -17,8 +17,8 @@ print("This script computes the peak picking selection of a cross correlation ma
 print("*****************************************************************************")
 
 """ Import wanted modules with every parent packages """
-import DataFrom2Persons.Monovariate.Continuous.Linear.WindowCrossCorrelation as WindowCrossCorrelation
-import DataFrom2Persons.Monovariate.Continuous.Linear.PeakPicking as PeakPicking
+import DataFrom2Persons.Univariate.Continuous.Linear.WindowCrossCorrelation as WindowCrossCorrelation
+import DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking as PeakPicking
 
 """ Import Utils modules """
 from utils.ExtractSignal import ExtractSignalFromCSV
@@ -108,7 +108,7 @@ threshold = 0.5     # minimal correlation magnitude acceptable for a peak (betwe
 lookahead = 2       # distance to look ahead from a peak candidate to determine if it is the actual peak. Default: 200
 delta = 0           # this specifies a minimum difference between a peak and the following points, before a peak may be considered a peak. Default: 0
 ele_per_sec = 2     # number of element in one second
-plot = True         #i f True the plot of peakpicking function is returned. Default: False
+plot = True         #if True the plot of peakpicking function is returned. Default: False
 plot_on_mat = True  # if True the plot of peakpicking + correlation matrix function is returned. Default: False
 sorted_peak = True  # if True the peaks found will be organized by type of Lag and Magnitude (positive or negative). Default: False
 

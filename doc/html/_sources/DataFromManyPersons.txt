@@ -8,6 +8,6 @@ DataFromManyPersons package
 
 .. toctree::
 
-    DataFromManyPersons.Monovariate
+    DataFromManyPersons.Univariate
     DataFromManyPersons.Multivariate
 

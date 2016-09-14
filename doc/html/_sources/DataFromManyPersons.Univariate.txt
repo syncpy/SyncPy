@@ -1,0 +1,14 @@
+Univariate package
+=======================================
+
+.. automodule:: DataFromManyPersons.Univariate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+
+    DataFromManyPersons.Univariate.Categorical
+    DataFromManyPersons.Univariate.Continuous
+

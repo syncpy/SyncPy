@@ -3,7 +3,7 @@ Name,,,,MultivariateGrangerCausality
 Description,,,,It computes unidirectionnal causality test with a multivariate autoregressive model and test if the unrestricted model is statistically significant compared to the restricted one. An F-test is computed
 Type,,,,Linear
 Data_Type,,,,Continuous
-Signal_Type,,,,Multivariate
+Signal_Type,,,,Univariate
 Number_User_Type,,,,DataFromManyPersons
 Parameter_name,max_lag,criterion,plot,
 Parameter_type,int,str,bool,

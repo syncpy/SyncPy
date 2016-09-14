@@ -22,7 +22,7 @@ from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ResampleAndInterpolate import ResampleAndInterpolate
 
 """ Import wanted module with every parent packages """
-import DataFrom2Persons.Monovariate.Continuous.Linear.SpectralGrangerCausality as SGC
+import DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality as SGC
 
 """ Import signal from a .csv file """
 filename = 'data_examples/data_jouet_4.csv'

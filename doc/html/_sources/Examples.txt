@@ -9,7 +9,7 @@ SyncPy library Examples
     :local:
     
 
-DataFrom2Persons Monovariate Categorical Linear module 
+DataFrom2Persons Univariate Categorical Linear module 
 -------------------------------------------------------
 Boolean Turn Activity example 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -19,7 +19,7 @@ Boolean Turn Activity example
 .. literalinclude:: ../../examples/BooleanTurnsActivity.py
 
 
-DataFrom2Persons Monovariate Continuous Linear module 
+DataFrom2Persons Univariate Continuous Linear module 
 ------------------------------------------------------
 
 Coherence example 
@@ -65,7 +65,7 @@ Window Cross Correlation with PeakPicking example
 .. literalinclude:: ../../examples/WindowCrossCorrelation_with_PeakPicking.py
 
 
-DataFrom2Persons Monovariate Continuous NonLinear module 
+DataFrom2Persons Univariate Continuous NonLinear module 
 --------------------------------------------------------
 
 Nonlinear Correlation example 
@@ -76,7 +76,25 @@ Nonlinear Correlation example
 .. literalinclude:: ../../examples/NonlinearCorr.py
 
 
-DataFromManyPersons Monovariate Continuous Linear module 
+Mutual Information example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/MutualInformation.py>`)
+
+.. literalinclude:: ../../examples/MutualInformation.py
+
+
+
+Window Mutual Information example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/WindowMutuaInformation.py>`)
+
+.. literalinclude:: ../../examples/WindowMutuaInformation.py
+
+
+
+DataFromManyPersons Univariate Continuous Linear module 
 --------------------------------------------------------
 
 PartialCoherence example 

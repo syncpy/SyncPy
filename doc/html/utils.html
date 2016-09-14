@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Utils package &mdash; Home Page</title>
@@ -14,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1',
+        VERSION:     '2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -308,7 +309,7 @@ If zero is given, the total duration will be computed as the end of the last eve
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame
-&#8211; Monovariate boolean signal, with 1 at timestamps corresponding to the Action of the Actor, timestamps in ms</p>
+&#8211; Univariate boolean signal, with 1 at timestamps corresponding to the Action of the Actor, timestamps in ms</p>
 </td>
 </tr>
 </tbody>
@@ -743,6 +744,74 @@ This density is as the average of the density through the epochs (segments) of x
 </dd></dl>
 
 </div>
+<div class="section" id="module-utils.Embedding">
+<span id="embedding-module"></span><h2>Embedding module<a class="headerlink" href="#module-utils.Embedding" title="Permalink to this headline">¶</a></h2>
+<p><em>Module author: Giovanna Varni</em></p>
+<dl class="function">
+<dt id="utils.Embedding.Embedding">
+<code class="descclassname">utils.Embedding.</code><code class="descname">Embedding</code><span class="sig-paren">(</span><em>x</em>, <em>m</em>, <em>t</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Embedding.html#Embedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Embedding.Embedding" title="Permalink to this definition">¶</a></dt>
+<dd><p>It embeds the input signal x by using a dimension equal to m and
+a delay between data equal to t.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>pd.DataFrame</em>) &#8211; first input signal</li>
+<li><strong>m</strong> (<em>int</em>) &#8211; the embedding dimension</li>
+<li><strong>t</strong> (<em>int</em>) &#8211; the embedding delay expressed in samples</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame
+&#8211; the embedded DataFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.CrossRecurrencePlot">
+<span id="crossrecurrenceplot-module"></span><h2>CrossRecurrencePlot     module<a class="headerlink" href="#module-utils.CrossRecurrencePlot" title="Permalink to this headline">¶</a></h2>
+<p><em>Module author: Giovanna Varni</em></p>
+<dl class="function">
+<dt id="utils.CrossRecurrencePlot.CrossRecurrencePlot">
+<code class="descclassname">utils.CrossRecurrencePlot.</code><code class="descname">CrossRecurrencePlot</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>m</em>, <em>t</em>, <em>e</em>, <em>distance</em>, <em>standardization</em>, <em>plot</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/CrossRecurrencePlot.html#CrossRecurrencePlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.CrossRecurrencePlot.CrossRecurrencePlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>It computes and plots the (cross)recurrence plot of the uni/multivariate input signal(s) x and y (in pandas DataFrame format).</p>
+<p><strong>Reference :</strong></p>
+<ul class="simple">
+<li><ol class="first upperalpha" start="14">
+<li>Marwan, M. Carmen Romano, M. Thiel and J. Kurths. &#8220;Recurrence plots for the analysis of complex systems&#8221;. Physics Reports 438(5), 2007.</li>
+</ol>
+</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>pd.DataFrame</em>) &#8211; first input signal</li>
+<li><strong>y</strong> (<em>pd.DataFrame</em>) &#8211; second input signal</li>
+<li><strong>m</strong> (<em>int</em>) &#8211; embedding dimension</li>
+<li><strong>t</strong> (<em>int</em>) &#8211; embedding delay</li>
+<li><strong>eps</strong> (<em>float</em>) &#8211; threshold for recurrence</li>
+<li><strong>distance</strong> (<em>str</em>) &#8211; <p>It specifies which distance method is used. It can assumes the following values:</p>
+<ol class="arabic">
+<li>&#8216;euclidean&#8217;;</li>
+<li>&#8216;maximum&#8217;;</li>
+<li>&#8216;manhattan&#8217;</li>
+</ol>
+</li>
+<li><strong>standardization</strong> (<em>bool</em>) &#8211; if True data are nomalize to zero mean and unitary variance</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -766,6 +835,8 @@ This density is as the average of the density through the epochs (segments) of x
 <li><a class="reference internal" href="#module-utils.Standardize">Standardize module</a></li>
 <li><a class="reference internal" href="#module-utils.Trafo">Trafo module</a></li>
 <li><a class="reference internal" href="#module-utils.Welch_psd">Welch_psd module</a></li>
+<li><a class="reference internal" href="#module-utils.Embedding">Embedding module</a></li>
+<li><a class="reference internal" href="#module-utils.CrossRecurrencePlot">CrossRecurrencePlot     module</a></li>
 </ul>
 </li>
 </ul>
@@ -814,8 +885,8 @@ This density is as the average of the density through the epochs (segments) of x
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Sep 02, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Last updated on Sep 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
     </div>
   </body>
 </html>

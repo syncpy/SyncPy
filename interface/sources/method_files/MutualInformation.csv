@@ -3,7 +3,7 @@ Name,,,,,MutualInformation
 Description,,,,,It Computes Mutual Information (MI) estimators starting from entropy estimates from k-nearest-neighbours distances.
 Type,,,,,Nonlinear
 Data_Type,,,,,Continuous
-Signal_Type,,,,,Monovariate
+Signal_Type,,,,,Univariate
 Number_User_Type,,,,,DataFrom2Persons
 Parameter_name,n_neighbours,my_type,var_resc,noise,
 Parameter_type,int,int,bool,bool,

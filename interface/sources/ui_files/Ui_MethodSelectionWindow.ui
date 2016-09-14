@@ -161,7 +161,7 @@
          <enum>Qt::RightToLeft</enum>
         </property>
         <property name="text">
-         <string>I have monovariate signal</string>
+         <string>I have univariate signal</string>
         </property>
         <property name="checked">
          <bool>true</bool>

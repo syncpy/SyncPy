@@ -9,6 +9,6 @@ DataFrom2Persons package
 
 .. toctree::
 
-    DataFrom2Persons.Monovariate
+    DataFrom2Persons.Univariate
     DataFrom2Persons.Multivariate
 

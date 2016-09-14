@@ -23,7 +23,7 @@ print("*************************************************************************
 
 """ Import wanted module with every parent packages """
 
-import DataFrom2Persons.Monovariate.Continuous.Linear.Coherence as Coherence
+import DataFrom2Persons.Univariate.Continuous.Linear.Coherence as Coherence
 
 
 """ Import Utils modules """

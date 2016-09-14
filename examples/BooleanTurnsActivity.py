@@ -20,7 +20,7 @@ print("This script computes the boolean turn activty of two categorical monovari
 print("****************************************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFrom2Persons.Monovariate.Categorical.Linear.BooleanTurnsActivity as BooleanTurnsActivity
+import DataFrom2Persons.Univariate.Categorical.Linear.BooleanTurnsActivity as BooleanTurnsActivity
 
 """ Import Utils modules """
 from utils.ExtractSignal import ExtractSignalFromELAN

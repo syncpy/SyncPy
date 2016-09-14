@@ -104,3 +104,18 @@ Welch_psd module
     :undoc-members:
     :show-inheritance:
 
+Embedding module
+------------------------------------
+
+.. automodule:: utils.Embedding
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+CrossRecurrencePlot	module
+------------------------------------
+
+.. automodule:: utils.CrossRecurrencePlot
+    :members:
+    :undoc-members:
+    :show-inheritance:

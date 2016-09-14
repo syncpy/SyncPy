@@ -3,7 +3,7 @@ Name,,,,SpectralGrangerCausality
 Description,,,,"computes a Granger causality test between two monovariate signals, in the spectral domain."
 Type,,,,Linear
 Data_Type,,,,Continuous
-Signal_Type,,,,Monovariate
+Signal_Type,,,,Univariate
 Number_User_Type,,,,DataFrom2Persons
 Parameter_name,max_lag,criterion,plot,
 Parameter_type,int,str,bool,

@@ -19,9 +19,9 @@ print("This script computes the nonlinear correlation coefficient \n"+
 print("**************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFrom2Persons.Monovariate.Continuous.Nonlinear.NonlinearCorr as NonlinearCorr
+import DataFrom2Persons.Univariate.Continuous.Nonlinear.NonlinearCorr as NonlinearCorr
 from utils.ExtractSignal import ExtractSignalFromCSV
-from DataFrom2Persons.Monovariate.Continuous.Linear import Correlation
+from DataFrom2Persons.Univariate.Continuous.Linear import Correlation
 
 
 

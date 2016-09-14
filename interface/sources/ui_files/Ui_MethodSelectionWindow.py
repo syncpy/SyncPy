@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_MethodSelectionWindow.ui'
 #
-# Created: Fri Jul 03 14:10:44 2015
+# Created: Thu Sep 17 15:12:45 2015
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -251,7 +251,7 @@ class Ui_MethodSelectionWindow(object):
         self.radioButton_data_1b.setText(_translate("MethodSelectionWindow", "I have data from many persons", None))
         self.radioButton_data_3b.setText(_translate("MethodSelectionWindow", "I have categorical signal", None))
         self.pushButton_valid_method_2.setText(_translate("MethodSelectionWindow", "Ok", None))
-        self.radioButton_data_2a.setText(_translate("MethodSelectionWindow", "I have monovariate signal", None))
+        self.radioButton_data_2a.setText(_translate("MethodSelectionWindow", "I have univariate signal", None))
         self.radioButton_data_1a.setText(_translate("MethodSelectionWindow", "I have data from two persons", None))
         self.radioButton_data_2b.setText(_translate("MethodSelectionWindow", "I have multivariate signal", None))
         self.label_machinelearning_methods.setText(_translate("MethodSelectionWindow", "Machine Learning methods:", None))

@@ -6,6 +6,7 @@ Computes a Granger Causality test between two signals x and y that are stored as
 """ Import common python packages """
 import sys
 import numpy as np              # Mathematical package
+import matplotlib.pyplot as plt # Plotting package
 sys.path.insert(0, '../src/')       # To be able to import from parent directory
 
 print("\n")
@@ -19,7 +20,7 @@ from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ResampleAndInterpolate import ResampleAndInterpolate
 
 """ Import wanted module with every parent packages """
-import DataFrom2Persons.Monovariate.Continuous.Linear.GrangerCausality as GC
+import DataFrom2Persons.Univariate.Continuous.Linear.GrangerCausality as GC
 
 """ Import signal from a .csv file """
 filename = 'data_examples/2Persons_Monovariate_Continuous_data.csv'
@@ -30,6 +31,22 @@ x2 = ExtractSignalFromCSV(filename, columns = ['x2'])
 # Resample and Interpolate data to have constant frequency
 x1 = ResampleAndInterpolate(x1, rule='200ms', limit=5)
 x2 = ResampleAndInterpolate(x2, rule='200ms', limit=5)
+
+""" Plot input signals """
+Signals = [x1, x2]
+plt.ion()
+
+nrows = len(Signals)
+figure, ax = plt.subplots(nrows, sharex=True)
+idx = 0 
+for col in  range(len(Signals)) :
+    ax[idx].grid(True) # Display a grid
+    ax[idx].set_title('Input signal : ' + str(Signals[col].columns[0]))
+    ax[idx].plot(Signals[col].index, Signals[col].iloc[:,0])
+    idx += 1
+    
+ax[idx-1].set_xlabel('Time')
+
 
 """ Define class attributes """
 max_lag = 3 			# Define the maximum lag acceptable to estimate autoregressive models
@@ -74,33 +91,7 @@ except Exception, e :
 
 # Displaying results :
 print "Computing autoregressive model 'restricted' and 'unrestricted' via the 'Ordinary Least Squares' method\n"
-
-print "According to",gc._criterion,", the optimal number of lag estimated is :", gc._olag,"\n"
-
-print "Printing RESULTS  ...\n"
-
-print "RESTRICTED model :\n"
-
-print "	Coefficients :\n"
-for i in range(0,gc._olag):
-	print"	lag",i+1,":",gc._OLS_restricted.params[i]
-print "\n"
-print "	Variance of residual error :", np.var(gc._OLS_restricted.resid),"\n"
-
-print "UNRESTRICTED model :\n"
-
-print "	Coefficients of 'signal_to_predict' :\n"
-for i in range(0,gc._olag):
-	print"	lag",i+1,":",gc._OLS_unrestricted.params[i]
-print "\n"
-
-print "	Coefficients of 'helping_signal' :\n"
-for i in range(0,gc._olag):
-	print"	lag",i+1,":",gc._OLS_unrestricted.params[i+gc._olag]
-print "\n"
-
-print "	Variance of residual error :", np.var(gc._OLS_unrestricted.resid),"\n"
-
-print "F_value =",gc._F_value," with p_value =",gc._p_value,"\n"
+print "According to",criterion,", the optimal number of lag estimated is :", results['optimal_lag'],"\n"
+print "F_value =",results['F_value']," with p_value =",results['p_value'],"\n"
 
 raw_input("Push ENTER key to exit.")

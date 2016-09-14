@@ -19,12 +19,12 @@ print("This scripts compute the synchronisation and time delay pattern between t
 print("******************************************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFrom2Persons.Monovariate.Categorical.Nonlinear.EventSync as EventSync
+import DataFrom2Persons.Univariate.Categorical.Nonlinear.EventSync as EventSync
 
 """ Import Utils modules """
 from utils.ExtractSignal import ExtractSignalFromCSV
 
-'''
+
 """ Define input signals in pd.dataFrame format """
 
 #input signals
@@ -47,7 +47,7 @@ x = ExtractSignalFromCSV(filename, columns = ['0'])
 y = ExtractSignalFromCSV(filename, columns = ['1'])
 
 
-
+'''
 s=np.arange(0,x.shape[0])
 
 plt.ion()

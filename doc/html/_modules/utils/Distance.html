@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>utils.Distance &mdash; Home Page</title>
@@ -14,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1',
+        VERSION:     '2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -159,9 +160,9 @@
        <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">())</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         
     <span class="n">d</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">d</span><span class="p">)</span></div>
             
-        </div>
+        
 <span class="sd">&#39;&#39;&#39; Distance metrics for distributions&#39;&#39;&#39;</span>
 <div class="viewcode-block" id="Mahalanobis"><a class="viewcode-back" href="../../utils.html#utils.Distance.Mahalanobis">[docs]</a><span class="k">def</span> <span class="nf">Mahalanobis</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -201,12 +202,12 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">D2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">diff_mxy</span><span class="p">)</span><span class="o">/</span><span class="n">pooled_cov</span>
     
-    <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">D2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">D2</span><span class="p">)</span></div>
 
 
 
 
-       </div>
+       
 </pre></div>
 
           </div>
@@ -246,8 +247,8 @@
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Sep 02, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Last updated on Sep 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
     </div>
   </body>
 </html>

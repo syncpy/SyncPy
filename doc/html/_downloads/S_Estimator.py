@@ -18,7 +18,7 @@ print("This script computes Synchronization indexes for multiple monovariate sig
 print("*************************************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFromManyPersons.Monovariate.Continuous.Linear.S_Estimator as S_Estimator
+import DataFromManyPersons.Univariate.Continuous.Linear.S_Estimator as S_Estimator
 from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ExtractSignal import ExtractSignalFromMAT
 from utils.Standardize import Standardize
@@ -57,16 +57,18 @@ n = np.arange(0,N)
 """ Plot standardized input signals """
 Signals = signals
 plt.ion()
-for i in range(len(signals)) :
-    Signals[i] = Standardize(signals[i])
-fig = plt.figure()
-ax = fig.add_subplot(111)
-ax.grid(True)
-ax.set_xlabel('Samples')
-ax.set_title('Standardized signals')
-for i in range(len(Signals)) :
-    ax.plot(n, Signals[i].iloc[:,0], label=Signals[i].columns[0])
-plt.legend(bbox_transform=plt.gcf().transFigure)
+
+nrows = len(Signals)
+figure, ax = plt.subplots(nrows, sharex=True)
+
+idx = 0 
+for col in  range(len(Signals)) :
+    ax[idx].grid(True) # Display a grid
+    ax[idx].set_title('Standardized signal for : ' + Signals[col].columns[0] + ' variable')
+    ax[idx].plot(n, Signals[col].iloc[:,0])
+    idx += 1
+    
+ax[idx-1].set_xlabel('Samples')
 
 """ Define class attributes of the wanted method """
 surr_nb_iter = 100

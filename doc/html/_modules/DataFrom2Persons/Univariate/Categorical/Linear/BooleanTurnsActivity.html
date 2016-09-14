@@ -1,0 +1,588 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>DataFrom2Persons.Univariate.Categorical.Linear.BooleanTurnsActivity &mdash; Home Page</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../../../_static/favicon_isir.ico"/>
+    <link rel="top" title="Home Page" href="../../../../../HomePage.html" />
+    <link rel="up" title="Module code" href="../../../../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../../../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header" role="banner">
+  <div class="logo">
+    <a href="../../../../../HomePage.html">
+      <img class="logo" src="../../../../../_static/hearder_image.png" alt="Logo"/>
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../HomePage.html">Home Page</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for DataFrom2Persons.Univariate.Categorical.Linear.BooleanTurnsActivity</h1><div class="highlight"><pre>
+<span class="c">### This file is a part of the Syncpy library.</span>
+<span class="c">### Copyright 2015, ISIR / Universite Pierre et Marie Curie (UPMC)</span>
+<span class="c">### Main contributor(s): Giovanna Varni, Marie Avril,</span>
+<span class="c">### syncpy@isir.upmc.fr</span>
+<span class="c">### </span>
+<span class="c">### This software is a computer program whose for investigating</span>
+<span class="c">### synchrony in a fast and exhaustive way. </span>
+<span class="c">### </span>
+<span class="c">### This software is governed by the CeCILL-B license under French law</span>
+<span class="c">### and abiding by the rules of distribution of free software.  You</span>
+<span class="c">### can use, modify and/ or redistribute the software under the terms</span>
+<span class="c">### of the CeCILL-B license as circulated by CEA, CNRS and INRIA at the</span>
+<span class="c">### following URL &quot;http://www.cecill.info&quot;.</span>
+
+<span class="c">### As a counterpart to the access to the source code and rights to</span>
+<span class="c">### copy, modify and redistribute granted by the license, users are</span>
+<span class="c">### provided only with a limited warranty and the software&#39;s author,</span>
+<span class="c">### the holder of the economic rights, and the successive licensors</span>
+<span class="c">### have only limited liability.</span>
+<span class="c">### </span>
+<span class="c">### In this respect, the user&#39;s attention is drawn to the risks</span>
+<span class="c">### associated with loading, using, modifying and/or developing or</span>
+<span class="c">### reproducing the software by the user in light of its specific</span>
+<span class="c">### status of free software, that may mean that it is complicated to</span>
+<span class="c">### manipulate, and that also therefore means that it is reserved for</span>
+<span class="c">### developers and experienced professionals having in-depth computer</span>
+<span class="c">### knowledge. Users are therefore encouraged to load and test the</span>
+<span class="c">### software&#39;s suitability as regards their requirements in conditions</span>
+<span class="c">### enabling the security of their systems and/or data to be ensured</span>
+<span class="c">### and, more generally, to use and operate it in the same conditions</span>
+<span class="c">### as regards security.</span>
+<span class="c">### </span>
+<span class="c">### The fact that you are presently reading this means that you have</span>
+<span class="c">### had knowledge of the CeCILL-B license and that you accept its terms.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. moduleauthor:: Marie Avril</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<div class="viewcode-block" id="BooleanTurnsActivity"><a class="viewcode-back" href="../../../../../DataFrom2Persons.Univariate.Categorical.Linear.html#DataFrom2Persons.Univariate.Categorical.Linear.BooleanTurnsActivity.BooleanTurnsActivity">[docs]</a><span class="k">class</span> <span class="nc">BooleanTurnsActivity</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;    </span>
+<span class="sd">    It computes data turns statistics between two boolean univariate signals (in pandas DataFrame format) x and y :</span>
+<span class="sd">    x signal activity duration, y signal activity duration, pause duration, overlap duration,</span>
+<span class="sd">    x signal pause duration, y signal pause duration, pause duration between x and y activity,</span>
+<span class="sd">    synchrony ratios between x and y (defined by max_latency).</span>
+<span class="sd">    </span>
+<span class="sd">    :param max_latency:</span>
+<span class="sd">        the maximal delay (in second) between the two signals activity to define synchrony </span>
+<span class="sd">    :type max_latency: float</span>
+<span class="sd">    </span>
+<span class="sd">    :param min_pause_duration:</span>
+<span class="sd">        minimal time (in second) for defining a pause </span>
+<span class="sd">    :type min_pause_duration: float</span>
+<span class="sd">    </span>
+<span class="sd">    :param ele_per_sec:</span>
+<span class="sd">        number of elements in one second. Default: 1</span>
+<span class="sd">    :type ele_per_sec: int</span>
+<span class="sd">    </span>
+<span class="sd">    :param duration:</span>
+<span class="sd">        total activity duration (in second). If -1, duration = len(x)*ele_per_sec. Default : -1</span>
+<span class="sd">    :type duration: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="sd">&#39;&#39;&#39; Constructor &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_latency</span><span class="p">,</span> <span class="n">min_pause_duration</span><span class="p">,</span> <span class="n">ele_per_sec</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">duration</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        
+        <span class="k">try</span> <span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">max_latency</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>          <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires max_latency to be an float&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">min_pause_duration</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires min_pause_duration to be an integer&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">ele_per_sec</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>          <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires ele_per_sec to be an integer&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">duration</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>             <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires duration to be an integer&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+            <span class="k">return</span>
+        
+        <span class="k">try</span> <span class="p">:</span>
+            <span class="k">if</span> <span class="n">max_latency</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires max_latency to be a positive scalar&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">min_pause_duration</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires min_pause_duration to be a positive scalar&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ele_per_sec</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires ele_per_sec to be a strictly positive scalar&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">duration</span><span class="o">!=-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">duration</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires duration to be a strictly positive scalar (or -1)&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+            <span class="k">return</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_latency</span> <span class="o">=</span> <span class="n">max_latency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min_pause_duration</span> <span class="o">=</span> <span class="n">min_pause_duration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">ele_per_sec</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="o">=</span> <span class="n">duration</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlap_duration</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_activity_x_duration</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_activity_y_duration</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlap_duration</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_y_latency</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x_latency</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_inter_x_y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_inter_y_x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_inter</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_synchrony</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turns_activity</span> <span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turns_activity_ratios</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        
+      
+<div class="viewcode-block" id="BooleanTurnsActivity.diff"><a class="viewcode-back" href="../../../../../DataFrom2Persons.Univariate.Categorical.Linear.html#DataFrom2Persons.Univariate.Categorical.Linear.BooleanTurnsActivity.BooleanTurnsActivity.diff">[docs]</a>    <span class="k">def</span> <span class="nf">diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute  a diff vector</span>
+<span class="sd">         </span>
+<span class="sd">        :param np.array:</span>
+<span class="sd">            input vector to diff</span>
+<span class="sd">        :type vector: np.array</span>
+<span class="sd">      </span>
+<span class="sd">        :retuns: np.array</span>
+<span class="sd">            -- list of differences between each two consecutive values</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>  
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>         
+        <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">vector</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>  
+        <span class="k">return</span> <span class="n">res</span></div>
+
+    
+<div class="viewcode-block" id="BooleanTurnsActivity.compute"><a class="viewcode-back" href="../../../../../DataFrom2Persons.Univariate.Categorical.Linear.html#DataFrom2Persons.Univariate.Categorical.Linear.BooleanTurnsActivity.BooleanTurnsActivity.compute">[docs]</a>    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute data turns activities</span>
+<span class="sd">          </span>
+<span class="sd">        :param x:</span>
+<span class="sd">            first input signal</span>
+<span class="sd">        :type x: pd.DataFrame</span>
+<span class="sd">        </span>
+<span class="sd">        :param y:</span>
+<span class="sd">            second input signal</span>
+<span class="sd">        :type y: pd.DataFrame</span>
+<span class="sd">      </span>
+<span class="sd">        :returns: pd.DataFrame</span>
+<span class="sd">            -- duration for each type of activity</span>
+<span class="sd">        :returns: pd.DataFrame</span>
+<span class="sd">            -- ratios for each type of activity  </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
+        <span class="k">try</span> <span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires x to be a pd.DataFrame&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires y to be a pd.DataFrame&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+            <span class="k">return</span>
+        
+        <span class="sd">&#39;&#39;&#39;Initialization&#39;&#39;&#39;</span>
+        <span class="n">lx</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">ly</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">size</span>
+        
+        <span class="s">&#39; Raise error if x and y have not the same size&#39;</span>
+        <span class="k">try</span> <span class="p">:</span>
+            <span class="k">if</span> <span class="n">lx</span> <span class="o">!=</span> <span class="n">ly</span> <span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;x and y signals must have same size&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span>
+
+        <span class="sd">&#39;&#39;&#39;X activity&#39;&#39;&#39;</span>
+        <span class="n">ind_act_x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lx</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>
+                <span class="n">ind_act_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+        
+        <span class="n">ind_act_y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ly</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>
+                <span class="n">ind_act_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+        
+        <span class="n">diff_act_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ind_act_x</span><span class="p">)</span>        
+        <span class="n">dur_act_x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">lat_y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_act_x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dur</span><span class="o">=</span><span class="mi">1</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">diff_act_x</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">diff_act_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">:</span>
+                    <span class="n">id1</span> <span class="o">=</span> <span class="n">ind_act_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">dur</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">id2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="k">while</span> <span class="p">(</span><span class="n">found</span> <span class="o">==</span> <span class="bp">False</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ind_act_y</span><span class="p">)):</span>
+                        <span class="k">if</span> <span class="n">ind_act_y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">id1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">id2</span> <span class="o">=</span> <span class="n">k</span>
+                            <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span><span class="p">;</span>
+                        <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span><span class="p">(</span><span class="n">id2</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                        <span class="n">lat_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ind_act_y</span><span class="p">[</span><span class="n">id2</span><span class="p">]</span> <span class="o">-</span> <span class="n">id1</span><span class="p">)</span>   
+                    <span class="n">dur_act_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur</span><span class="p">)</span>
+                    <span class="n">dur</span><span class="o">=</span><span class="mi">0</span>
+                <span class="n">dur</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+            <span class="n">id1</span> <span class="o">=</span> <span class="n">ind_act_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">dur</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">id2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+            <span class="k">while</span> <span class="p">(</span><span class="n">found</span> <span class="o">==</span> <span class="bp">False</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ind_act_y</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">ind_act_y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">id1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">id2</span> <span class="o">=</span> <span class="n">k</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span><span class="p">;</span>
+                <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">id2</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">lat_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ind_act_y</span><span class="p">[</span><span class="n">id2</span><span class="p">]</span> <span class="o">-</span> <span class="n">id1</span><span class="p">)</span>
+                        
+            <span class="n">dur_act_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur</span><span class="p">)</span>
+            
+        <span class="sd">&#39;&#39;&#39;Y activity&#39;&#39;&#39;</span>
+        <span class="n">diff_act_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ind_act_y</span><span class="p">)</span>
+        <span class="n">dur_act_y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">lat_x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_act_y</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dur</span><span class="o">=</span><span class="mi">1</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">diff_act_y</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">diff_act_y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">:</span>
+                    <span class="n">id1</span> <span class="o">=</span> <span class="n">ind_act_y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">dur</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">id2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+                    <span class="k">while</span> <span class="p">(</span><span class="n">found</span> <span class="o">==</span> <span class="bp">False</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ind_act_x</span><span class="p">)):</span>
+                        <span class="k">if</span> <span class="n">ind_act_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">id1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">id2</span> <span class="o">=</span> <span class="n">k</span>
+                            <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span><span class="p">;</span>
+                        <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span><span class="p">(</span><span class="n">id2</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                        <span class="n">lat_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ind_act_x</span><span class="p">[</span><span class="n">id2</span><span class="p">]</span> <span class="o">-</span> <span class="n">id1</span><span class="p">)</span>
+                    <span class="n">dur_act_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur</span><span class="p">)</span>
+                    <span class="n">dur</span><span class="o">=</span><span class="mi">0</span>
+                <span class="n">dur</span> <span class="o">+=</span> <span class="mi">1</span>
+              
+            <span class="n">id1</span> <span class="o">=</span> <span class="n">ind_act_y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">dur</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">id2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">found</span> <span class="o">==</span> <span class="bp">False</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ind_act_x</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">ind_act_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">id1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">id2</span> <span class="o">=</span> <span class="n">k</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span><span class="p">;</span>
+                <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">id2</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">lat_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ind_act_x</span><span class="p">[</span><span class="n">id2</span><span class="p">]</span> <span class="o">-</span> <span class="n">id1</span><span class="p">)</span>
+         
+            <span class="n">dur_act_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur</span><span class="p">)</span>
+  
+        <span class="sd">&#39;&#39;&#39;Pause duration&#39;&#39;&#39;</span>
+        <span class="n">ind_pause</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lx</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ind_pause</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+ 
+        <span class="n">diff_pause</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ind_pause</span><span class="p">)</span>        
+        <span class="n">dur_pause</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_pause</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dur</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">diff_pause</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">diff_pause</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">:</span>
+                    <span class="n">dur_pause</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur</span><span class="p">)</span>
+                    <span class="n">dur</span><span class="o">=</span><span class="mi">0</span>
+                <span class="n">dur</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">dur_pause</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur</span><span class="p">)</span>
+
+        <span class="sd">&#39;&#39;&#39;Overlap duration&#39;&#39;&#39;</span>
+        <span class="n">ind_overlap</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lx</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">ind_overlap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+ 
+        <span class="n">diff_overlap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ind_overlap</span><span class="p">)</span>
+        <span class="n">dur_overlap</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_overlap</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dur</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">diff_overlap</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">diff_overlap</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">:</span>
+                    <span class="n">dur_overlap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur</span><span class="p">)</span>
+                    <span class="n">dur</span><span class="o">=</span><span class="mi">0</span>
+                <span class="n">dur</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">dur_overlap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur</span><span class="p">)</span>
+            
+        <span class="sd">&#39;&#39;&#39; Pause inter signals + latency &#39;&#39;&#39;</span>
+        <span class="n">activity</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">lx</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lx</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span> 
+                <span class="n">activity</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        
+        <span class="n">pause_inter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">b_x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">b_y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        
+        <span class="c"># Find first pause</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">idx_first_pause</span> <span class="o">=</span> <span class="n">activity</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">activity</span><span class="p">)]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">idx_first_pause</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx_first_pause</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span> <span class="c"># End x activity</span>
+            <span class="n">b_x</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">db_x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">fn_x</span> <span class="o">=</span> <span class="n">idx_first_pause</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span> <span class="p">:</span>                          <span class="c"># End y activity </span>
+            <span class="n">b_y</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">db_y</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">fn_y</span> <span class="o">=</span> <span class="n">idx_first_pause</span> <span class="o">-</span> <span class="mi">1</span>
+            
+        <span class="n">dur_pause_x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dur_pause_y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dur_pause_inter_x_y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dur_pause_inter_y_x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">ratio_inter</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">while</span> <span class="n">idx_first_pause</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c"># Find next activity</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">idx_first_activity</span> <span class="o">=</span> <span class="n">activity</span><span class="p">[</span><span class="n">idx_first_pause</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">activity</span><span class="p">)]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">idx_first_pause</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">idx_first_activity</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+                            
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx_first_activity</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>     <span class="c"># Begin x activity</span>
+                <span class="n">db_x</span> <span class="o">=</span> <span class="n">idx_first_activity</span>
+                <span class="k">if</span> <span class="n">b_x</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>                       <span class="c"># Pause inter x activity</span>
+                    <span class="n">dur_pause_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx_first_activity</span> <span class="o">-</span> <span class="n">idx_first_pause</span><span class="p">)</span>
+                <span class="k">else</span> <span class="p">:</span>                              <span class="c"># Pause x =&gt; y activity</span>
+                    <span class="n">pause_inter</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">dur_pause_inter_y_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx_first_activity</span> <span class="o">-</span> <span class="n">idx_first_pause</span><span class="p">)</span>
+                    
+            <span class="k">else</span> <span class="p">:</span>                              <span class="c"># Begin y activity</span>
+                <span class="n">db_y</span> <span class="o">=</span> <span class="n">idx_first_activity</span>
+                <span class="k">if</span> <span class="n">b_x</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>                       <span class="c"># Pause y =&gt; x activity</span>
+                    <span class="n">pause_inter</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">dur_pause_inter_x_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx_first_activity</span> <span class="o">-</span> <span class="n">idx_first_pause</span><span class="p">)</span>
+                <span class="k">else</span> <span class="p">:</span>                              <span class="c"># Pause inter y activity</span>
+                    <span class="n">dur_pause_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx_first_activity</span> <span class="o">-</span> <span class="n">idx_first_pause</span><span class="p">)</span>
+            
+            <span class="c"># Find next pause</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">idx_first_pause</span> <span class="o">=</span> <span class="n">activity</span><span class="p">[</span><span class="n">idx_first_activity</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">activity</span><span class="p">)]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">idx_first_activity</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">idx_first_pause</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
+                
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx_first_pause</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>    <span class="c"># End x activity</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="n">idd</span> <span class="o">=</span> <span class="n">idx_first_pause</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> 
+                <span class="k">while</span> <span class="p">(</span><span class="n">found</span> <span class="o">==</span> <span class="bp">False</span> <span class="ow">and</span> <span class="n">idd</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
+                    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idd</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span><span class="p">;</span>
+                    <span class="n">idd</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="n">idd</span> <span class="o">+=</span> <span class="mi">1</span>
+                
+                <span class="n">db_x</span> <span class="o">=</span> <span class="n">idd</span>
+                <span class="n">fn_x</span> <span class="o">=</span> <span class="n">idx_first_pause</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">b_x</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">b_y</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="n">pause_inter</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>
+                    <span class="k">if</span><span class="p">((</span><span class="n">db_x</span> <span class="o">-</span> <span class="n">db_y</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span> 
+                        <span class="n">ratio_inter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="nb">float</span><span class="p">((</span><span class="n">fn_x</span> <span class="o">-</span> <span class="n">db_y</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">db_x</span> <span class="o">-</span> <span class="n">db_y</span><span class="p">)</span> <span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                         <span class="n">ratio_inter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">pause_inter</span> <span class="o">=</span> <span class="mi">0</span>
+                
+            <span class="k">else</span> <span class="p">:</span>                              <span class="c"># End y activity</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="n">idd</span> <span class="o">=</span> <span class="n">idx_first_pause</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> 
+                <span class="k">while</span> <span class="p">(</span><span class="n">found</span> <span class="o">==</span> <span class="bp">False</span> <span class="ow">and</span> <span class="n">idd</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
+                    <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idd</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span><span class="p">;</span>
+                    <span class="n">idd</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="n">idd</span> <span class="o">+=</span> <span class="mi">1</span>
+                
+                <span class="n">db_y</span> <span class="o">=</span> <span class="n">idd</span>
+                <span class="n">fn_y</span> <span class="o">=</span> <span class="n">idx_first_pause</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">b_x</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">b_y</span> <span class="o">=</span> <span class="mi">1</span>
+                
+                <span class="k">if</span> <span class="n">pause_inter</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>
+                    <span class="k">if</span><span class="p">((</span><span class="n">db_y</span> <span class="o">-</span> <span class="n">db_x</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
+                        <span class="n">ratio_inter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="nb">float</span><span class="p">((</span><span class="n">fn_y</span> <span class="o">-</span> <span class="n">db_x</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">db_y</span> <span class="o">-</span> <span class="n">db_x</span><span class="p">)</span> <span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                         <span class="n">ratio_inter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">pause_inter</span> <span class="o">=</span> <span class="mi">0</span>
+         
+        <span class="sd">&#39;&#39;&#39; Save Results &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_activity_x_duration</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dur_act_x</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_activity_y_duration</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dur_act_y</span><span class="p">]</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overlap_duration</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dur_overlap</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_inter</span> <span class="o">=</span> <span class="n">ratio_inter</span>
+        
+        <span class="s">&#39;Compute pause durations&#39;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dur_pause</span><span class="p">)):</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">dur_pause</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_min_pause_duration</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur_pause</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dur_pause_x</span><span class="p">)):</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">dur_pause_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_min_pause_duration</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur_pause_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dur_pause_y</span><span class="p">)):</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">dur_pause_y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_min_pause_duration</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dur_pause_y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span><span class="p">)</span>     
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_inter_x_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dur_pause_inter_x_y</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_inter_y_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dur_pause_inter_y_x</span><span class="p">]</span>
+
+        <span class="s">&#39;Compute synchrony ratio for each signal&#39;</span>
+        <span class="n">sum_x_latency</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lat_x</span><span class="p">)):</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">lat_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_latency</span><span class="p">):</span>
+                <span class="n">sum_x_latency</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lat_x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_synchrony</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sum_x_latency</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">lat_x</span><span class="p">))</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_synchrony</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+         
+        <span class="n">sum_y_latency</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lat_y</span><span class="p">)):</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">lat_y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_freq_per_sec</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_latency</span><span class="p">):</span>
+                <span class="n">sum_y_latency</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lat_y</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_synchrony</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sum_y_latency</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">lat_y</span><span class="p">))</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_synchrony</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        
+        <span class="s">&#39;Save all results in dataFrame&#39;</span>
+        <span class="n">res_dict</span> <span class="o">=</span> <span class="p">({</span><span class="s">&#39;activity duration x&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_activity_x_duration</span><span class="p">),</span> 
+                     <span class="s">&#39;activity duration y&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_activity_y_duration</span><span class="p">),</span>
+                     <span class="s">&#39;overlap duration&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_overlap_duration</span><span class="p">),</span>
+                     <span class="s">&#39;pause duration&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration</span><span class="p">),</span>
+                     <span class="s">&#39;pause x duration&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_x</span><span class="p">),</span>
+                     <span class="s">&#39;pause y duration&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_y</span><span class="p">),</span>
+                     <span class="s">&#39;pause x-y duration&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_inter_x_y</span><span class="p">),</span>
+                     <span class="s">&#39;pause y-x duration&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration_inter_y_x</span><span class="p">),</span>
+                     <span class="s">&#39;ratio inter&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ratio_inter</span><span class="p">)</span>
+                     <span class="p">})</span>
+                     
+        <span class="n">res_ratio_dict</span> <span class="o">=</span> <span class="p">({</span><span class="s">&#39;ratio overlap&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_overlap_duration</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="p">),</span>
+                     <span class="s">&#39;ratio pause&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pause_duration</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="p">),</span>
+                     <span class="s">&#39;ratio activity x&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_activity_x_duration</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="p">),</span>
+                     <span class="s">&#39;ratio activity y&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_activity_y_duration</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="p">),</span>
+                     <span class="s">&#39;synchrony ratio x&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ratio_synchrony</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                     <span class="s">&#39;synchrony ratio y&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ratio_synchrony</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                     <span class="s">&#39;total duration&#39;</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="p">)</span>
+                    <span class="p">})</span>
+                     
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turns_activity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res_dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turns_activity</span><span class="p">[</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_turns_activity</span><span class="o">.</span><span class="n">columns</span><span class="p">)]</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turns_activity_ratios</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res_ratio_dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turns_activity_ratios</span><span class="p">[</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_turns_activity_ratios</span><span class="o">.</span><span class="n">columns</span><span class="p">)]</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turns_activity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turns_activity_ratios</span></div></div>
+            
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
+        
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../HomePage.html">Home Page</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Giovanna Varni, Marie Avril.
+      Last updated on Sep 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+    </div>
+  </body>
+</html>

@@ -18,7 +18,7 @@ print("This script computes Partial Coherence for multiple monovariate signals \
 print("***********************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFromManyPersons.Monovariate.Continuous.Linear.PartialCoherence as PartialCoherence
+import DataFromManyPersons.Univariate.Continuous.Linear.PartialCoherence as PartialCoherence
 from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ExtractSignal import ExtractSignalFromMAT
 

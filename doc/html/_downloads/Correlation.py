@@ -20,7 +20,7 @@ print("This scripts computes the correlation between two monovariate signals."
 print("************************************************************************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFrom2Persons.Monovariate.Continuous.Linear.Correlation as Correlation
+import DataFrom2Persons.Univariate.Continuous.Linear.Correlation as Correlation
 
 """ Import Utils modules """
 from utils import Standardize

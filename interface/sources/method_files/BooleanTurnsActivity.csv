@@ -3,7 +3,7 @@ Name,,,,,BooleanTurnsActivity
 Description,,,,,"Computes data turns statistics between two boolean monovariate times series (in DataFrame format) x and y : x signal activity duration, y signal activity duration, pause duration, overlap duration, x signal pause duration, y signal pause duration, pause duration between x and y activity, synchrony ratios between x and y (defined by max_latency)"
 Type,,,,,Linear
 Data_Type,,,,,Categorical
-Signal_Type,,,,,Monovariate
+Signal_Type,,,,,Univariate
 Number_User_Type,,,,,DataFrom2Persons
 Parameter_name,max_latency,min_pause_duration,ele_per_sec,duration,
 Parameter_type,int,float,int,int,

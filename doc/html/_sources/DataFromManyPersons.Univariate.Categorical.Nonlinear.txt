@@ -1,0 +1,10 @@
+Nonlinear package
+==========================================================
+
+.. automodule:: DataFromManyPersons.Univariate.Categorical.Nonlinear
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+

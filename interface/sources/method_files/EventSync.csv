@@ -4,7 +4,7 @@ Description,,,,,,"It measure Event Synchornisation (ES) and time delay patterns 
    expressed as pandas DataFrame in which events can be identified using Quian Quiroga s method"
 Type,,,,,,Nonlinear
 Data_Type,,,,,,Categorical
-Signal_Type,,,,,,Monovariate
+Signal_Type,,,,,,Univariate
 Number_User_Type,,,,,,DataFrom2Persons
 Parameter_name,type,tau,lag_tau,window,plot,
 Parameter_type,str,int,int,int,bool,

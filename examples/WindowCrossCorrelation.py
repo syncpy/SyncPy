@@ -18,7 +18,7 @@ print("This script computes the windowed cross-correlation between two monovaria
 print("*************************************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFrom2Persons.Monovariate.Continuous.Linear.WindowCrossCorrelation as WindowCrossCorrelation
+import DataFrom2Persons.Univariate.Continuous.Linear.WindowCrossCorrelation as WindowCrossCorrelation
 
 """ Import Utils modules """
 from utils.ExtractSignal import ExtractSignalFromCSV

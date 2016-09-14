@@ -20,7 +20,7 @@ from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ResampleAndInterpolate import ResampleAndInterpolate
 
 """ Import wanted module with every parent packages """
-import DataFromManyPersons.Monovariate.Continuous.Linear.ConditionalGrangerCausality as CGC
+import DataFromManyPersons.Univariate.Continuous.Linear.ConditionalGrangerCausality as CGC
 
 """ Import signal from a .csv file """
 filename = 'data_examples/data_jouet_3.csv'

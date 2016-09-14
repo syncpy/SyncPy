@@ -339,7 +339,7 @@ class AddSignalWindow(QtGui.QMainWindow, Ui_AddSignalWindow):
 
         # get signal's type
         if(len(self.my_signal_data.columns) == 1):
-            self.my_signal_type = 0 # Monovariate signal
+            self.my_signal_type = 0 # Univariate signal
         else:
             self.my_signal_type = 1 # Multivariate signal
         
@@ -379,7 +379,7 @@ class AddSignalWindow(QtGui.QMainWindow, Ui_AddSignalWindow):
             mess = QtGui.QMessageBox()
             mess.setWindowTitle('New Signal created')
             mess.setText("The signal "+ self.my_signal_name + " has been created")
-            str_my_signal_type = "Monovariate" if(self.my_signal_type==0) else "Multivariate"
+            str_my_signal_type = "Univariate" if(self.my_signal_type==0) else "Multivariate"
             str_my_data_type = "Continuous" if(self.my_data_type==0) else "Categorical"
             str_my_variables = self.selected_variables[0]
             for x in range(len(self.selected_variables)-1):

@@ -19,7 +19,7 @@ print("This script computes the Granger Causality test between some signals \n" 
 print("*************************************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFromManyPersons.Monovariate.Continuous.Linear.MultipleGrangerCausality as MGC
+import DataFromManyPersons.Univariate.Continuous.Linear.MultipleGrangerCausality as MGC
 from utils.ExtractSignal import ExtractSignalFromCSV
 
 
@@ -43,6 +43,21 @@ x4 = ExtractSignalFromCSV(filename, columns = ['x4'])
 x5 = ExtractSignalFromCSV(filename, columns = ['x5'])
 signal = [x1,x2,x3,x4,x5]
 '''
+
+""" Plot input signals """
+Signals = [X, Y1, Y2, Y3]
+plt.ion()
+
+nrows = len(Signals)
+figure, ax = plt.subplots(nrows, sharex=True)
+idx = 0 
+for col in  range(len(Signals)) :
+    ax[idx].grid(True) # Display a grid
+    ax[idx].set_title('Input signal : ' + str(Signals[col].columns[0]))
+    ax[idx].plot(Signals[col].index, Signals[col].iloc[:,0])
+    idx += 1
+    
+ax[idx-1].set_xlabel('Time')
 
 """ Define class attributes """
 max_lag = 10 		# Define the maximum lag acceptable to estimate autoregressive models
@@ -89,34 +104,7 @@ except Exception, e :
 
 # Displaying results :
 print "Computing autoregressive model 'restricted' and 'unrestricted' via the 'Ordinary Least Squares' method\n"
-
-print "According to",mgc._criterion,", the optimal number of lag estimated is :", mgc._olag,"\n"
-
-print "Printing RESULTS  ...\n"
-
-print "RESTRICTED model :\n"
-
-print "	Coefficients :\n"
-for i in range(0,mgc._olag):
-	print"	lag",i+1,":",mgc._OLS_restricted.params[i]
-print "\n"
-print "	Variance of residual error :", np.var(mgc._OLS_restricted.resid),"\n"
-
-print "UNRESTRICTED model :\n"
-
-print "	Coefficients of 'signal_to_predict' :\n"
-for i in range(0,mgc._olag):
-	print"	lag",i+1,":",mgc._OLS_unrestricted.params[i]
-print "\n"
-
-for k in range(1,4):
-	print "	Coefficients of 'helping_signal' " + str(k) + " :\n"
-	for i in range(0,mgc._olag):
-		print"	lag",i+1,":",mgc._OLS_unrestricted.params[i+k*mgc._olag]
-	print "\n"
-
-print "	Variance of residual error :", np.var(mgc._OLS_unrestricted.resid),"\n"
-
-print "F_value =",mgc._F_value," with p_value =",mgc._p_value,"\n"
+print "According to",criterion,", the optimal number of lag estimated is :", results['optimal_lag'],"\n"
+print "F_value =",results['F_value']," with p_value =",results['p_value'],"\n"
 
 raw_input("Push ENTER key to exit.")

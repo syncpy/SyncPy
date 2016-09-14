@@ -7,7 +7,7 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import DataFrom2Persons.Monovariate.Categorical.Nonlinear.EventSync as EventSync
+import DataFrom2Persons.Univariate.Categorical.Nonlinear.EventSync as EventSync
 
 print("***************************************************************************************")
 print("This scripts computes the synchronisation and time delay pattern between two monovariate\n time series of events expressed as Python Pandas DataFrame.\n Data are from the SMART Project-EDHHI (Engagement During Human-Humanoid Interaction) and \n are events extracted from the arms/body movements of a human and a robot performing a task together")

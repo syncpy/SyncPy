@@ -83,14 +83,14 @@ class SynchronyMethod:
     
     
     def initMethodSignalType(self, method_signal_type) :
-        if('Monovariate' == method_signal_type): 
+        if('Univariate' == method_signal_type): 
             out = 0
         elif('Multivariate' == method_signal_type): 
             out = 1
         elif (0 == method_signal_type) or (1 == method_signal_type):
             out = method_signal_type
         else:
-            raise ValueError("method_signal_type must be a positive integer:0 or 1 or a string : Monovariate or Multivariate")
+            raise ValueError("method_signal_type must be a positive integer:0 or 1 or a string : Univariate or Multivariate")
         return out
     
     
@@ -154,7 +154,7 @@ class SynchronyMethod:
             module_str += "DataFromManyPersons"
         module_str += "."
         if self._method_signal_type == 0 :
-            module_str += "Monovariate"
+            module_str += "Univariate"
         else :
             module_str += "Multivariate"
         module_str += "."
@@ -227,14 +227,14 @@ class SynchronyMethod:
     def visualizeResult(self) :         
         # Get plot method
         try :
-            self._method_plot = getattr(self._method_class, "plot")
+            self._method_plot = getattr(self._method_class, "plot_result")
         except AttributeError, err :
             raise AttributeError("Cannot find plot() method of class : " + self._method_name)
         
         try : 
-            self._plot_result = self._method_plot(self._method_instance)
+            self._plot_result = self._method_plot(self._method_instance, self._compute_result)
         except Exception, e :
-            raise Exception("Exception in plot() :\n" + str(e))
+            raise Exception("Exception in plot_result() :\n" + str(e))
 
         figure = PlotWindow()
         figure.plot_figure(self._plot_result)

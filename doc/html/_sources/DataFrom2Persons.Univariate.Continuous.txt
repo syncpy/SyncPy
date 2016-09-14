@@ -1,0 +1,16 @@
+Continuous package
+===============================================
+
+.. automodule:: DataFrom2Persons.Univariate.Continuous
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. toctree::
+
+    DataFrom2Persons.Univariate.Continuous.Linear
+    DataFrom2Persons.Univariate.Continuous.MachineLearning
+    DataFrom2Persons.Univariate.Continuous.Nonlinear
+    
+    
+

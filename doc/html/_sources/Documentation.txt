@@ -11,7 +11,7 @@ Library tree organization
 types, respectively. Four horizontal levels are identifiable:
 
 1. Number of participants: two (``DataFrom2Persons`` package) ore more than two involved in the interaction (``DataFromManyPersons`` package)
-2. Number of variables in input signals: one (``Monovariate`` package) or more than one (``Multivariate`` package) that are available for each participant
+2. Number of variables in input signals: one (``Univariate`` package) or more than one (``Multivariate`` package) that are available for each participant
 3. Type of data in input signals continuous (``Continuous`` pacakge) or categorical (``Categorical`` package)
 4. Type of analysis will be carried out on signals (``Linear``, ``NonLinear`` or ``MachineLearning`` pacakges)
 

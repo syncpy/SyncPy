@@ -143,7 +143,7 @@ def ExtractSignalFromELAN(filename, separator=',', unit='s', columns_name = ['Ac
     :type Action: str
 
     :returns: pd.DataFrame
-            -- Monovariate boolean signal, with 1 at timestamps corresponding to the Action of the Actor, timestamps in ms
+            -- Univariate boolean signal, with 1 at timestamps corresponding to the Action of the Actor, timestamps in ms
     """
     
     ' Raise error if parameters are not in the correct type '
