@@ -20,7 +20,7 @@ print("This script computes the generalised synchronization index (GSI) between 
 print("*****************************************************************************")
 
 """ Import wanted module  """
-import DataFrom2Persons.Multivariate.Continuous.Nonlinear.GSI as GSI
+import Methods.DataFrom2Persons.Multivariate.Continuous.Nonlinear.GSI as GSI
 
 """ Define signals in pd.dataFrame format """
 
@@ -52,8 +52,8 @@ rr=0.1                    # the threshold rate for recurrence
 """ Call CrossRecurrencePlot utils method """
 print("\n")
 
-try : 
-    c =GSI.GSI(m, t, rr)
+try:
+    c = GSI.GSI(m, t, rr)
 except TypeError, err :
     print("TypeError in GSI : \n" + str(err))
     sys.exit(-1)
@@ -78,14 +78,14 @@ print("Computing...")
 
 
 try : 
-    res= c.compute(x, y)
-except TypeError, err :
+    res = c.compute([x, y])
+except TypeError, err:
     print("TypeError in GSI computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError, err:
     print("ValueError in GSI computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception, e:
     print("Exception in GSI computation : \n" + str(e))
     sys.exit(-1)
 
@@ -98,9 +98,6 @@ print("****************************************\n")
 print("GSI:")
 print(res)
 print("\n")
-
-
-
 
 raw_input("Push ENTER key to exit.")
 plt.close("all")

@@ -1,0 +1,2 @@
+python SyncPy2MethodWizard.py
+pause

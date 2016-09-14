@@ -1,7 +1,7 @@
 """
 Nonlinear Correlation example :
 It computes the nonparametric nonlinear regression coefficient h2 describing the dependency
-between two continouos univariate signals x and y (in pandas DataFrame format)in a most general way.
+between two signals (in DataFrame format) x and y in a most general way
 """
 
 """ Import common python packages """
@@ -10,12 +10,13 @@ import os
 import numpy as np          # Mathematical package
 import pandas as pd         # Time serie package
 import matplotlib.pyplot as plt # Plotting package
-sys.path.insert(0, '../src/')   # To be able to import packages from parent directory 
+sys.path.insert(0, '../src/')   # To be able to import packages from parent directory
+sys.path.insert(0, '../src/Methods')
 
 print("\n")
 print("**************************************************************")
 print("This script computes the nonlinear correlation coefficient \n"+
-      "of two continouos univariate signals \n")
+      "of two continouos monovariate signals \n")
 print("**************************************************************")
 
 """ Import wanted module with every parent packages """
@@ -36,13 +37,11 @@ t=np.linspace(0,4*np.pi,N) # number of samples
 x=pd.DataFrame({'X':3.0*np.sin(t+0.0001)}, np.arange(0,N))
 y=x**2
 
-
-
 '''
 """OR"""
 """ Import signals from a .csv file """
 #Data from files
-filename = 'data_examples/2Persons_Univariate_Continuous_data.csv'
+filename = 'data_examples/2Persons_Monovariate_Continuous_data.csv'
 
 x = ExtractSignalFromCSV(filename, columns = ['x1'])
 y = ExtractSignalFromCSV(filename, columns = ['x2'])
@@ -83,15 +82,18 @@ except Exception, e :
     sys.exit(-1)
 
 
-print("An instance of the class is now created with the following parameters:\n" +
+print("An instance the class is now created with the following parameters:\n" +
       "number of bin = " + str(nbins))
 
 """ Compute the method and get the result """
 print("\n")
 print("Computing...")
 
-try : 
-    res = c.compute(x,y)
+try :
+    signals = []
+    signals.append(x)
+    signals.append(y)
+    res = c.compute([x,y])
 except TypeError, err :
     print("TypeError in NonlinearCorr computation : \n" + str(err))
     sys.exit(-1)
@@ -122,7 +124,7 @@ corr_tau_max = False                # return of the maximum of correlation and i
 corr_coeff = True                   # computation of the correlation coefficient (Pearson's version)
 scale= False                        # scale factor to have correlaton in [-1,1]
 
-""" Instantiate the class with its attributes """
+""" Instanciate the class with its attributes """
 print("\n")
 
 try : 
@@ -137,7 +139,7 @@ except Exception, e :
     print("Exception in Correlation constructor : \n" + str(e))
     sys.exit(-1)
 
-print("An instance of the class is now created with the following parameters:\n" +
+print("An instance the class is now created with the following parameters:\n" +
       "tau max = " + str(tau_max) + "\n" +
       "plot = " + str(plot) + "\n" +
       "standardization= " + str(standardization) + "\n" +
@@ -149,7 +151,7 @@ print("An instance of the class is now created with the following parameters:\n"
 print("\n")
 print("Computing...")
 
-try : 
+try :
     res= c.compute(x, y)
 except TypeError, err :
     print("TypeError in Correlation computation : \n" + str(err))
@@ -169,7 +171,7 @@ print("****************************************\n")
 print("Pearson's correlation coefficient %f:" %(res['corr_coeff']))
 print("\n")
 
-print ("As expected, the two coefficients provide different results:, \n" +
+print ("As expected the two coefficient provide different results, \n" +
        "that is high value of nonlinear correlation coefficient and \n" +
        "low value of linear correlation coefficient.")
 

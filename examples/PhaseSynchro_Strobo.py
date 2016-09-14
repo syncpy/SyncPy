@@ -20,7 +20,7 @@ print("This script computes the n:m synchronization index lambda_nm by \n" +
 print("**************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo as PhaseSynchro_Strobo
+import Methods.DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo as PhaseSynchro_Strobo
 
 
 """ Define signals in pd.dataFrame format """
@@ -49,7 +49,6 @@ axarr[1].legend(loc='best')
 """ Define class attributes of the wanted method """
 n = 3                   # integer of the order of synchronization
 m  = 1                  # integer of the order of synchronization
-nbins_mode = 'man'      # mode used to compute the nbins number
 nbins = 10              # number of bins
 
 
@@ -58,7 +57,7 @@ nbins = 10              # number of bins
 print("\n")
 
 try : 
-    c=c=PhaseSynchro_Strobo.PhaseSynchro_Strobo(n,m,nbins_mode, nbins)
+    c=c=PhaseSynchro_Strobo.PhaseSynchro_Strobo(n,m, nbins)
 except TypeError, err :
     print("TypeError in PhaseSynchro_Strobo constructor : \n" + str(err))
     sys.exit(-1)
@@ -73,7 +72,6 @@ except Exception, e :
 print("An instance of the class is now created with the following parameters:\n" +
       "n = " + str(n) + "\n" +
       "m = " + str(m) + "\n" +
-      "nbins_mode = " + str(nbins_mode) + "\n" +
       "nbins = " + str(nbins))
 
 
@@ -82,7 +80,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    res= c.compute(x, y)
+    res= c.compute([x, y])
 except TypeError, err :
     print("TypeError in PhaseSynchro_Strobo computation : \n" + str(err))
     sys.exit(-1)

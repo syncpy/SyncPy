@@ -10,7 +10,7 @@ import os
 import numpy as np          # Mathematical package
 import pandas as pd         # Time serie package
 import matplotlib.pyplot as plt # Plotting package
-sys.path.insert(0, '../src/')   # To be able to import packages from parent directory 
+sys.path.insert(0, '../src/')   # To be able to import packages from parent directory
 
 print("\n")
 print("********************************************************************************")
@@ -21,7 +21,7 @@ print("This script computes the n:m synchronization index rho_nm by \n" +
 print("********************************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy as PhaseSynchro_Entropy
+import Methods.DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy as PhaseSynchro_Entropy
 
 
 """ Define signals in pd.dataFrame format """
@@ -33,6 +33,9 @@ t=np.linspace(0,4*np.pi,N)
 
 x=pd.DataFrame(np.sin(t), np.arange(0,N))
 y=pd.DataFrame(np.sin(3*t+10), np.arange(0,N))
+
+x.to_csv("D:/projets/SyncPy/Syncpy-2/examples/data_examples/Entropy_x.csv", sep=';', index=True, header=False)
+y.to_csv("D:/projets/SyncPy/Syncpy-2/examples/data_examples/Entropy_y.csv", sep=';', index=True, header=False)
 
 
 """Plot input signals"""
@@ -52,13 +55,13 @@ n =  3                     # integer of the order of synchronization
 m  = 1                     # integer of the order of synchronization
 nbins_mode = 'man'         # mode used to compute the nbins number
 nbins = 50                 # number of bins
-dist_cyc_rel_phase = False # plot of the distribution of the cyclci relative phase
+plot = False # plot of the distribution of the cyclci relative phase
 
 """ Instantiate the class with its attributes """
 print("\n")
 
 try : 
-    c=c=PhaseSynchro_Entropy.PhaseSynchro_Entropy(n ,m, nbins_mode, nbins,dist_cyc_rel_phase)
+    c=PhaseSynchro_Entropy.PhaseSynchro_Entropy(n ,m, nbins_mode, nbins,plot )
 except TypeError, err :
     print("TypeError in PhaseSynchro_Entropy constructor : \n" + str(err))
     sys.exit(-1)
@@ -75,7 +78,7 @@ print("An instance of the class is now created with the following parameters:\n"
       "m = " + str(m) + "\n" +
       "nbins_mode = " + str(nbins_mode) + "\n" +
       "nbins = " + str(nbins)+ "\n" +
-      "dist_cyc_rel_phase =" + str(dist_cyc_rel_phase))
+      "plot =" + str(plot))
 
 
 """ Compute the method and get the result """
@@ -83,7 +86,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    res= c.compute(x, y)
+    res= c.compute([x, y])
 except TypeError, err :
     print("TypeError in PhaseSynchro_Entropy computation : \n" + str(err))
     sys.exit(-1)

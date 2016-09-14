@@ -10,7 +10,8 @@ import os
 import numpy as np              # Mathematical package
 import pandas as pd             # Time serie package
 import matplotlib.pyplot as plt # Plotting package
-sys.path.insert(0, '../src/')   # To be able to import packages from parent directory 
+sys.path.insert(0, '../src/')   # To be able to import packages from parent directory
+sys.path.insert(0, '../src/Methods')
 
 print ("\n")
 print("****************************************************************************\n")
@@ -39,7 +40,7 @@ y = pd.DataFrame(1.0*np.random.rand(n,1), range(0,n))
 """OR"""
 """ Import signals from a .csv file """
 #Data from files
-filename = 'data_examples/2Persons_Univariate_Continuous_data.csv'
+filename = 'data_examples/2Persons_Monovariate_Continuous_data.csv'
 
 x = ExtractSignalFromCSV(filename, columns = ['x1'])
 y = ExtractSignalFromCSV(filename, columns = ['x2'])
@@ -90,8 +91,8 @@ print("An instance the class is now created with the following parameters:\n" +
 print("\n")
 print("Computing...")
 
-try : 
-    res1= c.compute(x, y)
+try :
+    res1 = c.compute([x,y])
 except TypeError, err :
     print("TypeError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
@@ -131,7 +132,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    res2= c.compute(x, y)
+    res2= c.compute([x, y])
 except TypeError, err :
     print("TypeError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
@@ -199,7 +200,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    res1= c.compute(x1, y1)
+    res1= c.compute([x1, y1])
 except TypeError, err :
     print("TypeError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
@@ -239,7 +240,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    res2= c.compute(x1, y1)
+    res2= c.compute([x1, y1])
 except TypeError, err :
     print("TypeError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)

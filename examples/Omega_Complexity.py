@@ -1,6 +1,6 @@
 """
 Omega_Complexity example :
-Compute Omega_Complexity for multiple monovariate signals (organized as a list of pandas DataFrames).
+Compute Omega_Complexity for multiple monovariate signals (orgainized as a list).
 """
 
 """ Import common python packages """
@@ -14,7 +14,7 @@ sys.path.insert(0, '../src/')       # To be able to import from parent directory
 print("\n")
 print("**********************************************************************")
 print("This script computes Omega_Complexity for multiple monovariate signals \n" + 
-      "(organized as a list of pandas DataFrames) \n")
+      "(orgainized as a list) \n")
 print("**********************************************************************")
 
 """ Import wanted module with every parent packages """
@@ -23,6 +23,7 @@ from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ExtractSignal import ExtractSignalFromMAT
 from utils.Standardize import Standardize
 
+'''
 """ Define signals in pd.dataFrame format """
 # preparing the input time series
 N = 1000             # number of samples
@@ -31,10 +32,7 @@ Fs = 200            # sampling frequency (Hz)
 n = np.arange(0,N)  # number of samples
 # input time series
 x = pd.DataFrame({'X':np.sin(2*3.14*f*n/Fs)}, np.arange(0,N) )
-y = pd.DataFrame({'Y':np.sin(4*3.14*f*n/Fs)}, np.arange(0,N) )
-z = pd.DataFrame({'Z':np.cos(2*3.14*f*n/Fs)}, np.arange(0,N) )
-w = pd.DataFrame(2.0*np.random.rand(N,1),np.arange(0,N))
-
+y = pd.DataFrame(2.0*np.random.rand(N,1),np.arange(0,N))
 
 '''
 """OR"""
@@ -43,7 +41,7 @@ filename = 'data_examples/2Persons_Multivariate_Continous_data.csv'
 x = ExtractSignalFromCSV(filename, columns = ['Upper body mq'])
 y = ExtractSignalFromCSV(filename, columns = ['Upper body mq.1'])
 '''
-''''
+
 """OR"""
 """ Import signal from a .mat file """
 filename = 'data_examples/data_example_MAT.mat'
@@ -51,7 +49,7 @@ z = ExtractSignalFromMAT(filename, columns_index =[0,2], columns_wanted_names=['
 t = ExtractSignalFromMAT(filename, columns_index =[10], columns_wanted_names=['GlobalBodyActivity1'])
 '''
 
-signals = [x,y,z,w]
+signals = [x,y]
 
 N = signals[0].shape[0]
 n = np.arange(0,N) 
@@ -69,7 +67,7 @@ plt.legend(bbox_transform=plt.gcf().transFigure)
 
 """ Define class attributes of the wanted method """
 
-""" Instantiate the class with its attributes """
+""" Instanciate the class with its attributes """
 print("\n")
 try : 
     omega_comp = Omega_Complexity.Omega_Complexity()
@@ -83,7 +81,7 @@ except Exception, e :
     print("Exception in Omega_Complexity constructor : \n" + str(e))
     sys.exit(-1)
     
-print("Instantiating the class...")
+print("An instance the class is now created \n")
 
 """ Compute the method and get the result """
 print("\n")
@@ -103,9 +101,7 @@ except Exception, e :
 
 """ Display result """
 print("\n")
-print("****************************\n")
 print('Omega_Complexity result :')
-print("****************************\n")
 print("\n")
 
 for i in omega.keys():

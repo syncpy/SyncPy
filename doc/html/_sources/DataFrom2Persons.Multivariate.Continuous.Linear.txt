@@ -1,7 +1,0 @@
-Linear package
-======================================================
-
-.. automodule:: DataFrom2Persons.Multivariate.Continuous.Linear
-    :members:
-    :undoc-members:
-    :show-inheritance:

@@ -23,25 +23,24 @@ from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ExtractSignal import ExtractSignalFromMAT
 from utils.Standardize import Standardize
 
-
+'''
 """ Define signals in pd.dataFrame format """
 # preparing the input signals
-N = 1000             # number of samples
+N = 20             # number of samples
 f = 1.0             # sinewave frequency (Hz)
 Fs = 200            # sampling frequency (Hz)
 n = np.arange(0,N)  # number of samples
 # input signals
-x = pd.DataFrame({'X':np.sin(2*3.14*f*n/Fs)}, np.arange(0,N))
-y = pd.DataFrame({'Y':10*np.sin(2*3.14*f*n/Fs)}, np.arange(0,N))
-
+x = pd.DataFrame({'X':np.sin(2*3.14*f*n/Fs)})
+y = pd.DataFrame({'Y':np.sin(2*3.14*2*f*n/Fs)})
 '''
+
 """OR"""
 """ Import signals from a .csv file """
 filename = 'data_examples/2Persons_Multivariate_Continous_data.csv'
 x = ExtractSignalFromCSV(filename, columns = ['Upper body mq'])
 y = ExtractSignalFromCSV(filename, columns = ['Upper body mq.1'])
 
-'''
 '''
 """OR"""
 """ Import signals from a .mat file """

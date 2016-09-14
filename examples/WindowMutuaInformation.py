@@ -1,6 +1,6 @@
 """
 WindowMututalInformation example :
-Computes the windowed mutual information between two continuous univariate signals x and y (in pandas DataFrame format)
+Computes the windowed mutual information between times series (in DataFrame format) x and y
 """
 
 """ Import common python packages """
@@ -10,6 +10,7 @@ import numpy as np                  # Mathematical package
 import pandas as pd                 # Time serie package
 import matplotlib.pyplot as plt     # Plotting package
 sys.path.insert(0, '../src/')       # To be able to import from parent directory
+sys.path.insert(0, '../src/Methods')
 
 print("\n")
 print("***************************************************************************************")
@@ -85,7 +86,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    win_MI = wmi.compute(x,y)
+    win_MI = wmi.compute([x,y])
 except TypeError, err :
     print("TypeError in WindowMutualInformation computation : \n" + str(err))
     sys.exit(-1)
@@ -102,6 +103,6 @@ print("\n")
 print("********************************* \n")
 print('Window Mutual Information result :')
 print("********************************* \n")
-'''print(win_MI)'''
+#print(win_MI)
 
 raw_input("Push ENTER key to exit.")

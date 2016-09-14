@@ -1,9 +1,0 @@
-MachineLearning package
-=======================================================
-
-.. automodule:: DataFromManyPersons.Multivariate.Categorical.MachineLearning
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-

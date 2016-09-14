@@ -1,6 +1,6 @@
 """
 Coherence example :
-It computes coherence function between two continuous univariate signals x and y (in pandas DataFrame format).
+It computes coherence fucntion between two monovariate signals (in DataFrame format) x and y.
 """
 
 """ Import common python packages """
@@ -11,11 +11,12 @@ import os
 import numpy as np          # Mathematical package
 import pandas as pd         # Time serie package
 import matplotlib.pyplot as plt # Plotting package
-sys.path.insert(0, '../src/')   # To be able to import packages from parent directory 
+sys.path.insert(0, '../src/')   # To be able to import packages from parent directory
+sys.path.insert(0, '../src/Methods')
 
 print("\n")
 print("****************************************************************************************")
-print("This script computes the coherence of two continuous univariate signals. \n" +
+print("This script computes the coherence of two continuous monovariate signals. \n" +
       "First input is a sum among a sinewave of 100 Hz frequency,  a cosinewave \n" +
       "of 200 Hz frequency and unformly distributed random noise. The second one\n" +
       "is a sub-multiple of the first one.")
@@ -45,7 +46,7 @@ y = pd.DataFrame({'Y':0.5*np.cos(2*np.pi*100*t-np.pi/4)+0.35*np.sin(2*np.pi*200*
 """OR"""
 """ Import signals from a .csv file """
 #Data from files
-filename = 'data_examples/2Persons_Univariate_Continuous_data.csv'
+filename = 'data_examples/2Persons_Monovariate_Continuous_data.csv'
 
 x = ExtractSignalFromCSV(filename, columns = ['x1'])
 y = ExtractSignalFromCSV(filename, columns = ['x2'])
@@ -67,11 +68,11 @@ axarr[1].legend(loc='best')
 """ Define class attributes of the wanted method """
 Fs=1000.0       # sampling frequency (Hz)
 NFFT = 100      # length of each epoch
-detrend = 1     # remove constant detrending
+detrend = 0     # remove constant detrending
 noverlap = 80   # number of points of overlap between epochs
 plot = True     # plot of the coherence function
 
-""" Instantiate the class with its attributes """
+""" Instanciate the class with its attributes """
 print("\n")
 
 try : 
@@ -87,7 +88,7 @@ except Exception, e :
     sys.exit(-1)
 
 
-print("An instance of the class is now created with the following parameters:\n" +
+print("An instance the class is now created with the following parameters:\n" +
       "NFFT = " + str(NFFT) + "\n" +
       "detrend = " + str(detrend) + "\n" +
       "noverlap= " + str(noverlap) + "\n" +
@@ -98,7 +99,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    res = c.compute(x,y)
+    res = c.compute([x,y])
 except TypeError, err :
     print("TypeError in Coherence computation : \n" + str(err))
     sys.exit(-1)

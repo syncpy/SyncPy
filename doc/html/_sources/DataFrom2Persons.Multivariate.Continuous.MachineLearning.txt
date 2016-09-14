@@ -1,8 +1,0 @@
-MachineLearning package
-================================================================
-
-.. automodule:: DataFrom2Persons.Multivariate.Continuous.MachineLearning
-    :members:
-    :undoc-members:
-    :show-inheritance:
-

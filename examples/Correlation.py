@@ -1,6 +1,6 @@
 """
 Correlation example:
-It computes the linear correlation between two continuous univariate signals x and y (in pandas DataFrame format) as a function of their delay tau.
+It computes the linear correlation between two monovariate signals x and y (in DataFrame format) as a function of their delay tau.
 It computes autocorrelation when y coincides with x. 
 """
 
@@ -10,11 +10,13 @@ import os
 import numpy as np      # Mathematical package
 import pandas as pd     # Time serie package
 import matplotlib.pyplot as plt # Plotting package
-sys.path.insert(0, '../src/')   # To be able to import packages from parent directory 
+sys.path.insert(0, '../src/')   # To be able to import packages from parent directory
+sys.path.insert(0, '../src/Methods')
+
 
 print ("\n")
 print("***********************************************************************************************************************")
-print("This scripts computes the correlation between two univariate signals."
+print("This scripts computes the correlation between two monovariate signals."
        "First input is a sinewave of 1 Hz frequency, the second one\n is the sum of this sinewave"
        "with a gaussian random process having zero mean and unitary\n variance.")
 print("************************************************************************************************************************")
@@ -40,12 +42,11 @@ n=np.arange(0,N)#number of samples
 x = pd.DataFrame({'X':np.sin(2*3.14*f*n/Fs)}, np.arange(0,N))
 y = pd.DataFrame({'Y':np.sin(2*3.14*f*n/Fs)+10*np.random.randn(1,N)[0]},np.arange(0,N))
 
-
 '''
 """OR"""
 """ Import signals from a .csv file """
 #Data from files
-filename = 'data_examples/2Persons_Univariate_Continuous_data.csv'
+filename = 'data_examples/2Persons_Monovariate_Continuous_data.csv'
 
 x = ExtractSignalFromCSV(filename, columns = ['x1'])
 y = ExtractSignalFromCSV(filename, columns = ['x2'])
@@ -77,7 +78,7 @@ corr_tau_max = True                 # return of the maximum of correlation and i
 corr_coeff = True                   # computation of the correlation coefficient (Pearson's version)
 scale=True                          # scale factor to have correlaton in [-1,1]
 
-""" Instantiate the class with its attributes """
+""" Instanciate the class with its attributes """
 print("\n")
 
 try : 
@@ -92,7 +93,7 @@ except Exception, e :
     print("Exception in Correlation constructor : \n" + str(e))
     sys.exit(-1)
 
-print("An instance of the class is now created with the following parameters:\n" +
+print("An instance the class is now created with the following parameters:\n" +
       "tau max = " + str(tau_max) + "\n" +
       "plot = " + str(plot) + "\n" +
       "standardization= " + str(standardization) + "\n" +
@@ -105,7 +106,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    res= c.compute(x, y)
+    res= c.compute([x, y])
 except TypeError, err :
     print("TypeError in Correlation computation : \n" + str(err))
     sys.exit(-1)
@@ -123,12 +124,8 @@ print('Correlation complete result :')
 print("****************************************\n")
 print("Correlation function array:")
 print(res['corr_funct'])
-
-if corr_tau_max:
-    print("Maximum value of the correlation %f and lag (in samples) %d:" %(res['max_corr'],res['t_max']))
-
-if corr_coeff:
-    print("Pearson's correlation coefficient %f:" %(res['corr_coeff']))
+print("Maximum value of the correlation %f and lag (in samples) %d:" %(res['max_corr'],res['t_max']))
+print("Pearson's correlation coefficient %f:" %(res['corr_coeff']))
 
 
 

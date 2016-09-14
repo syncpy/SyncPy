@@ -10,7 +10,8 @@ import os
 import numpy as np      # Mathematical package
 import pandas as pd     # Time serie package
 import matplotlib.pyplot as plt # Plotting package
-sys.path.insert(0, '../src/')   # To be able to import packages from parent directory 
+sys.path.insert(0, '../src/')   # To be able to import packages from parent directory
+sys.path.insert(0, '../src/Methods')
 
 print ("\n")
 print("******************************************************************************************")
@@ -36,12 +37,11 @@ N=26
 x = pd.DataFrame([0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0],np.arange(0,N))
 y = pd.DataFrame([0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0],np.arange(0,N))
 
-
 '''
 """OR"""
 """ Import signals from a .csv file """
 #Data from files
-filename = 'data_examples/2Persons_Univariate_Categorical_data.csv'
+filename = 'data_examples/2Persons_Monovariate_Categorical_data.csv'
 
 
 x = ExtractSignalFromCSV(filename, columns = ['0'])
@@ -65,7 +65,7 @@ axarr[1].legend(loc='best')
 """ Define class attributes of the wanted method """
 atype = 'tot'                      # algorithm to be used to compute Q and q
 tau = 1                            # algorithm is used to estimates the delay
-lag_tau = 2                        # number of samples will be used as delay
+lag_tau = 3                        # number of samples will be used as delay
 window = 1                         # size of the window to compute Q and q
 plot= False                        # plot of Q and q
 
@@ -97,7 +97,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    res= c.compute(x, y)
+    res= c.compute([x, y])
 except TypeError, err :
     print("TypeError in EventSync computation : \n" + str(err))
     sys.exit(-1)
@@ -127,7 +127,7 @@ print("*************************************************** \n")
 """ Define class attributes of the wanted method """
 atype = 'tsl'                      # algorithm to be used to compute Q and q
 tau = 1                            # algorithm is used to estimates the delay
-lag_tau = 2                        # number of samples will be used as delay
+lag_tau = 3                        # number of samples will be used as delay
 window = 30                         # size of the window to compute Q and q
 plot= True                         # plot of Q and q
 
@@ -160,7 +160,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    res= c.compute(x, y)
+    res= c.compute([x, y])
 except TypeError, err :
     print("TypeError in EventSync computation : \n" + str(err))
     sys.exit(-1)

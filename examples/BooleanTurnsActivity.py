@@ -1,6 +1,6 @@
 """
 BooleanTurnsActivity example :
-Computes data turns statistics between two boolean univariate signals x and y (in DataFrame format):
+Computes data turns statistics between two boolean monovariate signals (in DataFrame format) x and y :
 x signal activity duration, y signal activity duration, pause duration, overlap duration,
 x signal pause duration, y signal pause duration, pause duration between x and y activity,
 synchrony ratios between x and y (defined by max_latency)
@@ -12,11 +12,12 @@ import os
 import numpy as np          # Mathematical package
 import pandas as pd         # Time serie package
 import matplotlib.pyplot as plt # Plotting package
-sys.path.insert(0, '../src/')   # To be able to import packages from parent directory 
+sys.path.insert(0, '../src/')   # To be able to import packages from parent directory
+sys.path.insert(0, '../src/Methods')
 
 print("\n")
 print("****************************************************************************************")
-print("This script computes the boolean turn activty of two categorical univariate signals \n")
+print("This script computes the boolean turn activty of two categorical monovariate signals \n")
 print("****************************************************************************************")
 
 """ Import wanted module with every parent packages """
@@ -59,7 +60,7 @@ min_pause_duration = 0.01   # minimal time for defining a pause (in second)
 ele_per_sec = 5             # number of element in one second. Default: 1
 duration = -1               # total activity duration (in second). Default or -1 : len(x)*ele_per_sec
 
-""" Instantiate the class with its attributes """
+""" Instanciate the class with its attributes """
 print("\n")
 
 try : 
@@ -74,7 +75,7 @@ except Exception, e :
     print("Exception in BooleanTurnsActivity constructor : \n" + str(e))
     sys.exit(-1)
 
-print("An instance of the class is now created with the following parameters:\n" +
+print("An instance the class is now created with the following parameters:\n" +
       "maximal latency = " + str(max_latency) + "\n" +
       "minimal pause duration = " + str(min_pause_duration) + "\n" +
       "number of element per second = " + str(ele_per_sec) + "\n" +
@@ -82,7 +83,7 @@ print("An instance of the class is now created with the following parameters:\n"
 
 """ Compute the method and get the result """
 try : 
-    res_turns, turns_ratio = turns.compute(user0_data, user1_data)
+    res_turns, turns_ratio = turns.compute([user0_data, user1_data])
 except TypeError, err :
     print("TypeError in BooleanTurnsActivity computation : \n" + str(err))
     sys.exit(-1)

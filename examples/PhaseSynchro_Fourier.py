@@ -10,7 +10,7 @@ import os
 import numpy as np          # Mathematical package
 import pandas as pd         # Time serie package
 import matplotlib.pyplot as plt # Plotting package
-sys.path.insert(0, '../src/')   # To be able to import packages from parent directory 
+sys.path.insert(0, '../src/')   # To be able to import packages from parent directory
 
 print("\n")
 print("****************************************************************************")
@@ -22,13 +22,13 @@ print("This script computes the n:m synchronization index gamma2_nm as \n" +
 print("****************************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier as PhaseSynchro_Fourier
+import Methods.DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier as PhaseSynchro_Fourier
 
 
 """ Define signals in pd.dataFrame format """
 
 #Define parameters
-N=1000
+N=10000
 t=np.linspace(0,4*np.pi,N)
 
 
@@ -49,14 +49,14 @@ axarr[1].legend(loc='best')
 
 
 """ Define class attributes of the wanted method """
-n =  2                     # integer of the order of synchronization
-m  = 1                     # integer of the order of synchronization
+n = 3                     # integer of the order of synchronization
+m = 1                     # integer of the order of synchronization
 
 """ Instantiate the class with its attributes """
 print("\n")
 
 try : 
-    c=c=PhaseSynchro_Fourier.PhaseSynchro_Fourier(n ,m)
+    c=PhaseSynchro_Fourier.PhaseSynchro_Fourier(n, m)
 except TypeError, err :
     print("TypeError in PhaseSynchro_Fourier constructor : \n" + str(err))
     sys.exit(-1)
@@ -78,7 +78,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    res= c.compute(x, y)
+    res = c.compute([x, y])
 except TypeError, err :
     print("TypeError in PhaseSynchro_Fourier computation : \n" + str(err))
     sys.exit(-1)
