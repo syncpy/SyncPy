@@ -1,0 +1,13 @@
+Monovariate package
+====================================
+
+.. automodule:: DataFrom2Persons.Monovariate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. toctree::
+
+    DataFrom2Persons.Monovariate.Categorical
+    DataFrom2Persons.Monovariate.Continuous
+

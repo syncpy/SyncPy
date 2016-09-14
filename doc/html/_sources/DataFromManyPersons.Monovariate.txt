@@ -1,0 +1,14 @@
+Monovariate package
+=======================================
+
+.. automodule:: DataFromManyPersons.Monovariate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+
+    DataFromManyPersons.Monovariate.Categorical
+    DataFromManyPersons.Monovariate.Continuous
+

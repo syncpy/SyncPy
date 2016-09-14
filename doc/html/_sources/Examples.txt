@@ -1,0 +1,117 @@
+
+.. _examples-reference:
+
+
+SyncPy library Examples 
+=======================
+
+.. contents:: Available source code examples
+    :local:
+    
+
+DataFrom2Persons Monovariate Categorical Linear module 
+-------------------------------------------------------
+Boolean Turn Activity example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/BooleanTurnsActivity.py>`)
+
+.. literalinclude:: ../../examples/BooleanTurnsActivity.py
+
+
+DataFrom2Persons Monovariate Continuous Linear module 
+------------------------------------------------------
+
+Coherence example 
+^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/Coherence.py>`)
+
+.. literalinclude:: ../../examples/Coherence.py
+
+Correlation example 
+^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/Correlation.py>`)
+
+.. literalinclude:: ../../examples/Correlation.py
+
+Granger Causality example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/GrangerCausality.py>`)
+
+.. literalinclude:: ../../examples/GrangerCausality.py
+
+Spectral Granger Causality example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/SpectralGrangerCausality.py>`)
+
+.. literalinclude:: ../../examples/SpectralGrangerCausality.py
+
+Window Cross Correlation example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/WindowCrossCorrelation.py>`)
+
+.. literalinclude:: ../../examples/WindowCrossCorrelation.py
+
+Window Cross Correlation with PeakPicking example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/WindowCrossCorrelation_with_PeakPicking.py>`)
+
+.. literalinclude:: ../../examples/WindowCrossCorrelation_with_PeakPicking.py
+
+
+DataFrom2Persons Monovariate Continuous NonLinear module 
+--------------------------------------------------------
+
+Nonlinear Correlation example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/NonlinearCorr.py>`)
+
+.. literalinclude:: ../../examples/NonlinearCorr.py
+
+
+DataFromManyPersons Monovariate Continuous Linear module 
+--------------------------------------------------------
+
+PartialCoherence example 
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/PartialCoherence.py>`)
+
+.. literalinclude:: ../../examples/PartialCoherence.py
+
+S_Estimator example 
+^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/S_Estimator.py>`)
+
+.. literalinclude:: ../../examples/S_Estimator.py
+
+
+
+DataFromManyPersons Multivariate Continuous Linear module 
+---------------------------------------------------------
+
+Multivariate Granger Causality example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/MultivariateGrangerCausality.py>`)
+
+.. literalinclude:: ../../examples/MultivariateGrangerCausality.py
+
+
+
+
+
+
+
+
+
+
+

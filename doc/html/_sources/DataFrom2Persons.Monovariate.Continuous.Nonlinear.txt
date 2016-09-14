@@ -1,0 +1,27 @@
+Nonlinear package
+=========================================================
+
+.. automodule:: DataFrom2Persons.Monovariate.Continuous.Nonlinear
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+NonlinearCorr module
+----------------------------------------------------------------------
+
+.. automodule:: DataFrom2Persons.Monovariate.Continuous.Nonlinear.NonlinearCorr
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+
+MutualInformation module
+----------------------------------------------------------------------
+
+.. automodule:: DataFrom2Persons.Monovariate.Continuous.Nonlinear.MutualInformation
+    :members:
+    :undoc-members:
+    :show-inheritance:    
+
+

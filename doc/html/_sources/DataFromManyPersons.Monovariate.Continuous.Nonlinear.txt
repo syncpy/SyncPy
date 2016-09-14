@@ -1,0 +1,10 @@
+Nonlinear package
+==========================================================
+
+.. automodule:: DataFromManyPersons.Monovariate.Continuous.Nonlinear
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+

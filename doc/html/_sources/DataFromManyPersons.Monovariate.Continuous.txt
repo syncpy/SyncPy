@@ -1,0 +1,15 @@
+Continuous package
+==================================================
+
+.. automodule:: DataFromManyPersons.Monovariate.Continuous
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+
+    DataFromManyPersons.Monovariate.Continuous.Linear
+    DataFromManyPersons.Monovariate.Continuous.MachineLearning
+    DataFromManyPersons.Monovariate.Continuous.Nonlinear
+

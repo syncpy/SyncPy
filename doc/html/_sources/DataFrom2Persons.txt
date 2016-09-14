@@ -1,0 +1,14 @@
+DataFrom2Persons package
+========================
+
+.. automodule:: DataFrom2Persons
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+
+    DataFrom2Persons.Monovariate
+    DataFrom2Persons.Multivariate
+

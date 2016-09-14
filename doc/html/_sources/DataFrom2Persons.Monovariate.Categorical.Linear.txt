@@ -1,0 +1,18 @@
+Linear package
+=======================================================
+
+.. automodule:: DataFrom2Persons.Monovariate.Categorical.Linear
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+BooleanTurnsActivity module
+----------------------------
+
+.. automodule:: DataFrom2Persons.Monovariate.Categorical.Linear.BooleanTurnsActivity
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

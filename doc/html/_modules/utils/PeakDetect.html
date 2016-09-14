@@ -1,0 +1,847 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>utils.PeakDetect &mdash; Home Page</title>
+    
+    <link rel="stylesheet" href="../../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon_isir.ico"/>
+    <link rel="top" title="Home Page" href="../../HomePage.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header" role="banner">
+  <div class="logo">
+    <a href="../../HomePage.html">
+      <img class="logo" src="../../_static/hearder_image.png" alt="Logo"/>
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../HomePage.html">Home Page</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for utils.PeakDetect</h1><div class="highlight"><pre>
+<span class="c">### This file is a part of the Syncpy library.</span>
+<span class="c">### Copyright 2015, ISIR / Universite Pierre et Marie Curie (UPMC)</span>
+<span class="c">### Main contributor(s): Giovanna Varni, Marie Avril,</span>
+<span class="c">### syncpy@isir.upmc.fr</span>
+<span class="c">### </span>
+<span class="c">### This software is a computer program whose for investigating</span>
+<span class="c">### synchrony in a fast and exhaustive way. </span>
+<span class="c">### </span>
+<span class="c">### This software is governed by the CeCILL-B license under French law</span>
+<span class="c">### and abiding by the rules of distribution of free software.  You</span>
+<span class="c">### can use, modify and/ or redistribute the software under the terms</span>
+<span class="c">### of the CeCILL-B license as circulated by CEA, CNRS and INRIA at the</span>
+<span class="c">### following URL &quot;http://www.cecill.info&quot;.</span>
+
+<span class="c">### As a counterpart to the access to the source code and rights to</span>
+<span class="c">### copy, modify and redistribute granted by the license, users are</span>
+<span class="c">### provided only with a limited warranty and the software&#39;s author,</span>
+<span class="c">### the holder of the economic rights, and the successive licensors</span>
+<span class="c">### have only limited liability.</span>
+<span class="c">### </span>
+<span class="c">### In this respect, the user&#39;s attention is drawn to the risks</span>
+<span class="c">### associated with loading, using, modifying and/or developing or</span>
+<span class="c">### reproducing the software by the user in light of its specific</span>
+<span class="c">### status of free software, that may mean that it is complicated to</span>
+<span class="c">### manipulate, and that also therefore means that it is reserved for</span>
+<span class="c">### developers and experienced professionals having in-depth computer</span>
+<span class="c">### knowledge. Users are therefore encouraged to load and test the</span>
+<span class="c">### software&#39;s suitability as regards their requirements in conditions</span>
+<span class="c">### enabling the security of their systems and/or data to be ensured</span>
+<span class="c">### and, more generally, to use and operate it in the same conditions</span>
+<span class="c">### as regards security.</span>
+<span class="c">### </span>
+<span class="c">### The fact that you are presently reading this means that you have</span>
+<span class="c">### had knowledge of the CeCILL-B license and that you accept its terms.</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">log</span>
+<span class="kn">import</span> <span class="nn">pylab</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">ifft</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+
+
+<span class="k">def</span> <span class="nf">_datacheck_peakdetect</span><span class="p">(</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x_axis</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">x_axis</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_axis</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_axis</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> 
+                <span class="s">&#39;Input vectors y_axis and x_axis must have same length&#39;</span><span class="p">)</span>
+    
+    <span class="c">#needs to be a numpy array</span>
+    <span class="n">y_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span>
+    <span class="n">x_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_axis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span>
+    
+    
+<span class="k">def</span> <span class="nf">_peakdetect_parabole_fitter</span><span class="p">(</span><span class="n">raw_peaks</span><span class="p">,</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It performs the actual parabole fitting for the peakdetect_parabole function.</span>
+<span class="sd">    </span>
+<span class="sd">    :param raw_peaks:</span>
+<span class="sd">        a list of either the maximium or the minimum peaks, as given</span>
+<span class="sd">        by the peakdetect_zero_crossing function, with index used as x-axis</span>
+<span class="sd">    :param x_axis:</span>
+<span class="sd">        a numpy list of all the x values</span>
+<span class="sd">    :param y_axis:</span>
+<span class="sd">        a numpy list of all the y values</span>
+<span class="sd">    :parampoints:</span>
+<span class="sd">        How many points around the peak should be used during curve fitting, must be odd.</span>
+<span class="sd">    </span>
+<span class="sd">    :returns: array</span>
+<span class="sd">         -- A list giving all the peaks and the fitted waveform, format: [[x, y, [fitted_x, fitted_y]]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="n">k</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">tau</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">m</span>
+    <span class="n">fitted_peaks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">raw_peaks</span><span class="p">:</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">peak</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x_data</span> <span class="o">=</span> <span class="n">x_axis</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="n">points</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span> <span class="n">index</span> <span class="o">+</span> <span class="n">points</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">y_data</span> <span class="o">=</span> <span class="n">y_axis</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="n">points</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span> <span class="n">index</span> <span class="o">+</span> <span class="n">points</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="c"># get a first approximation of tau (peak position in time)</span>
+        <span class="n">tau</span> <span class="o">=</span> <span class="n">x_axis</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="c"># get a first approximation of peak amplitude</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">peak</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="c"># build list of approximations</span>
+        <span class="c"># k = -m as first approximation?</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+        <span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">p0</span><span class="p">)</span>
+        <span class="c"># retrieve tau and m i.e x and y value of peak</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        
+        <span class="c"># create a high resolution data set for the fitted waveform</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">points</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="o">*</span><span class="n">popt</span><span class="p">)</span>
+        
+        <span class="n">fitted_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">]])</span>
+        
+    <span class="k">return</span> <span class="n">fitted_peaks</span>
+    
+    
+<div class="viewcode-block" id="peakdetect"><a class="viewcode-back" href="../../utils.html#utils.PeakDetect.peakdetect">[docs]</a><span class="k">def</span> <span class="nf">peakdetect</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">x_axis</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">lookahead</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It discovers peaks by searching for values which are surrounded by lower</span>
+<span class="sd">    or larger values for maxima and minima, respectively. This script is converted from/based on a MATLAB script at: </span>
+<span class="sd">    http://billauer.co.il/peakdet.html</span>
+<span class="sd">    </span>
+<span class="sd">    for detecting local maxima and minmia in a signal.</span>
+
+<span class="sd">    :param y_axis:</span>
+<span class="sd">        a list containg the signal over which to find peaks</span>
+<span class="sd">    :param x_axis:</span>
+<span class="sd">        (optional) a x-axis whose values correspond to the y_axis list and is used in the return to specify the postion of the peaks.</span>
+<span class="sd">        If omitted an index of the y_axis is used. Default: None</span>
+<span class="sd">        </span>
+<span class="sd">    :param lookahead: (optional) distance to look ahead from a peak candidate to determine if it is the actual peak (default: 200) </span>
+<span class="sd">        &#39;(sample / period) / f&#39; where &#39;4 &gt;= f &gt;= 1.25&#39; might be a good value</span>
+<span class="sd">        </span>
+<span class="sd">    :param delta: (optional) this specifies a minimum difference between a peak and the following points,</span>
+<span class="sd">        before a peak may be considered a peak. Useful to hinder the function from picking up false peaks towards to end of the signal.</span>
+<span class="sd">        To work well delta should be set to delta &gt;= RMSnoise * 5. Default: 0</span>
+<span class="sd">        delta function causes a 20% decrease in speed, when omitted. Correctly used it can double the speed of the function</span>
+<span class="sd">    </span>
+<span class="sd">    :returns: two lists [max_peaks, min_peaks] containing the positive and negative peaks, respectively.</span>
+<span class="sd">        Each cell of the lists contains a tuple of: (position, peak_value) to get the average peak value do:</span>
+<span class="sd">        np.mean(max_peaks, 0)[1] on the results to unpack one of the lists into x, y coordinates do: x, y = zip(*tab)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">max_peaks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">min_peaks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dump</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c">#Used to pop the first hit which almost always is false</span>
+       
+    <span class="c"># check input data</span>
+    <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span> <span class="o">=</span> <span class="n">_datacheck_peakdetect</span><span class="p">(</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">)</span>
+    <span class="c"># store data length for later use</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span>
+    
+    
+    <span class="c">#perform some checks</span>
+    <span class="k">if</span> <span class="n">lookahead</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s">&quot;Lookahead must be &#39;1&#39; or above in value&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span> <span class="ow">and</span> <span class="n">delta</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s">&quot;delta must be a positive number&quot;</span>
+    
+    <span class="c">#maxima and minima candidates are temporarily stored in</span>
+    <span class="c">#mx and mn respectively</span>
+    <span class="n">mn</span><span class="p">,</span> <span class="n">mx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">Inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">Inf</span>
+    
+    <span class="c">#Only detect peak if there is &#39;lookahead&#39; amount of points after it</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x_axis</span><span class="p">[:</span><span class="o">-</span><span class="n">lookahead</span><span class="p">],</span> 
+                                        <span class="n">y_axis</span><span class="p">[:</span><span class="o">-</span><span class="n">lookahead</span><span class="p">])):</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">mx</span><span class="p">:</span>
+            <span class="n">mx</span> <span class="o">=</span> <span class="n">y</span>
+            <span class="n">mxpos</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">mn</span><span class="p">:</span>
+            <span class="n">mn</span> <span class="o">=</span> <span class="n">y</span>
+            <span class="n">mnpos</span> <span class="o">=</span> <span class="n">x</span>
+        
+        <span class="c">####look for max####</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">mx</span><span class="o">-</span><span class="n">delta</span> <span class="ow">and</span> <span class="n">mx</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">Inf</span><span class="p">:</span>
+            <span class="c">#Maxima peak candidate found</span>
+            <span class="c">#look ahead in signal to ensure that this is a peak and not jitter</span>
+            <span class="k">if</span> <span class="n">y_axis</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="n">index</span><span class="o">+</span><span class="n">lookahead</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">mx</span><span class="p">:</span>
+                <span class="n">max_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">mxpos</span><span class="p">,</span> <span class="n">mx</span><span class="p">])</span>
+                <span class="n">dump</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+                <span class="c">#set algorithm to only find minima now</span>
+                <span class="n">mx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">Inf</span>
+                <span class="n">mn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">Inf</span>
+                <span class="k">if</span> <span class="n">index</span><span class="o">+</span><span class="n">lookahead</span> <span class="o">&gt;=</span> <span class="n">length</span><span class="p">:</span>
+                    <span class="c">#end is within lookahead no more peaks can be found</span>
+                    <span class="k">break</span>
+                <span class="k">continue</span>
+            <span class="c">#else:  #slows shit down this does</span>
+            <span class="c">#    mx = ahead</span>
+            <span class="c">#    mxpos = x_axis[np.where(y_axis[index:index+lookahead]==mx)]</span>
+        
+        <span class="c">####look for min####</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">mn</span><span class="o">+</span><span class="n">delta</span> <span class="ow">and</span> <span class="n">mn</span> <span class="o">!=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">Inf</span><span class="p">:</span>
+            <span class="c">#Minima peak candidate found </span>
+            <span class="c">#look ahead in signal to ensure that this is a peak and not jitter</span>
+            <span class="k">if</span> <span class="n">y_axis</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="n">index</span><span class="o">+</span><span class="n">lookahead</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">mn</span><span class="p">:</span>
+                <span class="n">min_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">mnpos</span><span class="p">,</span> <span class="n">mn</span><span class="p">])</span>
+                <span class="n">dump</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+                <span class="c">#set algorithm to only find maxima now</span>
+                <span class="n">mn</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">Inf</span>
+                <span class="n">mx</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">Inf</span>
+                <span class="k">if</span> <span class="n">index</span><span class="o">+</span><span class="n">lookahead</span> <span class="o">&gt;=</span> <span class="n">length</span><span class="p">:</span>
+                    <span class="c">#end is within lookahead no more peaks can be found</span>
+                    <span class="k">break</span>
+            <span class="c">#else:  #slows shit down this does</span>
+            <span class="c">#    mn = ahead</span>
+            <span class="c">#    mnpos = x_axis[np.where(y_axis[index:index+lookahead]==mn)]</span>
+    
+    
+    <span class="c">#Remove the false hit on the first value of the y_axis</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">dump</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">max_peaks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">min_peaks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">dump</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="c">#no peaks were found, should the function return empty lists?</span>
+        <span class="k">pass</span>
+        
+    <span class="k">return</span> <span class="p">[</span><span class="n">max_peaks</span><span class="p">,</span> <span class="n">min_peaks</span><span class="p">]</span>
+    
+    </div>
+<div class="viewcode-block" id="peakdetect_fft"><a class="viewcode-back" href="../../utils.html#utils.PeakDetect.peakdetect_fft">[docs]</a><span class="k">def</span> <span class="nf">peakdetect_fft</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">pad_len</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It performs a FFT calculation on the data and zero-pads the results to</span>
+<span class="sd">    increase the time domain resolution after performing the inverse fft and</span>
+<span class="sd">    send the data to the &#39;peakdetect&#39; function for peak </span>
+<span class="sd">    detection.</span>
+<span class="sd">    </span>
+<span class="sd">    Omitting the x_axis is forbidden as it would make the resulting x_axis</span>
+<span class="sd">    value silly if it was returned as the index 50.234 or similar.</span>
+<span class="sd">    </span>
+<span class="sd">    Will find at least 1 less peak then the &#39;peakdetect_zero_crossing&#39;</span>
+<span class="sd">    function, but should result in a more precise value of the peak as</span>
+<span class="sd">    resolution has been increased. Some peaks are lost in an attempt to</span>
+<span class="sd">    minimize spectral leakage by calculating the fft between two zero</span>
+<span class="sd">    crossings for n amount of signal periods.</span>
+<span class="sd">    </span>
+<span class="sd">    The biggest time eater in this function is the ifft and thereafter it&#39;s</span>
+<span class="sd">    the &#39;peakdetect&#39; function which takes only half the time of the ifft.</span>
+<span class="sd">    Speed improvementd could include to check if 2**n points could be used for</span>
+<span class="sd">    fft and ifft or change the &#39;peakdetect&#39; to the &#39;peakdetect_zero_crossing&#39;,</span>
+<span class="sd">    which is maybe 10 times faster than &#39;peakdetct&#39;. The pro of &#39;peakdetect&#39;</span>
+<span class="sd">    is that it resutls in one less lost peak. It should also be noted that the</span>
+<span class="sd">    time used by the ifft function can change greatly depending on the input.</span>
+<span class="sd">    </span>
+<span class="sd">    :param y_axis: a list containg the signal over which to find peaks</span>
+<span class="sd">    :param x_axis: a x-axis whose values correspond to the y_axis list and is used</span>
+<span class="sd">        in the return to specify the postion of the peaks.</span>
+<span class="sd">    :param pad_len: (optional) how many times the time resolution should be</span>
+<span class="sd">        increased by, e.g. 1 doubles the resolution. The amount is rounded up</span>
+<span class="sd">        to the nearest 2 ** n amount (default: 5)</span>
+<span class="sd">    </span>
+<span class="sd">    :returns: two lists [max_peaks, min_peaks] containing the positive and</span>
+<span class="sd">        negative peaks respectively. Each cell of the lists contains a tupple</span>
+<span class="sd">        of: (position, peak_value) </span>
+<span class="sd">        to get the average peak value do: np.mean(max_peaks, 0)[1] on the</span>
+<span class="sd">        results to unpack one of the lists into x, y coordinates do: </span>
+<span class="sd">        x, y = zip(*tab)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># check input data</span>
+    <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span> <span class="o">=</span> <span class="n">_datacheck_peakdetect</span><span class="p">(</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">)</span>
+    <span class="n">zero_indices</span> <span class="o">=</span> <span class="n">zero_crossings</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">window</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+    <span class="c">#select a n amount of periods</span>
+    <span class="n">last_indice</span> <span class="o">=</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">zero_indices</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c"># Calculate the fft between the first and last zero crossing</span>
+    <span class="c"># this method could be ignored if the begining and the end of the signal</span>
+    <span class="c"># are discardable as any errors induced from not using whole periods</span>
+    <span class="c"># should mainly manifest in the beginning and the end of the signal, but</span>
+    <span class="c"># not in the rest of the signal</span>
+    <span class="n">fft_data</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">y_axis</span><span class="p">[</span><span class="n">zero_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">zero_indices</span><span class="p">[</span><span class="n">last_indice</span><span class="p">]])</span>
+    <span class="n">padd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">c</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="c"># padds to 2**n amount of samples</span>
+    <span class="n">fft_padded</span> <span class="o">=</span> <span class="n">padd</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">fft_data</span><span class="p">),</span> <span class="mi">2</span> <span class="o">**</span> 
+                <span class="n">n</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fft_data</span><span class="p">)</span> <span class="o">*</span> <span class="n">pad_len</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">fft_data</span><span class="p">))</span>
+    
+    <span class="c"># There is amplitude decrease directly proportional to the sample increase</span>
+    <span class="n">sf</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fft_padded</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fft_data</span><span class="p">))</span>
+    <span class="c"># There might be a leakage giving the result an imaginary component</span>
+    <span class="c"># Return only the real component</span>
+    <span class="n">y_axis_ifft</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">fft_padded</span><span class="p">)</span><span class="o">.</span><span class="n">real</span> <span class="o">*</span> <span class="n">sf</span> <span class="c">#(pad_len + 1)</span>
+    <span class="n">x_axis_ifft</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+                <span class="n">x_axis</span><span class="p">[</span><span class="n">zero_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">x_axis</span><span class="p">[</span><span class="n">zero_indices</span><span class="p">[</span><span class="n">last_indice</span><span class="p">]],</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">y_axis_ifft</span><span class="p">))</span>
+    <span class="c"># get the peaks to the interpolated waveform</span>
+    <span class="n">max_peaks</span><span class="p">,</span> <span class="n">min_peaks</span> <span class="o">=</span> <span class="n">peakdetect</span><span class="p">(</span><span class="n">y_axis_ifft</span><span class="p">,</span> <span class="n">x_axis_ifft</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span>
+                                    <span class="n">delta</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="c">#max_peaks, min_peaks = peakdetect_zero_crossing(y_axis_ifft, x_axis_ifft)</span>
+    
+    <span class="c"># store one 20th of a period as waveform data</span>
+    <span class="n">data_len</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">zero_indices</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="mi">10</span>
+    <span class="n">data_len</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">data_len</span> <span class="o">&amp;</span> <span class="mi">1</span>
+    
+    
+    <span class="n">fitted_wave</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">peaks</span> <span class="ow">in</span> <span class="p">[</span><span class="n">max_peaks</span><span class="p">,</span> <span class="n">min_peaks</span><span class="p">]:</span>
+        <span class="n">peak_fit_tmp</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">peaks</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x_axis_ifft</span><span class="p">[</span><span class="n">index</span><span class="p">:]</span><span class="o">==</span><span class="n">peak</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">index</span>
+            <span class="n">x_fit_lim</span> <span class="o">=</span> <span class="n">x_axis_ifft</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="n">data_len</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
+                                    <span class="n">index</span> <span class="o">+</span> <span class="n">data_len</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">y_fit_lim</span> <span class="o">=</span> <span class="n">y_axis_ifft</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="n">data_len</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
+                                    <span class="n">index</span> <span class="o">+</span> <span class="n">data_len</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            
+            <span class="n">peak_fit_tmp</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x_fit_lim</span><span class="p">,</span> <span class="n">y_fit_lim</span><span class="p">])</span>
+        <span class="n">fitted_wave</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak_fit_tmp</span><span class="p">)</span>
+    
+    <span class="c">#pylab.plot(range(len(fft_data)), fft_data)</span>
+    <span class="c">#pylab.show()</span>
+    
+    <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_axis_ifft</span><span class="p">,</span> <span class="n">y_axis_ifft</span><span class="p">)</span>
+    <span class="c">#for max_p in max_peaks:</span>
+    <span class="c">#    pylab.plot(max_p[0], max_p[1], &#39;xr&#39;)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">max_peaks</span><span class="p">,</span> <span class="n">min_peaks</span><span class="p">]</span>
+    
+    </div>
+<div class="viewcode-block" id="peakdetect_parabole"><a class="viewcode-back" href="../../utils.html#utils.PeakDetect.peakdetect_parabole">[docs]</a><span class="k">def</span> <span class="nf">peakdetect_parabole</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">points</span> <span class="o">=</span> <span class="mi">9</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    IT detects local maxima and minima in a signal.</span>
+<span class="sd">    Discovers peaks by fitting the model function: y = k (x - tau) ** 2 + m</span>
+<span class="sd">    to the peaks. The amount of points used in the fitting is set by the</span>
+<span class="sd">    points argument.</span>
+<span class="sd">    </span>
+<span class="sd">    Omitting the x_axis is forbidden as it would make the resulting x_axis</span>
+<span class="sd">    value silly if it was returned as index 50.234 or similar.</span>
+<span class="sd">    </span>
+<span class="sd">    will find the same amount of peaks as the &#39;peakdetect_zero_crossing&#39;</span>
+<span class="sd">    function, but might result in a more precise value of the peak.</span>
+<span class="sd">    </span>
+<span class="sd">    :param y_axis: a list containg the signal over which to find peaks</span>
+<span class="sd">    :param x_axis: a x-axis whose values correspond to the y_axis list and is used</span>
+<span class="sd">        in the return to specify the postion of the peaks.</span>
+<span class="sd">    :param points: (optional) How many points around the peak should be used during</span>
+<span class="sd">        curve fitting, must be odd (default: 9)</span>
+<span class="sd">    </span>
+<span class="sd">    :returns: two lists [max_peaks, min_peaks] containing the positive and</span>
+<span class="sd">        negative peaks respectively. Each cell of the lists contains a list</span>
+<span class="sd">        of: (position, peak_value) </span>
+<span class="sd">        to get the average peak value do: np.mean(max_peaks, 0)[1] on the</span>
+<span class="sd">        results to unpack one of the lists into x, y coordinates do: </span>
+<span class="sd">        x, y = zip(*max_peaks)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># check input data</span>
+    <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span> <span class="o">=</span> <span class="n">_datacheck_peakdetect</span><span class="p">(</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">)</span>
+    <span class="c"># make the points argument odd</span>
+    <span class="n">points</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">points</span> <span class="o">%</span> <span class="mi">2</span>
+    <span class="c">#points += 1 - int(points) &amp; 1 slower when int conversion needed</span>
+    
+    <span class="c"># get raw peaks</span>
+    <span class="n">max_raw</span><span class="p">,</span> <span class="n">min_raw</span> <span class="o">=</span> <span class="n">peakdetect_zero_crossing</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span>
+    
+    <span class="c"># define output variable</span>
+    <span class="n">max_peaks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">min_peaks</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="n">max_</span> <span class="o">=</span> <span class="n">_peakdetect_parabole_fitter</span><span class="p">(</span><span class="n">max_raw</span><span class="p">,</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span>
+    <span class="n">min_</span> <span class="o">=</span> <span class="n">_peakdetect_parabole_fitter</span><span class="p">(</span><span class="n">min_raw</span><span class="p">,</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span>
+    
+    <span class="n">max_peaks</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">max_</span><span class="p">)</span>
+    <span class="n">max_fitted</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">max_</span><span class="p">)</span>
+    <span class="n">min_peaks</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">min_</span><span class="p">)</span>
+    <span class="n">min_fitted</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">min_</span><span class="p">)</span>
+    
+    
+    <span class="c">#pylab.plot(x_axis, y_axis)</span>
+    <span class="c">#pylab.hold(True)</span>
+    <span class="c">#for max_p, max_f in zip(max_peaks, max_fitted):</span>
+    <span class="c">#    pylab.plot(max_p[0], max_p[1], &#39;x&#39;)</span>
+    <span class="c">#    pylab.plot(max_f[0], max_f[1], &#39;o&#39;, markersize = 2)</span>
+    <span class="c">#for min_p, min_f in zip(min_peaks, min_fitted):</span>
+    <span class="c">#    pylab.plot(min_p[0], min_p[1], &#39;x&#39;)</span>
+    <span class="c">#    pylab.plot(min_f[0], min_f[1], &#39;o&#39;, markersize = 2)</span>
+    <span class="c">#pylab.show()</span>
+    
+    <span class="k">return</span> <span class="p">[</span><span class="n">max_peaks</span><span class="p">,</span> <span class="n">min_peaks</span><span class="p">]</span>
+    
+</div>
+<div class="viewcode-block" id="peakdetect_sine"><a class="viewcode-back" href="../../utils.html#utils.PeakDetect.peakdetect_sine">[docs]</a><span class="k">def</span> <span class="nf">peakdetect_sine</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">points</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="n">lock_frequency</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It detects local maxima and minima in a signal.</span>
+<span class="sd">    It discovers peaks by fitting the model function:</span>
+<span class="sd">    y = A * sin(2 * pi * f * x - tau) to the peaks. The amount of points used</span>
+<span class="sd">    in the fitting is set by the points argument.</span>
+<span class="sd">    </span>
+<span class="sd">    Omitting the x_axis is forbidden as it would make the resulting x_axis</span>
+<span class="sd">    value silly if it was returned as index 50.234 or similar.</span>
+<span class="sd">    </span>
+<span class="sd">    will find the same amount of peaks as the &#39;peakdetect_zero_crossing&#39;</span>
+<span class="sd">    function, but might result in a more precise value of the peak.</span>
+<span class="sd">    </span>
+<span class="sd">    The function might have some problems if the sine wave has a</span>
+<span class="sd">    non-negligible total angle i.e. a k*x component, as this messes with the</span>
+<span class="sd">    internal offset calculation of the peaks, might be fixed by fitting a </span>
+<span class="sd">    k * x + m function to the peaks for offset calculation.</span>
+<span class="sd">    </span>
+<span class="sd">    :param y_axis: a list containg the signal over which to find peaks</span>
+<span class="sd">    :param x_axis: a x-axis whose values correspond to the y_axis list and is used</span>
+<span class="sd">        in the return to specify the postion of the peaks.</span>
+<span class="sd">    :param points: (optional) How many points around the peak should be used during</span>
+<span class="sd">        curve fitting, must be odd (default: 9)</span>
+<span class="sd">    :param lock_frequency: (optional) Specifies if the frequency argument of the</span>
+<span class="sd">        model function should be locked to the value calculated from the raw</span>
+<span class="sd">        peaks or if optimization process may tinker with it. (default: False)</span>
+<span class="sd">    </span>
+<span class="sd">    :returns: two lists [max_peaks, min_peaks] containing the positive and</span>
+<span class="sd">        negative peaks respectively. Each cell of the lists contains a tupple</span>
+<span class="sd">        of: (position, peak_value) </span>
+<span class="sd">        to get the average peak value do: np.mean(max_peaks, 0)[1] on the</span>
+<span class="sd">        results to unpack one of the lists into x, y coordinates do: </span>
+<span class="sd">        x, y = zip(*tab)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># check input data</span>
+    <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span> <span class="o">=</span> <span class="n">_datacheck_peakdetect</span><span class="p">(</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">)</span>
+    <span class="c"># make the points argument odd</span>
+    <span class="n">points</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">points</span> <span class="o">%</span> <span class="mi">2</span>
+    <span class="c">#points += 1 - int(points) &amp; 1 slower when int conversion needed</span>
+    
+    <span class="c"># get raw peaks</span>
+    <span class="n">max_raw</span><span class="p">,</span> <span class="n">min_raw</span> <span class="o">=</span> <span class="n">peakdetect_zero_crossing</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span>
+    
+    <span class="c"># define output variable</span>
+    <span class="n">max_peaks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">min_peaks</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c"># get global offset</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">max_raw</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">min_raw</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="c"># fitting a k * x + m function to the peaks might be better</span>
+    <span class="c">#offset_func = lambda x, k, m: k * x + m</span>
+    
+    <span class="c"># calculate an approximate frequenzy of the signal</span>
+    <span class="n">Hz</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">raw</span> <span class="ow">in</span> <span class="p">[</span><span class="n">max_raw</span><span class="p">,</span> <span class="n">min_raw</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">peak_pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_axis</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">raw</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="n">Hz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">peak_pos</span><span class="p">)))</span>
+    <span class="n">Hz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">Hz</span><span class="p">)</span>
+    
+    <span class="c"># model function</span>
+    <span class="c"># if cosine is used then tau could equal the x position of the peak</span>
+    <span class="c"># if sine were to be used then tau would be the first zero crossing</span>
+    <span class="k">if</span> <span class="n">lock_frequency</span><span class="p">:</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">tau</span><span class="p">:</span> <span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">Hz</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">tau</span><span class="p">)</span> <span class="o">+</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Hz</span><span class="p">,</span> <span class="n">tau</span><span class="p">:</span> <span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">Hz</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">tau</span><span class="p">)</span> <span class="o">+</span> 
+                                                <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="c">#func = lambda x, A, Hz, tau: A * np.cos(2 * pi * Hz * (x - tau))</span>
+    
+    
+    <span class="c">#get peaks</span>
+    <span class="n">fitted_peaks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">raw_peaks</span> <span class="ow">in</span> <span class="p">[</span><span class="n">max_raw</span><span class="p">,</span> <span class="n">min_raw</span><span class="p">]:</span>
+        <span class="n">peak_data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">raw_peaks</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">peak</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">x_data</span> <span class="o">=</span> <span class="n">x_axis</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="n">points</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span> <span class="n">index</span> <span class="o">+</span> <span class="n">points</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">y_data</span> <span class="o">=</span> <span class="n">y_axis</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="n">points</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span> <span class="n">index</span> <span class="o">+</span> <span class="n">points</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="c"># get a first approximation of tau (peak position in time)</span>
+            <span class="n">tau</span> <span class="o">=</span> <span class="n">x_axis</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="c"># get a first approximation of peak amplitude</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">peak</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            
+            <span class="c"># build list of approximations</span>
+            <span class="k">if</span> <span class="n">lock_frequency</span><span class="p">:</span>
+                <span class="n">p0</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">tau</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">p0</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Hz</span><span class="p">,</span> <span class="n">tau</span><span class="p">)</span>
+            
+            <span class="c"># subtract offset from waveshape</span>
+            <span class="n">y_data</span> <span class="o">-=</span> <span class="n">offset</span>
+            <span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">p0</span><span class="p">)</span>
+            <span class="c"># retrieve tau and A i.e x and y value of peak</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">popt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            
+            <span class="c"># create a high resolution data set for the fitted waveform</span>
+            <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">points</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">y2</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="o">*</span><span class="n">popt</span><span class="p">)</span>
+            
+            <span class="c"># add the offset to the results</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="n">offset</span>
+            <span class="n">y2</span> <span class="o">+=</span> <span class="n">offset</span>
+            <span class="n">y_data</span> <span class="o">+=</span> <span class="n">offset</span>
+            
+            <span class="n">peak_data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">]])</span>
+       
+        <span class="n">fitted_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak_data</span><span class="p">)</span>
+    
+    <span class="c"># structure date for output</span>
+    <span class="n">max_peaks</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">fitted_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">max_fitted</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">fitted_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">min_peaks</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">fitted_peaks</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">min_fitted</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">fitted_peaks</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    
+    
+    <span class="c">#pylab.plot(x_axis, y_axis)</span>
+    <span class="c">#pylab.hold(True)</span>
+    <span class="c">#for max_p, max_f in zip(max_peaks, max_fitted):</span>
+    <span class="c">#    pylab.plot(max_p[0], max_p[1], &#39;x&#39;)</span>
+    <span class="c">#    pylab.plot(max_f[0], max_f[1], &#39;o&#39;, markersize = 2)</span>
+    <span class="c">#for min_p, min_f in zip(min_peaks, min_fitted):</span>
+    <span class="c">#    pylab.plot(min_p[0], min_p[1], &#39;x&#39;)</span>
+    <span class="c">#    pylab.plot(min_f[0], min_f[1], &#39;o&#39;, markersize = 2)</span>
+    <span class="c">#pylab.show()</span>
+    
+    <span class="k">return</span> <span class="p">[</span><span class="n">max_peaks</span><span class="p">,</span> <span class="n">min_peaks</span><span class="p">]</span>
+
+    </div>
+<div class="viewcode-block" id="peakdetect_sine_locked"><a class="viewcode-back" href="../../utils.html#utils.PeakDetect.peakdetect_sine_locked">[docs]</a><span class="k">def</span> <span class="nf">peakdetect_sine_locked</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">points</span> <span class="o">=</span> <span class="mi">9</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It is a convinience function for calling the &#39;peakdetect_sine&#39; function with</span>
+<span class="sd">    the lock_frequency argument as True.</span>
+<span class="sd">    </span>
+<span class="sd">    :param y_axis: a list containg the signal over which to find peaks</span>
+<span class="sd">    :param x_axis: a x-axis whose values correspond to the y_axis list and is used</span>
+<span class="sd">        in the return to specify the postion of the peaks.</span>
+<span class="sd">    :param points: (optional) how many points around the peak should be used during</span>
+<span class="sd">        curve fitting, must be odd (default: 9)</span>
+<span class="sd">        </span>
+<span class="sd">    :returns: see &#39;peakdetect_sine&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">peakdetect_sine</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+    
+    </div>
+<div class="viewcode-block" id="peakdetect_zero_crossing"><a class="viewcode-back" href="../../utils.html#utils.PeakDetect.peakdetect_zero_crossing">[docs]</a><span class="k">def</span> <span class="nf">peakdetect_zero_crossing</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">x_axis</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">window</span> <span class="o">=</span> <span class="mi">11</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It detects local maxima and minima in a signal.</span>
+<span class="sd">    It discovers peaks by dividing the signal into bins and retrieving the</span>
+<span class="sd">    maximum and minimum value of each the even and odd bins respectively.</span>
+<span class="sd">    Division into bins is performed by smoothing the curve and finding the</span>
+<span class="sd">    zero crossings.</span>
+<span class="sd">    </span>
+<span class="sd">    Suitable for repeatable signals, where some noise is tolerated. Excecutes</span>
+<span class="sd">    faster than &#39;peakdetect&#39;, although this function will break if the offset</span>
+<span class="sd">    of the signal is too large. It should also be noted that the first and</span>
+<span class="sd">    last peak will probably not be found, as this function only can find peaks</span>
+<span class="sd">    between the first and last zero crossing.</span>
+<span class="sd">    </span>
+<span class="sd">    :param y_axis: a list containg the signal over which to find peaks</span>
+<span class="sd">    :param x_axis: (optional) a x-axis whose values correspond to the y_axis list</span>
+<span class="sd">        and is used in the return to specify the postion of the peaks. If</span>
+<span class="sd">        omitted an index of the y_axis is used. (default: None)</span>
+<span class="sd">    :param window: the dimension of the smoothing window; should be an odd integer</span>
+<span class="sd">        (default: 11)</span>
+<span class="sd">    </span>
+<span class="sd">    :returns: two lists [max_peaks, min_peaks] containing the positive and</span>
+<span class="sd">        negative peaks respectively. Each cell of the lists contains a tupple</span>
+<span class="sd">        of: (position, peak_value) </span>
+<span class="sd">        to get the average peak value do: np.mean(max_peaks, 0)[1] on the</span>
+<span class="sd">        results to unpack one of the lists into x, y coordinates do: </span>
+<span class="sd">        x, y = zip(*tab)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># check input data</span>
+    <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span> <span class="o">=</span> <span class="n">_datacheck_peakdetect</span><span class="p">(</span><span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">)</span>
+    
+    <span class="n">zero_indices</span> <span class="o">=</span> <span class="n">zero_crossings</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">window</span> <span class="o">=</span> <span class="n">window</span><span class="p">)</span>
+    <span class="n">period_lengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">zero_indices</span><span class="p">)</span>
+            
+    <span class="n">bins_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_axis</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="n">index</span> <span class="o">+</span> <span class="n">diff</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">diff</span> <span class="ow">in</span> 
+        <span class="nb">zip</span><span class="p">(</span><span class="n">zero_indices</span><span class="p">,</span> <span class="n">period_lengths</span><span class="p">)]</span>
+    <span class="n">bins_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_axis</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="n">index</span> <span class="o">+</span> <span class="n">diff</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">diff</span> <span class="ow">in</span> 
+        <span class="nb">zip</span><span class="p">(</span><span class="n">zero_indices</span><span class="p">,</span> <span class="n">period_lengths</span><span class="p">)]</span>
+        
+    <span class="n">even_bins_y</span> <span class="o">=</span> <span class="n">bins_y</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">odd_bins_y</span> <span class="o">=</span> <span class="n">bins_y</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">even_bins_x</span> <span class="o">=</span> <span class="n">bins_x</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">odd_bins_x</span> <span class="o">=</span> <span class="n">bins_x</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">hi_peaks_x</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">lo_peaks_x</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c">#check if even bin contains maxima</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">even_bins_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">even_bins_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()):</span>
+        <span class="n">hi_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">bin</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">for</span> <span class="nb">bin</span> <span class="ow">in</span> <span class="n">even_bins_y</span><span class="p">]</span>
+        <span class="n">lo_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">bin</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="k">for</span> <span class="nb">bin</span> <span class="ow">in</span> <span class="n">odd_bins_y</span><span class="p">]</span>
+        <span class="c"># get x values for peak</span>
+        <span class="k">for</span> <span class="n">bin_x</span><span class="p">,</span> <span class="n">bin_y</span><span class="p">,</span> <span class="n">peak</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">even_bins_x</span><span class="p">,</span> <span class="n">even_bins_y</span><span class="p">,</span> <span class="n">hi_peaks</span><span class="p">):</span>
+            <span class="n">hi_peaks_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bin_x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bin_y</span><span class="o">==</span><span class="n">peak</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="k">for</span> <span class="n">bin_x</span><span class="p">,</span> <span class="n">bin_y</span><span class="p">,</span> <span class="n">peak</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">odd_bins_x</span><span class="p">,</span> <span class="n">odd_bins_y</span><span class="p">,</span> <span class="n">lo_peaks</span><span class="p">):</span>
+            <span class="n">lo_peaks_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bin_x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bin_y</span><span class="o">==</span><span class="n">peak</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">hi_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">bin</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">for</span> <span class="nb">bin</span> <span class="ow">in</span> <span class="n">odd_bins_y</span><span class="p">]</span>
+        <span class="n">lo_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">bin</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="k">for</span> <span class="nb">bin</span> <span class="ow">in</span> <span class="n">even_bins_y</span><span class="p">]</span>
+        <span class="c"># get x values for peak</span>
+        <span class="k">for</span> <span class="n">bin_x</span><span class="p">,</span> <span class="n">bin_y</span><span class="p">,</span> <span class="n">peak</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">odd_bins_x</span><span class="p">,</span> <span class="n">odd_bins_y</span><span class="p">,</span> <span class="n">hi_peaks</span><span class="p">):</span>
+            <span class="n">hi_peaks_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bin_x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bin_y</span><span class="o">==</span><span class="n">peak</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="k">for</span> <span class="n">bin_x</span><span class="p">,</span> <span class="n">bin_y</span><span class="p">,</span> <span class="n">peak</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">even_bins_x</span><span class="p">,</span> <span class="n">even_bins_y</span><span class="p">,</span> <span class="n">lo_peaks</span><span class="p">):</span>
+            <span class="n">lo_peaks_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bin_x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bin_y</span><span class="o">==</span><span class="n">peak</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+    
+    <span class="n">max_peaks</span> <span class="o">=</span> <span class="p">[[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">hi_peaks_x</span><span class="p">,</span> <span class="n">hi_peaks</span><span class="p">)]</span>
+    <span class="n">min_peaks</span> <span class="o">=</span> <span class="p">[[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lo_peaks_x</span><span class="p">,</span> <span class="n">lo_peaks</span><span class="p">)]</span>
+    
+    <span class="k">return</span> <span class="p">[</span><span class="n">max_peaks</span><span class="p">,</span> <span class="n">min_peaks</span><span class="p">]</span>
+        
+    </div>
+<span class="k">def</span> <span class="nf">_smooth</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">window_len</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s">&#39;hanning&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It smoothes the signal by using a window of the requested size.</span>
+<span class="sd">    </span>
+<span class="sd">    This method is based on the convolution of a scaled window on the signal.</span>
+<span class="sd">    The signal is prepared by introducing reflected copies of the signal </span>
+<span class="sd">    (with the window size) in both ends so that transient parts are minimized</span>
+<span class="sd">    in the begining and end part of the output signal.</span>
+<span class="sd">    </span>
+<span class="sd">    :param x: the input signal </span>
+<span class="sd">    :param window_len: the dimension of the smoothing window; should be an odd </span>
+<span class="sd">        integer</span>
+<span class="sd">    :param window: the type of window from &#39;flat&#39;, &#39;hanning&#39;, &#39;hamming&#39;, </span>
+<span class="sd">        &#39;bartlett&#39;, &#39;blackman&#39;</span>
+<span class="sd">        flat window will produce a moving average smoothing.</span>
+
+<span class="sd">    :returns: the smoothed signal </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s">&quot;smooth only accepts 1 dimension arrays.&quot;</span>
+
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="n">window_len</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s">&quot;Input vector needs to be bigger than window size.&quot;</span>
+    
+    <span class="k">if</span> <span class="n">window_len</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">window</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;flat&#39;</span><span class="p">,</span> <span class="s">&#39;hanning&#39;</span><span class="p">,</span> <span class="s">&#39;hamming&#39;</span><span class="p">,</span> <span class="s">&#39;bartlett&#39;</span><span class="p">,</span> <span class="s">&#39;blackman&#39;</span><span class="p">]:</span>
+        <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span>
+            <span class="s">&quot;Window is not one of &#39;{0}&#39;, &#39;{1}&#39;, &#39;{2}&#39;, &#39;{3}&#39;, &#39;{4}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="o">*</span><span class="p">(</span><span class="s">&#39;flat&#39;</span><span class="p">,</span> <span class="s">&#39;hanning&#39;</span><span class="p">,</span> <span class="s">&#39;hamming&#39;</span><span class="p">,</span> <span class="s">&#39;bartlett&#39;</span><span class="p">,</span> <span class="s">&#39;blackman&#39;</span><span class="p">)))</span>
+    
+    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">window_len</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="n">window_len</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="c">#print(len(s))</span>
+    <span class="k">if</span> <span class="n">window</span> <span class="o">==</span> <span class="s">&#39;flat&#39;</span><span class="p">:</span> <span class="c">#moving average</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">window_len</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s">&#39;np.&#39;</span> <span class="o">+</span> <span class="n">window</span> <span class="o">+</span> <span class="s">&#39;(window_len)&#39;</span><span class="p">)</span>
+
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="n">w</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">s</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s">&#39;valid&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">y</span>
+    
+    
+<div class="viewcode-block" id="zero_crossings"><a class="viewcode-back" href="../../utils.html#utils.PeakDetect.zero_crossings">[docs]</a><span class="k">def</span> <span class="nf">zero_crossings</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">window</span> <span class="o">=</span> <span class="mi">11</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Algorithm to find zero crossings. Smoothes the curve and finds the</span>
+<span class="sd">    zero-crossings by looking for a sign change.</span>
+<span class="sd">    </span>
+<span class="sd">    :param y_axis: a list containg the signal over which to find zero-crossings</span>
+<span class="sd">    :param window: the dimension of the smoothing window; should be an odd integer</span>
+<span class="sd">        (default: 11)</span>
+<span class="sd">    </span>
+<span class="sd">    :returns: the index for each zero-crossing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># smooth the curve</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span>
+    <span class="n">x_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
+    
+    <span class="c"># discard tail of smoothed signal</span>
+    <span class="n">y_axis</span> <span class="o">=</span> <span class="n">_smooth</span><span class="p">(</span><span class="n">y_axis</span><span class="p">,</span> <span class="n">window</span><span class="p">)[:</span><span class="n">length</span><span class="p">]</span>
+    <span class="n">zero_crossings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_axis</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">zero_crossings</span><span class="p">]</span>
+    
+    <span class="c"># check if zero-crossings are valid</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">diff</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">diff</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.2</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">diff</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">diff</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="k">print</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+        <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> 
+            <span class="s">&quot;False zero-crossings found, indicates problem {0} or {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="s">&quot;with smoothing window&quot;</span><span class="p">,</span> <span class="s">&quot;problem with offset&quot;</span><span class="p">))</span>
+    <span class="c"># check if any zero crossings were found</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">zero_crossings</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s">&quot;No zero crossings found&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">indices</span> 
+    <span class="c"># used this to test the fft function&#39;s sensitivity to spectral leakage</span>
+    <span class="c">#return indices + np.asarray(30 * np.random.randn(len(indices)), int)</span>
+    
+<span class="c">############################Frequency calculation#############################</span>
+<span class="c">#    diff = np.diff(indices)</span>
+<span class="c">#    time_p_period = diff.mean()</span>
+<span class="c">#    </span>
+<span class="c">#    if diff.std() / time_p_period &gt; 0.1:</span>
+<span class="c">#        raise ValueError, </span>
+<span class="c">#            &quot;smoothing window too small, false zero-crossing found&quot;</span>
+<span class="c">#    </span>
+<span class="c">#    #return frequency</span>
+<span class="c">#    return 1.0 / time_p_period</span>
+<span class="c">##############################################################################</span>
+
+
+
+    
+    </div>
+<span class="k">def</span> <span class="nf">_test_zero</span><span class="p">():</span>
+    <span class="n">_max</span><span class="p">,</span> <span class="n">_min</span> <span class="o">=</span> <span class="n">peakdetect_zero_crossing</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_test</span><span class="p">():</span>
+    <span class="n">_max</span><span class="p">,</span> <span class="n">_min</span> <span class="o">=</span> <span class="n">peakdetect</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">0.30</span><span class="p">)</span>
+    
+    
+<span class="k">def</span> <span class="nf">_test_graph</span><span class="p">():</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">10000</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">3.7</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">1.3</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">4.2</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.06</span> <span class="o">*</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+    <span class="n">_max</span><span class="p">,</span> <span class="n">_min</span> <span class="o">=</span> <span class="n">peakdetect</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mi">750</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">)</span>
+    <span class="n">xm</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_max</span><span class="p">]</span>
+    <span class="n">ym</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_max</span><span class="p">]</span>
+    <span class="n">xn</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_min</span><span class="p">]</span>
+    <span class="n">yn</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_min</span><span class="p">]</span>
+    
+    <span class="n">plot</span> <span class="o">=</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xm</span><span class="p">,</span> <span class="n">ym</span><span class="p">,</span> <span class="s">&#39;r+&#39;</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">,</span> <span class="s">&#39;g+&#39;</span><span class="p">)</span>
+    
+    <span class="n">_max</span><span class="p">,</span> <span class="n">_min</span> <span class="o">=</span> <span class="n">peak_det_bad</span><span class="o">.</span><span class="n">peakdetect</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">xm</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_max</span><span class="p">]</span>
+    <span class="n">ym</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_max</span><span class="p">]</span>
+    <span class="n">xn</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_min</span><span class="p">]</span>
+    <span class="n">yn</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_min</span><span class="p">]</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xm</span><span class="p">,</span> <span class="n">ym</span><span class="p">,</span> <span class="s">&#39;y*&#39;</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">,</span> <span class="s">&#39;k*&#39;</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    
+    
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+    <span class="kn">import</span> <span class="nn">pylab</span>
+    
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">10000</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">3.7</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">1.3</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">4.2</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.06</span> <span class="o">*</span> 
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+    
+    <span class="n">_max</span><span class="p">,</span> <span class="n">_min</span> <span class="o">=</span> <span class="n">peakdetect</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">)</span>
+    <span class="n">xm</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_max</span><span class="p">]</span>
+    <span class="n">ym</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_max</span><span class="p">]</span>
+    <span class="n">xn</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_min</span><span class="p">]</span>
+    <span class="n">yn</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_min</span><span class="p">]</span>
+    
+    <span class="n">plot</span> <span class="o">=</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xm</span><span class="p">,</span> <span class="n">ym</span><span class="p">,</span> <span class="s">&#39;r+&#39;</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">,</span> <span class="s">&#39;g+&#39;</span><span class="p">)</span>
+    
+    
+    <span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../HomePage.html">Home Page</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Giovanna Varni, Marie Avril.
+      Last updated on Sep 02, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

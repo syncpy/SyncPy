@@ -1,0 +1,12 @@
+Parameter,Param_0,Param_1,Value
+Name,,,S_Estimator
+Description,,,"S_Estimator computes the S-Estimator, Genuine and Random Synchronization index for a set of monovariate series in unique matrix in DataFrame format."
+Type,,,Linear
+Data_Type,,,Continuous
+Signal_Type,,,Monovariate
+Number_User_Type,,,DataFromManyPersons
+Parameter_name,surr_nb_iter,plot,
+Parameter_type,int,bool,
+Parameter_description,"Number of surrogate iterations. 
+Default : 100","if True the plot of surrogates signals is returned. 
+Default: False",

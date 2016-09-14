@@ -1,0 +1,14 @@
+Multivariate package
+========================================
+
+.. automodule:: DataFromManyPersons.Multivariate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+
+    DataFromManyPersons.Multivariate.Categorical
+    DataFromManyPersons.Multivariate.Continuous
+

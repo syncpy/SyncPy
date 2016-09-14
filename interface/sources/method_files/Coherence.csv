@@ -1,0 +1,10 @@
+Parameter,Param_0,Param_1,Param_2,Param_3,Param_4,Value
+Name,,,,,,Coherence
+Description,,,,,,Computes the linear correlation between two monovariate time series x and y (in DataFrame format) as a function of the frequency. It is the cross-spectral density function normalized by the autospectral density function of x and y.
+Type,,,,,,Linear
+Data_Type,,,,,,Continuous
+Signal_Type,,,,,,Monovariate
+Number_User_Type,,,,,,DataFrom2Persons
+Parameter_name,fs,NFFT,detrend,noverlap,plot,
+Parameter_type,float,int,int,int,bool,
+Parameter_description,sampling frequency of the input DataFrame in Hz. Default: 1.0,length of each epoch. Default: 256,specifies which kind of detrending should be computed on data. Ranges in [0;1]: 0 stands for constant detrending; 1 stands for linear detrending. Default: 0,number of points to overlap between epochs. Default: 0,if True the plot of coherence function is showed. Default: False,

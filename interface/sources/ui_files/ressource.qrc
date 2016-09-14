@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="logos">
+    <file>images/logo_isir.jpg</file>
+    <file>images/logo_smart_labex.jpg</file>
+    <file>images/logo_UPMC.png</file>
+  </qresource>
+</RCC>

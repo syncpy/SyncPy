@@ -1,0 +1,821 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Utils package &mdash; Home Page</title>
+    
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon_isir.ico"/>
+    <link rel="top" title="Home Page" href="HomePage.html" />
+    <link rel="up" title="Documentation" href="Documentation.html" />
+    <link rel="next" title="SyncPy library Examples" href="Examples.html" />
+    <link rel="prev" title="Nonlinear package" href="DataFromManyPersons.Multivariate.Continuous.Nonlinear.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header" role="banner">
+  <div class="logo">
+    <a href="HomePage.html">
+      <img class="logo" src="_static/hearder_image.png" alt="Logo"/>
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Examples.html" title="SyncPy library Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="DataFromManyPersons.Multivariate.Continuous.Nonlinear.html" title="Nonlinear package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="HomePage.html">Home Page</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="Documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-utils">
+<span id="utils-package"></span><h1>Utils package<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h1>
+<p>This package contains functionals of general utility directly used by synchrony methods or to preprocess the input signals</p>
+<div class="section" id="module-utils.Align">
+<span id="align-module"></span><h2>Align module<a class="headerlink" href="#module-utils.Align" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="utils.Align.Align">
+<code class="descclassname">utils.Align.</code><code class="descname">Align</code><span class="sig-paren">(</span><em>signal_1</em>, <em>signal_2</em>, <em>how='inner'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Align.html#Align"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Align.Align" title="Permalink to this definition">¶</a></dt>
+<dd><p>It aligns two monovariate signals (in pandas DataFrame format) according to their times indexes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>signal_1</strong> (<em>pd.DataFrame</em>) &#8211; first monovariate signal</li>
+<li><strong>signal_2</strong> (<em>pd.DataFrame</em>) &#8211; second monovariate signal</li>
+<li><strong>how</strong> (<em>str</em>) &#8211; <p>{&#8216;left&#8217;, &#8216;right&#8217;, &#8216;outer&#8217;, &#8216;inner&#8217;}
+How to handle indexes of the two objects for joining on index, None otherwise. Default: &#8216;inner&#8217;.</p>
+<p>&#8211; left: use calling frame&#8217;s index</p>
+<p>&#8211; right: use input frame&#8217;s index</p>
+<p>&#8211; outer: form union of indexes</p>
+<p>&#8211; inner: use intersection of indexes</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">pd.DataFrame
+&#8211; first aligned signal</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame
+&#8211; second aligned signal</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.ConvertContinueToBinary">
+<span id="convertcontinuetobinary-module"></span><h2>ConvertContinueToBinary module<a class="headerlink" href="#module-utils.ConvertContinueToBinary" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="utils.ConvertContinueToBinary.ConvertContinueToBinary">
+<code class="descclassname">utils.ConvertContinueToBinary.</code><code class="descname">ConvertContinueToBinary</code><span class="sig-paren">(</span><em>signal</em>, <em>threshold=0</em>, <em>maximize=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ConvertContinueToBinary.html#ConvertContinueToBinary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ConvertContinueToBinary.ConvertContinueToBinary" title="Permalink to this definition">¶</a></dt>
+<dd><p>It converts a continue signal (in pandas DataFrame format) into a binany signal according to a rule defined by a threshold and a type of filter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>signal</strong> (<em>pd.DataFrame</em>) &#8211; input signal</li>
+<li><strong>threshold</strong> (<em>float</em>) &#8211; value of the threshold. Default: 0</li>
+<li><strong>maximize</strong> (<em>bool</em>) &#8211; is True if the conversion is done for values higher than the threshold. Default: True</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame 
+&#8211; binarized signal</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.Cpsd">
+<span id="cpsd-module"></span><h2>Cpsd module<a class="headerlink" href="#module-utils.Cpsd" title="Permalink to this headline">¶</a></h2>
+<p><em>Module author: Giovanna Varni</em></p>
+<dl class="function">
+<dt id="utils.Cpsd.Cpsd">
+<code class="descclassname">utils.Cpsd.</code><code class="descname">Cpsd</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>fs=1.0</em>, <em>NFFT=256</em>, <em>detrend=0</em>, <em>noverlap=0</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Cpsd.html#Cpsd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Cpsd.Cpsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>It computes the cross power spectral density of two monovariate signals x and y (in pandas DataFrame format) by Welch&#8217;s.
+This density is as the average of the density through the epochs (segments) of x and y
+and it is corrected for the power leakage due to (the hanning) windowing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>pd.DataFrame</em>) &#8211; first input signal</li>
+<li><strong>y</strong> (<em>pd.DataFrame</em>) &#8211; second input signal</li>
+<li><strong>fs</strong> (<em>float</em>) &#8211; it is the sampling frequency of x (in Hz);</li>
+<li><strong>NFFT</strong> (<em>int</em>) &#8211; it is the length of each epoch (segment);</li>
+<li><strong>detrend</strong> (<em>bool</em>) &#8211; it specifies how the data can be detrended. Three options are avaliable:
+1. 0 none;
+2. 1 mean detrending; and
+3. 1 linear detrending</li>
+<li><strong>noverlap</strong> (<em>bool</em>) &#8211; it is the number of samples to overlap between epochs (segments);</li>
+<li><strong>plot</strong> (<em>bool</em>) &#8211; if it is True the plot of the absolute of the density function is returned. Default: False</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict 
+&#8211; the cross power spectral density and the frequencies over which the coherence is computed</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.Detrend">
+<span id="detrend-module"></span><h2>Detrend module<a class="headerlink" href="#module-utils.Detrend" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="utils.Detrend.Detrend">
+<code class="descclassname">utils.Detrend.</code><code class="descname">Detrend</code><span class="sig-paren">(</span><em>signal</em>, <em>det_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Detrend.html#Detrend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Detrend.Detrend" title="Permalink to this definition">¶</a></dt>
+<dd><p>It removes constant or linear trending in a monoviarate/multivariate signal (in pandas DataFrame format).
+In case of multivariate signal, detrending is carried out on each column of the DataFrame</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>signal</strong> (<em>pd.DataFrame</em>) &#8211; input signal</li>
+<li><strong>det_type</strong> (<em>str</em>) &#8211; {&#8216;mean&#8217; &#8216;linear&#8217;}</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame 
+&#8211; detrended signal</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.Distance">
+<span id="distance-module"></span><h2>Distance module<a class="headerlink" href="#module-utils.Distance" title="Permalink to this headline">¶</a></h2>
+<p>It allows to compute several distance measures between monovariate/multivariate signals (in pandas DataFrame format).</p>
+<dl class="function">
+<dt id="utils.Distance.Mahalanobis">
+<code class="descclassname">utils.Distance.</code><code class="descname">Mahalanobis</code><span class="sig-paren">(</span><em>df1</em>, <em>df2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Distance.html#Mahalanobis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Distance.Mahalanobis" title="Permalink to this definition">¶</a></dt>
+<dd><p>It computes the Mahalanobis distance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>df1</strong> (<em>pd.DataFrame</em>) &#8211; first input signal</li>
+<li><strong>df2</strong> (<em>pd.DataFrame</em>) &#8211; second input signal</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">float
+&#8211; distance between the two signals</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.Distance.Minkowski">
+<code class="descclassname">utils.Distance.</code><code class="descname">Minkowski</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>order</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Distance.html#Minkowski"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Distance.Minkowski" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>It computes the Minkowski distance of order p (p cannot be less than 1).</dt>
+<dd><ol class="first last arabic simple">
+<li>p = 1, Manhattan distance;</li>
+<li>p = 2, Euclidean distance; and</li>
+<li>p = np.inf, Cebysev distance</li>
+</ol>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>pd.DataFrame</em>) &#8211; first input signal</li>
+<li><strong>y</strong> (<em>pd.DataFrame</em>) &#8211; second input signal</li>
+<li><strong>order</strong> &#8211; the order of the distance to be computed</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">float 
+&#8211; a pandas DataFrame with the p-order distance between the two signals</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.ExtractSignal">
+<span id="extractsignal-module"></span><h2>ExtractSignal module<a class="headerlink" href="#module-utils.ExtractSignal" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="utils.ExtractSignal.ExtractSignalFromCSV">
+<code class="descclassname">utils.ExtractSignal.</code><code class="descname">ExtractSignalFromCSV</code><span class="sig-paren">(</span><em>filename, separator=',', unit='ms', columns=['all']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ExtractSignal.html#ExtractSignalFromCSV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ExtractSignal.ExtractSignalFromCSV" title="Permalink to this definition">¶</a></dt>
+<dd><p>It extracts a signal from a .csv file (organized by columns, with first one corresponding to time index)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> (<em>str</em>) &#8211; complete path + filename to the csv file.</li>
+<li><strong>separator</strong> (<em>str</em>) &#8211; separator between columns in the csv file. Default: &#8216;,&#8217;</li>
+<li><strong>unit</strong> (<em>str</em>) &#8211; Time unit for the index. Default = &#8216;ms&#8217;</li>
+<li><strong>columns</strong> (<em>list</em>) &#8211; array containing columns name of index wanted for the signal.
+Default: &#8216;all&#8217;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame
+&#8211; Extracted signal</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.ExtractSignal.ExtractSignalFromELAN">
+<code class="descclassname">utils.ExtractSignal.</code><code class="descname">ExtractSignalFromELAN</code><span class="sig-paren">(</span><em>filename, separator=',', unit='s', columns_name=['Actor', ' ', 't_begin', 't_end', 'duration', 'Action', 'video'], total_duration=0, ele_per_sec=1, Actor='', Action='all'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ExtractSignal.html#ExtractSignalFromELAN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ExtractSignal.ExtractSignalFromELAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>It extracts a boolean signal from ELAN output annotations.
+It returns a boolean signal, a DataFrame with milliseconds timestamps.
+The freqency of timestamps is defined by &#8216;ele_per_sec&#8217;.
+The signal is True between two timestamps if in the file, the actor defined in &#8216;Actor&#8217; pararameter is doing the action
+defined in &#8216;Action&#8217;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> (<em>str</em>) &#8211; complete path + filename to the csv file out from ELAN</li>
+<li><strong>separator</strong> (<em>str</em>) &#8211; separator between columns in the csv file. Default: &#8216;,&#8217;</li>
+<li><strong>unit</strong> (<em>str</em>) &#8211; Time unit for the index. Default = &#8216;s&#8217;</li>
+<li><strong>columns_name</strong> (<em>list</em>) &#8211; array containing the names of each columns in ELAN File in the correct order
+It must contain at lest these exacts elements : &#8216;Actor&#8217;, &#8216;t_begin&#8217;, &#8216;t_end&#8217;, &#8216;Action&#8217;
+if a colunm is empty, give &#8216;&#8217; as name. Default: [&#8216;Actor&#8217;, &#8216; &#8216;, &#8216;t_begin&#8217;, &#8216;t_end&#8217;, &#8216;duration&#8217;, &#8216;Action&#8217;, &#8216;video&#8217;]</li>
+<li><strong>total_duration</strong> (<em>int</em>) &#8211; the total duration attempted for the signal, in time unit given by &#8216;unit&#8217;.
+If zero is given, the total duration will be computed as the end of the last event recorded in ELAN file. Default: 0</li>
+<li><strong>ele_per_sec</strong> (<em>int</em>) &#8211; Number of element wanted per second in the computed signal. Default = 1</li>
+<li><strong>Actor</strong> (<em>str</em>) &#8211; Name of the Actor in the ELAN annotation file</li>
+<li><strong>Action</strong> (<em>str</em>) &#8211; Name of the Action in the ELAN annotation file. Default =&#8217;all&#8217;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame
+&#8211; Monovariate boolean signal, with 1 at timestamps corresponding to the Action of the Actor, timestamps in ms</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.ExtractSignal.ExtractSignalFromMAT">
+<code class="descclassname">utils.ExtractSignal.</code><code class="descname">ExtractSignalFromMAT</code><span class="sig-paren">(</span><em>filename, columns_index=['all'], columns_wanted_names=['all'], unit='ms'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ExtractSignal.html#ExtractSignalFromMAT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ExtractSignal.ExtractSignalFromMAT" title="Permalink to this definition">¶</a></dt>
+<dd><p>It extracts a signal from a .mat MATLAB file (organized by columns, with first one corresponding to time index)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> (<em>str</em>) &#8211; complete path + filename to the mat file.</li>
+<li><strong>columns_index</strong> (<em>list</em>) &#8211; array containing columns indexes of index wanted for the signal.
+Default: &#8216;all&#8217;</li>
+<li><strong>columns_wanted_names</strong> (<em>list</em>) &#8211; array containing columns names wanted for the signal.
+Default: &#8216;all&#8217; (&#8216;0&#8217;, &#8216;1&#8217; ...)</li>
+<li><strong>unit</strong> (<em>str</em>) &#8211; Time unit for the index. Default = &#8216;ms&#8217;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame
+&#8211; Extracted signal</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.Normalize">
+<span id="normalize-module"></span><h2>Normalize module<a class="headerlink" href="#module-utils.Normalize" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="utils.Normalize.Normalize">
+<code class="descclassname">utils.Normalize.</code><code class="descname">Normalize</code><span class="sig-paren">(</span><em>signal, min_value=[0], max_value=[1]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Normalize.html#Normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Normalize.Normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>It normalizes function normalizes signal between min_value and max_value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>signal</strong> (<em>pd.DataFrame</em>) &#8211; input signal</li>
+<li><strong>min_value</strong> (<em>array</em>) &#8211; minimal value desired. Default: [0]</li>
+<li><strong>max_value</strong> (<em>array</em>) &#8211; maximal value desired. Default: [1]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame 
+&#8211; normalized signal</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.PeakDetect">
+<span id="peakdetect-module"></span><h2>PeakDetect module<a class="headerlink" href="#module-utils.PeakDetect" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="utils.PeakDetect.peakdetect">
+<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis=None</em>, <em>lookahead=300</em>, <em>delta=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect" title="Permalink to this definition">¶</a></dt>
+<dd><p>It discovers peaks by searching for values which are surrounded by lower
+or larger values for maxima and minima, respectively. This script is converted from/based on a MATLAB script at: 
+<a class="reference external" href="http://billauer.co.il/peakdet.html">http://billauer.co.il/peakdet.html</a></p>
+<p>for detecting local maxima and minmia in a signal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>y_axis</strong> &#8211; a list containg the signal over which to find peaks</li>
+<li><strong>x_axis</strong> &#8211; (optional) a x-axis whose values correspond to the y_axis list and is used in the return to specify the postion of the peaks.
+If omitted an index of the y_axis is used. Default: None</li>
+<li><strong>lookahead</strong> &#8211; (optional) distance to look ahead from a peak candidate to determine if it is the actual peak (default: 200) 
+&#8216;(sample / period) / f&#8217; where &#8216;4 &gt;= f &gt;= 1.25&#8217; might be a good value</li>
+<li><strong>delta</strong> &#8211; (optional) this specifies a minimum difference between a peak and the following points,
+before a peak may be considered a peak. Useful to hinder the function from picking up false peaks towards to end of the signal.
+To work well delta should be set to delta &gt;= RMSnoise * 5. Default: 0
+delta function causes a 20% decrease in speed, when omitted. Correctly used it can double the speed of the function</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">two lists [max_peaks, min_peaks] containing the positive and negative peaks, respectively.
+Each cell of the lists contains a tuple of: (position, peak_value) to get the average peak value do:
+np.mean(max_peaks, 0)[1] on the results to unpack one of the lists into x, y coordinates do: x, y = zip(<a href="#id1"><span class="problematic" id="id2">*</span></a>tab)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.PeakDetect.peakdetect_fft">
+<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect_fft</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis</em>, <em>pad_len=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_fft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_fft" title="Permalink to this definition">¶</a></dt>
+<dd><p>It performs a FFT calculation on the data and zero-pads the results to
+increase the time domain resolution after performing the inverse fft and
+send the data to the &#8216;peakdetect&#8217; function for peak 
+detection.</p>
+<p>Omitting the x_axis is forbidden as it would make the resulting x_axis
+value silly if it was returned as the index 50.234 or similar.</p>
+<p>Will find at least 1 less peak then the &#8216;peakdetect_zero_crossing&#8217;
+function, but should result in a more precise value of the peak as
+resolution has been increased. Some peaks are lost in an attempt to
+minimize spectral leakage by calculating the fft between two zero
+crossings for n amount of signal periods.</p>
+<p>The biggest time eater in this function is the ifft and thereafter it&#8217;s
+the &#8216;peakdetect&#8217; function which takes only half the time of the ifft.
+Speed improvementd could include to check if 2**n points could be used for
+fft and ifft or change the &#8216;peakdetect&#8217; to the &#8216;peakdetect_zero_crossing&#8217;,
+which is maybe 10 times faster than &#8216;peakdetct&#8217;. The pro of &#8216;peakdetect&#8217;
+is that it resutls in one less lost peak. It should also be noted that the
+time used by the ifft function can change greatly depending on the input.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>y_axis</strong> &#8211; a list containg the signal over which to find peaks</li>
+<li><strong>x_axis</strong> &#8211; a x-axis whose values correspond to the y_axis list and is used
+in the return to specify the postion of the peaks.</li>
+<li><strong>pad_len</strong> &#8211; (optional) how many times the time resolution should be
+increased by, e.g. 1 doubles the resolution. The amount is rounded up
+to the nearest 2 ** n amount (default: 5)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">two lists [max_peaks, min_peaks] containing the positive and
+negative peaks respectively. Each cell of the lists contains a tupple
+of: (position, peak_value) 
+to get the average peak value do: np.mean(max_peaks, 0)[1] on the
+results to unpack one of the lists into x, y coordinates do: 
+x, y = zip(<a href="#id3"><span class="problematic" id="id4">*</span></a>tab)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.PeakDetect.peakdetect_parabole">
+<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect_parabole</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis</em>, <em>points=9</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_parabole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_parabole" title="Permalink to this definition">¶</a></dt>
+<dd><p>IT detects local maxima and minima in a signal.
+Discovers peaks by fitting the model function: y = k (x - tau) ** 2 + m
+to the peaks. The amount of points used in the fitting is set by the
+points argument.</p>
+<p>Omitting the x_axis is forbidden as it would make the resulting x_axis
+value silly if it was returned as index 50.234 or similar.</p>
+<p>will find the same amount of peaks as the &#8216;peakdetect_zero_crossing&#8217;
+function, but might result in a more precise value of the peak.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>y_axis</strong> &#8211; a list containg the signal over which to find peaks</li>
+<li><strong>x_axis</strong> &#8211; a x-axis whose values correspond to the y_axis list and is used
+in the return to specify the postion of the peaks.</li>
+<li><strong>points</strong> &#8211; (optional) How many points around the peak should be used during
+curve fitting, must be odd (default: 9)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">two lists [max_peaks, min_peaks] containing the positive and
+negative peaks respectively. Each cell of the lists contains a list
+of: (position, peak_value) 
+to get the average peak value do: np.mean(max_peaks, 0)[1] on the
+results to unpack one of the lists into x, y coordinates do: 
+x, y = zip(<a href="#id5"><span class="problematic" id="id6">*</span></a>max_peaks)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.PeakDetect.peakdetect_sine">
+<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect_sine</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis</em>, <em>points=9</em>, <em>lock_frequency=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_sine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_sine" title="Permalink to this definition">¶</a></dt>
+<dd><p>It detects local maxima and minima in a signal.
+It discovers peaks by fitting the model function:
+y = A * sin(2 * pi * f * x - tau) to the peaks. The amount of points used
+in the fitting is set by the points argument.</p>
+<p>Omitting the x_axis is forbidden as it would make the resulting x_axis
+value silly if it was returned as index 50.234 or similar.</p>
+<p>will find the same amount of peaks as the &#8216;peakdetect_zero_crossing&#8217;
+function, but might result in a more precise value of the peak.</p>
+<p>The function might have some problems if the sine wave has a
+non-negligible total angle i.e. a k*x component, as this messes with the
+internal offset calculation of the peaks, might be fixed by fitting a 
+k * x + m function to the peaks for offset calculation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>y_axis</strong> &#8211; a list containg the signal over which to find peaks</li>
+<li><strong>x_axis</strong> &#8211; a x-axis whose values correspond to the y_axis list and is used
+in the return to specify the postion of the peaks.</li>
+<li><strong>points</strong> &#8211; (optional) How many points around the peak should be used during
+curve fitting, must be odd (default: 9)</li>
+<li><strong>lock_frequency</strong> &#8211; (optional) Specifies if the frequency argument of the
+model function should be locked to the value calculated from the raw
+peaks or if optimization process may tinker with it. (default: False)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">two lists [max_peaks, min_peaks] containing the positive and
+negative peaks respectively. Each cell of the lists contains a tupple
+of: (position, peak_value) 
+to get the average peak value do: np.mean(max_peaks, 0)[1] on the
+results to unpack one of the lists into x, y coordinates do: 
+x, y = zip(<a href="#id7"><span class="problematic" id="id8">*</span></a>tab)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.PeakDetect.peakdetect_sine_locked">
+<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect_sine_locked</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis</em>, <em>points=9</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_sine_locked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_sine_locked" title="Permalink to this definition">¶</a></dt>
+<dd><p>It is a convinience function for calling the &#8216;peakdetect_sine&#8217; function with
+the lock_frequency argument as True.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>y_axis</strong> &#8211; a list containg the signal over which to find peaks</li>
+<li><strong>x_axis</strong> &#8211; a x-axis whose values correspond to the y_axis list and is used
+in the return to specify the postion of the peaks.</li>
+<li><strong>points</strong> &#8211; (optional) how many points around the peak should be used during
+curve fitting, must be odd (default: 9)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">see &#8216;peakdetect_sine&#8217;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.PeakDetect.peakdetect_zero_crossing">
+<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect_zero_crossing</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis=None</em>, <em>window=11</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_zero_crossing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_zero_crossing" title="Permalink to this definition">¶</a></dt>
+<dd><p>It detects local maxima and minima in a signal.
+It discovers peaks by dividing the signal into bins and retrieving the
+maximum and minimum value of each the even and odd bins respectively.
+Division into bins is performed by smoothing the curve and finding the
+zero crossings.</p>
+<p>Suitable for repeatable signals, where some noise is tolerated. Excecutes
+faster than &#8216;peakdetect&#8217;, although this function will break if the offset
+of the signal is too large. It should also be noted that the first and
+last peak will probably not be found, as this function only can find peaks
+between the first and last zero crossing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>y_axis</strong> &#8211; a list containg the signal over which to find peaks</li>
+<li><strong>x_axis</strong> &#8211; (optional) a x-axis whose values correspond to the y_axis list
+and is used in the return to specify the postion of the peaks. If
+omitted an index of the y_axis is used. (default: None)</li>
+<li><strong>window</strong> &#8211; the dimension of the smoothing window; should be an odd integer
+(default: 11)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">two lists [max_peaks, min_peaks] containing the positive and
+negative peaks respectively. Each cell of the lists contains a tupple
+of: (position, peak_value) 
+to get the average peak value do: np.mean(max_peaks, 0)[1] on the
+results to unpack one of the lists into x, y coordinates do: 
+x, y = zip(<a href="#id9"><span class="problematic" id="id10">*</span></a>tab)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.PeakDetect.zero_crossings">
+<code class="descclassname">utils.PeakDetect.</code><code class="descname">zero_crossings</code><span class="sig-paren">(</span><em>y_axis</em>, <em>window=11</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#zero_crossings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.zero_crossings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Algorithm to find zero crossings. Smoothes the curve and finds the
+zero-crossings by looking for a sign change.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>y_axis</strong> &#8211; a list containg the signal over which to find zero-crossings</li>
+<li><strong>window</strong> &#8211; the dimension of the smoothing window; should be an odd integer
+(default: 11)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the index for each zero-crossing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.ResampleAndInterpolate">
+<span id="resampleandinterpolate-module"></span><h2>ResampleAndInterpolate module<a class="headerlink" href="#module-utils.ResampleAndInterpolate" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="utils.ResampleAndInterpolate.ResampleAndInterpolate">
+<code class="descclassname">utils.ResampleAndInterpolate.</code><code class="descname">ResampleAndInterpolate</code><span class="sig-paren">(</span><em>signal</em>, <em>rule='100ms'</em>, <em>limit=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ResampleAndInterpolate.html#ResampleAndInterpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ResampleAndInterpolate.ResampleAndInterpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>It resamples signal and does linear interpolation to values added by the resampling.
+Signal must have DateTime index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>signal</strong> (<em>pd.DataFrame</em>) &#8211; monovariate signal</li>
+<li><strong>rule</strong> (<em>str</em>) &#8211; string with the resampling rule (ex: for 100ms resampling, rule=&#8216;100ms&#8217;). Default: &#8216;100ms&#8217;</li>
+<li><strong>limit</strong> (<em>int</em>) &#8211; for interpolation, maximum number of consecutive NaN values to fill. Default: None</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame
+&#8211; resampled signal with linear interpolation of added data</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.Standardize">
+<span id="standardize-module"></span><h2>Standardize module<a class="headerlink" href="#module-utils.Standardize" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="utils.Standardize.Standardize">
+<code class="descclassname">utils.Standardize.</code><code class="descname">Standardize</code><span class="sig-paren">(</span><em>signal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Standardize.html#Standardize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Standardize.Standardize" title="Permalink to this definition">¶</a></dt>
+<dd><p>It standardizes a monovariate/multivariate signals (in pandas DataFrame format) so that it has mean equal to zero and unitary variance.
+In case of a multivariate signal, standardization is carried out on each column of the DataFrame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>signal</strong> (<em>pd.DataFrame</em>) &#8211; input signal</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">pd.DataFrame
+&#8211; standardized signal</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.Trafo">
+<span id="trafo-module"></span><h2>Trafo module<a class="headerlink" href="#module-utils.Trafo" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="utils.Trafo.Trafo">
+<code class="descclassname">utils.Trafo.</code><code class="descname">Trafo</code><span class="sig-paren">(</span><em>signal</em>, <em>sk</em>, <em>trafo_type</em>, <em>log_base=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Trafo.html#Trafo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Trafo.Trafo" title="Permalink to this definition">¶</a></dt>
+<dd><p>It transforms a monovariate/multivariate signals (in pandas DataFrame format) in a new signal
+by applying a square root or logaritmic or inverse transformation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>signal</strong> (<em>pd.DataFrame</em>) &#8211; input signal</li>
+<li><strong>sk</strong> (<em>str</em>) &#8211; {&#8216;pos&#8217;,&#8217;neg&#8217;} the skewness of signal distribution.</li>
+<li><strong>trafo_type</strong> (<em>str</em>) &#8211; {&#8216;sqrt&#8217;,&#8217;log&#8217;,&#8217;inv&#8217;} the kind of tranformation should be applied</li>
+<li><strong>log_base</strong> (<em>int</em>) &#8211; <dl class="docutils">
+<dt>The base of the log. Available options:</dt>
+<dd><ol class="first last arabic">
+<li>2.0;</li>
+<li>np.e; and</li>
+<li>10.0.</li>
+</ol>
+</dd>
+</dl>
+<p>Default: 2</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pd.DataFrame
+&#8211; transformed signal</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.Welch_psd">
+<span id="welch-psd-module"></span><h2>Welch_psd module<a class="headerlink" href="#module-utils.Welch_psd" title="Permalink to this headline">¶</a></h2>
+<p><em>Module author: Giovanna Varni</em></p>
+<dl class="function">
+<dt id="utils.Welch_psd.Welch_psd">
+<code class="descclassname">utils.Welch_psd.</code><code class="descname">Welch_psd</code><span class="sig-paren">(</span><em>x</em>, <em>fs=1.0</em>, <em>NFFT=256</em>, <em>detrend=0</em>, <em>noverlap=0</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Welch_psd.html#Welch_psd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Welch_psd.Welch_psd" title="Permalink to this definition">¶</a></dt>
+<dd><p>It computes the Welch&#8217;s power spectral density of a real signal x (in pandas DataFrame format).
+This density is as the average of the density through the epochs (segments) of x and it is corrected for the power leakage due to (the hanning) windowing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>pd.DataFrame</em>) &#8211; input signal</li>
+<li><strong>fs</strong> (<em>float</em>) &#8211; it is the sampling frequency of x (expressed in Hz);</li>
+<li><strong>NFFT</strong> (<em>int</em>) &#8211; it is the length of each epoch (segment);</li>
+<li><strong>detrend</strong> (<em>bool</em>) &#8211; <dl class="docutils">
+<dt>it specifies how the data can be detrended. Three options are avaliable:</dt>
+<dd><ol class="first last arabic">
+<li>0, none detrending;</li>
+<li>1, mean detrending; and</li>
+<li>1, linear detrending</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><strong>noverlap</strong> (<em>bool</em>) &#8211; it is the number of samples to overlap between epochs (segments);</li>
+<li><strong>plot</strong> (<em>bool</em>) &#8211; if it is True the plot of the density function is returned. Default: False</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict 
+&#8211; the power spectral density and the frequencies over which the coherence is computed (keys : psd, Frequency)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="HomePage.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Utils package</a><ul>
+<li><a class="reference internal" href="#module-utils.Align">Align module</a></li>
+<li><a class="reference internal" href="#module-utils.ConvertContinueToBinary">ConvertContinueToBinary module</a></li>
+<li><a class="reference internal" href="#module-utils.Cpsd">Cpsd module</a></li>
+<li><a class="reference internal" href="#module-utils.Detrend">Detrend module</a></li>
+<li><a class="reference internal" href="#module-utils.Distance">Distance module</a></li>
+<li><a class="reference internal" href="#module-utils.ExtractSignal">ExtractSignal module</a></li>
+<li><a class="reference internal" href="#module-utils.Normalize">Normalize module</a></li>
+<li><a class="reference internal" href="#module-utils.PeakDetect">PeakDetect module</a></li>
+<li><a class="reference internal" href="#module-utils.ResampleAndInterpolate">ResampleAndInterpolate module</a></li>
+<li><a class="reference internal" href="#module-utils.Standardize">Standardize module</a></li>
+<li><a class="reference internal" href="#module-utils.Trafo">Trafo module</a></li>
+<li><a class="reference internal" href="#module-utils.Welch_psd">Welch_psd module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="DataFromManyPersons.Multivariate.Continuous.Nonlinear.html"
+                        title="previous chapter">Nonlinear package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Examples.html"
+                        title="next chapter">SyncPy library Examples</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Examples.html" title="SyncPy library Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="DataFromManyPersons.Multivariate.Continuous.Nonlinear.html" title="Nonlinear package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="HomePage.html">Home Page</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="Documentation.html" >Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Giovanna Varni, Marie Avril.
+      Last updated on Sep 02, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

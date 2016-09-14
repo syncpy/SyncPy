@@ -1,0 +1,38 @@
+
+.. _download-reference:
+
+
+Getting the SyncPy library
+==========================
+
+Dependencies 
+------------
+
+For a complete use of the **SyncPy** library, please install these libraries first :
+
+* `Matplotlib`_
+* `NetworkX`_
+* `Numpy and Scipy`_
+* `Pandas`_
+* `Statsmodels and Patsy`_
+
+.. _Matplotlib: http://matplotlib.org/downloads.html
+.. _NetworkX: https://networkx.github.io/download.html
+.. _Numpy and Scipy: http://www.scipy.org/scipylib/download.html
+.. _Pandas: http://pandas.pydata.org/pandas-docs/stable/install.html
+.. _Statsmodels and Patsy: http://statsmodels.sourceforge.net/install.html
+
+
+Sources 
+-------
+
+
+Getting Started  
+---------------
+
+Trying to use a specific method of the Toolbox ? Check out the :ref:`examples-reference` and the :ref:`documentation-reference` pages to help you.
+
+
+
+
+

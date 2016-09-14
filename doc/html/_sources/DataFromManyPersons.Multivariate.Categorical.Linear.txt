@@ -1,0 +1,10 @@
+Linear package
+=======================================================
+
+.. automodule:: DataFromManyPersons.Multivariate.Categorical.Linear
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+

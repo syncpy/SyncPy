@@ -1,0 +1,14 @@
+Categorical package
+================================================
+
+.. automodule:: DataFrom2Persons.Monovariate.Categorical
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. toctree::
+
+    DataFrom2Persons.Monovariate.Categorical.Linear
+    DataFrom2Persons.Monovariate.Categorical.MachineLearning
+    DataFrom2Persons.Monovariate.Categorical.Nonlinear
+

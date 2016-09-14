@@ -1,0 +1,10 @@
+Parameter,Param_0,Param_1,Param_2,Value
+Name,,,,ConditionalGrangerCausality
+Description,,,,The ConditionalGrangerCausality class computes a pairwise Granger causality test between all signals together.
+Type,,,,Linear
+Data_Type,,,,Continuous
+Signal_Type,,,,Monovariate
+Number_User_Type,,,,DataFromManyPersons
+Parameter_name,max_lag,criterion,plot,
+Parameter_type,int,str,bool,
+Parameter_description,The number of maximum lag with which the autoregressive model will be computed. Default :1.,"Two choices are possible : 'bic' for Bayesian Information Criterion, or 'aic' for Akaike information criterion. Default : 'bic'",if True the plot of correlation function is returned.,
