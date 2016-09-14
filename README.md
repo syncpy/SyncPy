@@ -83,10 +83,10 @@ Organization
 
 Authors 
 ------------------------
-
 - Giovanna Varni
 - Marie Avril
-contact: syncpy@isir.upmc.fr 
+- contact: syncpy@isir.upmc.fr
+- Technical help from Philippe Gauthier and David Reversat
 
 
 Licence
