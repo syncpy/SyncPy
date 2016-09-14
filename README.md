@@ -84,8 +84,8 @@ Organization
 Authors 
 ------------------------
 
-Giovanna Varni 
-Marie Avril 
+- Giovanna Varni
+- Marie Avril
 contact: syncpy@isir.upmc.fr 
 
 
