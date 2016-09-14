@@ -114,7 +114,13 @@ def Mahalanobis(df1,df2):
     :returns: float
             -- distance between the two signals
     """
-    
+
+    try :
+        if df1.shape[0]+df2.shape[0]-2 == 0 : raise ValueError("Divide by zero exception : signal1.size+signal2.size-2 = 0  ")
+    except ValueError, err_msg:
+        raise ValueError(err_msg)
+        return
+
     n1=df1.shape[0]
     n2=df2.shape[0]
         

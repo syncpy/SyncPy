@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2',
+        VERSION:     '3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -112,7 +112,7 @@
 <span class="kn">import</span> <span class="nn">Embedding</span>
 
 
-<div class="viewcode-block" id="CrossRecurrencePlot"><a class="viewcode-back" href="../../utils.html#utils.CrossRecurrencePlot.CrossRecurrencePlot">[docs]</a><span class="k">def</span> <span class="nf">CrossRecurrencePlot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">distance</span><span class="p">,</span><span class="n">standardization</span><span class="p">,</span><span class="n">plot</span><span class="p">):</span>
+<div class="viewcode-block" id="CrossRecurrencePlot"><a class="viewcode-back" href="../../utils.html#utils.CrossRecurrencePlot.CrossRecurrencePlot">[docs]</a><span class="k">def</span> <span class="nf">CrossRecurrencePlot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">distance</span><span class="p">,</span><span class="n">standardization</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    It computes and plots the (cross)recurrence plot of the uni/multivariate input signal(s) x and y (in pandas DataFrame format).</span>
 <span class="sd">    </span>
@@ -149,7 +149,12 @@
 <span class="sd">    :type distance: str</span>
 <span class="sd">    </span>
 <span class="sd">    :param standardization:</span>
-<span class="sd">       if True data are nomalize to zero mean and unitary variance</span>
+<span class="sd">       if True data are nomalize to zero mean and unitary variance. Default: False</span>
+<span class="sd">    :type standardization: bool</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    :param plot:</span>
+<span class="sd">       if True the plot of correlation function is returned. Default: False</span>
 <span class="sd">    :type standardization: bool</span>
 
 <span class="sd">    </span>
@@ -175,15 +180,6 @@
         <span class="k">return</span>
         
     <span class="s">&#39; Raise error if parameters do not respect input rules &#39;</span>
-    
-    <span class="s">&#39;Error if x and y have not the same size&#39;</span>
-    <span class="k">try</span> <span class="p">:</span>
-        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">!=</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span>
-           <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;The two input signals have different size&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
-    
     <span class="k">try</span> <span class="p">:</span> 
         <span class="k">if</span> <span class="n">m</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires m to be positive and greater than 0&quot;</span><span class="p">)</span> 
         <span class="k">if</span> <span class="n">t</span><span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires t to be positive and  greater from 0&quot;</span><span class="p">)</span> 
@@ -211,22 +207,25 @@
     <span class="k">elif</span><span class="p">(</span><span class="n">distance</span><span class="o">==</span><span class="s">&#39;maximum&#39;</span><span class="p">):</span>
         <span class="n">vd</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
         
-    <span class="n">crp_tmp</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">crp_tmp</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+ 
         
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> 
         <span class="n">x_row_rep_T</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,:]]</span><span class="o">*</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">ignore_index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="n">x_row_rep</span><span class="o">=</span><span class="n">x_row_rep_T</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
 
         <span class="n">diff_threshold_norm</span><span class="o">=</span><span class="n">e</span><span class="o">-</span><span class="n">Distance</span><span class="o">.</span><span class="n">Minkowski</span><span class="p">(</span><span class="n">x_row_rep</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">vd</span><span class="p">)</span>
-        <span class="n">diff_threshold_norm</span><span class="p">[</span><span class="n">diff_threshold_norm</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
-        <span class="n">diff_threshold_norm</span><span class="p">[</span><span class="n">diff_threshold_norm</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+        <span class="n">diff_threshold_norm</span><span class="p">[</span><span class="n">diff_threshold_norm</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+        <span class="n">diff_threshold_norm</span><span class="p">[</span><span class="n">diff_threshold_norm</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
             
         <span class="n">crp_tmp</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i</span><span class="p">,:]</span><span class="o">=</span><span class="n">diff_threshold_norm</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">crp</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">fliplr</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">crp_tmp</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="n">crp</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">fliplr</span><span class="p">((</span><span class="n">crp_tmp</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        
             
     <span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="n">result</span><span class="p">[</span><span class="s">&#39;crp&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">crp</span>
-    
+
     
     <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
        <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
@@ -237,7 +236,7 @@
        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;Time (in samples)&#39;</span><span class="p">)</span>
        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;Cross recurrence matrix&#39;</span><span class="p">)</span>
         
-       <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s">&#39;crp&#39;</span><span class="p">],</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">binary_r</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s">&#39;lower&#39;</span><span class="p">,</span><span class="n">interpolation</span><span class="o">=</span><span class="s">&#39;nearest&#39;</span><span class="p">)</span>
+       <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s">&#39;crp&#39;</span><span class="p">],</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">binary_r</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s">&#39;lower&#39;</span><span class="p">,</span><span class="n">interpolation</span><span class="o">=</span><span class="s">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 
     <span class="k">return</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
@@ -282,7 +281,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Sep 30, 2015.
+      Last updated on Nov 06, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
     </div>
   </body>

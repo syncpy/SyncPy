@@ -60,21 +60,20 @@ class NonlinearCorr:
     ''' Constuctor '''
     def __init__(self, nbins):
         ' Raise error if parameters are not in the correct type '
-        try :
+        try:
             if not(isinstance(nbins, int)) : raise TypeError("Requires tau_max to be an integer")
         except TypeError, err_msg:
             raise TypeError(err_msg)
             return
         
         ' Raise error if parameters do not respect input rules '
-        try : 
+        try:
             if nbins <= 0 : raise ValueError("Requires nbins to be a positive integer different from 0")
         except ValueError, err_msg:
             raise ValueError(err_msg)
             return
         
         self.nbins=nbins
-            
 
     def compute(self,x,y):
         """
@@ -93,40 +92,51 @@ class NonlinearCorr:
         """
         
         ' Raise error if parameters are not in the correct type '
-        try :
+        try:
             if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
             if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
         except TypeError, err_msg:
             raise TypeError(err_msg)
             return
         
-        xbincenters=np.array([])
-        ybin=np.array([])
+        xbincenters = np.array([])
+        ybin = np.array([])
         
-        x=Detrend.Detrend(x,det_type='mean')
-        y=Detrend.Detrend(y,det_type='mean')
+        x = Detrend.Detrend(x, det_type='mean')
+        y = Detrend.Detrend(y, det_type='mean')
                 
-        ll=x.min(axis=0).values
-        ul=x.max(axis=0). values
+        ll = x.min(axis=0).values
+        ul = x.max(axis=0).values
                 
-        xi=np.linspace(ll,ul,num=self.nbins)
+        xi = np.linspace(ll, ul, num=self.nbins)
         
-        for j in range(1,xi.size):
-            px=(x.iloc[:,0].values>=xi[j-1]) & (x.iloc[:,0].values<xi[j])
+        for j in range(1, xi.size):
+            px=(x.iloc[:,0].values >= xi[j-1]) & (x.iloc[:,0].values < xi[j])
             #px=np.hstack(px)
             
             if not px.size:
                 continue
             
-            xb=x.iloc[px].values
-            yb=y.iloc[px].values
+            xb = x.iloc[px].values
+            yb = y.iloc[px].values
             
-            xbincenters=np.append(xbincenters,np.mean(xb))
-            ybin=np.append(ybin,np.mean(yb))
+            try:
+                if (xb.shape[0] or yb.shape[0]) == 0:
+                    raise ValueError("Empty bins in the scatter plot y vs x: use a smaller nbins")
+            except ValueError, err_msg:
+                raise ValueError(err_msg)
+                return
+            
+            xbincenters=np.append(xbincenters, np.mean(xb))
+            ybin=np.append(ybin, np.mean(yb))
         
-        yinterp=np.hstack(np.interp(x,xbincenters,ybin))
-        
-        h2 = (np.sum(y.iloc[:,0].values**2)-np.sum((y.iloc[:,0].values-yinterp)**2))/np.sum(y.iloc[:,0].values**2)
+        yinterp=np.hstack(np.interp(x, xbincenters, ybin))
+
+        iloc_value_square = np.sum(y.iloc[:, 0].values**2)
+        if np.any(iloc_value_square == 0):
+            raise ValueError("np.sum(y.iloc[:,0].values**2) can't be eq to zero because we divide by it")
+            return
+        h2 = (iloc_value_square-np.sum((y.iloc[:, 0].values-yinterp)**2))/iloc_value_square
         
         h2_res={'h2 coefficient': h2}
         

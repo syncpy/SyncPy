@@ -440,7 +440,13 @@ class BooleanTurnsActivity:
                      'pause y-x duration' : pd.Series(self._pause_duration_inter_y_x),
                      'ratio inter' : pd.Series(self._ratio_inter)
                      })
-                     
+
+        try :
+            if self._duration == 0 : raise ValueError("Divide by zero exception : self._duration = 0  ")
+        except ValueError, err_msg:
+            raise ValueError(err_msg)
+            return
+
         res_ratio_dict = ({'ratio overlap' : pd.Series(np.sum(self._overlap_duration)/self._duration ),
                      'ratio pause' : pd.Series(np.sum(self._pause_duration)/self._duration ),
                      'ratio activity x' : pd.Series(np.sum(self._activity_x_duration)/self._duration ),

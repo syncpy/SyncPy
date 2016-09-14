@@ -32,6 +32,22 @@ Cpsd module
     :undoc-members:
     :show-inheritance:
     
+Crqa module
+------------------------------------
+
+.. automodule:: utils.Crqa
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+Crqa_diag module
+------------------------------------
+
+.. automodule:: utils.Crqa_diag
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Detrend module
 ------------------------------------
 
@@ -39,7 +55,7 @@ Detrend module
     :members:
     :undoc-members:
     :show-inheritance:
-
+    
 Distance module
 ------------------------------------
 
@@ -68,6 +84,14 @@ PeakDetect module
 -----------------------
 
 .. automodule:: utils.PeakDetect
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+PeakPicking module
+-----------------------
+
+.. automodule:: utils.PeakPicking
     :members:
     :undoc-members:
     :show-inheritance:

@@ -18,12 +18,13 @@ print("*************************************************************************
 
 """ Import wanted modules with every parent packages """
 import DataFrom2Persons.Univariate.Continuous.Linear.WindowCrossCorrelation as WindowCrossCorrelation
-import DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking as PeakPicking
+
 
 """ Import Utils modules """
 from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ExtractSignal import ExtractSignalFromMAT
 from utils.ResampleAndInterpolate import ResampleAndInterpolate
+from utils import PeakPicking
 
 '''
 """ Define signals in pd.dataFrame format """
@@ -39,7 +40,7 @@ y = pd.DataFrame({'Y':np.sin(2*3.14*2*f*n/Fs)})
 
 """OR"""
 """ Import signals from a .csv file """
-filename = 'data_examples/2Persons_Monovariate_Continuous_data_2.csv'
+filename = 'data_examples/2Persons_Univariate_Continuous_data_2.csv'
 x = ExtractSignalFromCSV(filename, columns = ['x'], unit = 's')
 y = ExtractSignalFromCSV(filename, columns = ['y'], unit = 's')
 
@@ -101,33 +102,33 @@ except Exception, e :
     print("Exception in WindowCrossCorrelation computation : \n" + str(e))
     sys.exit(-1)
 
-""" Define class attributes of the wanted method """
+""" Get peaks of current result """
 tau_max = 10        # the maximum lag at which correlation should be computed. It is in the range [0; (lx+ly-1)/2] (in samples)
 tau_inc= 1          # amount of time elapsed between two cross-correlation (in samples)
 threshold = 0.5     # minimal correlation magnitude acceptable for a peak (between -1 and 1)
 lookahead = 2       # distance to look ahead from a peak candidate to determine if it is the actual peak. Default: 200
 delta = 0           # this specifies a minimum difference between a peak and the following points, before a peak may be considered a peak. Default: 0
 ele_per_sec = 2     # number of element in one second
-plot = True         #if True the plot of peakpicking function is returned. Default: False
-plot_on_mat = True  # if True the plot of peakpicking + correlation matrix function is returned. Default: False
-sorted_peak = True  # if True the peaks found will be organized by type of Lag and Magnitude (positive or negative). Default: False
+plot = False        #if True the plot of peakpicking function is returned. Default: False
+plot_on_mat =False  # if True the plot of peakpicking + correlation matrix function is returned. Default: False
+sorted_peak = False # if True the peaks found will be organized by type of Lag and Magnitude (positive or negative). Default: False
 
-""" Instanciate the class with its attributes """
+# Compute peakPicking util method
 try : 
-    peak = PeakPicking.PeakPicking(cross_corr, tau_max, tau_inc, threshold, lookahead, delta, ele_per_sec, plot, plot_on_mat, sorted_peak)
+    peak_res = PeakPicking.PeakPicking(cross_corr, tau_max, tau_inc, threshold, lookahead, delta, ele_per_sec, plot, plot_on_mat, sorted_peak)
 except TypeError, err :
-    print("TypeError in PeakPicking constructor : \n" + str(err))
+    print("TypeError in PeakPicking method : \n" + str(err))
     sys.exit(-1)
 except ValueError, err :
-    print("ValueError in PeakPicking constructor : \n" + str(err))
+    print("ValueError in PeakPicking method : \n" + str(err))
     sys.exit(-1)
 except Exception, e :
-    print("Exception in PeakPicking constructor : \n" + str(e))
+    print("Exception in PeakPicking method : \n" + str(e))
     sys.exit(-1)
 
-""" Compute the method and get the result """
+# Get figure 
 try : 
-    sorted_peaks = peak.compute()
+    peak_figure = PeakPicking.PeakPicking_plot(peak_res, cross_corr, tau_max, ele_per_sec, plot_on_mat = True)
 except TypeError, err :
     print("TypeError in PeakPicking computation : \n" + str(err))
     sys.exit(-1)
@@ -138,11 +139,14 @@ except Exception, e :
     print("Exception in PeakPicking computation : \n" + str(e))
     sys.exit(-1)
 
+# Get stats 
+peak_sorted = PeakPicking.PeakPicking_sortResult(peak_res)# Get statistics
+
 """ Display result """
 print("\n")
 print("********************* \n")
 print('Peak Picking result : ')
 print("********************* \n")
-print(sorted_peaks)
+print(peak_sorted)
 
 raw_input("Push ENTER key to exit.")

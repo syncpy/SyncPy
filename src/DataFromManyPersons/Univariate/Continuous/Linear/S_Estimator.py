@@ -144,10 +144,17 @@ class S_Estimator:
         :returns: float
             -- Synchronization index 
         """
+        # Keep only positives eigenvalues
+        lambda_i_nozero=np.array([value for value in lambda_i if value > 0])
         
-        tmp = [lambda_i[k] * np.log(lambda_i[k]) for k in range(len(lambda_i))]
+        #check division by zero
+        if len(lambda_i_nozero) == 1:
+            raise ValueError("len(lambda_i_nozero) can't be eq to 1 because we divide by np.log(len(lambda_i_nozero))")
+            return
         
-        SI = 1 + sum(tmp) / np.log(len(lambda_i))
+        tmp = [lambda_i_nozero[k] * np.log(lambda_i_nozero[k]) for k in range(len(lambda_i_nozero))]
+        
+        SI = 1 + sum(tmp) / np.log(len(lambda_i_nozero))
         
         return SI
         
@@ -167,7 +174,8 @@ class S_Estimator:
         """
         
         Xi_fft = np.fft.rfft(Xi)
-        Xi_ampli = np.abs(Xi_fft) # get original amplitude
+        # unsused Xi_ampli
+        # Xi_ampli = np.abs(Xi_fft) # get original amplitude
         
         #  Create sorted Gaussian reference series
         gaussian = np.random.randn(Xi.shape[0])
@@ -183,8 +191,9 @@ class S_Estimator:
         #  Phase randomize rescaled data
         
         #  Get shapes
-        N = Xi.shape[0]
-        len_phase = Xi_fft.shape
+        # unsused N & len_phase
+        # N = Xi.shape[0]
+        # len_phase = Xi_fft.shape
         
         #  Generate random phases uniformly distributed in the
         #  interval [0, 2*Pi]
@@ -208,7 +217,6 @@ class S_Estimator:
             rescaled_data[i] = sorted_original[ranks[i]]
      
         return rescaled_data
-    
         
     def refined_AAFT_surrogate(self, X):
         """
@@ -253,7 +261,11 @@ class S_Estimator:
 
         # save initial surrogate eigen values
         df_X_surr = pd.DataFrame(X_surr)
-        R = np.dot((df_X_surr.values).T, df_X_surr.values) / float(X.index.size) # Correlation matrix
+        # check division by zero
+        if X.index.size == 0:
+            raise ValueError("X.index.size can't be eq to 0 because we divide by it")
+            return
+        R = np.dot(df_X_surr.values.T, df_X_surr.values) / float(X.index.size) # Correlation matrix
         eig_values_surr, eig_vectors_surr = np.linalg.eig(R) # Eigenvalues decomposition
         eig_values_surr = np.sort(np.real(eig_values_surr)) # sort by increasing order
         X_surr_eig.update({0 : eig_values_surr})
@@ -265,6 +277,10 @@ class S_Estimator:
                 
                 ''' 2 - Filtering '''
                 Xi_surr_fft = np.fft.rfft(Xi_surr)
+                # check division by zero
+                if np.any(Xi_surr_fft == 0):
+                    raise ValueError("Xi_surr_fft can't be eq to 0 because we divide by it")
+                    return
                 Xi_surr_ampli = np.abs(Xi_surr_fft)
                 Xi_surr_phase = Xi_surr_fft / Xi_surr_ampli
                 
@@ -282,6 +298,7 @@ class S_Estimator:
                 
             ''' 4 - Save surrogates eigen values '''
             df_X_surr = pd.DataFrame(X_surr)
+            # division by zero already checked
             R = np.dot((df_X_surr.values).T, df_X_surr.values) / float(X.index.size) # Correlation matrix
             eig_values_surr, eig_vectors_surr = np.linalg.eig(R) # Eigenvalues decomposition
             eig_values_surr = np.sort(eig_values_surr) # sort by increasing order
@@ -310,7 +327,7 @@ class S_Estimator:
         """
         
         ' Raise error if parameters are not in the correct type '
-        try :
+        try:
             for i in range(len(signals)) :
                 if not(isinstance(signals[i], pd.DataFrame)): raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame.")
         except TypeError, err_msg:
@@ -318,33 +335,40 @@ class S_Estimator:
             return
         
         ' Raise error if DataFrames have not the same size or same indexes '
-        try :
+        try:
             for i in range(0,len(signals)):
                 if len(signals[0]) != len(signals[i]) : raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as first signal.")
-                if signals[0].index.tolist() != signals[i].index.tolist() : raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
+                if signals[0].index.tolist() != signals[i].index.tolist(): raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
         except ValueError, err_msg:
             raise ValueError(err_msg)
+            return
+
+        # check division by zero
+        ''' Raise error if "len(signals) can't be 0 because we divide by the size x's index that depends on it'''
+        if len(signals) == 0:
+            raise ValueError("len(signals) can't be 0 because we divide by the size x's index that depends on it")
             return
 
         'Formate signals in one DataFrame for computing'
         # If input signals are multivariates, only the first column is considered
         x = pd.DataFrame()
-        for i in range(0,len(signals)): 
-            if x.empty :
-                x = pd.DataFrame(signals[i].iloc[:,0], signals[i].index)
+        for i in range(0, len(signals)):
+            if x.empty:
+                x = pd.DataFrame(signals[i].iloc[:, 0], signals[i].index)
                 x.columns = [signals[i].columns[0]]
-            else :
-                x[signals[i].columns[0]] = signals[i].iloc[:,0]
+            else:
+                x[signals[i].columns[0]] = signals[i].iloc[:, 0]
         
         ''' Ignore last value if len(x) is odd (avoiding trouble with fft<=>ifft)'''
-        if (x.shape[0]%2 != 0):
-            x = x.iloc[0:x.shape[0]-1,:]
+        if (x.shape[0] % 2 != 0):
+            x = x.iloc[0:x.shape[0]-1, :]
         
         ''' Standardize '''
         X = Standardize.Standardize(x)
-        
+
         ''' Correlation matrix  '''
-        C = np.dot((X.values).T, X.values) / float(x.index.size) # on original signal
+        # division by zero already checked
+        C = np.dot(X.values.T, X.values) / float(x.index.size) # on original signal
         
         ''' Eigenvalues decomposition '''
         eig_values, eig_vectors = np.linalg.eig(C) # on original signal
@@ -352,17 +376,37 @@ class S_Estimator:
         
         ''' Surrogate signal '''
         df_X_surr, X_surr_average_eig = self.refined_AAFT_surrogate(X)
-        
+
+        # Phil - store sums to avoid recompute for checking zeroes and later on
+        sum_eig_values = sum(eig_values)
+        sum_X_surr_average_eig = sum(X_surr_average_eig)
+
+        # check division by zero
+        ' Raise error if sum_eig_values or X_surr_average_eig or sum_X_surr_average_eig eq zero because we divide by the it later'
+        if np.any(sum_eig_values == 0):
+            raise ValueError("The Sum of eig_values can't be 0 because we divide by it later")
+            return
+        if np.any(X_surr_average_eig == 0):
+            raise ValueError("X_surr_average_eig can't be 0 because we divide by it later")
+            return
+        if np.any(sum_X_surr_average_eig == 0):
+            raise ValueError("The Sum of X_surr_average_eig can't be 0 because we divide by it later")
+            return
+        sum_eig_values_over_X_surr_average_eig = sum(eig_values/X_surr_average_eig)
+        if np.any(sum_eig_values_over_X_surr_average_eig == 0):
+            raise ValueError("The Sum of (eig_values/X_surr_average_eig) can't be 0 because we divide by it later")
+            return
+
         ''' Get Synchronization Indexes '''
         lambda_1 = []
         lambda_2 = []
         lambda_3 = []
         for i in range(X_surr_average_eig.size):
-            lambda_1.append( eig_values[i] / sum(eig_values) )
-            
-            lambda_2.append( (eig_values[i]/X_surr_average_eig[i]) / sum(eig_values/X_surr_average_eig) )
+            lambda_1.append( eig_values[i] / sum_eig_values )
+            # division already checked
+            lambda_2.append((eig_values[i]/X_surr_average_eig[i]) / sum_eig_values_over_X_surr_average_eig)
         
-            lambda_3.append( X_surr_average_eig[i] / sum(X_surr_average_eig) )
+            lambda_3.append(X_surr_average_eig[i] / sum_X_surr_average_eig)
             
         SI = dict()
         SI['SSI'] = self.getSynchronizationIndex(lambda_1)
@@ -370,14 +414,8 @@ class S_Estimator:
         SI['RSI'] = self.getSynchronizationIndex(lambda_3)
         SI['surrogate_signal'] = df_X_surr
         
-        if(self._plot) :
+        if self._plot :
             plt.ion()
             self.plot_result(SI)
 
-        return  SI 
-        
-
-            
-        
-        
-        
+        return SI

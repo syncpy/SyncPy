@@ -39,7 +39,7 @@ y = pd.DataFrame(1.0*np.random.rand(n,1), range(0,n))
 """OR"""
 """ Import signals from a .csv file """
 #Data from files
-filename = 'data_examples/2Persons_Monovariate_Continuous_data.csv'
+filename = 'data_examples/2Persons_Univariate_Continuous_data.csv'
 
 x = ExtractSignalFromCSV(filename, columns = ['x1'])
 y = ExtractSignalFromCSV(filename, columns = ['x2'])

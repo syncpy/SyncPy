@@ -333,7 +333,13 @@ class EventSync:
       c_xy=np.sum(jay_out_xy)
       c_yx=np.sum(jay_out_yx)
       
-      
+      try :
+          if np.any(l_peak_x == 0) : raise ValueError("Divide by zero exception : l_peak_x = 0  ")
+          if np.any(l_peak_y == 0) : raise ValueError("Divide by zero exception : l_peak_y = 0  ")
+      except ValueError, err_msg:
+          raise ValueError(err_msg)
+          return
+
       Q_tau=(c_xy + c_yx)/sqrt(l_peak_x*l_peak_y)
       q_tau=(c_yx - c_xy)/sqrt(l_peak_x*l_peak_y)
        
@@ -454,20 +460,23 @@ class EventSync:
        
       t_peak_x=np.array(list(peak_x.index.values))
       t_peak_y=np.array(list(peak_y.index.values))
-      
-      if  (l_peak_x>1) and (l_peak_y>1):
-          diff_t_peak_x=np.diff(t_peak_x)
-          diff_t_peak_y=np.diff(t_peak_y)
-          min_diff_x=np.min(diff_t_peak_x)
-          min_diff_y=np.min(diff_t_peak_y)
-          
-          min_diff=(min(min_diff_x, min_diff_y) / 2)
-          
-      elif ((l_peak_x<=1) and (l_peak_y>1)) or ((l_peak_y<=1) and (l_peak_x>1)) or ((l_peak_x<=1) and (l_peak_y<=1)):
-         ' Raise warnings '
-         raise Warning("only two or none events in the times series!")    
+	  
+      ' Raise error if the signals have only two or less events ' 
+      try :
+	 if ((l_peak_x<=1) and (l_peak_y>1)) or ((l_peak_y<=1) and (l_peak_x>1)) or ((l_peak_x<=1) and (l_peak_y<=1)):
+	     raise ValueError("x and y signals must have both than one event")
+      except ValueError, err_msg:
+          raise ValueError(err_msg)
+          return
       
       if self.tau==0:
+         diff_t_peak_x=np.diff(t_peak_x)
+         diff_t_peak_y=np.diff(t_peak_y)
+         min_diff_x=np.min(diff_t_peak_x)
+         min_diff_y=np.min(diff_t_peak_y)
+      
+         min_diff=np.floor(np.amin([ min_diff_x,min_diff_y], axis=0)/2.0)
+         
          try :
             if self.lag_tau >= min_diff :
                 raise ValueError("lag_tau should be smaller than this value %d: " %min_diff)
@@ -510,6 +519,13 @@ class EventSync:
                   
          delta_Q=Qn-Qn_deltan
          delta_q=qn-qn_deltan
+
+         try :
+            if delta_x == 0 : raise ValueError("Divide by zero exception : delta_x = 0  ")
+            if delta_y == 0 : raise ValueError("Divide by zero exception : delta_y = 0  ")
+         except ValueError, err_msg:
+            raise ValueError(err_msg)
+            return
 
          delta_events=np.sqrt(delta_x*delta_y)
          

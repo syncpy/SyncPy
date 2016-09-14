@@ -262,6 +262,13 @@ def peakdetect_fft(y_axis, x_axis, pad_len = 5):
                 n(len(fft_data) * pad_len) - len(fft_data))
     
     # There is amplitude decrease directly proportional to the sample increase
+
+    try :
+        if len(fft_data) == 0 : raise ValueError("Divide by zero exception : len(fft_data) = 0  ")
+    except ValueError, err_msg:
+        raise ValueError(err_msg)
+        return
+
     sf = len(fft_padded) / float(len(fft_data))
     # There might be a leakage giving the result an imaginary component
     # Return only the real component
@@ -424,6 +431,13 @@ def peakdetect_sine(y_axis, x_axis, points = 9, lock_frequency = False):
         if len(raw) > 1:
             peak_pos = [x_axis[index] for index in zip(*raw)[0]]
             Hz.append(np.mean(np.diff(peak_pos)))
+
+    try :
+        if np.mean(Hz) == 0 : raise ValueError("Divide by zero exception : mean(Hz) = 0  ")
+    except ValueError, err_msg:
+        raise ValueError(err_msg)
+        return
+
     Hz = 1 / np.mean(Hz)
     
     # model function
@@ -622,6 +636,12 @@ def _smooth(x, window_len=11, window='hanning'):
     else:
         w = eval('np.' + window + '(window_len)')
 
+    try :
+        if w.sum() == 0 : raise ValueError("Divide by zero exception : w.sum() = 0  ")
+    except ValueError, err_msg:
+        raise ValueError(err_msg)
+        return
+
     y = np.convolve(w / w.sum(), s, mode = 'valid')
     return y
     
@@ -648,6 +668,13 @@ def zero_crossings(y_axis, window = 11):
     
     # check if zero-crossings are valid
     diff = np.diff(indices)
+
+    try :
+        if diff.mean() == 0 : raise ValueError("Divide by zero exception : diff.mean() = 0  ")
+    except ValueError, err_msg:
+        raise ValueError(err_msg)
+        return
+
     if diff.std() / diff.mean() > 0.2:
         print diff.std() / diff.mean()
         print np.diff(indices)

@@ -58,6 +58,13 @@ def Standardize(signal):
     
     mean=signal.mean(axis=0)
     std=signal.std(axis=0)
+   
+    try :
+        if np.any(std.values == 0) : raise ValueError("Norm exception : divide by zero exception (std=0)")
+    except ValueError, err_msg:
+        raise ValueError(err_msg)
+        return
+
     signal_norm=(signal-mean)/std
         
     return signal_norm

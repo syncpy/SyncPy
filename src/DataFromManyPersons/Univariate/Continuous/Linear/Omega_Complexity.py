@@ -105,9 +105,15 @@ class Omega_Complexity:
         eig_val,eig_vect=np.linalg.eig(cov_mat.values)
         trace_cov_mat=(cov_mat.values).trace()
         
+
+        # checking division by zero
+        if trace_cov_mat == 0:
+            raise ValueError("trace_cov_mat can't be eq to zero, we divide by it")
+            return
+
         lambda_spectrum=eig_val/trace_cov_mat
         
-        lambda_spectrum_nozero=lambda_spectrum[lambda_spectrum >0]
+        lambda_spectrum_nozero=np.array([value for value in lambda_spectrum if value > 1e-3])
         
         omega= exp(-np.sum(li*np.log(li) for li in lambda_spectrum_nozero))
         

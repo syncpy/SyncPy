@@ -189,6 +189,11 @@ class Correlation:
         :returns: numpy.array 
           -- time/Pearson's correlation coefficient
         """
+        try :
+            if lmin == 1 : raise ValueError("lmin cannot be equals to 1")
+        except ValueError, err_msg:
+            raise ValueError(err_msg)
+            return
         
         corr_coeff=corr_f[ly-1]/(lmin-1)
         
@@ -223,14 +228,12 @@ class Correlation:
         self.lx=x.shape[0]
         self.ly=y.shape[0]
         
-        lmax=max(self.lx,self.ly)
         lmin=min(self.lx,self.ly)
         
         tau_range=self.compute_tau_range(self.lx,self.ly)
         self.tau_array=tau_range[0]
         start=tau_range[1]
-        stop=tau_range[2]
-        
+        stop=tau_range[2]   
         
         ' Raise error if parameters do not respect input rules '
         try : 
@@ -258,6 +261,7 @@ class Correlation:
         else:
             x_std=Standardize.Standardize(x)
             y_std=Standardize.Standardize(y)
+            
                               
             self.corr_f_full=np.correlate(x_std.iloc[:,0],y_std.iloc[:,0], mode='full', old_behavior=False)
             self.corr_f=self.corr_f_full[start:stop+1]
@@ -265,6 +269,12 @@ class Correlation:
         if self.scale==True:
             nx=np.linalg.norm(x.values,2)
             ny=np.linalg.norm(y.values,2)
+            try :
+                if nx == 0 : raise ValueError("x norm is equals to 0")
+                if ny == 0 : raise ValueError("y norm is equals to 0")
+            except ValueError, err_msg:
+                raise ValueError(err_msg)
+                return
             self.corr_f=self.corr_f_full[start:stop+1]/(nx*ny)
                 
             

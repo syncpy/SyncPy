@@ -45,24 +45,8 @@ SMART Labex Project (http://www.smart-labex.fr)
 		Version 
 ------------------------
 
-Version number : 1.2
-Last update : 30/09/2015
-
-
------------------------------
-Changes from previous version
------------------------------
-
-News :
-- WindowMutualInformation module added
-- Embedding utils added
-- CrossRecurencePlot utils added
-
-
-Updates : 
-- Change "Monovariate" into "Univariate"
-- Change in plotting result : method become plot_result(self, myResult)
-
+Version number : 1.3
+Last update : 06/11/2015
 
 
 ------------------------

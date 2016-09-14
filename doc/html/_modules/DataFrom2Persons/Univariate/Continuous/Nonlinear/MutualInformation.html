@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '2',
+        VERSION:     '3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -146,7 +146,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_neighbours</span><span class="p">,</span> <span class="n">my_type</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">var_resc</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         
         <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
-        <span class="k">try</span> <span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">n_neighbours</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires n_neighbours to be an integer&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">my_type</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>      <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires my_type to be an integer&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">var_resc</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>    <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires var_resc to be a boolean&quot;</span><span class="p">)</span>
@@ -156,17 +156,17 @@
             <span class="k">return</span>
         
         <span class="s">&#39; Raise error if parameters do not respect input rules &#39;</span>
-        <span class="k">try</span> <span class="p">:</span>
-            <span class="k">if</span> <span class="n">n_neighbours</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires n_neighbours to be a positive integer greater than 0&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">my_type</span> <span class="o">!=</span> <span class="mi">1</span>  <span class="ow">and</span> <span class="n">my_type</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires my_type to be to be 1 or 2&quot;</span> <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">n_neighbours</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires n_neighbours to be a positive integer greater than 0&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">my_type</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">my_type</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires my_type to be to be 1 or 2&quot;</span> <span class="p">)</span>
         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
             <span class="k">return</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">n_neighbours</span><span class="o">=</span><span class="n">n_neighbours</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">=</span><span class="n">my_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">var_resc</span><span class="o">=</span><span class="n">var_resc</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">noise</span><span class="o">=</span><span class="n">noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_neighbours</span> <span class="o">=</span> <span class="n">n_neighbours</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">my_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_resc</span> <span class="o">=</span> <span class="n">var_resc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">noise</span> <span class="o">=</span> <span class="n">noise</span>
         
 
 <div class="viewcode-block" id="MutualInformation.compute"><a class="viewcode-back" href="../../../../../DataFrom2Persons.Univariate.Continuous.Nonlinear.html#DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation.MutualInformation.compute">[docs]</a>    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
@@ -186,9 +186,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
-        <span class="k">try</span> <span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires x to be a pd.DataFrame&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires y to be a pd.DataFrame&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires x to be a pd.DataFrame&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires y to be a pd.DataFrame&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
             <span class="k">return</span>
@@ -200,140 +200,123 @@
         <span class="c">#np.set_printoptions(precision=13) #to print np array with 13 digits</span>
         
         <span class="c">#random noise generation </span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>        
-            <span class="n">rnoise_x</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="mf">1.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">1e10</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise</span><span class="p">:</span>
+            <span class="n">rnoise_x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="mf">1.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">1e10</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
             <span class="n">rnoise_x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
         
-            <span class="n">rnoise_y</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="mf">1.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">1e10</span><span class="p">,</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+            <span class="n">rnoise_y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="mf">1.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">1e10</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
             <span class="n">rnoise_y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 
-            <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">rnoise_x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">rnoise_y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> 
+            <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">rnoise_x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">rnoise_y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
 
         <span class="c">#rescaling of the time series</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_resc</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
-            <span class="n">xstd</span><span class="o">=</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-            <span class="n">ystd</span><span class="o">=</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">y</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">-</span><span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_resc</span><span class="p">:</span>
+            <span class="n">x_std</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">y_std</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                        
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">x_std</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;x.std(axis=0) can&#39;t be zero we divise by it&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">y_std</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;y.std(axis=0) can&#39;t be zero we divise by it&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+
+            <span class="n">xstd</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">x_std</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+            <span class="n">ystd</span> <span class="o">=</span> <span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">y_std</span><span class="p">)</span><span class="o">-</span><span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
             
-            <span class="n">x</span><span class="o">=</span><span class="n">xstd</span><span class="o">-</span><span class="n">xstd</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-            <span class="n">y</span><span class="o">=</span><span class="n">ystd</span><span class="o">-</span><span class="n">ystd</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">xstd</span><span class="o">-</span><span class="n">xstd</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">ystd</span><span class="o">-</span><span class="n">ystd</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
  
         <span class="c">#building z time series vector</span>
-        <span class="n">z</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         
         <span class="n">z</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
         
-        <span class="n">d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-        <span class="n">idx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-        
-        <span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
-        
-        <span class="n">dx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-        <span class="n">dx</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
-        
-        <span class="n">dy</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-        <span class="n">dy</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
-        
-        <span class="n">dz</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-        <span class="n">dz</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
 
+        <span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
+        
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="n">dx</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
+        
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="n">dy</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
+        
+        <span class="n">dz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="n">dz</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
         
         <span class="c">#looking for the k nearest neighbours</span>
         <span class="n">tree</span><span class="o">=</span><span class="n">cKDTree</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
          
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-            <span class="n">di</span><span class="p">,</span><span class="n">idxi</span><span class="o">=</span><span class="n">tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_neighbours</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span> 
-
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">di</span><span class="p">,</span> <span class="n">idxi</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_neighbours</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
              
-            <span class="n">dx_abs</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idxi</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">-</span><span class="n">z</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
-            <span class="n">dx_abs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">dx_abs</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dx_abs</span><span class="o">==</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">dx_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idxi</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">-</span><span class="n">z</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">dx_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">dx_abs</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dx_abs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
                         
-            <span class="n">dx_i</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dx_abs</span><span class="p">)</span>
+            <span class="n">dx_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dx_abs</span><span class="p">)</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dx_i</span><span class="p">)</span>
 
-            <span class="n">dx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span><span class="n">dx_i</span><span class="p">)</span>
-
-
-            <span class="n">dy_abs</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idxi</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">-</span><span class="n">z</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
-            <span class="n">dy_abs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">dy_abs</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dy_abs</span><span class="o">==</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">dy_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idxi</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">-</span><span class="n">z</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="n">dy_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">dy_abs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dy_abs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
                         
-            <span class="n">dy_i</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dy_abs</span><span class="p">)</span>
-            <span class="n">dy</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span><span class="n">dy_i</span><span class="p">)</span>
+            <span class="n">dy_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dy_abs</span><span class="p">)</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">dy_i</span><span class="p">)</span>
             
-            
-            <span class="n">dz_i</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">dx_i</span><span class="p">,</span><span class="n">dy_i</span><span class="p">)</span>
-            <span class="n">dz</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dz</span><span class="p">,</span><span class="n">dz_i</span><span class="p">)</span>
+            <span class="n">dz_i</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dx_i</span><span class="p">,</span> <span class="n">dy_i</span><span class="p">)</span>
+            <span class="n">dz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dz</span><span class="p">,</span> <span class="n">dz_i</span><span class="p">)</span>
 
-            
-            
-        <span class="n">nx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-        <span class="n">ny</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-                
+        <span class="n">nx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="n">ny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
         
-        <span class="c">#Estimator 1             </span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-                        
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-                
-                <span class="n">nx_i</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]))))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">dz</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
+        <span class="c">#Estimator 1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">nx_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]))))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">dz</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
                 <span class="k">if</span> <span class="n">nx_i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">nx_i</span><span class="o">=</span><span class="n">nx_i</span><span class="o">-</span><span class="mi">1</span>
+                    <span class="n">nx_i</span> <span class="o">-=</span> <span class="mi">1</span>
                 
-                <span class="n">nx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">nx_i</span><span class="p">)</span>
+                <span class="n">nx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">nx_i</span><span class="p">)</span>
                 
-                <span class="n">ny_i</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]))))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">dz</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-            
-                   
+                <span class="n">ny_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]))))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">dz</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
                 <span class="k">if</span> <span class="n">ny_i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">ny_i</span><span class="o">=</span><span class="n">ny_i</span><span class="o">-</span><span class="mi">1</span>
+                    <span class="n">ny_i</span> <span class="o">-=</span> <span class="mi">1</span>
             
-                <span class="n">ny</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span><span class="n">ny_i</span><span class="p">)</span>
+                <span class="n">ny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">ny_i</span><span class="p">)</span>
                             
-            <span class="n">psi_xy</span><span class="o">=</span><span class="p">(</span><span class="n">psi</span><span class="p">(</span><span class="n">nx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">psi</span><span class="p">(</span><span class="n">ny</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">psi_xy</span> <span class="o">=</span> <span class="p">(</span><span class="n">psi</span><span class="p">(</span><span class="n">nx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">psi</span><span class="p">(</span><span class="n">ny</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
                 
             <span class="n">MI</span> <span class="o">=</span> <span class="n">psi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_neighbours</span><span class="p">)</span><span class="o">+</span><span class="n">psi</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">psi_xy</span><span class="p">)</span>
             
         <span class="c"># Estimator 2   </span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
-            
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-                
-                <span class="n">nx_i</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]))))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">))</span><span class="o">&lt;=</span> <span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
-                
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">nx_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]))))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
                 <span class="k">if</span> <span class="n">nx_i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">nx_i</span><span class="o">=</span><span class="n">nx_i</span><span class="o">-</span><span class="mi">1</span>
+                    <span class="n">nx_i</span> <span class="o">-=</span> <span class="mi">1</span>
                 
-                <span class="n">nx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">nx_i</span><span class="p">)</span>
+                <span class="n">nx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">nx_i</span><span class="p">)</span>
             
-                <span class="n">ny_i</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]))))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">))</span><span class="o">&lt;=</span> <span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-            
+                <span class="n">ny_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]))))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&#39;C&#39;</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                    
                 <span class="k">if</span> <span class="n">ny_i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">ny_i</span><span class="o">=</span><span class="n">ny_i</span><span class="o">-</span><span class="mi">1</span>
+                    <span class="n">ny_i</span> <span class="o">-=</span> <span class="mi">1</span>
             
-                <span class="n">ny</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span><span class="n">ny_i</span><span class="p">)</span>
-                        
-            <span class="n">psi_xy</span><span class="o">=</span><span class="p">(</span><span class="n">psi</span><span class="p">(</span><span class="n">nx</span><span class="p">)</span><span class="o">+</span><span class="n">psi</span><span class="p">(</span><span class="n">ny</span><span class="p">))</span>
-            
+                <span class="n">ny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">ny_i</span><span class="p">)</span>
+
+            <span class="n">psi_xy</span> <span class="o">=</span> <span class="p">(</span><span class="n">psi</span><span class="p">(</span><span class="n">nx</span><span class="p">)</span><span class="o">+</span><span class="n">psi</span><span class="p">(</span><span class="n">ny</span><span class="p">))</span>
+
+            <span class="c">#Division by zero already checked in init : n_neighbours &gt; 0</span>
             <span class="n">MI</span> <span class="o">=</span> <span class="n">psi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_neighbours</span><span class="p">)</span><span class="o">+</span><span class="n">psi</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_neighbours</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">psi_xy</span><span class="p">)</span>
         
         <span class="n">results</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="n">results</span><span class="p">[</span><span class="s">&#39;MI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MI</span>
         
         <span class="k">return</span> <span class="n">results</span></div></div>
-
-        
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
 </pre></div>
 
           </div>
@@ -373,7 +356,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Sep 30, 2015.
+      Last updated on Nov 06, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
     </div>
   </body>

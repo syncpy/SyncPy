@@ -152,13 +152,21 @@ def ExtractSignalFromELAN(filename, separator=',', unit='s', columns_name = ['Ac
         if not(isinstance(separator, str)): raise TypeError("Requires separator to be a str.")
         if not(isinstance(columns_name, list)): raise TypeError("Requires columns_name to be a list.")
         for i in range(len(columns_name)):
-            if not(isinstance(columns_name[i],str)) : raise TypeError("Requires columns_name for index " + str(i) + "values to be a str or str.")
+            if not(isinstance(columns_name[i],str)) : raise TypeError("Requires columns_name for index " + str(i) + "values to be a str.")
         if not(isinstance(total_duration, int)): raise TypeError("Requires total_duration to be an int.")
         if not(isinstance(ele_per_sec, int)): raise TypeError("Requires ele_per_sec to be an int.")
         if not(isinstance(Actor, str)): raise TypeError("Requires Actor to be a str.")
         if not(isinstance(Action, str)): raise TypeError("Requires Action to be an str.")
     except TypeError, err_msg:
         raise TypeError(err_msg)
+        return
+    
+    ' Raise error if parameters do not respect input rules '
+    try :
+        if total_duration < 0       : raise ValueError("Requires total_duration to be a positive scalar")
+        if ele_per_sec <= 0         : raise ValueError("Requires ele_per_sec to be a strictly positive scalar")
+    except ValueError, err_msg:
+        raise ValueError(err_msg)
         return
     
     #Test if the filename containts the extension
@@ -171,7 +179,7 @@ def ExtractSignalFromELAN(filename, separator=',', unit='s', columns_name = ['Ac
     'Rename columns to correct use'
     input_data.columns = columns_name
     
-    'if total_duration undefined, get the last t-end of the ELAN data'
+    'if total_duration undefined, get the last t_end of the ELAN data'
     if total_duration == 0 : 
         total_duration = input_data['t_end'][input_data.index[-1]]
 

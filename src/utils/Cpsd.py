@@ -108,6 +108,7 @@ def Cpsd(x,y,fs=1.0, NFFT=256, detrend=0,noverlap=0, plot=False):
       if NFFT <=0:          raise ValueError("Requires NFFT to be a strictly positive scalar")
       if NFFT %2 != 0:      raise ValueError("Requires NNFT to be a multiple of 2")
       if detrend != 0  and detrend != 1 and detrend != 2 : raise ValueError("Requires detrend to be 0, 1 or 2" )
+      if NFFT-noverlap <= 0: raise ValueError("Requires NFFT to be greater than noverlap")
     except ValueError, err_msg:
             raise ValueError(err_msg)
             return
@@ -119,7 +120,7 @@ def Cpsd(x,y,fs=1.0, NFFT=256, detrend=0,noverlap=0, plot=False):
         
     if y.shape[0] < NFFT:
         res_y=pd.DataFrame(0*np.arange(0,NFFT))
-        pd_y=y.combine_first(res_x)
+        pd_y=y.combine_first(res_y)
         y=pd_y.fillna(0)
 
     window=signal.get_window('hanning', NFFT)

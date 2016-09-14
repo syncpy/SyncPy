@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '2',
+        VERSION:     '3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -170,9 +170,15 @@
         <span class="n">eig_val</span><span class="p">,</span><span class="n">eig_vect</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">cov_mat</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
         <span class="n">trace_cov_mat</span><span class="o">=</span><span class="p">(</span><span class="n">cov_mat</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span>
         
+
+        <span class="c"># checking division by zero</span>
+        <span class="k">if</span> <span class="n">trace_cov_mat</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;trace_cov_mat can&#39;t be eq to zero, we divide by it&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
         <span class="n">lambda_spectrum</span><span class="o">=</span><span class="n">eig_val</span><span class="o">/</span><span class="n">trace_cov_mat</span>
         
-        <span class="n">lambda_spectrum_nozero</span><span class="o">=</span><span class="n">lambda_spectrum</span><span class="p">[</span><span class="n">lambda_spectrum</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">lambda_spectrum_nozero</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">lambda_spectrum</span> <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mf">1e-3</span><span class="p">])</span>
         
         <span class="n">omega</span><span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">li</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">li</span><span class="p">)</span> <span class="k">for</span> <span class="n">li</span> <span class="ow">in</span> <span class="n">lambda_spectrum_nozero</span><span class="p">))</span>
         
@@ -226,7 +232,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Sep 30, 2015.
+      Last updated on Nov 06, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
     </div>
   </body>

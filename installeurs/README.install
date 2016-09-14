@@ -1,0 +1,53 @@
+======================================================================
+							SyncPy
+                          Version 1.3
+
+                         README.install
+-----------------------------------------------------------------------
+
+
+Overview
+======================================================================
+This README.install file describes how to install SyncPy on Windows,
+Linux and Mac systems.
+
+You will need a 64 bits system to use SyncPy.
+
+You will need administrator rights to install SyncPy.
+
+The installer will download and install the latest version of Python
+and Anaconda if you don't have them.
+
+   System tested
+   --------------
+   Ubuntu 14.04
+   Windows 7
+   Windows 10
+   Mac OSX 10
+
+
+Installing on Unix/Linux systems
+======================================================================
+Download the installation script from the website.
+Open a terminal and cd to the directory where the file was downloaded.
+Execute ./SyncPy-X.X.sh where X.X is the version of SyncPy downloaded.
+
+
+Installing on Windows systems
+======================================================================
+Download the installation file from the website.
+Execute the file SyncPy-X.X.exe where X.X is the version of SyncPy
+downloaded with admin rights.
+At the end push enter to exit the installation program and then
+restart your computer to fully apply the installation.
+
+
+Installing on Mac systems
+======================================================================
+Download the installation script from the website.
+Open a terminal and cd to the directory where the file was downloaded.
+Execute ./SyncPy-X.X.sh where X.X is the version of SyncPy downloaded.
+
+
+---//---
+

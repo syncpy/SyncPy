@@ -1,6 +1,6 @@
 """
 WindowCrossCorrelation example :
-Computes the window cross correlation between times series (in DataFrame format) x and y
+Computes the window cross correlation between two continuous univariate signals x and y (in pandas DataFrame format)
 """
 
 """ Import common python packages """
@@ -13,7 +13,7 @@ sys.path.insert(0, '../src/')       # To be able to import from parent directory
 
 print("\n")
 print("*************************************************************************************")
-print("This script computes the windowed cross-correlation between two monovariate time series \n" +
+print("This script computes the windowed cross-correlation between two continuous monovariate signals \n" +
       "expressed as Python Pandas DataFrame.")
 print("*************************************************************************************")
 
@@ -39,7 +39,7 @@ y = pd.DataFrame({'Y':np.sin(2*3.14*2*f*n/Fs)})
 
 """OR"""
 """ Import signal from a .csv file """
-filename = 'data_examples/2Persons_Monovariate_Continuous_data_2.csv'
+filename = 'data_examples/2Persons_Univariate_Continuous_data_2.csv'
 x = ExtractSignalFromCSV(filename, columns = ['x'], unit = 's')
 y = ExtractSignalFromCSV(filename, columns = ['y'], unit = 's')
 
@@ -75,7 +75,7 @@ tau_inc= 1          # amount of time elapsed between two cross-correlation (in s
 plot = True         # if True the plot of correlation function is returned. Default: False
 ele_per_sec = 5     # number of element in one second
 
-""" Instanciate the class with its attributes """
+""" Instantiate the class with its attributes """
 print("\n")
 try : 
     corr = WindowCrossCorrelation.WindowCrossCorrelation(tau_max, window, window_inc, tau_inc, plot, ele_per_sec)
@@ -89,7 +89,7 @@ except Exception, e :
     print("Exception in WindowCrossCorrelation constructor : \n" + str(e))
     sys.exit(-1)
     
-print("An instance the class is now created with the following parameters:\n" +
+print("An instance of the class is now created with the following parameters:\n" +
       "tau max = " + str(tau_max) + "\n" +
       "window length = " + str(window) + "\n" +
       "window increment = " + str(window_inc) + "\n" +

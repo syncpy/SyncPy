@@ -108,7 +108,9 @@ def Welch_psd(x,fs=1.0,NFFT=256,detrend=0, noverlap=0, plot=False):
             return
           
   if x.shape[0] < NFFT:
-      res_x=pd.DataFrame(0*np.arange(0,NFFT))
+      # Optimisation de :
+      # res_x=pd.DataFrame(0*np.arange(0,NFFT))
+      res_x = pd.DataFrame(np.zeros((NFFT,), dtype=np.int))
       pd_x=x.combine_first(res_x)
       x=pd_x.fillna(0)
 

@@ -19,6 +19,16 @@ Boolean Turn Activity example
 .. literalinclude:: ../../examples/BooleanTurnsActivity.py
 
 
+DataFrom2Persons Univariate Categorical Nonlinear module 
+--------------------------------------------------------
+Event Synchronization example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/EventSync.py>`)
+
+.. literalinclude:: ../../examples/EventSync.py
+
+
 DataFrom2Persons Univariate Continuous Linear module 
 ------------------------------------------------------
 
@@ -83,10 +93,10 @@ Mutual Information example
 
 .. literalinclude:: ../../examples/MutualInformation.py
 
-
+^
 
 Window Mutual Information example 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 (:download:`Source code <../../examples/WindowMutuaInformation.py>`)
 
@@ -94,8 +104,34 @@ Window Mutual Information example
 
 
 
+PhaseSynchro_Strobo example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/PhaseSynchro_Strobo.py>`)
+
+.. literalinclude:: ../../examples/PhaseSynchro_Strobo.py
+
+
+
+
 DataFromManyPersons Univariate Continuous Linear module 
 --------------------------------------------------------
+
+Conditional Granger Causality example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/ConditionalGrangerCausality.py>`)
+
+.. literalinclude:: ../../examples/ConditionalGrangerCausality.py
+
+
+Omega complexity example 
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/Omega_Complexity.py>`)
+
+.. literalinclude:: ../../examples/Omega_Complexity.py
+
 
 PartialCoherence example 
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -113,15 +149,6 @@ S_Estimator example
 
 
 
-DataFromManyPersons Multivariate Continuous Linear module 
----------------------------------------------------------
-
-Multivariate Granger Causality example 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-(:download:`Source code <../../examples/MultivariateGrangerCausality.py>`)
-
-.. literalinclude:: ../../examples/MultivariateGrangerCausality.py
 
 
 

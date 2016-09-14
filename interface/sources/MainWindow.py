@@ -238,10 +238,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     """"tab_methods Functions""""
     """""""""""""""""""""""""""""
     def initMethods(self):       
-        for element in os.listdir('Method_Files'):
+        for element in os.listdir('method_files'):
             if element.endswith('.csv'):
                 input_data = pd.DataFrame()
-                input_data = pd.read_csv('method_files\\' + element, sep=',', index_col=0 )
+                input_data = pd.read_csv('method_files/' + element, sep=',', index_col=0 )
                 
                 try : 
                     self.methods_dict[input_data.at['Name','Value']] = SynchronyMethod(input_data.at['Name','Value'],

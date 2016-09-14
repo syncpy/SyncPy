@@ -34,7 +34,7 @@
 ### had knowledge of the CeCILL-B license and that you accept its terms.
 
 """
-.. moduleauthor:: Adem Usta
+.. moduleauthor:: Adem Usta and Giovanna Varni
 """
 import sys                                            	# To be able to import from parent directory
 import numpy as np 										# For math operation
@@ -52,13 +52,15 @@ import DataFrom2Persons.Univariate.Continuous.Linear.GrangerCausality as GC # Fo
 
 class ConditionalGrangerCausality:
 	"""
-	It computes a bi-directional pairwise Granger causality test between all the signals, to detect temporary direct links.
-	For each detected link, a conditional test is made to know if the link between the two signals is mediated by another signal.
-	At the end of the test, a node graphic is shown to see the links between the signals.
+	It computes Conditional Granger Causality among signals. It assesses whether the interaction between two signals is direct
+	or is mediated by other signals and wheter the causal influence is due to differential time delays in the driving inputs. 
+	The algorithm computes bi-directional pairwise Granger causality test between all the signals, to detect temporary direct links.
+	For each detected link, a conditional test is made to know if the link between the two signals is mediated by the other signals.
+	At the end of the test, a graph is shown to see the true links among the signals.
 	
 	**Reference :**
 	
-	* XiaotongWen, Govindan Rangarajan, and Mingzhou Ding. Multivariate Granger causality : an estimation framework based on factorization of the spectral density matrix. Philosophical Transactions of the Royal Society of London A : Mathematical, Physical and Engineering Sciences, 371(1997) :20110610, August 2013.
+	* Xiaotong Wen, Govindan Rangarajan, and Mingzhou Ding. Multivariate Granger causality : an estimation framework based on factorization of the spectral density matrix. Philosophical Transactions of the Royal Society of London A : Mathematical, Physical and Engineering Sciences, 371(1997) :20110610, August 2013.
 	
 	:param max_lag:
 		The number of maximum lag (in samples) with which the autoregressive model will be computed. 
@@ -202,13 +204,14 @@ class ConditionalGrangerCausality:
 		M_direct = np.zeros((len(signals),len(signals)))
 		
 		# Testing for direct links between signals :
+		print "Results of pairwise analysis:\n"
 		for i in range(0,len(signals)):
 			for j in range(0,len(signals)):
 				if (i != j):
 					gc = GC.GrangerCausality(max_lag = self._max_lag, criterion = self._criterion, plot = False)
-					gc.compute(signals[i],signals[j])
-					if gc._ratio > 0 and gc._p_value < 0.01:
-						print "Results : signal",j+1,"->",i+1,"detected"
+					gc_res = gc.compute(signals[i],signals[j])
+					if gc_res['ratio'] > 0 and gc_res['p_value'] < 0.01:
+						print "signal",j+1,"->",i+1,"detected"
 						M_direct[i,j] = 1
 
 		# Computing the FULL VAR model :
@@ -217,20 +220,17 @@ class ConditionalGrangerCausality:
 		olag_AR = np.zeros((len(signals),1))
 		
 		# For each order, computing VAR :
-		for k in range(0,len(signals)+1):
+		for k in range(0,len(signals)):
 		
 			# Permuting columns to compute VAR :
-			SIGNALS = np.concatenate((SIGNALS[:,k:],SIGNALS[:,0:k]),axis = 1)
-			
-			if k == len(signals):
-				break
+			SIGNALS_V = np.concatenate((SIGNALS[:,k:],SIGNALS[:,0:k]),axis = 1)
 			
 			criterion_value = np.zeros((self._max_lag,1))
 			
 			#Testing each order :
 			for lag in range(1, self._max_lag+1):
 
-				data = lagmat2ds(SIGNALS,lag,trim ='both', dropex = 1)
+				data = lagmat2ds(SIGNALS_V,lag,trim ='both', dropex = 1)
 				datajoint = add_constant(data[:, 1:], prepend=False)
 				OLS_ = OLS(data[:, 0], datajoint).fit()
 			
@@ -250,12 +250,9 @@ class ConditionalGrangerCausality:
 		
 		for k in range(0,len(signals)):
 			# Permuting columns to compute VAR :
-			SIGNALS = np.concatenate((SIGNALS[:,k:],SIGNALS[:,0:k]),axis = 1)
-			
-			if k == len(signals):
-				break
+			SIGNALS_P = np.concatenate((SIGNALS[:,k:],SIGNALS[:,0:k]),axis = 1)
 				
-			data = lagmat2ds(SIGNALS,olag,trim ='both', dropex = 1)
+			data = lagmat2ds(SIGNALS_P,olag,trim ='both', dropex = 1)
 			datajoint = add_constant(data[:, 1:], prepend=False)
 			OLS_ = OLS(data[:,0], datajoint).fit()
 			VAR_resid[:,k] = OLS_.resid
@@ -267,19 +264,21 @@ class ConditionalGrangerCausality:
 		M_final = np.zeros((len(signals),len(signals)))
 		
 		# Testing for mediated links between signals :
+		print "\n"
 		for i in range(0,len(signals)):
 			for j in range(0,len(signals)):
 				if M_direct[i,j] == 1:
 					# We have detected a "direct link", we need to test with other signals to know if there is a mediated link:
 					for k in range(0,len(signals)):
-						if k != j and k != i:
-							S = np.concatenate((SIGNALS[:,j].reshape(T,1),SIGNALS[:,k].reshape(T,1)),axis = 1)
+						if (k != j) and (k != i):
+							SIGNALS_M=np.delete(SIGNALS,[i,j],1)
+							S = np.concatenate((SIGNALS[:,i].reshape(T,1),SIGNALS_M[:,0:].reshape(T,2)),axis = 1)
 							data = lagmat2ds(S,olag,trim ='both', dropex = 1)
 							datajoint = add_constant(data[:, 1:], prepend=False)
 							OLS_ = OLS(data[:,0], datajoint).fit()
 							var_noise = np.var(OLS_.resid)
-							ratio = np.log(var_noise/VAR_noise_matrix[j,j])
-							if ratio <= 0:
+							ratio = np.log(var_noise)-np.log(VAR_noise_matrix[i,i])
+							if ratio < 0.01:
 								print "signal",j+1,"->",i+1," is mediated by signal",k+1
 								M_direct[i,j] = 0
 								M_final[i,k] = 1

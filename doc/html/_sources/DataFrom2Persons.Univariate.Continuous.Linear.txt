@@ -31,14 +31,6 @@ WindowCrossCorrelation module
     :undoc-members:
     :show-inheritance:
 
-PeakPicking module
------------------------------------------------------------------
-
-.. automodule:: DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 GrangerCausality module
 -----------------------------------------------------------------
 

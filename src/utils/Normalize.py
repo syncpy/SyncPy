@@ -38,7 +38,8 @@ import pandas as pd
 
 def Normalize(signal, min_value = [0], max_value = [1]):
     """
-    It normalizes function normalizes signal between min_value and max_value 
+    It normalizes function normalizes signal between min_value and max_value.
+    If the signal is constant, the normalization converts it into the max_value.
     
     :param signal:
         input signal
@@ -81,9 +82,12 @@ def Normalize(signal, min_value = [0], max_value = [1]):
     k = 0 
     for col in signal.columns :
         col_scope = signal[col].max() - signal[col].min()
-        col_min = signal[col].min()
         
-        norm_data[col] = ((signal[col] - col_min) / col_scope ) * (max_value[k] - min_value[k]) + min_value[k]
+        if 0 != col_scope: 
+            col_min = signal[col].min()
+            norm_data[col] = ((signal[col] - col_min) / col_scope ) * (max_value[k] - min_value[k]) + min_value[k]
+        else:
+            norm_data[col] = max_value[k]
         
         k += 1
         

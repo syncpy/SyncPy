@@ -1,6 +1,6 @@
 """
 GrangerCausality example :
-Computes a Granger Causality test between two signals x and y that are stored as a DataFrame
+Computes a Granger Causality test between two continuous univariate signals x and y that are stored as pandas DataFrame
 """
 
 """ Import common python packages """
@@ -11,7 +11,7 @@ sys.path.insert(0, '../src/')       # To be able to import from parent directory
 
 print("\n")
 print("*************************************************************************************")
-print("This script computes the Granger Causality test between two monovariate signals \n" +
+print("This script computes the Granger Causality test between two univariate signals \n" +
       "in pandas DataFrame format.")
 print("*************************************************************************************")
 
@@ -23,7 +23,7 @@ from utils.ResampleAndInterpolate import ResampleAndInterpolate
 import DataFrom2Persons.Univariate.Continuous.Linear.GrangerCausality as GC
 
 """ Import signal from a .csv file """
-filename = 'data_examples/2Persons_Monovariate_Continuous_data.csv'
+filename = 'data_examples/2Persons_Univariate_Continuous_data.csv'
 print "\nLoading signals from csv files : ", filename,"\n"
 x1 = ExtractSignalFromCSV(filename, columns = ['x1'])
 x2 = ExtractSignalFromCSV(filename, columns = ['x2'])
@@ -53,7 +53,7 @@ max_lag = 3 			# Define the maximum lag acceptable to estimate autoregressive mo
 criterion = 'bic'   	# Define the criterion to estimate the optimal number of lags to estimate autoregressive models
 plot = True				# Authorize the plot of the results
 
-""" Instanciate the class with its attributes """
+""" Instantiate the class with its attributes """
 print("\n")
 
 try : 
@@ -93,5 +93,6 @@ except Exception, e :
 print "Computing autoregressive model 'restricted' and 'unrestricted' via the 'Ordinary Least Squares' method\n"
 print "According to",criterion,", the optimal number of lag estimated is :", results['optimal_lag'],"\n"
 print "F_value =",results['F_value']," with p_value =",results['p_value'],"\n"
+print "ratio value=",results['ratio'],"\n"
 
 raw_input("Push ENTER key to exit.")

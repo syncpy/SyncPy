@@ -31,5 +31,13 @@ WindowMutualInformation module
 .. automodule:: DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation
     :members:
     :undoc-members:
-    :show-inheritance:    
+    :show-inheritance:  
+	
 
+PhaseSynchro_Strobo module
+----------------------------------------------------------------------
+
+.. automodule:: DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo
+    :members:
+    :undoc-members:
+    :show-inheritance: 

@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '2',
+        VERSION:     '3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -113,13 +113,13 @@
 
 
 <div class="viewcode-block" id="SpectralGrangerCausality"><a class="viewcode-back" href="../../../../../DataFrom2Persons.Univariate.Continuous.Linear.html#DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality.SpectralGrangerCausality">[docs]</a><span class="k">class</span> <span class="nc">SpectralGrangerCausality</span><span class="p">:</span>
-	<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	It computes a Granger causality test between two univariate signals x and y (in pandas DataFrame format), in the</span>
-<span class="sd">	spectral domain.</span>
-<span class="sd">	</span>
-<span class="sd">	**Reference :**</span>
-<span class="sd">	</span>
-<span class="sd">	* Adam B. Barrett, Michael Murphy, Marie-Aurelie Bruno, Quentin Noirhomme, Melanie Boly, Steven Laureys, and Anil K. Seth. Granger Causality Analysis of Steady-State Electroencephalographic Signals during Propofol-Induced Anaesthesia. PLoS ONE, 7(1) :e29072, January 2012.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It computes a Granger causality test between two univariate signals x and y (in pandas DataFrame format), in the</span>
+<span class="sd">    spectral domain.</span>
+
+<span class="sd">    **Reference :**</span>
+
+<span class="sd">    * Adam B. Barrett, Michael Murphy, Marie-Aurelie Bruno, Quentin Noirhomme, Melanie Boly, Steven Laureys, and Anil K. Seth. Granger Causality Analysis of Steady-State Electroencephalographic Signals during Propofol-Induced Anaesthesia. PLoS ONE, 7(1) :e29072, January 2012.</span>
 
 <span class="sd">    :param max_lag: The number of maximum lag (in samples) with which the autoregressive model will be computed. </span>
 <span class="sd">        It ranges in [1;length(x)]. Default : 1.</span>
@@ -137,238 +137,254 @@
 <span class="sd">    :type plot: bool</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-	<span class="sd">&#39;&#39;&#39; Constructor &#39;&#39;&#39;</span>
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_lag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">criterion</span> <span class="o">=</span> <span class="s">&#39;bic&#39;</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
-		
-		<span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
-		<span class="k">try</span> <span class="p">:</span>
-			<span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>     <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot to be a bool&quot;</span><span class="p">)</span>
-			<span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires criterion to be a str&quot;</span><span class="p">)</span>
-			<span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">max_lag</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>   <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires max_lag to be an int&quot;</span><span class="p">)</span>
-		<span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-			<span class="k">return</span>
-        
-		<span class="s">&#39; Raise error if parameters do not respect input rules &#39;</span>
+    <span class="sd">&#39;&#39;&#39; Constructor &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_lag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">criterion</span> <span class="o">=</span> <span class="s">&#39;bic&#39;</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+        <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>     <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot to be a bool&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires criterion to be a str&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">max_lag</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>   <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires max_lag to be an int&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+            <span class="k">return</span>
 
-		<span class="k">try</span> <span class="p">:</span>
-			<span class="k">if</span> <span class="n">max_lag</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires max_lag to be a strictly positive scalar&quot;</span><span class="p">)</span>
-			<span class="k">if</span> <span class="n">criterion</span> <span class="o">!=</span> <span class="s">&#39;bic&#39;</span> <span class="ow">and</span> <span class="n">criterion</span> <span class="o">!=</span><span class="s">&#39;aic&#39;</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires criterion to be &#39;bic&#39; or &#39;aic&#39;&quot;</span><span class="p">)</span>
-		<span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-			<span class="k">return</span>
-		
-		<span class="s">&#39; Attributes to initialise when creating the object &#39;</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_max_lag</span> <span class="o">=</span> <span class="n">max_lag</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span> <span class="o">=</span> <span class="n">criterion</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_plot</span> <span class="o">=</span> <span class="n">plot</span>
-		
-		<span class="s">&#39; Attributes that will be initialised when the compute method is called &#39;</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_OLS_restricted_x</span> <span class="o">=</span> <span class="bp">None</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span> <span class="o">=</span> <span class="bp">None</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_OLS_restricted_y</span> <span class="o">=</span> <span class="bp">None</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_y</span> <span class="o">=</span> <span class="bp">None</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_freq</span> <span class="o">=</span> <span class="bp">None</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_F_xy</span> <span class="o">=</span> <span class="bp">None</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_F_value</span> <span class="o">=</span> <span class="mi">0</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_p_value</span> <span class="o">=</span> <span class="mi">0</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_olag</span> <span class="o">=</span> <span class="mi">0</span>
-		
-<div class="viewcode-block" id="SpectralGrangerCausality.plot_result"><a class="viewcode-back" href="../../../../../DataFrom2Persons.Univariate.Continuous.Linear.html#DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality.SpectralGrangerCausality.plot_result">[docs]</a>	<span class="k">def</span> <span class="nf">plot_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		It plots the results of SpectralGrangerCausality Test : F y-&gt;x is computed for each frequency (Hz), and then plotted</span>
-<span class="sd">		</span>
-<span class="sd">		:param result:</span>
-<span class="sd">			Spectral Granger Causality result from compute()</span>
-<span class="sd">		:type result: dict</span>
-<span class="sd">		</span>
-<span class="sd">		:returns: plt.figure</span>
-<span class="sd">			-- A figure that contains the plot</span>
-<span class="sd">		&quot;&quot;&quot;</span>
-		
-		<span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
-		<span class="k">try</span> <span class="p">:</span>
-			<span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires result to be a dictionary&quot;</span><span class="p">)</span>
-		<span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-			<span class="k">return</span>
-		
-		<span class="s">&#39; Raise error if not the good dictionary &#39;</span>
-		<span class="k">try</span> <span class="p">:</span>
-			<span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;Freq&#39;</span> <span class="ow">in</span> <span class="n">result</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires dictionary to be the output of compute() method&quot;</span><span class="p">)</span>
-			<span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;F_xy&#39;</span> <span class="ow">in</span> <span class="n">result</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires dictionary to be the output of compute() method&quot;</span><span class="p">)</span>
-		<span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-			<span class="k">return</span>
-	
-		<span class="c"># Define a plot figure </span>
-		<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-		
-		<span class="c"># Define 1 subplots</span>
-		<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-		
-		<span class="c"># Option on axis 1</span>
-		<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span> 						
-		<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;F y-&gt;x expressed as a log ratio&#39;</span><span class="p">)</span> 	
-		<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;Frequency (Hz)&#39;</span><span class="p">)</span> 			
-		<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;Value&#39;</span><span class="p">)</span>  		
-		
-		<span class="c"># Plot </span>
-		<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s">&#39;Freq&#39;</span><span class="p">],</span><span class="n">result</span><span class="p">[</span><span class="s">&#39;F_xy&#39;</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;black&#39;</span><span class="p">)</span>
-		
-		<span class="c"># Return figure</span>
-		<span class="k">return</span> <span class="n">fig</span></div>
-		
-	
-		
-	<span class="sd">&#39;&#39;&#39; Computes GrangerCausality tests &#39;&#39;&#39;</span>
-<div class="viewcode-block" id="SpectralGrangerCausality.compute"><a class="viewcode-back" href="../../../../../DataFrom2Persons.Univariate.Continuous.Linear.html#DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality.SpectralGrangerCausality.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		It computes restricted AR and unrestricted AR models, and evaluates whether the x signal could be forecasted</span>
-<span class="sd">		by the y signal. F-value and p-value are computed, the interpretation of the results is up to the user.</span>
-<span class="sd">		</span>
-<span class="sd">		:param x:</span>
-<span class="sd">			first input signal - &#39;signal_to_predict&#39;</span>
-<span class="sd">		:type x: pd.DataFrame</span>
-<span class="sd">		</span>
-<span class="sd">		:param y:</span>
-<span class="sd">			second input signal - &#39;helping_signal&#39;</span>
-<span class="sd">		:type y: pd.DataFrame</span>
-<span class="sd">		</span>
-<span class="sd">		:returns: dict</span>
-<span class="sd">			-- F_xy</span>
-<span class="sd">		&quot;&quot;&quot;</span>
-		
-		<span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
-		<span class="k">try</span> <span class="p">:</span>
-			<span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires x to be a pd.DataFrame&quot;</span><span class="p">)</span>
-			<span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires y to be a pd.DataFrame&quot;</span><span class="p">)</span>
-		<span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-			<span class="k">return</span>
-			
-		<span class="s">&#39; Raise error if DataFrames have not the same length &#39;</span>
-		<span class="k">try</span> <span class="p">:</span>
-			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;x and y signals must have same length&quot;</span><span class="p">)</span>
-		<span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-			<span class="k">return</span>			
-		
-		
-		<span class="s">&#39; FIRST PART - Computing OLS models &#39;</span>
-		<span class="c"># Saving the size of signals (they all supposed to have the same size)</span>
-		<span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-		
-		<span class="c"># Saving Sampling rate :</span>
-		<span class="n">Delta</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_Time_sampling</span> <span class="o">=</span> <span class="n">Delta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
-		
-		<span class="c"># Converting DataFrames to arrays :</span>
-		<span class="n">signal_to_predict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-		<span class="n">helping_signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-		
-		<span class="c"># Concatenate the two signals in a (nobs,2) array</span>
-		<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">signal_to_predict</span><span class="p">,</span><span class="n">helping_signal</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-		<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">helping_signal</span><span class="p">,</span><span class="n">signal_to_predict</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-		
-		<span class="c"># Arrays that will contain BIC or AIC values according to the given criterion :</span>
-		<span class="n">C_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_lag</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-		<span class="n">C_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_lag</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-		
-		<span class="c"># Computing OLS models for both &#39;restricted&#39; and &#39;unrestricted&#39; models, for each lag between 1 and &#39;max_lag&#39;</span>
-		<span class="k">for</span> <span class="n">lag</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_lag</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-			
-			<span class="c"># Adapting datas :</span>
-			<span class="n">data</span> <span class="o">=</span> <span class="n">lagmat2ds</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">lag</span><span class="p">,</span><span class="n">trim</span> <span class="o">=</span><span class="s">&#39;both&#39;</span><span class="p">,</span> <span class="n">dropex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-			<span class="n">dataown</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:(</span><span class="n">lag</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-			<span class="n">datajoint</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-			
-			<span class="c"># OLS models :</span>
-			<span class="n">OLS_restricted</span>   <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dataown</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-			<span class="n">OLS_unrestricted</span> <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">datajoint</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-			
-			<span class="c"># Saving AIC or BIC values :</span>
-			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span> <span class="o">==</span> <span class="s">&#39;bic&#39;</span><span class="p">:</span>
-				<span class="n">C_r</span><span class="p">[</span><span class="n">lag</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">OLS_restricted</span><span class="o">.</span><span class="n">bic</span>
-				<span class="n">C_u</span><span class="p">[</span><span class="n">lag</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">OLS_unrestricted</span><span class="o">.</span><span class="n">bic</span>
-			<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span> <span class="o">==</span> <span class="s">&#39;aic&#39;</span><span class="p">:</span>
-				<span class="n">C_r</span><span class="p">[</span><span class="n">lag</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">OLS_restricted</span><span class="o">.</span><span class="n">aic</span>
-				<span class="n">C_u</span><span class="p">[</span><span class="n">lag</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">OLS_unrestricted</span><span class="o">.</span><span class="n">aic</span>	
-				
-		<span class="c"># Determine the optimal &#39;lag&#39; according to &#39;bic&#39; or &#39;aic&#39; criterion :</span>
-		<span class="n">olag_r</span> <span class="o">=</span> <span class="n">C_r</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span>
-		<span class="n">olag_u</span> <span class="o">=</span> <span class="n">C_u</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span>
-		<span class="n">olag</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">olag_r</span><span class="p">,</span><span class="n">olag_u</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_olag</span> <span class="o">=</span> <span class="n">olag</span>
-		
-		<span class="c"># Computing OLS models of &#39;x&#39; signal with the optimal &#39;lag&#39;</span>
-		<span class="n">data</span> <span class="o">=</span> <span class="n">lagmat2ds</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">olag</span><span class="p">,</span><span class="n">trim</span> <span class="o">=</span><span class="s">&#39;both&#39;</span><span class="p">,</span> <span class="n">dropex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-		<span class="n">dataown</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:(</span><span class="n">olag</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-		<span class="n">datajoint</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_OLS_restricted_x</span>   <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dataown</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span> <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">datajoint</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-		
-		<span class="c"># Computing OLS models of &#39;y&#39; signal with the optimal &#39;lag&#39;</span>
-		<span class="n">data</span> <span class="o">=</span> <span class="n">lagmat2ds</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span><span class="n">olag</span><span class="p">,</span><span class="n">trim</span> <span class="o">=</span><span class="s">&#39;both&#39;</span><span class="p">,</span> <span class="n">dropex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-		<span class="n">dataown</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:(</span><span class="n">olag</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-		<span class="n">datajoint</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_OLS_restricted_y</span> <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dataown</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_y</span> <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">datajoint</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-		
-		<span class="c"># Doing the F-TEST: !!! I don&#39;t know if it&#39;s necessary here !!!</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_F_value</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_restricted_x</span><span class="o">.</span><span class="n">ssr</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">ssr</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">ssr</span><span class="o">/</span><span class="n">olag</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">df_resid</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_F_value</span><span class="p">,</span> <span class="n">olag</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">df_resid</span><span class="p">)</span>
-		
-		<span class="s">&#39; SECOND PART : Spectral domain causality &#39;</span>
-		
-		<span class="c"># Preparing matrix</span>
-		<span class="n">K</span> <span class="o">=</span> <span class="n">T</span>
-		<span class="n">A_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">K</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dtype</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">)</span>			<span class="c"># Coefficients matrix - spectral domain</span>
-		<span class="n">A_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">olag</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>						<span class="c"># Coefficients matrix - time domain</span>
-		<span class="n">A_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">olag</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">)</span>	<span class="c"># Tmp matrix</span>
-		<span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>								<span class="c"># Identity matrix</span>
-		
-		<span class="n">T_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Time_sampling</span>		<span class="c"># Sampling time</span>
-		<span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">T_s</span><span class="p">),</span><span class="n">K</span><span class="p">)</span>	<span class="c"># Frequencies</span>
-		<span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>			<span class="c"># Saving frequency (Hz) into object (for plot)</span>
-		<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1j</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">T_s</span><span class="o">*</span><span class="n">f</span><span class="p">)</span>	<span class="c"># complexe value associated with f</span>
-		
-		<span class="c"># Assembling parameters :</span>
-		<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">olag</span><span class="p">):</span>
-			<span class="n">A_t</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-			<span class="n">A_t</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="n">olag</span><span class="p">]</span>
-			<span class="n">A_t</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_y</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="n">olag</span><span class="p">]</span>
-			<span class="n">A_t</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_y</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="s">&#39; Raise error if parameters do not respect input rules &#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">max_lag</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires max_lag to be a strictly positive scalar&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">criterion</span> <span class="o">!=</span> <span class="s">&#39;bic&#39;</span> <span class="ow">and</span> <span class="n">criterion</span> <span class="o">!=</span><span class="s">&#39;aic&#39;</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires criterion to be &#39;bic&#39; or &#39;aic&#39;&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+            <span class="k">return</span>
 
-		<span class="c"># Computing A(w) :</span>
-		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">K</span><span class="p">):</span>
-			<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">olag</span><span class="p">):</span>
-				<span class="n">A_tmp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A_t</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="n">k</span><span class="p">)</span>
-			<span class="n">A_f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">I</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">A_tmp</span><span class="p">)</span>
-			
-		<span class="c"># Computing H(w) as the inverse of A(w):</span>
-		<span class="n">H_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">K</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dtype</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">)</span>			<span class="c"># Transfert matrix for each w</span>
-		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">K</span><span class="p">):</span>
-			<span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A_f</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-			
-		<span class="c"># Computing F y-&gt;x :</span>
-		<span class="n">SIG</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_y</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span> 	<span class="c"># Covariance matrix</span>
-		<span class="n">F_xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>														<span class="c"># F y-&gt;x value</span>
-		
-		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">K</span><span class="p">):</span>
-			<span class="n">Sxx</span> <span class="o">=</span> <span class="n">SIG</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">SIG</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-			<span class="n">Den</span> <span class="o">=</span> <span class="n">SIG</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-			<span class="n">F_xy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Sxx</span><span class="o">/</span><span class="n">Den</span><span class="p">)</span>
+        <span class="s">&#39;Attributes to initialise when creating the object &#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_lag</span> <span class="o">=</span> <span class="n">max_lag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span> <span class="o">=</span> <span class="n">criterion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plot</span> <span class="o">=</span> <span class="n">plot</span>
 
-		<span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-		<span class="n">result</span><span class="p">[</span><span class="s">&#39;Freq&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq</span>
-		<span class="n">result</span><span class="p">[</span><span class="s">&#39;F_xy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">F_xy</span>
-		
-		<span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plot</span> <span class="o">==</span> <span class="bp">True</span><span class="p">):</span>
-			<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">plot_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-			
-		<span class="k">return</span> <span class="n">result</span></div></div>
+        <span class="s">&#39;Attributes that will be initialised when the compute method is called &#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_restricted_x</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_restricted_y</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_y</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_freq</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_F_xy</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_F_value</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_p_value</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_olag</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="SpectralGrangerCausality.plot_result"><a class="viewcode-back" href="../../../../../DataFrom2Persons.Univariate.Continuous.Linear.html#DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality.SpectralGrangerCausality.plot_result">[docs]</a>    <span class="k">def</span> <span class="nf">plot_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        It plots the results of SpectralGrangerCausality Test : F y-&gt;x is computed for each frequency (Hz), and then plotted</span>
+
+<span class="sd">        :param result:</span>
+<span class="sd">            Spectral Granger Causality result from compute()</span>
+<span class="sd">        :type result: dict</span>
+
+<span class="sd">        :returns: plt.figure</span>
+<span class="sd">            -- A figure that contains the plot</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires result to be a dictionary&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="s">&#39; Raise error if not the good dictionary &#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s">&#39;Freq&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires dictionary to be the output of compute() method&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s">&#39;F_xy&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires dictionary to be the output of compute() method&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c"># Define a plot figure</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+        <span class="c"># Define 1 subplots</span>
+        <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+        <span class="c"># Option on axis 1</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;F y-&gt;x expressed as a log ratio&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;Value&#39;</span><span class="p">)</span>
+
+        <span class="c"># Plot</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s">&#39;Freq&#39;</span><span class="p">],</span><span class="n">result</span><span class="p">[</span><span class="s">&#39;F_xy&#39;</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;black&#39;</span><span class="p">)</span>
+
+        <span class="c"># Return figure</span>
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+
+
+    <span class="sd">&#39;&#39;&#39; Computes GrangerCausality tests &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="SpectralGrangerCausality.compute"><a class="viewcode-back" href="../../../../../DataFrom2Persons.Univariate.Continuous.Linear.html#DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality.SpectralGrangerCausality.compute">[docs]</a>    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        It computes restricted AR and unrestricted AR models, and evaluates whether the x signal could be forecasted</span>
+<span class="sd">        by the y signal. F-value and p-value are computed, the interpretation of the results is up to the user.</span>
+
+<span class="sd">        :param x:</span>
+<span class="sd">            first input signal - &#39;signal_to_predict&#39;</span>
+<span class="sd">        :type x: pd.DataFrame</span>
+
+<span class="sd">        :param y:</span>
+<span class="sd">            second input signal - &#39;helping_signal&#39;</span>
+<span class="sd">        :type y: pd.DataFrame</span>
+
+<span class="sd">        :returns: dict</span>
+<span class="sd">            -- F_xy</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires x to be a pd.DataFrame&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires y to be a pd.DataFrame&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="s">&#39; Raise error if DataFrames have not the same length &#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;x and y signals must have same length&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+            <span class="k">return</span>
+
+
+        <span class="s">&#39; FIRST PART - Computing OLS models &#39;</span>
+        <span class="c"># Saving the size of signals (they all supposed to have the same size)</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="c"># Saving Sampling rate :</span>
+        <span class="n">Delta</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Time_sampling</span> <span class="o">=</span> <span class="n">Delta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+        <span class="c"># Converting DataFrames to arrays :</span>
+        <span class="n">signal_to_predict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">helping_signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+
+        <span class="c"># Concatenate the two signals in a (nobs,2) array</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">signal_to_predict</span><span class="p">,</span><span class="n">helping_signal</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">helping_signal</span><span class="p">,</span><span class="n">signal_to_predict</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="c"># Arrays that will contain BIC or AIC values according to the given criterion :</span>
+        <span class="n">C_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_lag</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">C_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_lag</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="c"># Computing OLS models for both &#39;restricted&#39; and &#39;unrestricted&#39; models, for each lag between 1 and &#39;max_lag&#39;</span>
+        <span class="k">for</span> <span class="n">lag</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_lag</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+
+            <span class="c"># Adapting datas :</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">lagmat2ds</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">lag</span><span class="p">,</span><span class="n">trim</span> <span class="o">=</span><span class="s">&#39;both&#39;</span><span class="p">,</span> <span class="n">dropex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">dataown</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:(</span><span class="n">lag</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">datajoint</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+            <span class="c"># OLS models :</span>
+            <span class="n">OLS_restricted</span>   <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dataown</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+            <span class="n">OLS_unrestricted</span> <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">datajoint</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+            <span class="c"># Saving AIC or BIC values :</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span> <span class="o">==</span> <span class="s">&#39;bic&#39;</span><span class="p">:</span>
+                <span class="n">C_r</span><span class="p">[</span><span class="n">lag</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">OLS_restricted</span><span class="o">.</span><span class="n">bic</span>
+                <span class="n">C_u</span><span class="p">[</span><span class="n">lag</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">OLS_unrestricted</span><span class="o">.</span><span class="n">bic</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span> <span class="o">==</span> <span class="s">&#39;aic&#39;</span><span class="p">:</span>
+                <span class="n">C_r</span><span class="p">[</span><span class="n">lag</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">OLS_restricted</span><span class="o">.</span><span class="n">aic</span>
+                <span class="n">C_u</span><span class="p">[</span><span class="n">lag</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">OLS_unrestricted</span><span class="o">.</span><span class="n">aic</span>
+
+        <span class="c"># Determine the optimal &#39;lag&#39; according to &#39;bic&#39; or &#39;aic&#39; criterion :</span>
+        <span class="n">olag_r</span> <span class="o">=</span> <span class="n">C_r</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">olag_u</span> <span class="o">=</span> <span class="n">C_u</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">olag</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">olag_r</span><span class="p">,</span><span class="n">olag_u</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_olag</span> <span class="o">=</span> <span class="n">olag</span>
+
+        <span class="c"># Computing OLS models of &#39;x&#39; signal with the optimal &#39;lag&#39;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">lagmat2ds</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">olag</span><span class="p">,</span><span class="n">trim</span> <span class="o">=</span><span class="s">&#39;both&#39;</span><span class="p">,</span> <span class="n">dropex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dataown</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:(</span><span class="n">olag</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">datajoint</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_restricted_x</span>   <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dataown</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span> <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">datajoint</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+        <span class="c"># Computing OLS models of &#39;y&#39; signal with the optimal &#39;lag&#39;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">lagmat2ds</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span><span class="n">olag</span><span class="p">,</span><span class="n">trim</span> <span class="o">=</span><span class="s">&#39;both&#39;</span><span class="p">,</span> <span class="n">dropex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dataown</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:(</span><span class="n">olag</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">datajoint</span> <span class="o">=</span> <span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">prepend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_restricted_y</span> <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dataown</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_y</span> <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">datajoint</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+        <span class="c"># checking division by zeros</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">ssr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;self._OLS_unrestricted_x.ssr can&#39;t be zero because we divide by it&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">olag</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;olag can&#39;t be eq to zero because we divide by it&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c"># Doing the F-TEST: !!! I don&#39;t know if it&#39;s necessary here !!!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_F_value</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_restricted_x</span><span class="o">.</span><span class="n">ssr</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">ssr</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">ssr</span><span class="o">/</span><span class="n">olag</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">df_resid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_F_value</span><span class="p">,</span> <span class="n">olag</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">df_resid</span><span class="p">)</span>
+
+        <span class="s">&#39; SECOND PART : Spectral domain causality &#39;</span>
+
+        <span class="c"># Preparing matrix</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">T</span>
+        <span class="n">A_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">K</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dtype</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">)</span>			<span class="c"># Coefficients matrix - spectral domain</span>
+        <span class="n">A_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">olag</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>						<span class="c"># Coefficients matrix - time domain</span>
+        <span class="n">A_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">olag</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">)</span>	<span class="c"># Tmp matrix</span>
+        <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>								<span class="c"># Identity matrix</span>
+
+        <span class="n">T_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Time_sampling</span>		<span class="c"># Sampling time</span>
+
+        <span class="c"># checking division by zeros</span>
+        <span class="k">if</span> <span class="n">T_s</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;T_s can&#39;t be eq to zero because we divide by it&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">T_s</span><span class="p">),</span><span class="n">K</span><span class="p">)</span>	<span class="c"># Frequencies</span>
+        <span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>			<span class="c"># Saving frequency (Hz) into object (for plot)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1j</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">T_s</span><span class="o">*</span><span class="n">f</span><span class="p">)</span>	<span class="c"># complexe value associated with f</span>
+
+        <span class="c"># Assembling parameters :</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">olag</span><span class="p">):</span>
+            <span class="n">A_t</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">A_t</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="n">olag</span><span class="p">]</span>
+            <span class="n">A_t</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_y</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="n">olag</span><span class="p">]</span>
+            <span class="n">A_t</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_y</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="c"># Computing A(w) :</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">K</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">olag</span><span class="p">):</span>
+		<span class="n">kk</span><span class="o">=</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span>
+                <span class="n">A_tmp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A_t</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="n">kk</span><span class="p">)</span>
+            <span class="n">A_f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">I</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">A_tmp</span><span class="p">)</span>
+
+        <span class="c"># Computing H(w) as the inverse of A(w):</span>
+        <span class="n">H_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">K</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dtype</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">)</span>			<span class="c"># Transfert matrix for each w</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">K</span><span class="p">):</span>
+            <span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A_f</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="c"># Computing F y-&gt;x :</span>
+        <span class="n">SIG</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_x</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_OLS_unrestricted_y</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span> 	<span class="c"># Covariance matrix</span>
+        <span class="n">F_xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>														<span class="c"># F y-&gt;x value</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">K</span><span class="p">):</span>
+            <span class="n">Sxx</span> <span class="o">=</span> <span class="n">SIG</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">SIG</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">Den</span> <span class="o">=</span> <span class="n">SIG</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">H_w</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="c"># checking division by zeros</span>
+            <span class="k">if</span> <span class="n">Den</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Den can&#39;t be eq to zero because we divide by it&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="n">F_xy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Den</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">result</span><span class="p">[</span><span class="s">&#39;Freq&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq</span>
+        <span class="n">result</span><span class="p">[</span><span class="s">&#39;F_xy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">F_xy</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span></div></div>
 </pre></div>
 
           </div>
@@ -408,7 +424,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Sep 30, 2015.
+      Last updated on Nov 06, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
     </div>
   </body>

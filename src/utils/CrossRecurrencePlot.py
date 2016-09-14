@@ -47,7 +47,7 @@ import Distance
 import Embedding
 
 
-def CrossRecurrencePlot(x,y,m,t,e,distance,standardization,plot):
+def CrossRecurrencePlot(x,y,m,t,e,distance,standardization = False, plot = False):
     """
     It computes and plots the (cross)recurrence plot of the uni/multivariate input signal(s) x and y (in pandas DataFrame format).
     
@@ -84,7 +84,12 @@ def CrossRecurrencePlot(x,y,m,t,e,distance,standardization,plot):
     :type distance: str
     
     :param standardization:
-       if True data are nomalize to zero mean and unitary variance
+       if True data are nomalize to zero mean and unitary variance. Default: False
+    :type standardization: bool
+    
+    
+    :param plot:
+       if True the plot of correlation function is returned. Default: False
     :type standardization: bool
 
     
@@ -110,15 +115,6 @@ def CrossRecurrencePlot(x,y,m,t,e,distance,standardization,plot):
         return
         
     ' Raise error if parameters do not respect input rules '
-    
-    'Error if x and y have not the same size'
-    try :
-        if x.shape[0]!=y.shape[0] :
-           raise ValueError("The two input signals have different size")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
-    
     try : 
         if m <= 0 : raise ValueError("Requires m to be positive and greater than 0") 
         if t<= 0 : raise ValueError("Requires t to be positive and  greater from 0") 
@@ -146,22 +142,25 @@ def CrossRecurrencePlot(x,y,m,t,e,distance,standardization,plot):
     elif(distance=='maximum'):
         vd=np.inf
         
-    crp_tmp=np.zeros((x.shape[0],y.shape[0]))
+    crp_tmp=np.ones((x.shape[0],y.shape[0]))
+ 
         
     for i in range(0,x.shape[0]): 
         x_row_rep_T=pd.concat([x.iloc[i,:]]*y.shape[0],axis=1,ignore_index=True)
         x_row_rep=x_row_rep_T.transpose()
 
         diff_threshold_norm=e-Distance.Minkowski(x_row_rep,y,vd)
-        diff_threshold_norm[diff_threshold_norm>=0]=1
-        diff_threshold_norm[diff_threshold_norm<0]=0
+        diff_threshold_norm[diff_threshold_norm>=0]=0
+        diff_threshold_norm[diff_threshold_norm<0]=1
             
         crp_tmp[x.shape[0]-1-i,:]=diff_threshold_norm.T
-        crp=np.fliplr((1-crp_tmp).T)
+
+        crp=np.fliplr((crp_tmp).T)
+        
             
     result = dict()
     result['crp']= crp
-    
+
     
     if plot:
        plt.ion()
@@ -172,7 +171,7 @@ def CrossRecurrencePlot(x,y,m,t,e,distance,standardization,plot):
        ax.set_ylabel('Time (in samples)')
        ax.set_title('Cross recurrence matrix')
         
-       ax.imshow(result['crp'], plt.cm.binary_r, origin='lower',interpolation='nearest')
+       ax.imshow(result['crp'], plt.cm.binary_r, origin='lower',interpolation='nearest', vmin=0, vmax=1)
 
 
     return (result)

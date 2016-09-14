@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2',
+        VERSION:     '3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -333,97 +333,13 @@ It computes autocorrelation when y coincides with x.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking">
-<span id="peakpicking-module"></span><h2>PeakPicking module<a class="headerlink" href="#module-DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking" title="Permalink to this headline">¶</a></h2>
-<p><em>Module author: Marie Avril</em></p>
-<dl class="class">
-<dt id="DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking.PeakPicking">
-<em class="property">class </em><code class="descclassname">DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking.</code><code class="descname">PeakPicking</code><span class="sig-paren">(</span><em>corr_matrix</em>, <em>tau_max</em>, <em>tau_inc=0</em>, <em>threshold=0</em>, <em>lookahead=300</em>, <em>delta=0</em>, <em>ele_per_sec=1</em>, <em>plot=False</em>, <em>plot_on_mat=False</em>, <em>sorted_peak=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Linear/PeakPicking.html#PeakPicking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking.PeakPicking" title="Permalink to this definition">¶</a></dt>
-<dd><p>It computes peak picking algorithm with window cross correlation results (see WindowCrossCorrelation)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>corr_matrix</strong> (<em>pd.DataFrame</em>) &#8211; matrix of cross correlation computed by WindowCrossCorrelation module
-(windowed cross correlation DataFrame with (2 * tau_max + 1)/tau_inc rows and (length(x) - window - win_inc)/ win_inc colums)</li>
-<li><strong>tau_max</strong> (<em>int</em>) &#8211; the maximum lag (in samples) at which correlation should be computed. It is in the range [0, (length(x)+length(y)-1)/2]</li>
-<li><strong>tau_inc</strong> (<em>int</em>) &#8211; amount of time (in samples) elapsed between two cross-correlation</li>
-<li><strong>threshold</strong> (<em>float</em>) &#8211; minimal correlation magnitude acceptable for a peak. It is in the range [-1;1]</li>
-<li><strong>lookahead</strong> (<em>int</em>) &#8211; distance to look ahead from a peak candidate to determine if it is the actual peak. Default: 200
-(sample / period) / f where 4 &gt;= f &gt;= 1.25 might be a good value</li>
-<li><strong>delta</strong> (<em>int</em>) &#8211; it specifies a minimum difference between a peak and the following points, before a peak may be considered a peak.
-Useful to hinder the function from picking up false peaks towards to end of the signal.
-To work well delta should be set to delta &gt;= RMSnoise * 5. Default: 0</li>
-<li><strong>ele_per_sec</strong> (<em>int</em>) &#8211; number of elements in one second</li>
-<li><strong>plot</strong> (<em>bool</em>) &#8211; if True the plot of peakpicking function is returned. Default: False</li>
-<li><strong>plot_on_mat</strong> (<em>bool</em>) &#8211; if True the plot of peakpicking + correlation matrix function is returned. Default: False</li>
-<li><strong>sorted_peak</strong> &#8211; if True the peaks found will be organized by type of Lag and Magnitude (positive or negative). Default: False</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking.PeakPicking.compute">
-<code class="descname">compute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Linear/PeakPicking.html#PeakPicking.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking.PeakPicking.compute" title="Permalink to this definition">¶</a></dt>
-<dd><p>It computes peak picking  from cross correlation matrix</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">pd.DataFrame
-&#8211; if sorted_peak is False, peaks found organized per Maximin, Minimum and Extremum</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">pd.DataFrame
-&#8211; if sorted_peak is True, peaks found organized by type of Lag and Magnitude (positive or negative)</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking.PeakPicking.plot_result">
-<code class="descname">plot_result</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Linear/PeakPicking.html#PeakPicking.plot_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking.PeakPicking.plot_result" title="Permalink to this definition">¶</a></dt>
-<dd><blockquote>
-<div>It plots the peakpicking result</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">plt.figure 
-&#8211; figure plot</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking.PeakPicking.sort_peakPickingResult">
-<code class="descname">sort_peakPickingResult</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Linear/PeakPicking.html#PeakPicking.sort_peakPickingResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking.PeakPicking.sort_peakPickingResult" title="Permalink to this definition">¶</a></dt>
-<dd><p>It organizes peakPicking result in order to compute statistics</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">pd.DataFrame
-&#8211; peaks found organized by type of Lag and Magnitude (positive or negative)</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 <div class="section" id="module-DataFrom2Persons.Univariate.Continuous.Linear.GrangerCausality">
 <span id="grangercausality-module"></span><h2>GrangerCausality module<a class="headerlink" href="#module-DataFrom2Persons.Univariate.Continuous.Linear.GrangerCausality" title="Permalink to this headline">¶</a></h2>
 <p><em>Module author: Adem Usta</em></p>
 <dl class="class">
 <dt id="DataFrom2Persons.Univariate.Continuous.Linear.GrangerCausality.GrangerCausality">
 <em class="property">class </em><code class="descclassname">DataFrom2Persons.Univariate.Continuous.Linear.GrangerCausality.</code><code class="descname">GrangerCausality</code><span class="sig-paren">(</span><em>max_lag=1</em>, <em>criterion='bic'</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Linear/GrangerCausality.html#GrangerCausality"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Linear.GrangerCausality.GrangerCausality" title="Permalink to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>It computes a Granger causality test between two univariate signals x and y (in pandas DataFrame format). It computes
+<dd><p>It computes a Granger causality test between two univariate signals x and y (in pandas DataFrame format). It computes
 unidirectionnal causality test with a bivariate autoregressive model and test if the unrestricted model is statistically
 significant compared to the restricted one. An F-test is computed and then the interpretation is up to the user.</p>
 <p><strong>Reference :</strong></p>
@@ -434,19 +350,9 @@ significant compared to the restricted one. An F-test is computed and then the i
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param max_lag:</th><td class="field-body">The number of maximum lag (in samples) with which the autoregressive model will be computed. 
-It ranges in [1;length(x)]. Default : 1.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">type max_lag:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>max_lag</strong> (<em>int</em>) &#8211; The number of maximum lag (in samples) with which the autoregressive model will be computed.
+It ranges in [1;length(x)]. Default : 1.</li>
 <li><strong>criterion</strong> (<em>str</em>) &#8211; <p>A string that contains the name of the selected criterion to estimate optimal number of lags value.
 Two choices are possible :</p>
 <blockquote>
@@ -476,7 +382,7 @@ by the y signal. F-value and p-value are computed, the interpretation of the res
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict
-&#8211; F-values and P-values.</p>
+&#8211; F-value, p-value, ratio(G-magnitude), optimal_lag, predicted_signal_restricted, predicted_signal_unrestricted.</p>
 </td>
 </tr>
 </tbody>
@@ -509,14 +415,12 @@ by the y signal. F-value and p-value are computed, the interpretation of the res
 <dl class="class">
 <dt id="DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality.SpectralGrangerCausality">
 <em class="property">class </em><code class="descclassname">DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality.</code><code class="descname">SpectralGrangerCausality</code><span class="sig-paren">(</span><em>max_lag=1</em>, <em>criterion='bic'</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Linear/SpectralGrangerCausality.html#SpectralGrangerCausality"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality.SpectralGrangerCausality" title="Permalink to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>It computes a Granger causality test between two univariate signals x and y (in pandas DataFrame format), in the
+<dd><p>It computes a Granger causality test between two univariate signals x and y (in pandas DataFrame format), in the
 spectral domain.</p>
 <p><strong>Reference :</strong></p>
 <ul class="simple">
 <li>Adam B. Barrett, Michael Murphy, Marie-Aurelie Bruno, Quentin Noirhomme, Melanie Boly, Steven Laureys, and Anil K. Seth. Granger Causality Analysis of Steady-State Electroencephalographic Signals during Propofol-Induced Anaesthesia. PLoS ONE, 7(1) :e29072, January 2012.</li>
 </ul>
-</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -594,7 +498,6 @@ by the y signal. F-value and p-value are computed, the interpretation of the res
 <li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Linear.Coherence">Coherence module</a></li>
 <li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Linear.Correlation">Correlation module</a></li>
 <li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Linear.WindowCrossCorrelation">WindowCrossCorrelation module</a></li>
-<li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking">PeakPicking module</a></li>
 <li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Linear.GrangerCausality">GrangerCausality module</a></li>
 <li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality">SpectralGrangerCausality module</a></li>
 </ul>
@@ -648,7 +551,7 @@ by the y signal. F-value and p-value are computed, the interpretation of the res
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Sep 30, 2015.
+      Last updated on Nov 06, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
     </div>
   </body>

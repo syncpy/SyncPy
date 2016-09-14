@@ -74,11 +74,19 @@ def Detrend(signal,det_type):
         signal_det=signal-signal.mean(axis=0)
     
     elif det_type=='linear':
-        signal=signal.reset_index().drop('index',1)
+        signal=signal.reset_index(drop=True)
         signal_det_tot=pd.DataFrame()
         
         x_signal=pd.Series(np.arange(0,signal.shape[0]))
         
+        try :
+           if x_signal.var(axis=0)==0 :
+            raise ValueError("Linear detrending cannot be computed, a division for zero occurred")
+        except ValueError, err_msg:
+            raise ValueError(err_msg)
+            return
+        
+       
     
         for k in range(0,signal.shape[1]):
             beta=x_signal.cov(signal.iloc[:,k])/x_signal.var(axis=0)

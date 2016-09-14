@@ -135,13 +135,23 @@ class WindowCrossCorrelation:
         
         idx = 0
         time_window_array = np.zeros(len(result)-1)
-        for col in sorted(result.keys()):
-            if col != 'Lag':
-                for row in range(len(result[col])):
-                    corr_mat[row, idx] =  result[col][row]
-                time_window_array[idx] = float(col)
-                idx += 1
-        
+        # -- Phil : Optimisation
+        # for col in sorted(result.keys()):
+        #     if col != 'Lag':
+        #         for row in range(len(result[col])):
+        #             corr_mat[row, idx] =  result[col][row]
+        #         time_window_array[idx] = float(col)
+        #         idx += 1
+
+        # debut Optimisation
+        result_keys = sorted(result.keys())
+        result_keys.remove('Lag')
+        for col in result_keys:
+            corr_mat[:, idx] = result[col][:]
+            time_window_array[idx] = float(col)
+            idx += 1
+        # fin Optimisation
+
         fig = plt.figure()
         ax = fig.add_subplot(111)
         
@@ -223,9 +233,15 @@ class WindowCrossCorrelation:
                     curr_y = y[i : i + self._window].values
                     
                 r = 0
+                # -- Phil : Optimisation - We keep in variable what was re-compute in the G loop
+                mean_curr_x = np.mean(curr_x)
+                mean_curr_y = np.mean(curr_y)
+                std_curr_x_X_std_curr_y = np.std(curr_x) * np.std(curr_y)
+                assert std_curr_x_X_std_curr_y != 0,  "np.std(curr_x) * np.std(curr_y) can't be null, because we'll divide with it"
                 for g in range(len(curr_x)):
-                    r += ((curr_x[g] - np.mean(curr_x)) * (curr_y[g] - np.mean(curr_y)) ) / (np.std(curr_x) * np.std(curr_y))
-                        
+                    r += ((curr_x[g] - mean_curr_x) * (curr_y[g] - mean_curr_y) ) / std_curr_x_X_std_curr_y
+                # Fin optimisation
+
                 curr_coef_lag[idx] = r/len(curr_x)
                 idx += 1
                 
@@ -241,10 +257,4 @@ class WindowCrossCorrelation:
             plt.ion()
             self.plot_result(cross_corr)
         
-        return cross_corr  
-        
-
-            
-        
-        
-        
+        return cross_corr

@@ -1,6 +1,6 @@
 """
 WindowMututalInformation example :
-Computes the windowed mutual information between times series (in DataFrame format) x and y
+Computes the windowed mutual information between two continuous univariate signals x and y (in pandas DataFrame format)
 """
 
 """ Import common python packages """

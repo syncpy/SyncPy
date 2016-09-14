@@ -152,8 +152,15 @@ def Trafo(signal, sk, trafo_type, log_base=2):
             
             print (-signal_.min()+1.0).values
             print ((-1.0)*((signal_+(-signal_.min()+1.0).values).apply(np.reciprocal)).min()+1.0).values
-        
-            signal_inv=1.0/(signal_+(-signal_.min()+1.0).values)+((-1.0)*((signal_+(-signal_.min()+1.0).values).apply(np.reciprocal)).min()+1.0).values
+
+            tmpvalues = (signal_+(-signal_.min()+1.0).values)
+            try :
+                if np.any(tmpvalues == 0) : raise ValueError("Divide by zero exception : (signal_+(-signal_.min()+1.0).values) = 0")
+            except ValueError, err_msg:
+                raise ValueError(err_msg)
+                return
+
+            signal_inv=1.0/tmpvalues+((-1.0)*((signal_+(-signal_.min()+1.0).values).apply(np.reciprocal)).min()+1.0).values
             
             return (signal_inv)
     

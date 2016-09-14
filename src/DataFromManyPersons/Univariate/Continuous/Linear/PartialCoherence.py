@@ -153,32 +153,32 @@ class PartialCoherence:
         """
         
         ' Raise error if parameters are not in the correct type '
-        try :
-            for i in range(len(signals)) :
+        try:
+            for i in range(len(signals)):
                 if not(isinstance(signals[i], pd.DataFrame)): raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame.")
         except TypeError, err_msg:
             raise TypeError(err_msg)
             return
         
         ' Raise error if DataFrames have not the same size or same indexes '
-        try :
-            for i in range(0,len(signals)):
-                if len(signals[0]) != len(signals[i]) : raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as first signal.")
-                if signals[0].index.tolist() != signals[i].index.tolist() : raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
+        try:
+            for i in range(0, len(signals)):
+                if len(signals[0]) != len(signals[i]): raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as first signal.")
+                if signals[0].index.tolist() != signals[i].index.tolist(): raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
         except ValueError, err_msg:
             raise ValueError(err_msg)
             return
         
-        N = len(signals) #number of signals
+        N= len(signals)  #number of signals
         
         self.partial_coherence = {}
-        for z in range(N): # for the third signal Z
+        for z in range(N):  # for the third signal Z
             
             K_xy = {}
-            for x in range(N): # for the first signal X
+            for x in range(N):  # for the first signal X
 
-                for y in range(N): # For the second signal Y
-                    if x != y and x!= z and y!=z : # Compute K(XY|Z)
+                for y in range(N):  # For the second signal Y
+                    if x != y and x != z and y != z:  # Compute K(XY|Z)
                         X = signals[x]
                         Y = signals[y]
                         Z = signals[z]
@@ -187,16 +187,10 @@ class PartialCoherence:
                         S_xx_z = self.compute_partial_cross_spectrum(X, X, Z)
                         S_yy_z = self.compute_partial_cross_spectrum(Y, Y, Z)
                         
-                        K_xy_z = np.divide(S_xy_z, S_xy_z**2, S_xx_z* S_yy_z)
+                        K_xy_z = np.divide(S_xy_z, S_xy_z**2, S_xx_z * S_yy_z)
 
-                        K_xy.update({(x,y) : K_xy_z})
+                        K_xy.update({(x, y): K_xy_z})
             
-            self.partial_coherence.update({z : K_xy})
+            self.partial_coherence.update({z: K_xy})
 
         return self.partial_coherence 
-        
-
-            
-        
-        
-        
