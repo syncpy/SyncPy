@@ -1,12 +1,9 @@
-=============================
-	SyncPy Python Library
-=============================
+# SyncPy Python Library
 
 Current folder contains folders to use SyncPy python library. 
 
 
-------------------------
-	Presentation
+##	Presentation
 ------------------------
 
 SyncPy is a novel open-source analytic library for investigating 
@@ -40,17 +37,13 @@ to choose and try several methods. More sepcifically, it allows users to:
 SyncPy library is currently under development in the framework of the 
 SMART Labex Project (http://www.smart-labex.fr)
 
-
-------------------------
-		Version 
-------------------------
+## Version 
 
 Version number : 1.4
 Last update : 28/01/2016
 
 
-------------------------
-	Dependencies
+## Dependencies
 ------------------------
 
 - Matplotlib: http://matplotlib.org/downloads.html
@@ -63,8 +56,7 @@ For the interface:
 - PyQt : http://pyqt.sourceforge.net/Docs/PyQt4/installation.html 
 
 
-------------------------
-	Organization
+# Organization
 ------------------------
 
 - src\ : folder of source files, organized in a 4 levels tree; 
@@ -73,17 +65,15 @@ For the interface:
 - interface\ : folder of the asssitive interface. 
 
 
-------------------------
-		Authors 
+# Authors 
 ------------------------
 
-Giovanna Varni 
-Marie Avril 
-contact: syncpy@isir.upmc.fr 
+- Giovanna Varni 
+- Marie Avril 
+- contact: syncpy@isir.upmc.fr 
 
 
-------------------------
-		Licence
+# Licence
 ------------------------
 
  This software is governed by the CeCILL-B license under French law
@@ -93,14 +83,11 @@ CeCILL-B license as circulated by CEA, CNRS and INRIA at the
 following URL "http://www.cecill.info".
 
 
-------------------------
-	  References 
+#   References 
 ------------------------
 
 Please cite this paper if you are using SyncPy for your own research :
     
     Giovanna Varni, Marie Avril, Adem Usta, Mohamed Chetouani.
-    *SyncPy - A unified analytic library for synchrony.*
+    SyncPy - A unified analytic library for synchrony.
     Accepted at First International Workshop on Modeling INTEPERsonal SynchrONy @ICMI 2015 Conference. 
-
-
