@@ -36,6 +36,7 @@
 import numpy as np
 import pandas as pd
 
+
 def Standardize(signal):
     """
     It standardizes a monovariate/multivariate signals (in pandas DataFrame format) so that it has mean equal to zero and unitary variance.
@@ -50,21 +51,15 @@ def Standardize(signal):
     """
     
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(signal, pd.DataFrame)) : raise TypeError("Requires signal to be a pd.DataFrame")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
-    
-    mean=signal.mean(axis=0)
-    std=signal.std(axis=0)
-   
-    try :
-        if np.any(std.values == 0) : raise ValueError("Norm exception : divide by zero exception (std=0)")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
+    if not(isinstance(signal, pd.DataFrame)):
+        raise TypeError("Requires signal to be a pd.DataFrame")
 
-    signal_norm=(signal-mean)/std
+    mean = signal.mean(axis=0)
+    std = signal.std(axis=0)
+
+    if np.any(std.values == 0):
+        raise ValueError("Norm exception : divide by zero exception (std=0)")
+
+    signal_norm = (signal - mean) / std
         
     return signal_norm

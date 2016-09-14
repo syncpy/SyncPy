@@ -54,21 +54,12 @@ def Detrend(signal,det_type):
     """
     
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(signal, pd.DataFrame)) : raise TypeError("Requires signal to be a pd.DataFrame")
-        if not(isinstance(det_type, str))      : raise TypeError("Requires det_type to be a string")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
-    
-    
+    if not(isinstance(signal, pd.DataFrame)) : raise TypeError("Requires signal to be a pd.DataFrame")
+    if not(isinstance(det_type, str))      : raise TypeError("Requires det_type to be a string")
+
     ' Raise error if parameters do not respect input rules '
-    try : 
-        if det_type!='mean' and det_type!='linear' : raise ValueError("Requires det_type to be 'mean' or 'linear'")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
-    
+
+    if det_type!='mean' and det_type!='linear' : raise ValueError("Requires det_type to be 'mean' or 'linear'")
 
     if det_type=='mean':
         signal_det=signal-signal.mean(axis=0)
@@ -78,15 +69,9 @@ def Detrend(signal,det_type):
         signal_det_tot=pd.DataFrame()
         
         x_signal=pd.Series(np.arange(0,signal.shape[0]))
-        
-        try :
-           if x_signal.var(axis=0)==0 :
+
+        if x_signal.var(axis=0)==0 :
             raise ValueError("Linear detrending cannot be computed, a division for zero occurred")
-        except ValueError, err_msg:
-            raise ValueError(err_msg)
-            return
-        
-       
     
         for k in range(0,signal.shape[1]):
             beta=x_signal.cov(signal.iloc[:,k])/x_signal.var(axis=0)
@@ -97,8 +82,4 @@ def Detrend(signal,det_type):
             signal_det=signal_det_tot
         
     return (signal_det)
-
-
-
-
 

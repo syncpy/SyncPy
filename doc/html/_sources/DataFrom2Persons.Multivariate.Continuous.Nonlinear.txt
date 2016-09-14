@@ -7,4 +7,10 @@ Nonlinear package
     :show-inheritance:
 
 
+GSI module
+----------------------------
 
+.. automodule:: DataFrom2Persons.Multivariate.Continuous.Nonlinear.GSI
+    :members:
+    :undoc-members:
+    :show-inheritance:

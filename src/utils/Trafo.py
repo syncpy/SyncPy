@@ -36,6 +36,7 @@
 import numpy as np
 import pandas as pd
 
+
 def Trafo(signal, sk, trafo_type, log_base=2):
     """
     It transforms a monovariate/multivariate signals (in pandas DataFrame format) in a new signal
@@ -67,28 +68,19 @@ def Trafo(signal, sk, trafo_type, log_base=2):
     """
     
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(signal, pd.DataFrame)) : raise TypeError("Requires signal to be a pd.DataFrame")
-        if not(isinstance(sk, str))     : raise TypeError("Requires sk to be a string")
-        if not(isinstance(trafo_type, str))      : raise TypeError("Requires trafo_type to be a string")
-        if not(isinstance(log_base, float))     : raise TypeError("Requires log_base to be a float")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
+    if not(isinstance(signal, pd.DataFrame)) : raise TypeError("Requires signal to be a pd.DataFrame")
+    if not(isinstance(sk, str))     : raise TypeError("Requires sk to be a string")
+    if not(isinstance(trafo_type, str))      : raise TypeError("Requires trafo_type to be a string")
+    if not(isinstance(log_base, float))     : raise TypeError("Requires log_base to be a float")
+
         
     ' Raise error if parameters do not respect input rules '
-    try : 
-        if sk!='pos' and sk!='neg' : raise ValueError("Requires sk to be 'pos' or 'neg'")
-        if trafo_type!='sqrt' and trafo_type!='log' and trafo_type!='inv': raise ValueError("Requires trafo_type to be 'sqrt' or 'log' or 'inv'")
-        if log_base!=2.0 and log_base!=np.e and log_base!=10.0 : raise ValueError("Requires log_base to be 2.0 or np.e or 10.0" )
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
+    if sk!='pos' and sk!='neg' : raise ValueError("Requires sk to be 'pos' or 'neg'")
+    if trafo_type!='sqrt' and trafo_type!='log' and trafo_type!='inv': raise ValueError("Requires trafo_type to be 'sqrt' or 'log' or 'inv'")
+    if log_base!=2.0 and log_base!=np.e and log_base!=10.0 : raise ValueError("Requires log_base to be 2.0 or np.e or 10.0" )
     
-
-
-    if sk=='pos':
-        if trafo_type=='sqrt':
+    if sk == 'pos':
+        if trafo_type == 'sqrt':
             pr_col=(signal<1).any()
         
             if np.sum(pr_col)!=0:
@@ -98,7 +90,7 @@ def Trafo(signal, sk, trafo_type, log_base=2):
         
             return (signal_sqrt)
         
-        elif trafo_type=='log':
+        elif trafo_type == 'log':
     
             pr_col=(signal<1).any()
         
@@ -114,7 +106,7 @@ def Trafo(signal, sk, trafo_type, log_base=2):
             
             return (signal_log)
         
-        elif trafo_type=='inv':
+        elif trafo_type == 'inv':
             pr_col=(signal<1).any()
             signal=signal*(1.0)
             
@@ -126,7 +118,7 @@ def Trafo(signal, sk, trafo_type, log_base=2):
   
             return (signal)
         
-    elif sk=='neg':
+    elif sk == 'neg':
         if trafo_type=='sqrt':
             signal_=(-1.0)*signal   
             signal_sqrt=(((signal_-signal_.min()+1.0).apply(np.sqrt).max())+1).values-(signal_+(-signal_.min()+1.0).values).apply(np.sqrt)
@@ -163,9 +155,4 @@ def Trafo(signal, sk, trafo_type, log_base=2):
             signal_inv=1.0/tmpvalues+((-1.0)*((signal_+(-signal_.min()+1.0).values).apply(np.reciprocal)).min()+1.0).values
             
             return (signal_inv)
-    
-
-
-
-
 

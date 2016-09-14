@@ -63,29 +63,18 @@ def Embedding(x,m,t):
     """
     
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
-    except TypeError, err_msg:
-            raise TypeError(err_msg)
-            return
-    try : 
-        if m <= 0 : raise ValueError("Requires m to be positive and greater than 0") 
-        if t <= 0 : raise ValueError("Requires t to be positive and  greater from 0")
-    except ValueError, err_msg:
-            raise ValueError(err_msg)
-            return    
-    
+
+    if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
+
+    if m <= 0 : raise ValueError("Requires m to be positive and greater than 0")
+    if t <= 0 : raise ValueError("Requires t to be positive and  greater from 0")
+
     ' Raise error if m and t are too big to do embedding '
-    try:
-        if ((x.shape[0]-t*(m-1)) < 1):
-               raise ValueError("m or t values are too big")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
-    
+    if ((x.shape[0]-t*(m-1)) < 1):
+        raise ValueError("m or t values are too big")
+
     x_=pd.DataFrame()
     x_emb=pd.DataFrame()
-    
 
     for i in range(0,x.shape[0]):
         if i-(m-1)*t < 0:
@@ -97,3 +86,4 @@ def Embedding(x,m,t):
         x_emb=x_T.reset_index(drop=True)
        
     return (x_emb)
+

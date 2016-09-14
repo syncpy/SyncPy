@@ -31,8 +31,8 @@ f = 1.0             # sinewave frequency (Hz)
 Fs = 200            # sampling frequency (Hz)
 n = np.arange(0,N)  # number of samples
 # input signals
-x = pd.DataFrame({'X':np.sin(2*3.14*f*n/Fs)})
-y = pd.DataFrame({'Y':np.cos(2*3.14*f*n/Fs)})
+x = pd.DataFrame({'X':np.sin(2*3.14*f*n/Fs)}, np.arange(0,N))
+y = pd.DataFrame({'Y':10*np.sin(2*3.14*f*n/Fs)}, np.arange(0,N))
 
 '''
 """OR"""

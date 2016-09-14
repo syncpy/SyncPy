@@ -88,30 +88,24 @@ def Cpsd(x,y,fs=1.0, NFFT=256, detrend=0,noverlap=0, plot=False):
     """
 
     ' Raise error if parameters are not in the correct type '
-    try :
-      if not(isinstance(x, pd.DataFrame)): raise TypeError("Requires x to be a pd.DataFrame")
-      if not(isinstance(y, pd.DataFrame)): raise TypeError("Requires y to be a pd.DataFrame")
-      if not(isinstance(fs, float)):       raise TypeError("Requires fs to be a float")
-      if not(isinstance(NFFT, int)):       raise TypeError("Requires NFFT to be an integer")
-      if not(isinstance(detrend, int)):   raise TypeError("Requires detrend to be a boolean")
-      if not(isinstance(noverlap, int)):   raise TypeError("Requires noverlap to be an integer")
-      if not(isinstance(plot, bool)):      raise TypeError("Requires plot to be a boolean")
-    except TypeError, err_msg:
-            raise TypeError(err_msg)
-            return
+    if not(isinstance(x, pd.DataFrame)): raise TypeError("Requires x to be a pd.DataFrame")
+    if not(isinstance(y, pd.DataFrame)): raise TypeError("Requires y to be a pd.DataFrame")
+    if not(isinstance(fs, float)):       raise TypeError("Requires fs to be a float")
+    if not(isinstance(NFFT, int)):       raise TypeError("Requires NFFT to be an integer")
+    if not(isinstance(detrend, int)):   raise TypeError("Requires detrend to be a boolean")
+    if not(isinstance(noverlap, int)):   raise TypeError("Requires noverlap to be an integer")
+    if not(isinstance(plot, bool)):      raise TypeError("Requires plot to be a boolean")
+
      
     ' Raise error if parameters do not respect input rules '
-    try :
-      if x.shape[1] != 1 :  raise ValueError("Requires signal x to be monovariate")
-      if y.shape[1] != 1 :  raise ValueError("Requires signal y to be monovariate")
-      if fs < 0 :           raise ValueError("Requires fs to be a positive scalar")
-      if NFFT <=0:          raise ValueError("Requires NFFT to be a strictly positive scalar")
-      if NFFT %2 != 0:      raise ValueError("Requires NNFT to be a multiple of 2")
-      if detrend != 0  and detrend != 1 and detrend != 2 : raise ValueError("Requires detrend to be 0, 1 or 2" )
-      if NFFT-noverlap <= 0: raise ValueError("Requires NFFT to be greater than noverlap")
-    except ValueError, err_msg:
-            raise ValueError(err_msg)
-            return
+
+    if x.shape[1] != 1 :  raise ValueError("Requires signal x to be monovariate")
+    if y.shape[1] != 1 :  raise ValueError("Requires signal y to be monovariate")
+    if fs < 0 :           raise ValueError("Requires fs to be a positive scalar")
+    if NFFT <=0:          raise ValueError("Requires NFFT to be a strictly positive scalar")
+    if NFFT %2 != 0:      raise ValueError("Requires NNFT to be a multiple of 2")
+    if detrend != 0  and detrend != 1 and detrend != 2 : raise ValueError("Requires detrend to be 0, 1 or 2" )
+    if NFFT-noverlap <= 0: raise ValueError("Requires NFFT to be greater than noverlap")
 
     if x.shape[0] < NFFT:
         res_x=pd.DataFrame(0*np.arange(0,NFFT))
@@ -134,7 +128,6 @@ def Cpsd(x,y,fs=1.0, NFFT=256, detrend=0,noverlap=0, plot=False):
 
     count=0
     pos =0
-    
            
     while((pos+NFFT)<x.shape[0]):
         end = pos+NFFT-1

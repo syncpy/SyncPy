@@ -28,7 +28,7 @@ wget https://github.com/syncpy/SyncPy/archive/master.zip --no-check-certificate
 unzip -qq master.zip
 
 # Install SyncPy in /
-sudo cp -R SyncPy-master/v1.3 /SyncPy/
+sudo cp -R SyncPy-master/v1.2 /SyncPy/
 
 sudo chmod -R 777 /SyncPy/
 

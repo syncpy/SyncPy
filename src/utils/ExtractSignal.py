@@ -68,16 +68,13 @@ def ExtractSignalFromCSV(filename, separator=',', unit='ms', columns=['all']):
         columns = [columns]
 
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(filename, str)): raise TypeError("Requires filename to be a str.")
-        if not(isinstance(separator, str)): raise TypeError("Requires separator to be a str.")
-        if not(isinstance(unit, str)): raise TypeError("Requires unit to be a str.")
-        if not(isinstance(columns, list)): raise TypeError("Requires columns to be a list.")
-        for i in range(len(columns)):
-            if not(isinstance(columns[i],int)) and not(isinstance(columns[i],str)) : raise TypeError("Requires columns values to be a str or int.")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
+    if not(isinstance(filename, str)): raise TypeError("Requires filename to be a str.")
+    if not(isinstance(separator, str)): raise TypeError("Requires separator to be a str.")
+    if not(isinstance(unit, str)): raise TypeError("Requires unit to be a str.")
+    if not(isinstance(columns, list)): raise TypeError("Requires columns to be a list.")
+    for i in range(len(columns)):
+        if not(isinstance(columns[i],int)) and not(isinstance(columns[i],str)) : raise TypeError("Requires columns values to be a str or int.")
+
     
     #Test if the filename containts the extension
     if filename.find('.csv') == -1 :
@@ -147,27 +144,20 @@ def ExtractSignalFromELAN(filename, separator=',', unit='s', columns_name = ['Ac
     """
     
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(filename, str)): raise TypeError("Requires filename to be a str.")
-        if not(isinstance(separator, str)): raise TypeError("Requires separator to be a str.")
-        if not(isinstance(columns_name, list)): raise TypeError("Requires columns_name to be a list.")
-        for i in range(len(columns_name)):
-            if not(isinstance(columns_name[i],str)) : raise TypeError("Requires columns_name for index " + str(i) + "values to be a str.")
-        if not(isinstance(total_duration, int)): raise TypeError("Requires total_duration to be an int.")
-        if not(isinstance(ele_per_sec, int)): raise TypeError("Requires ele_per_sec to be an int.")
-        if not(isinstance(Actor, str)): raise TypeError("Requires Actor to be a str.")
-        if not(isinstance(Action, str)): raise TypeError("Requires Action to be an str.")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
+    if not(isinstance(filename, str)): raise TypeError("Requires filename to be a str.")
+    if not(isinstance(separator, str)): raise TypeError("Requires separator to be a str.")
+    if not(isinstance(columns_name, list)): raise TypeError("Requires columns_name to be a list.")
+    for i in range(len(columns_name)):
+        if not(isinstance(columns_name[i],str)) : raise TypeError("Requires columns_name for index " + str(i) + "values to be a str.")
+    if not(isinstance(total_duration, int)): raise TypeError("Requires total_duration to be an int.")
+    if not(isinstance(ele_per_sec, int)): raise TypeError("Requires ele_per_sec to be an int.")
+    if not(isinstance(Actor, str)): raise TypeError("Requires Actor to be a str.")
+    if not(isinstance(Action, str)): raise TypeError("Requires Action to be an str.")
+
     
     ' Raise error if parameters do not respect input rules '
-    try :
-        if total_duration < 0       : raise ValueError("Requires total_duration to be a positive scalar")
-        if ele_per_sec <= 0         : raise ValueError("Requires ele_per_sec to be a strictly positive scalar")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
+    if total_duration < 0       : raise ValueError("Requires total_duration to be a positive scalar")
+    if ele_per_sec <= 0         : raise ValueError("Requires ele_per_sec to be a strictly positive scalar")
     
     #Test if the filename containts the extension
     if filename.find('.csv') == -1 :
@@ -249,25 +239,17 @@ def ExtractSignalFromMAT(filename, columns_index=['all'], columns_wanted_names=[
         columns_wanted_names = [columns_wanted_names]
 
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(filename, str)): raise TypeError("Requires filename to be a str.")
-        if not(isinstance(columns_index, list)): raise TypeError("Requires columns_index to be a list.")
-        for i in range(len(columns_index)):
-            if columns_index != ['all'] and not(isinstance(columns_index[i],int)): raise TypeError("Requires columns_index values to be int.")
-        if not(isinstance(columns_wanted_names, list)): raise TypeError("Requires columns_wanted_names to be a list.")
-        for i in range(len(columns_wanted_names)):
-            if columns_wanted_names != ['all'] and not(isinstance(columns_wanted_names[i],str)): raise TypeError("Requires columns_wanted_names values to be str.")
-        if not(isinstance(unit, str)): raise TypeError("Requires unit to be a str.")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
-     
-    try :
-        if columns_index != ['all'] and columns_wanted_names != ['all'] and len(columns_index)!=len(columns_wanted_names) : raise ValueError("If columns indexes are defined, columns_wanted_names must have the same size")
-        if  columns_wanted_names != ['all'] and len(columns_index)!=len(columns_wanted_names) : raise ValueError("columns_wanted_names must have the same size as columns_index")
-    except ValueError, err_msg:
-            raise ValueError(err_msg)
-            return 
+    if not(isinstance(filename, str)): raise TypeError("Requires filename to be a str.")
+    if not(isinstance(columns_index, list)): raise TypeError("Requires columns_index to be a list.")
+    for i in range(len(columns_index)):
+        if columns_index != ['all'] and not(isinstance(columns_index[i],int)): raise TypeError("Requires columns_index values to be int.")
+    if not(isinstance(columns_wanted_names, list)): raise TypeError("Requires columns_wanted_names to be a list.")
+    for i in range(len(columns_wanted_names)):
+        if columns_wanted_names != ['all'] and not(isinstance(columns_wanted_names[i],str)): raise TypeError("Requires columns_wanted_names values to be str.")
+    if not(isinstance(unit, str)): raise TypeError("Requires unit to be a str.")
+
+    if columns_index != ['all'] and columns_wanted_names != ['all'] and len(columns_index)!=len(columns_wanted_names) : raise ValueError("If columns indexes are defined, columns_wanted_names must have the same size")
+    if columns_wanted_names != ['all'] and len(columns_index)!=len(columns_wanted_names) : raise ValueError("columns_wanted_names must have the same size as columns_index")
             
     #Test if the filename containts the extension
     idx = filename.find('.mat')
@@ -298,7 +280,8 @@ def ExtractSignalFromMAT(filename, columns_index=['all'], columns_wanted_names=[
     
     signal = pd.DataFrame(dict_data)
     signal.set_index('Time ('+ unit +')', inplace = True)
-    signal.index = pd.to_datetime(signal.index,  unit=unit) #Convert time into DateTime format 
+    signal.index = pd.to_datetime(signal.index, unit=unit) #Convert time into DateTime format
     signal.index.names = ['Time ('+ unit +')']
     
     return signal
+

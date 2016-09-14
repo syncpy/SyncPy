@@ -4,7 +4,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>utils.PeakPicking &mdash; Home Page</title>
@@ -15,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3',
+        VERSION:     '1.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,17 +24,15 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon_isir.ico"/>
-    <link rel="top" title="Home Page" href="../../HomePage.html" />
+    <link rel="top" title="Home Page" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
 <link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
 <![endif]-->
 
   </head>
-  <body role="document">
-<div class="header" role="banner">
+  <body>
+<div class="header">
   <div class="logo">
     <a href="../../HomePage.html">
       <img class="logo" src="../../_static/hearder_image.png" alt="Logo"/>
@@ -43,7 +40,7 @@
   </div>
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -52,15 +49,15 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../HomePage.html">Home Page</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li><a href="../../HomePage.html">Home Page</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <h1>Source code for utils.PeakPicking</h1><div class="highlight"><pre>
 <span class="c">### This file is a part of the Syncpy library.</span>
@@ -166,31 +163,25 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
-    <span class="k">try</span> <span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>        <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires corr_matrix to be a dictionary&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tau_max</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>        <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires tau_max to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tau_inc</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>        <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires tau_inc to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">threshold</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>    <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires threshold to be an float&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">lookahead</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>      <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot to be a integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>          <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires delta to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">ele_per_sec</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>    <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires ele_per_sec to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>          <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot to be a boolean&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plot_on_mat</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>   <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot_on_mat to be an boolean&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">sorted_peak</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>   <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires sorted_peak to be an boolean&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>        <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires corr_matrix to be a dictionary&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tau_max</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>        <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires tau_max to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tau_inc</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>        <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires tau_inc to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">threshold</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>    <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires threshold to be an float&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">lookahead</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>      <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot to be a integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>          <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires delta to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">ele_per_sec</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>    <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires ele_per_sec to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>          <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot to be a boolean&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plot_on_mat</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>   <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot_on_mat to be an boolean&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">sorted_peak</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>   <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires sorted_peak to be an boolean&quot;</span><span class="p">)</span>
+
     
     <span class="s">&#39; Raise error if parameters do not respect input rules &#39;</span>
-    <span class="k">try</span> <span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;Lag&#39;</span> <span class="ow">in</span> <span class="n">matrix</span>                  <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires dictionary to have a &#39;Lag&#39; key&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">tau_max</span> <span class="o">&lt;</span> <span class="mi">0</span>                          <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires tau_max to be a positive scalar&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">tau_inc</span> <span class="o">&lt;</span> <span class="mi">0</span>  <span class="ow">or</span> <span class="n">tau_inc</span> <span class="o">&gt;</span> <span class="n">tau_max</span>    <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires tau_inc to be a positive scalar inferior to tau_max length&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">threshold</span> <span class="o">&lt;</span><span class="mi">0</span>                         <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires threshold to be a positive float&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">ele_per_sec</span> <span class="o">&lt;=</span> <span class="mi">0</span>                     <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires ele_per_sec to be a strictly positive scalar&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;Lag&#39;</span> <span class="ow">in</span> <span class="n">matrix</span>                  <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires dictionary to have a &#39;Lag&#39; key&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tau_max</span> <span class="o">&lt;</span> <span class="mi">0</span>                          <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires tau_max to be a positive scalar&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tau_inc</span> <span class="o">&lt;</span> <span class="mi">0</span>  <span class="ow">or</span> <span class="n">tau_inc</span> <span class="o">&gt;</span> <span class="n">tau_max</span>    <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires tau_inc to be a positive scalar inferior to tau_max length&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">threshold</span> <span class="o">&lt;</span><span class="mi">0</span>                         <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires threshold to be a positive float&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ele_per_sec</span> <span class="o">&lt;=</span> <span class="mi">0</span>                     <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires ele_per_sec to be a strictly positive scalar&quot;</span><span class="p">)</span>
+
     
     <span class="s">&#39;initialize parameters&#39;</span>
     <span class="n">lag_vect</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="s">&#39;Lag&#39;</span><span class="p">]</span>
@@ -256,9 +247,9 @@
     <span class="k">else</span> <span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">peak_found_dt</span>
         
-    <span class="k">return</span> <span class="n">result</span></div>
+    <span class="k">return</span> <span class="n">result</span>
    
-
+</div>
 <div class="viewcode-block" id="PeakPicking_plot"><a class="viewcode-back" href="../../utils.html#utils.PeakPicking.PeakPicking_plot">[docs]</a><span class="k">def</span> <span class="nf">PeakPicking_plot</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">tau_max</span><span class="p">,</span> <span class="n">ele_per_sec</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">plot_on_mat</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">     It plots the peakpicking result. Works only with unsorted results </span>
@@ -289,24 +280,18 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
-    <span class="k">try</span> <span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires result to be a DataFrame&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>        <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires corr_matrix to be a dict&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tau_max</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>        <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires tau_max to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">ele_per_sec</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>    <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires ele_per_sec to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plot_on_mat</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>   <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot_on_mat to be an boolean&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires result to be a DataFrame&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>        <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires corr_matrix to be a dict&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">tau_max</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>        <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires tau_max to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">ele_per_sec</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>    <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires ele_per_sec to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plot_on_mat</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>   <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot_on_mat to be an boolean&quot;</span><span class="p">)</span>
+
     
     <span class="s">&#39; Raise error if parameters do not respect input rules &#39;</span>
-    <span class="k">try</span> <span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;Lag&#39;</span> <span class="ow">in</span> <span class="n">matrix</span>                  <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires dictionary to have a &#39;Lag&#39; key&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">tau_max</span> <span class="o">&lt;</span> <span class="mi">0</span>                          <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires tau_max to be a positive scalar&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">ele_per_sec</span> <span class="o">&lt;=</span> <span class="mi">0</span>                     <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires ele_per_sec to be a strictly positive scalar&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;Lag&#39;</span> <span class="ow">in</span> <span class="n">matrix</span>                  <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires dictionary to have a &#39;Lag&#39; key&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tau_max</span> <span class="o">&lt;</span> <span class="mi">0</span>                          <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires tau_max to be a positive scalar&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ele_per_sec</span> <span class="o">&lt;=</span> <span class="mi">0</span>                     <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires ele_per_sec to be a strictly positive scalar&quot;</span><span class="p">)</span>
+
     
     <span class="k">if</span> <span class="n">plot_on_mat</span> <span class="p">:</span>
         <span class="n">corr_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">matrix</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
@@ -391,9 +376,9 @@
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_arr</span><span class="p">,</span> <span class="n">y_arr_min</span><span class="p">,</span><span class="s">&#39;bo&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;negative correlation&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_transform</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">transFigure</span><span class="p">)</span>
     
-    <span class="k">return</span> <span class="n">fig</span></div>
+    <span class="k">return</span> <span class="n">fig</span>
 
-  
+  </div>
 <div class="viewcode-block" id="PeakPicking_sortResult"><a class="viewcode-back" href="../../utils.html#utils.PeakPicking.PeakPicking_sortResult">[docs]</a><span class="k">def</span> <span class="nf">PeakPicking_sortResult</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">:</span> 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    It organizes peakPicking result in order to compute statistics</span>
@@ -451,9 +436,9 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -470,7 +455,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -479,14 +464,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../HomePage.html">Home Page</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li><a href="../../HomePage.html">Home Page</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
+    <div class="footer">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Nov 06, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+      Last updated on Jan 28, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

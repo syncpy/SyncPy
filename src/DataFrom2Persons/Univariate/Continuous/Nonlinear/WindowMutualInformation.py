@@ -37,6 +37,7 @@
 .. moduleauthor:: Marie Avril
 """
 
+import time as time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -47,58 +48,58 @@ from MutualInformation import MutualInformation
 class WindowMutualInformation:
     """
     It computes Windowed Mutual Information (MI) estimators starting from entropy estimates from k-nearest-neighbours distances.
-    
+
     **Reference :**
-    
+
     * A.Kraskov, H.Stogbauer, and P.Grassberger. Estimating mutual information. Physical Review E, 69(6):066138, 2004
-    
+
     :param n_neighbours:
-        number of nearest neighbours  
+        number of nearest neighbours
     :type n_neighbours: int
-    
+
     :param my_type:
         Type of the estimators will be used to compute MI. Two options (1 and 2) are available:
             1. the number of the points nx and ny is computed by taking into account only the points whose distance is stricly
-            less than the distance of the k-nearest neighbours; 
+            less than the distance of the k-nearest neighbours;
             2. the number of the points nx and ny is computed by taking into account only the points whose distance is equal to
-            or less than the distance of the k-nearest neighbours; 
-       Default: 1 
+            or less than the distance of the k-nearest neighbours;
+       Default: 1
     :type my_type: int
-    
+
     :param var_resc:
         Boolean value indicating if the input signals should be rescaled at unitary variance. Default: False
     :type var_resc: bool
-    
+
     :param noise:
         Boolean value indicating if a very low amplitude random noise should be added to the signals.
         It is done to avoid that there are many signals points having identical coordinates. Default: True
     :type noise: bool
-    
+
     :param tau_max:
-        the maximum lag (in samples) at which correlation should be computed. It is in the range [0; (length(x)+length(y)-1)/2] 
+        the maximum lag (in samples) at which correlation should be computed. It is in the range [0; (length(x)+length(y)-1)/2]
     :type tau_max: int
-    
+
     :param window:
-        length (in samples) of the windowed signals 
+        length (in samples) of the windowed signals
     :type window: int
-    
+
     :param win_inc:
-        amount of time (in samples) elapsed between two windows 
+        amount of time (in samples) elapsed between two windows
     :type win_inc: int
-    
+
     :param tau_inc:
-        amount of time (in samples) elapsed between two cross-correlation 
+        amount of time (in samples) elapsed between two cross-correlation
     :type tau_inc: int
-    
+
     :param plot:
         if True the plot of correlation function is returned. Default: False
     :type plot: bool
-        
+
     """
-    
+
     ''' Constuctor '''
     def __init__(self, n_neighbours, my_type=1, var_resc=True, noise=True, tau_max = 0, window = 0 , win_inc = 1, tau_inc = 1, plot = False):
-        
+
         ' Raise error if parameters are not in the correct type '
         try :
             if not(isinstance(n_neighbours, int)) : raise TypeError("Requires n_neighbours to be an integer")
@@ -113,7 +114,7 @@ class WindowMutualInformation:
         except TypeError, err_msg:
             raise TypeError(err_msg)
             return
-        
+
         ' Raise error if parameters do not respect input rules '
         try :
             if n_neighbours<=0 or n_neighbours>= window: raise ValueError("Requires n_neighbours to be a positive integer greater than 0 inferior to window length")
@@ -125,7 +126,7 @@ class WindowMutualInformation:
         except ValueError, err_msg:
             raise ValueError(err_msg)
             return
-        
+
         self._n_neighbours=n_neighbours
         self._type=my_type
         self._var_resc=var_resc
@@ -135,54 +136,55 @@ class WindowMutualInformation:
         self._win_inc = win_inc
         self._tau_inc = tau_inc
         self._plot = plot
-        
-        
-    
+
+
+
     def plot_result(self, result):
         """
         It plots the window mutual information matrix
-        
+
         :param result:
             Windowed Mutual Information from compute()
         :type result: dict
-            
-        :returns: plt.figure 
+
+        :returns: plt.figure
             -- figure plot
         """
-        
+
         ' Raise error if parameters are not in the correct type '
         try :
             if not(isinstance(result, dict)) : raise TypeError("Requires result to be a dictionary")
         except TypeError, err_msg:
             raise TypeError(err_msg)
             return
-        
+
         ' Raise error if not the good dictionary '
         try :
-            if not 'Lag' in result : raise ValueError("Requires dictionary to be the output of compute() method")
+            if 'Lag' not in result : raise ValueError("Requires dictionary to be the output of compute() method")
         except ValueError, err_msg:
             raise ValueError(err_msg)
             return
-            
-        mi_mat = np.zeros( (len(result[result.keys()[0]]), len(result)-1) )
-        
+
+        mi_mat = np.zeros((len(result[result.keys()[0]]), len(result)-1))
+
         idx = 0
         time_window_array = np.zeros(len(result)-1)
-        for col in sorted(result.keys()):
-            if col != 'Lag':
-                for row in range(len(result[col])):
-                    mi_mat[row, idx] =  result[col][row]
-                time_window_array[idx] = float(col)
-                idx += 1
-        
+
+        result_keys = sorted(result.keys())
+        result_keys.remove('Lag')
+        for col in result_keys:
+            mi_mat[:, idx] = result[col][:]
+            time_window_array[idx] = float(col)
+            idx += 1
+
         fig = plt.figure()
         ax = fig.add_subplot(111)
-        
+
         ax.set_xlabel('Elapsed Time (in samples)')
         ax.set_ylabel('Lag (in samples)')
-            
+
         ax.set_title('Windowed Mutual Information matrix')
-        
+
         x_min = time_window_array[0]
         x_max = time_window_array[len(time_window_array)-1]
         y_min = float(max(result['Lag']))
@@ -193,23 +195,23 @@ class WindowMutualInformation:
         fig.colorbar(cax)
 
         return fig
-    
+
     def compute(self,x,y):
         """
         It computes Mutual Information.
-         
+
         :param x:
             first input signal
         :type x: pd.DataFrame
-        
+
         :param y:
             second input signal
         :type y: pd.DataFrame
-        
+
         :returns: dict
             -- Windowed Mutual Information
         """
-        
+
         ' Raise error if parameters are not in the correct type '
         try :
             if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
@@ -217,71 +219,68 @@ class WindowMutualInformation:
         except TypeError, err_msg:
             raise TypeError(err_msg)
             return
-        
-        lx=x.size
-        ly=y.size
-        
+
+        lx = x.size
+        ly = y.size
+
         'Error if x and y have not the same size'
-        try :
-            if lx != ly :
+        try:
+            if lx != ly:
                 raise ValueError("x and y signals must have same size")
         except ValueError, err_msg:
             raise ValueError(err_msg)
             return
-        
+
         ' Initialize default values if not given '
         if self._tau_max == 0 :
             self._tau_max = lx / 10
         if self._window == 0 :
             self._window = lx / 10
-        
+
         ' Initialize lag array'
         lag_array = np.arange(-self._tau_max, self._tau_max +1, self._tau_inc)
-        
+
         ' Initialize Mutual information instance once '
         mi = MutualInformation(self._n_neighbours, self._type, self._var_resc, self._noise)
-        
+
         ' Initialize results '
         window_MI = {}
-        
+
         i = self._tau_max
-        while i <= lx - self._window : 
+
+        while i <= lx - self._window:
             curr_coef_lag = []
-            for k in lag_array :
-                if k <= 0 :  # For negative tau
-                    curr_x = x[i : i + self._window].values
-                    curr_y = y[i + k : i + k + self._window].values
-                        
-                else :      # For positive tau
-                    curr_x = x[i - k : i - k + self._window].values
-                    curr_y = y[i : i + self._window].values
-                    
+
+            fixed_x = pd.DataFrame(x[i: i + self._window].values)
+            fixed_y = pd.DataFrame(y[i: i + self._window].values)
+
+            # For negative tau
+            for k in lag_array[lag_array <= 0]:
+                curr_y = y[i + k: i + k + self._window].values
+
                 'Compute MI for current segments'
-                curr_MI = mi.compute(pd.DataFrame(curr_x), pd.DataFrame(curr_y))
-                 
+                curr_MI = mi.compute(fixed_x, pd.DataFrame(curr_y))
+
                 curr_coef_lag.append(curr_MI['MI'])
-                
+
+            # For positive tau
+            for k in lag_array[lag_array > 0]:
+                curr_x = x[i - k: i - k + self._window].values
+
+                'Compute MI for current segments'
+                curr_MI = mi.compute(pd.DataFrame(curr_x), fixed_y)
+
+                curr_coef_lag.append(curr_MI['MI'])
+
             window_MI.update({float(i) : curr_coef_lag})
-            
+
             ' go to the next window '
             i += self._win_inc
 
         window_MI['Lag'] = [float(x) for x in lag_array]
-        
-        if(self._plot) :
+
+        if self._plot:
             plt.ion()
             self.plot_result(window_MI)
-        
+
         return window_MI
-
-        
-
-    
-    
-    
-    
-    
-    
-    
-    
-    

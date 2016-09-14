@@ -143,3 +143,11 @@ CrossRecurrencePlot	module
     :members:
     :undoc-members:
     :show-inheritance:
+
+JointRecurrencePlot	module
+------------------------------------
+
+.. automodule:: utils.JointRecurrencePlot
+    :members:
+    :undoc-members:
+    :show-inheritance:

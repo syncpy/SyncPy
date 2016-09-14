@@ -45,8 +45,8 @@ SMART Labex Project (http://www.smart-labex.fr)
 		Version 
 ------------------------
 
-Version number : 1.3
-Last update : 06/11/2015
+Version number : 1.4
+Last update : 28/01/2016
 
 
 ------------------------

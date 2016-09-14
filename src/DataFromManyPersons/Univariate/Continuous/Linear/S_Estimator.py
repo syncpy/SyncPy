@@ -44,7 +44,6 @@ from math import ceil
 
 from utils import Standardize
 
-
 class S_Estimator:
     """
     S_Estimator computes the S-Estimator, Genuine and Random Synchronization index among multiple monovariate signals (organized as a list of pandas DataFrame). 
@@ -71,19 +70,12 @@ class S_Estimator:
         #In the constructor we can check that params have corrects values and initialize stuff
         
         ' Raise error if parameters are not in the correct type '
-        try :
-            if not(isinstance(surr_nb_iter, int)) : raise TypeError("Requires surr_nb_iter to be an integer")
-            if not(isinstance(plot, bool))        : raise TypeError("Requires plot to be a boolean")
-        except TypeError, err_msg:
-            raise TypeError(err_msg)
-            return
+        if not(isinstance(surr_nb_iter, int)) : raise TypeError("Requires surr_nb_iter to be an integer")
+        if not(isinstance(plot, bool))        : raise TypeError("Requires plot to be a boolean")
+
         
         ' Raise error if parameters do not respect input rules '
-        try : 
-            if surr_nb_iter <= 0 : raise ValueError("Requires surr_nb_iter to be a strictly positive scalar")
-        except ValueError, err_msg:
-            raise ValueError(err_msg)
-            return
+        if surr_nb_iter <= 0 : raise ValueError("Requires surr_nb_iter to be a strictly positive scalar")
         
         self._surr_nb_iter = surr_nb_iter
         self._plot = plot
@@ -104,18 +96,10 @@ class S_Estimator:
         
         """
         ' Raise error if parameters are not in the correct type '
-        try :
-            if not(isinstance(result, dict)) : raise TypeError("Requires result to be a dictionary")
-        except TypeError, err_msg:
-            raise TypeError(err_msg)
-            return
+        if not(isinstance(result, dict)) : raise TypeError("Requires result to be a dictionary")
         
         ' Raise error if not the good dictionary '
-        try : 
-            if not 'surrogate_signal' in result : raise ValueError("Requires dictionary to be the output of compute() method")            
-        except ValueError, err_msg:
-            raise ValueError(err_msg)
-            return
+        if not 'surrogate_signal' in result : raise ValueError("Requires dictionary to be the output of compute() method")
         
         nrows = int(ceil(result['surrogate_signal'].shape[1]))
         figure, ax = plt.subplots(nrows, sharex=True)
@@ -145,17 +129,16 @@ class S_Estimator:
             -- Synchronization index 
         """
         # Keep only positives eigenvalues
-        lambda_i_nozero=np.array([value for value in lambda_i if value > 0])
+        lambda_i_nozero=np.array([value for value in lambda_i if value > 0.0])
         
         #check division by zero
-        if len(lambda_i_nozero) == 1:
-            raise ValueError("len(lambda_i_nozero) can't be eq to 1 because we divide by np.log(len(lambda_i_nozero))")
-            return
+        if len(lambda_i) == 1:
+            raise ValueError("len(lambda_i) can't be eq to 1 because we divide by np.log(len(lambda_i))")
         
         tmp = [lambda_i_nozero[k] * np.log(lambda_i_nozero[k]) for k in range(len(lambda_i_nozero))]
         
-        SI = 1 + sum(tmp) / np.log(len(lambda_i_nozero))
-        
+        SI = 1 + sum(tmp) / np.log(len(lambda_i))
+
         return SI
         
     
@@ -264,7 +247,7 @@ class S_Estimator:
         # check division by zero
         if X.index.size == 0:
             raise ValueError("X.index.size can't be eq to 0 because we divide by it")
-            return
+
         R = np.dot(df_X_surr.values.T, df_X_surr.values) / float(X.index.size) # Correlation matrix
         eig_values_surr, eig_vectors_surr = np.linalg.eig(R) # Eigenvalues decomposition
         eig_values_surr = np.sort(np.real(eig_values_surr)) # sort by increasing order
@@ -280,7 +263,7 @@ class S_Estimator:
                 # check division by zero
                 if np.any(Xi_surr_fft == 0):
                     raise ValueError("Xi_surr_fft can't be eq to 0 because we divide by it")
-                    return
+
                 Xi_surr_ampli = np.abs(Xi_surr_fft)
                 Xi_surr_phase = Xi_surr_fft / Xi_surr_ampli
                 
@@ -327,27 +310,18 @@ class S_Estimator:
         """
         
         ' Raise error if parameters are not in the correct type '
-        try:
-            for i in range(len(signals)) :
-                if not(isinstance(signals[i], pd.DataFrame)): raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame.")
-        except TypeError, err_msg:
-            raise TypeError(err_msg)
-            return
+        for i in range(len(signals)):
+            if not(isinstance(signals[i], pd.DataFrame)): raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame.")
         
         ' Raise error if DataFrames have not the same size or same indexes '
-        try:
-            for i in range(0,len(signals)):
-                if len(signals[0]) != len(signals[i]) : raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as first signal.")
-                if signals[0].index.tolist() != signals[i].index.tolist(): raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
-        except ValueError, err_msg:
-            raise ValueError(err_msg)
-            return
+        for i in range(0,len(signals)):
+            if len(signals[0]) != len(signals[i]) : raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as first signal.")
+            if signals[0].index.tolist() != signals[i].index.tolist(): raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
 
         # check division by zero
         ''' Raise error if "len(signals) can't be 0 because we divide by the size x's index that depends on it'''
         if len(signals) == 0:
             raise ValueError("len(signals) can't be 0 because we divide by the size x's index that depends on it")
-            return
 
         'Formate signals in one DataFrame for computing'
         # If input signals are multivariates, only the first column is considered
@@ -385,17 +359,16 @@ class S_Estimator:
         ' Raise error if sum_eig_values or X_surr_average_eig or sum_X_surr_average_eig eq zero because we divide by the it later'
         if np.any(sum_eig_values == 0):
             raise ValueError("The Sum of eig_values can't be 0 because we divide by it later")
-            return
+
         if np.any(X_surr_average_eig == 0):
             raise ValueError("X_surr_average_eig can't be 0 because we divide by it later")
-            return
+
         if np.any(sum_X_surr_average_eig == 0):
             raise ValueError("The Sum of X_surr_average_eig can't be 0 because we divide by it later")
-            return
+
         sum_eig_values_over_X_surr_average_eig = sum(eig_values/X_surr_average_eig)
         if np.any(sum_eig_values_over_X_surr_average_eig == 0):
             raise ValueError("The Sum of (eig_values/X_surr_average_eig) can't be 0 because we divide by it later")
-            return
 
         ''' Get Synchronization Indexes '''
         lambda_1 = []

@@ -101,31 +101,25 @@ def PeakPicking(matrix, tau_max, tau_inc = 0, threshold = 0,
     """
     
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(matrix, dict))        : raise TypeError("Requires corr_matrix to be a dictionary")
-        if not(isinstance(tau_max, int))        : raise TypeError("Requires tau_max to be an integer")
-        if not(isinstance(tau_inc, int))        : raise TypeError("Requires tau_inc to be an integer")
-        if not(isinstance(threshold, float))    : raise TypeError("Requires threshold to be an float")
-        if not(isinstance(lookahead, int))      : raise TypeError("Requires plot to be a integer")
-        if not(isinstance(delta, int))          : raise TypeError("Requires delta to be an integer")
-        if not(isinstance(ele_per_sec, int))    : raise TypeError("Requires ele_per_sec to be an integer")
-        if not(isinstance(plot, bool))          : raise TypeError("Requires plot to be a boolean")
-        if not(isinstance(plot_on_mat, bool))   : raise TypeError("Requires plot_on_mat to be an boolean")
-        if not(isinstance(sorted_peak, bool))   : raise TypeError("Requires sorted_peak to be an boolean")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
+    if not(isinstance(matrix, dict))        : raise TypeError("Requires corr_matrix to be a dictionary")
+    if not(isinstance(tau_max, int))        : raise TypeError("Requires tau_max to be an integer")
+    if not(isinstance(tau_inc, int))        : raise TypeError("Requires tau_inc to be an integer")
+    if not(isinstance(threshold, float))    : raise TypeError("Requires threshold to be an float")
+    if not(isinstance(lookahead, int))      : raise TypeError("Requires plot to be a integer")
+    if not(isinstance(delta, int))          : raise TypeError("Requires delta to be an integer")
+    if not(isinstance(ele_per_sec, int))    : raise TypeError("Requires ele_per_sec to be an integer")
+    if not(isinstance(plot, bool))          : raise TypeError("Requires plot to be a boolean")
+    if not(isinstance(plot_on_mat, bool))   : raise TypeError("Requires plot_on_mat to be an boolean")
+    if not(isinstance(sorted_peak, bool))   : raise TypeError("Requires sorted_peak to be an boolean")
+
     
     ' Raise error if parameters do not respect input rules '
-    try :
-        if not 'Lag' in matrix                  : raise ValueError("Requires dictionary to have a 'Lag' key")
-        if tau_max < 0                          : raise ValueError("Requires tau_max to be a positive scalar")
-        if tau_inc < 0  or tau_inc > tau_max    : raise ValueError("Requires tau_inc to be a positive scalar inferior to tau_max length")
-        if threshold <0                         : raise ValueError("Requires threshold to be a positive float")
-        if ele_per_sec <= 0                     : raise ValueError("Requires ele_per_sec to be a strictly positive scalar")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
+    if not 'Lag' in matrix                  : raise ValueError("Requires dictionary to have a 'Lag' key")
+    if tau_max < 0                          : raise ValueError("Requires tau_max to be a positive scalar")
+    if tau_inc < 0  or tau_inc > tau_max    : raise ValueError("Requires tau_inc to be a positive scalar inferior to tau_max length")
+    if threshold <0                         : raise ValueError("Requires threshold to be a positive float")
+    if ele_per_sec <= 0                     : raise ValueError("Requires ele_per_sec to be a strictly positive scalar")
+
     
     'initialize parameters'
     lag_vect = matrix['Lag']
@@ -224,24 +218,18 @@ def PeakPicking_plot(result, matrix, tau_max, ele_per_sec = 1, plot_on_mat = Fal
     """
     
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(result, pd.DataFrame)): raise TypeError("Requires result to be a DataFrame")
-        if not(isinstance(matrix, dict))        : raise TypeError("Requires corr_matrix to be a dict")
-        if not(isinstance(tau_max, int))        : raise TypeError("Requires tau_max to be an integer")
-        if not(isinstance(ele_per_sec, int))    : raise TypeError("Requires ele_per_sec to be an integer")
-        if not(isinstance(plot_on_mat, bool))   : raise TypeError("Requires plot_on_mat to be an boolean")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
+    if not(isinstance(result, pd.DataFrame)): raise TypeError("Requires result to be a DataFrame")
+    if not(isinstance(matrix, dict))        : raise TypeError("Requires corr_matrix to be a dict")
+    if not(isinstance(tau_max, int))        : raise TypeError("Requires tau_max to be an integer")
+    if not(isinstance(ele_per_sec, int))    : raise TypeError("Requires ele_per_sec to be an integer")
+    if not(isinstance(plot_on_mat, bool))   : raise TypeError("Requires plot_on_mat to be an boolean")
+
     
     ' Raise error if parameters do not respect input rules '
-    try :
-        if not 'Lag' in matrix                  : raise ValueError("Requires dictionary to have a 'Lag' key")
-        if tau_max < 0                          : raise ValueError("Requires tau_max to be a positive scalar")
-        if ele_per_sec <= 0                     : raise ValueError("Requires ele_per_sec to be a strictly positive scalar")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
+    if not 'Lag' in matrix                  : raise ValueError("Requires dictionary to have a 'Lag' key")
+    if tau_max < 0                          : raise ValueError("Requires tau_max to be a positive scalar")
+    if ele_per_sec <= 0                     : raise ValueError("Requires ele_per_sec to be a strictly positive scalar")
+
     
     if plot_on_mat :
         corr_mat = np.zeros((len(matrix[matrix.keys()[0]]), len(matrix)-1) )

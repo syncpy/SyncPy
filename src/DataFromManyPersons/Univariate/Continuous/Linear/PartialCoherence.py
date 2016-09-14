@@ -81,24 +81,17 @@ class PartialCoherence:
         #In the constructor we can check that params have corrects values and initialize stuff
         
         ' Raise error if parameters are not in the correct type '
-        try :
-          if not(isinstance(fs, float))     : raise TypeError("Requires fs to be an float")
-          if not(isinstance(NFFT, int))     : raise TypeError("Requires NFFT to be an integer")
-          if not(isinstance(detrend, int))  : raise TypeError("Requires detrend to be an integer")
-          if not(isinstance(noverlap, int)) : raise TypeError("Requires noverlap to be an integer")
-        except TypeError, err_msg:
-          raise TypeError(err_msg)
-          return
+        if not(isinstance(fs, float))     : raise TypeError("Requires fs to be an float")
+        if not(isinstance(NFFT, int))     : raise TypeError("Requires NFFT to be an integer")
+        if not(isinstance(detrend, int))  : raise TypeError("Requires detrend to be an integer")
+        if not(isinstance(noverlap, int)) : raise TypeError("Requires noverlap to be an integer")
+
         
         ' Raise error if parameters do not respect input rules '
-        try :     
-            if fs < 0 :           raise ValueError("Requires fs to be a positive scalar")
-            if NFFT <=0:          raise ValueError("Requires NFFT to be a strictly positive scalar")
-            if NFFT %2 != 0:      raise ValueError("Requires NNFT to be a multiple of 2")
-            if detrend != 0  and detrend != 1 and detrend != 2 : raise ValueError("Requires detrend to be 0, 1 or 2" )
-        except ValueError, err_msg:
-          raise ValueError(err_msg)
-          return
+        if fs < 0 :           raise ValueError("Requires fs to be a positive scalar")
+        if NFFT <=0:          raise ValueError("Requires NFFT to be a strictly positive scalar")
+        if NFFT %2 != 0:      raise ValueError("Requires NNFT to be a multiple of 2")
+        if detrend != 0  and detrend != 1 and detrend != 2 : raise ValueError("Requires detrend to be 0, 1 or 2" )
               
         self.fs=fs
         self.NFFT=NFFT
@@ -153,21 +146,15 @@ class PartialCoherence:
         """
         
         ' Raise error if parameters are not in the correct type '
-        try:
-            for i in range(len(signals)):
-                if not(isinstance(signals[i], pd.DataFrame)): raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame.")
-        except TypeError, err_msg:
-            raise TypeError(err_msg)
-            return
+        for i in range(len(signals)):
+            if not(isinstance(signals[i], pd.DataFrame)): raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame.")
+
         
         ' Raise error if DataFrames have not the same size or same indexes '
-        try:
-            for i in range(0, len(signals)):
-                if len(signals[0]) != len(signals[i]): raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as first signal.")
-                if signals[0].index.tolist() != signals[i].index.tolist(): raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
-        except ValueError, err_msg:
-            raise ValueError(err_msg)
-            return
+        for i in range(0, len(signals)):
+            if len(signals[0]) != len(signals[i]): raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as first signal.")
+            if signals[0].index.tolist() != signals[i].index.tolist(): raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
+
         
         N= len(signals)  #number of signals
         

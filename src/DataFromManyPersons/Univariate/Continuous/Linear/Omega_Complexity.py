@@ -75,21 +75,15 @@ class Omega_Complexity:
         """
         
         ' Raise error if parameters are not in the correct type '
-        try :
-            for i in range(len(signals)) :
-                if not(isinstance(signals[i], pd.DataFrame)): raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame.")
-        except TypeError, err_msg:
-            raise TypeError(err_msg)
-            return
+        for i in range(len(signals)) :
+            if not(isinstance(signals[i], pd.DataFrame)): raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame.")
+
         
         ' Raise error if DataFrames have not the same size or same indexes '
-        try :
-            for i in range(0,len(signals)):
-                if len(signals[0]) != len(signals[i]) : raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as first signal.")
-                if signals[0].index.tolist() != signals[i].index.tolist() : raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
-        except ValueError, err_msg:
-            raise ValueError(err_msg)
-            return
+        for i in range(0,len(signals)):
+            if len(signals[0]) != len(signals[i]) : raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as first signal.")
+            if signals[0].index.tolist() != signals[i].index.tolist() : raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
+
 
         'Formate signals in one DataFrame for computing'
         # If input signals are multivariates, only the first column is considered
@@ -109,7 +103,6 @@ class Omega_Complexity:
         # checking division by zero
         if trace_cov_mat == 0:
             raise ValueError("trace_cov_mat can't be eq to zero, we divide by it")
-            return
 
         lambda_spectrum=eig_val/trace_cov_mat
         

@@ -66,28 +66,15 @@ def Minkowski(x,y, order):
     """
     
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
-        if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
+    if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
+    if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
     
     'Error if p1 and p2 have not the same size'
-    try :
-        if x.shape[1]!=y.shape[1] :
-            raise ValueError("The two points have different size")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
-    
+    if x.shape[1]!=y.shape[1] :
+        raise ValueError("The two points have different size")
 
     ' Raise error if parameters do not respect input rules '
-    try : 
-        if order < 0 : raise ValueError("Requires order to be a positive scalar greater than 0")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
+    if order < 0 : raise ValueError("Requires order to be a positive scalar greater than 0")
 
     if order!=np.inf:
        d=((x.subtract(y)**(1.0*order)).sum(axis=1))**(1.0/order)
@@ -96,8 +83,8 @@ def Minkowski(x,y, order):
         
     d=pd.DataFrame(d)
     return (d)
-            
-        
+
+
 ''' Distance metrics for distributions'''
 def Mahalanobis(df1,df2):
     """
@@ -114,12 +101,8 @@ def Mahalanobis(df1,df2):
     :returns: float
             -- distance between the two signals
     """
+    if df1.shape[0]+df2.shape[0]-2 == 0 : raise ValueError("Divide by zero exception : signal1.size+signal2.size-2 = 0  ")
 
-    try :
-        if df1.shape[0]+df2.shape[0]-2 == 0 : raise ValueError("Divide by zero exception : signal1.size+signal2.size-2 = 0  ")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
 
     n1=df1.shape[0]
     n2=df2.shape[0]
@@ -145,7 +128,3 @@ def Mahalanobis(df1,df2):
     
     return sqrt(D2)
 
-
-
-
-       

@@ -80,6 +80,7 @@ def CrossRecurrencePlot(x,y,m,t,e,distance,standardization = False, plot = False
         1. 'euclidean';
         2. 'maximum';
         3. 'manhattan'
+        4. 'fixed distance maximum norm'
         
     :type distance: str
     
@@ -92,44 +93,30 @@ def CrossRecurrencePlot(x,y,m,t,e,distance,standardization = False, plot = False
        if True the plot of correlation function is returned. Default: False
     :type standardization: bool
 
-    
     """
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
-        if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
-        
-        
-    try :
-        if not(isinstance(m, int)) : raise TypeError("Requires m to be an integer")
-        if not(isinstance(t, int)) : raise TypeError("Requires t to be an integer")
-        if not(isinstance(e, float)): raise TypeError("requires eps to be a float")
-        if not(isinstance(distance, str)) : raise TypeError("Requires distance to be a string")
-        if not(isinstance(standardization, bool)) : raise TypeError("Requires standardization to be a bool")
-        if not(isinstance(plot, bool)) : raise TypeError("Requires plot to be a bool")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
+    if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
+    if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
+
+    if not(isinstance(m, int)) : raise TypeError("Requires m to be an integer")
+    if not(isinstance(t, int)) : raise TypeError("Requires t to be an integer")
+    if not(isinstance(e, float)): raise TypeError("requires eps to be a float")
+    if not(isinstance(distance, str)) : raise TypeError("Requires distance to be a string")
+    if not(isinstance(standardization, bool)) : raise TypeError("Requires standardization to be a bool")
+    if not(isinstance(plot, bool)) : raise TypeError("Requires plot to be a bool")
+
         
     ' Raise error if parameters do not respect input rules '
-    try : 
-        if m <= 0 : raise ValueError("Requires m to be positive and greater than 0") 
-        if t<= 0 : raise ValueError("Requires t to be positive and  greater from 0") 
-        if e<0: raise ValueError("Requires eps to be positive")
-        if distance != 'euclidean' and distance != 'maximum' and distance !='manhattan': raise ValueError("Requires a valid way to compute distance")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
+
+    if m <= 0 : raise ValueError("Requires m to be positive and greater than 0")
+    if t<= 0 : raise ValueError("Requires t to be positive and  greater from 0")
+    if e<0: raise ValueError("Requires eps to be positive")
+    if distance != 'euclidean' and distance != 'maximum' and distance !='manhattan' and distance != 'rr': raise ValueError("Requires a valid way to compute distance")
     
-    
-    if  standardization==True:
+    if standardization==True:
         x=Standardize.Standardize(x)
         y=Standardize.Standardize(y)
-   
-        
+
     if (m!=1) or (t!=1):
         x=Embedding.Embedding(x,m,t)
         y=Embedding.Embedding(y,m,t)
@@ -139,40 +126,63 @@ def CrossRecurrencePlot(x,y,m,t,e,distance,standardization = False, plot = False
         pass
     elif(distance=='manhattan'):
         vd=1
-    elif(distance=='maximum'):
+    elif(distance=='maximum' or distance=='rr'):
         vd=np.inf
-        
+
     crp_tmp=np.ones((x.shape[0],y.shape[0]))
  
-        
-    for i in range(0,x.shape[0]): 
-        x_row_rep_T=pd.concat([x.iloc[i,:]]*y.shape[0],axis=1,ignore_index=True)
-        x_row_rep=x_row_rep_T.transpose()
-
-        diff_threshold_norm=e-Distance.Minkowski(x_row_rep,y,vd)
-        diff_threshold_norm[diff_threshold_norm>=0]=0
-        diff_threshold_norm[diff_threshold_norm<0]=1
+    if distance!='rr':
+        for i in range(0,x.shape[0]): 
+            x_row_rep_T=pd.concat([x.iloc[i,:]]*y.shape[0],axis=1,ignore_index=True)
+            x_row_rep=x_row_rep_T.transpose()
             
-        crp_tmp[x.shape[0]-1-i,:]=diff_threshold_norm.T
-
-        crp=np.fliplr((crp_tmp).T)
-        
+            dist=Distance.Minkowski(x_row_rep,y,vd)
             
+            diff_threshold_norm=e-dist
+            diff_threshold_norm[diff_threshold_norm>=0]=0
+            diff_threshold_norm[diff_threshold_norm<0]=1
+                
+            crp_tmp[x.shape[0]-1-i,:]=diff_threshold_norm.T
+    
+            crp=np.fliplr((crp_tmp).T)
+    
+    else:
+        dist_m=np.zeros((x.shape[0],y.shape[0]))
+        for i in range(0,x.shape[0]): 
+            x_row_rep_T=pd.concat([x.iloc[i,:]]*y.shape[0],axis=1,ignore_index=True)
+            x_row_rep=x_row_rep_T.transpose()
+        
+            dist=Distance.Minkowski(x_row_rep,y,vd)            
+            
+            dist_m[i,:]=dist.T
+            
+        dist_m_f=dist_m.flatten()
+        dist_m_f.sort()
+        
+        e=dist_m_f[np.ceil(e*len(dist_m_f))]
+        
+        for i in range(0,x.shape[0]): 
+            diff_threshold_norm=e-dist_m[i,:].T
+            diff_threshold_norm[diff_threshold_norm>=0]=0
+            diff_threshold_norm[diff_threshold_norm<0]=1
+
+            crp_tmp[x.shape[0]-1-i,:]=diff_threshold_norm.T
+
+            crp=np.fliplr((crp_tmp).T)
+
     result = dict()
     result['crp']= crp
-
     
     if plot:
-       plt.ion()
-       figure = plt.figure()
-       ax = figure.add_subplot(111)
-        
-       ax.set_xlabel('Time (in samples)') 
-       ax.set_ylabel('Time (in samples)')
-       ax.set_title('Cross recurrence matrix')
-        
-       ax.imshow(result['crp'], plt.cm.binary_r, origin='lower',interpolation='nearest', vmin=0, vmax=1)
+        plt.ion()
+        figure = plt.figure()
+        ax = figure.add_subplot(111)
 
+        ax.set_xlabel('Time (in samples)')
+        ax.set_ylabel('Time (in samples)')
+        ax.set_title('Cross recurrence matrix')
+
+        ax.imshow(result['crp'], plt.cm.binary_r, origin='lower',interpolation='nearest', vmin=0, vmax=1)
 
     return (result)
 

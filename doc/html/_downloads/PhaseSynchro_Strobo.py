@@ -14,7 +14,9 @@ sys.path.insert(0, '../src/')   # To be able to import packages from parent dire
 
 print("\n")
 print("**************************************************************")
-print("This script computes ...\n")
+print("This script computes the n:m synchronization index lambda_nm by \n" + 
+      "using a stroboscopic approach between two continuous univariate \n" +
+      "signals x and y (in DataFrame format).\n")
 print("**************************************************************")
 
 """ Import wanted module with every parent packages """

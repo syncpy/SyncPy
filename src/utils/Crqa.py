@@ -102,55 +102,41 @@ def Crqa(x,y,m,t,e,distance,standardization,window,window_size,step,lmin,thw):
     :param thw:
         distance method
     :type thw: int
-
     
     """
     
     ' Raise error if parameters are not in the correct type '
-    try :
-        if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
-        if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-        if not(isinstance(m, int)) : raise TypeError("Requires m to be an integer")
-        if not(isinstance(t, int)) : raise TypeError("Requires t to be an integer")
-        if not(isinstance(e, float)): raise TypeError("requires eps to be a float")
-        if not(isinstance(distance, str)) : raise TypeError("Requires distance to be a string")
-        if not(isinstance(standardization, bool)) : raise TypeError("Requires standardization to be a bool")
-        if not(isinstance(window, bool)) : raise TypeError("Requires window to be an boolean")
-        if not(isinstance(window_size, int)) : raise TypeError("Requires window_size to be an integer")
-        if not(isinstance(step, int)) : raise TypeError("Requires step to be an integer")
-        if not(isinstance(lmin, int)) : raise TypeError("Requires lmin to be an integer")
-        if not(isinstance(thw, int)) : raise TypeError("Requires thw to be an integer")
-    except TypeError, err_msg:
-        raise TypeError(err_msg)
-        return
+    if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
+    if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
+    if not(isinstance(m, int)) : raise TypeError("Requires m to be an integer")
+    if not(isinstance(t, int)) : raise TypeError("Requires t to be an integer")
+    if not(isinstance(e, float)): raise TypeError("requires eps to be a float")
+    if not(isinstance(distance, str)) : raise TypeError("Requires distance to be a string")
+    if not(isinstance(standardization, bool)) : raise TypeError("Requires standardization to be a bool")
+    if not(isinstance(window, bool)) : raise TypeError("Requires window to be an boolean")
+    if not(isinstance(window_size, int)) : raise TypeError("Requires window_size to be an integer")
+    if not(isinstance(step, int)) : raise TypeError("Requires step to be an integer")
+    if not(isinstance(lmin, int)) : raise TypeError("Requires lmin to be an integer")
+    if not(isinstance(thw, int)) : raise TypeError("Requires thw to be an integer")
+
 
     ' Raise error if parameters do not respect input rules '
-    try :
-        
-        if m <= 0 : raise ValueError("Requires m to be positive and greater than 0") 
-        if t <= 0 : raise ValueError("Requires t to be positive and  greater from 0") 
-        if e <0: raise ValueError("Requires eps to be positive")
-        if distance != 'euclidean' and distance != 'maximum' and distance !='manhattan': raise ValueError("Requires a valid way to compute distance")
-        if window_size<= 0 or window_size>x.shape[0]: raise ValueError("Requires window_size to be positive and greater than 0 and lesser than the length of the input signals")
-        if step <= 0 or step > x.shape[0]/3.0: raise ValueError("Requires window to be positive and greater than 0 and lesser equal to one third of the length of the signals") 
-        if lmin <=0 or lmin > x.shape[0]: raise ValueError("Requires lmin to be positive and greater than 0 and lesser than the length of the input signal")  
-        if thw < 0 or thw > x.shape[0]: raise ValueError("Requires thw to be positive and greater than 0 and lesser than the length of the input signals") 
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
+    if m <= 0 : raise ValueError("Requires m to be positive and greater than 0")
+    if t <= 0 : raise ValueError("Requires t to be positive and  greater from 0")
+    if e <0: raise ValueError("Requires eps to be positive")
+    if distance != 'euclidean' and distance != 'maximum' and distance !='manhattan': raise ValueError("Requires a valid way to compute distance")
+    if window_size<= 0 or window_size>x.shape[0]: raise ValueError("Requires window_size to be positive and greater than 0 and lesser than the length of the input signals")
+    if step <= 0 or step > x.shape[0]/3.0: raise ValueError("Requires window to be positive and greater than 0 and lesser equal to one third of the length of the signals")
+    if lmin <=0 or lmin > x.shape[0]: raise ValueError("Requires lmin to be positive and greater than 0 and lesser than the length of the input signal")
+    if thw < 0 or thw > x.shape[0]: raise ValueError("Requires thw to be positive and greater than 0 and lesser than the length of the input signals")
     
     'Error if x and y have not the same size'
-    try :
-        if x.shape[0]!=y.shape[0] :
-            raise ValueError("The two signals have different length")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
-    
+
+    if x.shape[0]!=y.shape[0] :
+        raise ValueError("The two signals have different length")
      
     plot=False
 
-        
     RR_w=np.array([])
     DET_w=np.array([])
     L_w=np.array([])
@@ -187,7 +173,6 @@ def Crqa(x,y,m,t,e,distance,standardization,window,window_size,step,lmin,thw):
     else:
         if window_size < 5+(m-1)*t:
             window_size=5+(m-1)*t
-     
 
         while((pos+window_size)<x.shape[0]):
             end = pos+window_size-1
@@ -214,26 +199,19 @@ def Crqa(x,y,m,t,e,distance,standardization,window,window_size,step,lmin,thw):
             result['L_max']= L_w_max
             result['ENT']=Entr_w
 
-            pos = pos + step 
-
+            pos += step
 
     return result
-
-    
-    
     
 #crqa measures
-    
+
+
 def RR(crp_matrix,thw):
     """
     It computes the Recurrence Rate (RR)
     """
-    try :
-        if crp_matrix.shape[0] == 0 : raise ValueError("Error : crp_matrix signal 0 is empty")
-        if crp_matrix.shape[1] == 0 : raise ValueError("Error : crp_matrix signal 1 is empty")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
+    if crp_matrix.shape[0] == 0 : raise ValueError("Error : crp_matrix signal 0 is empty")
+    if crp_matrix.shape[1] == 0 : raise ValueError("Error : crp_matrix signal 1 is empty")
     
     if (thw==0) or (thw==1):
         rr=(1.0/(crp_matrix.shape[0]*crp_matrix.shape[1]))*(np.count_nonzero(crp_matrix)-thw*np.trace(crp_matrix,offset=thw)) 
@@ -241,33 +219,27 @@ def RR(crp_matrix,thw):
         rr=(1.0/(crp_matrix.shape[0]*crp_matrix[1]))*(np.count_nonzero(crp_matrix)-2*np.trace(crp_matrix,offset=thw))
 
     return rr
-    
 
 
 def DET(crp_matrix,hist_P,rr,lmin): 
     """
     It computes the Determinism (DET)
     """
-    
-    try :
-       if np.any(rr == 0) :
-            raise ValueError("DET cannot computed, a division for zero occurred")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
-    
+
+    if np.any(rr == 0) :
+        raise ValueError("DET cannot computed, a division for zero occurred")
     
     for offs in range(-(crp_matrix.shape[0]-1),crp_matrix.shape[0],1):
         diag_line=np.diagonal(crp_matrix,offset=offs)
         length_diag_line=np.array(length_ones_seq(diag_line))
-                
-        if (not length_diag_line.size) or (length_ones_seq(length_diag_line)<lmin).all(): 
+
+        if (not length_diag_line.size) or (length_ones_seq(length_diag_line)<lmin).all():
             continue
-                                    
+
         indices_diag_line=np.hstack(np.where(length_diag_line >=lmin))
-            
+
         for i in range(0,indices_diag_line.size):
-            hist_P[length_diag_line[indices_diag_line[i]]-1]=hist_P[length_diag_line[indices_diag_line[i]]-1]+1 
+            hist_P[length_diag_line[indices_diag_line[i]]-1]=hist_P[length_diag_line[indices_diag_line[i]]-1]+1
            
     det=1.0*(sum(np.arange(lmin,crp_matrix.shape[0])*hist_P[lmin:crp_matrix.shape[0]]))/(rr*(crp_matrix.shape[0]*crp_matrix.shape[1]))
     
@@ -275,21 +247,14 @@ def DET(crp_matrix,hist_P,rr,lmin):
        det=1.0
         
     return det
-    
-    
+
 
 def L(crp_matrix,hist_P,lmin):
     """
     It computes the Average Diagonal Line Length (L)
     """
-    
-    try :
-       if sum(hist_P[lmin-1:crp_matrix.shape[0]])==0 :
-            raise ValueError("L cannot computed, a division for zero occurred")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
-    
+    if sum(hist_P[lmin-1:crp_matrix.shape[0]])==0 :
+        raise ValueError("L cannot computed, a division for zero occurred")
     
     l_avg=1.0*(np.sum(np.arange(lmin,crp_matrix.shape[0]+1)*hist_P[lmin-1:crp_matrix.shape[0]]))/sum(hist_P[lmin-1:crp_matrix.shape[0]])
     return l_avg
@@ -302,17 +267,13 @@ def L_max(crp_matrix,hist_P,lmin):
     l_max=np.max(np.where(hist_P!=0))+1
     return l_max
 
+
 def Entr(crp_matrix,hist_P,lmin): 
     """
     It computes the Entropy (ENTR)
     """
-    
-    try :
-       if np.sum(hist_P[lmin-1:crp_matrix.shape[0]])==0 :
-            raise ValueError("ENTR cannot computed, a division for zero occurred")
-    except ValueError, err_msg:
-        raise ValueError(err_msg)
-        return
+    if np.sum(hist_P[lmin-1:crp_matrix.shape[0]])==0 :
+         raise ValueError("ENTR cannot computed, a division for zero occurred")
     
     hist_P_norm=1.0*hist_P[lmin-1:crp_matrix.shape[0]]/np.sum(hist_P[lmin-1:crp_matrix.shape[0]])
     hist_P_norm_def=hist_P_norm[np.nonzero(hist_P_norm)]
@@ -326,8 +287,3 @@ def length_ones_seq(diag_line):
     """
     return np.array([sum(g) for b, g in itertools.groupby(diag_line) if b])
 
-
-
-    
-
-    

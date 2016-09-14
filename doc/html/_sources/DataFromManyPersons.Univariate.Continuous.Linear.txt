@@ -15,6 +15,13 @@ ConditionalGrangerCausality module
     :undoc-members:
     :show-inheritance:
 
+MultipleGrangerCausality module
+-----------------------------------------------------------------
+
+.. automodule:: DataFromManyPersons.Univariate.Continuous.Linear.MultipleGrangerCausality
+    :members:
+    :undoc-members:
+    :show-inheritance:
     
 Omega_Complexity module
 -----------------------------------------------------------------

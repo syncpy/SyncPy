@@ -4,7 +4,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>utils.Crqa &mdash; Home Page</title>
@@ -15,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3',
+        VERSION:     '1.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,17 +24,15 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon_isir.ico"/>
-    <link rel="top" title="Home Page" href="../../HomePage.html" />
+    <link rel="top" title="Home Page" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
 <link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
 <![endif]-->
 
   </head>
-  <body role="document">
-<div class="header" role="banner">
+  <body>
+<div class="header">
   <div class="logo">
     <a href="../../HomePage.html">
       <img class="logo" src="../../_static/hearder_image.png" alt="Logo"/>
@@ -43,7 +40,7 @@
   </div>
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -52,15 +49,15 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../HomePage.html">Home Page</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li><a href="../../HomePage.html">Home Page</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <h1>Source code for utils.Crqa</h1><div class="highlight"><pre>
 <span class="c">### This file is a part of the Syncpy library.</span>
@@ -167,55 +164,41 @@
 <span class="sd">    :param thw:</span>
 <span class="sd">        distance method</span>
 <span class="sd">    :type thw: int</span>
-
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
-    <span class="k">try</span> <span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires x to be a pd.DataFrame&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires y to be a pd.DataFrame&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires m to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires t to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;requires eps to be a float&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires distance to be a string&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">standardization</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires standardization to be a bool&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires window to be an boolean&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">window_size</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires window_size to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires step to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">lmin</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires lmin to be an integer&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">thw</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires thw to be an integer&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires x to be a pd.DataFrame&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires y to be a pd.DataFrame&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires m to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires t to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;requires eps to be a float&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires distance to be a string&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">standardization</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires standardization to be a bool&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires window to be an boolean&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">window_size</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires window_size to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires step to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">lmin</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires lmin to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">thw</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires thw to be an integer&quot;</span><span class="p">)</span>
+
 
     <span class="s">&#39; Raise error if parameters do not respect input rules &#39;</span>
-    <span class="k">try</span> <span class="p">:</span>
-        
-        <span class="k">if</span> <span class="n">m</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires m to be positive and greater than 0&quot;</span><span class="p">)</span> 
-        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires t to be positive and  greater from 0&quot;</span><span class="p">)</span> 
-        <span class="k">if</span> <span class="n">e</span> <span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires eps to be positive&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">distance</span> <span class="o">!=</span> <span class="s">&#39;euclidean&#39;</span> <span class="ow">and</span> <span class="n">distance</span> <span class="o">!=</span> <span class="s">&#39;maximum&#39;</span> <span class="ow">and</span> <span class="n">distance</span> <span class="o">!=</span><span class="s">&#39;manhattan&#39;</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires a valid way to compute distance&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">window_size</span><span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">window_size</span><span class="o">&gt;</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires window_size to be positive and greater than 0 and lesser than the length of the input signals&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">step</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mf">3.0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires window to be positive and greater than 0 and lesser equal to one third of the length of the signals&quot;</span><span class="p">)</span> 
-        <span class="k">if</span> <span class="n">lmin</span> <span class="o">&lt;=</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">lmin</span> <span class="o">&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires lmin to be positive and greater than 0 and lesser than the length of the input signal&quot;</span><span class="p">)</span>  
-        <span class="k">if</span> <span class="n">thw</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">thw</span> <span class="o">&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires thw to be positive and greater than 0 and lesser than the length of the input signals&quot;</span><span class="p">)</span> 
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires m to be positive and greater than 0&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires t to be positive and  greater from 0&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">e</span> <span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires eps to be positive&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">distance</span> <span class="o">!=</span> <span class="s">&#39;euclidean&#39;</span> <span class="ow">and</span> <span class="n">distance</span> <span class="o">!=</span> <span class="s">&#39;maximum&#39;</span> <span class="ow">and</span> <span class="n">distance</span> <span class="o">!=</span><span class="s">&#39;manhattan&#39;</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires a valid way to compute distance&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">window_size</span><span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">window_size</span><span class="o">&gt;</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires window_size to be positive and greater than 0 and lesser than the length of the input signals&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mf">3.0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires window to be positive and greater than 0 and lesser equal to one third of the length of the signals&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lmin</span> <span class="o">&lt;=</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">lmin</span> <span class="o">&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires lmin to be positive and greater than 0 and lesser than the length of the input signal&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">thw</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">thw</span> <span class="o">&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires thw to be positive and greater than 0 and lesser than the length of the input signals&quot;</span><span class="p">)</span>
     
     <span class="s">&#39;Error if x and y have not the same size&#39;</span>
-    <span class="k">try</span> <span class="p">:</span>
-        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">!=</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;The two signals have different length&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
-    
+
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">!=</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;The two signals have different length&quot;</span><span class="p">)</span>
      
     <span class="n">plot</span><span class="o">=</span><span class="bp">False</span>
 
-        
     <span class="n">RR_w</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
     <span class="n">DET_w</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
     <span class="n">L_w</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
@@ -252,7 +235,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">window_size</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">+</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">:</span>
             <span class="n">window_size</span><span class="o">=</span><span class="mi">5</span><span class="o">+</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">t</span>
-     
 
         <span class="k">while</span><span class="p">((</span><span class="n">pos</span><span class="o">+</span><span class="n">window_size</span><span class="p">)</span><span class="o">&lt;</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="n">end</span> <span class="o">=</span> <span class="n">pos</span><span class="o">+</span><span class="n">window_size</span><span class="o">-</span><span class="mi">1</span>
@@ -279,131 +261,101 @@
             <span class="n">result</span><span class="p">[</span><span class="s">&#39;L_max&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">L_w_max</span>
             <span class="n">result</span><span class="p">[</span><span class="s">&#39;ENT&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">Entr_w</span>
 
-            <span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">step</span> 
+            <span class="n">pos</span> <span class="o">+=</span> <span class="n">step</span>
 
-
-    <span class="k">return</span> <span class="n">result</span></div>
-
-    
-    
+    <span class="k">return</span> <span class="n">result</span>
     
 <span class="c">#crqa measures</span>
-    
+
+</div>
 <div class="viewcode-block" id="RR"><a class="viewcode-back" href="../../utils.html#utils.Crqa.RR">[docs]</a><span class="k">def</span> <span class="nf">RR</span><span class="p">(</span><span class="n">crp_matrix</span><span class="p">,</span><span class="n">thw</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    It computes the Recurrence Rate (RR)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">try</span> <span class="p">:</span>
-        <span class="k">if</span> <span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Error : crp_matrix signal 0 is empty&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Error : crp_matrix signal 1 is empty&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
+    <span class="k">if</span> <span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Error : crp_matrix signal 0 is empty&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Error : crp_matrix signal 1 is empty&quot;</span><span class="p">)</span>
     
     <span class="k">if</span> <span class="p">(</span><span class="n">thw</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">thw</span><span class="o">==</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">rr</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">crp_matrix</span><span class="p">)</span><span class="o">-</span><span class="n">thw</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">crp_matrix</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="n">thw</span><span class="p">))</span> 
     <span class="k">else</span><span class="p">:</span>
         <span class="n">rr</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">crp_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">crp_matrix</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">crp_matrix</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="n">thw</span><span class="p">))</span>
 
-    <span class="k">return</span> <span class="n">rr</span></div>
-    
+    <span class="k">return</span> <span class="n">rr</span>
 
-
+</div>
 <div class="viewcode-block" id="DET"><a class="viewcode-back" href="../../utils.html#utils.Crqa.DET">[docs]</a><span class="k">def</span> <span class="nf">DET</span><span class="p">(</span><span class="n">crp_matrix</span><span class="p">,</span><span class="n">hist_P</span><span class="p">,</span><span class="n">rr</span><span class="p">,</span><span class="n">lmin</span><span class="p">):</span> 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    It computes the Determinism (DET)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">try</span> <span class="p">:</span>
-       <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">rr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;DET cannot computed, a division for zero occurred&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
-    
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">rr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;DET cannot computed, a division for zero occurred&quot;</span><span class="p">)</span>
     
     <span class="k">for</span> <span class="n">offs</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">diag_line</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">crp_matrix</span><span class="p">,</span><span class="n">offset</span><span class="o">=</span><span class="n">offs</span><span class="p">)</span>
         <span class="n">length_diag_line</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">length_ones_seq</span><span class="p">(</span><span class="n">diag_line</span><span class="p">))</span>
-                
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">length_diag_line</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">length_ones_seq</span><span class="p">(</span><span class="n">length_diag_line</span><span class="p">)</span><span class="o">&lt;</span><span class="n">lmin</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span> 
+
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">length_diag_line</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">length_ones_seq</span><span class="p">(</span><span class="n">length_diag_line</span><span class="p">)</span><span class="o">&lt;</span><span class="n">lmin</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
             <span class="k">continue</span>
-                                    
+
         <span class="n">indices_diag_line</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">length_diag_line</span> <span class="o">&gt;=</span><span class="n">lmin</span><span class="p">))</span>
-            
+
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">indices_diag_line</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-            <span class="n">hist_P</span><span class="p">[</span><span class="n">length_diag_line</span><span class="p">[</span><span class="n">indices_diag_line</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">hist_P</span><span class="p">[</span><span class="n">length_diag_line</span><span class="p">[</span><span class="n">indices_diag_line</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span> 
+            <span class="n">hist_P</span><span class="p">[</span><span class="n">length_diag_line</span><span class="p">[</span><span class="n">indices_diag_line</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">hist_P</span><span class="p">[</span><span class="n">length_diag_line</span><span class="p">[</span><span class="n">indices_diag_line</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
            
     <span class="n">det</span><span class="o">=</span><span class="mf">1.0</span><span class="o">*</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lmin</span><span class="p">,</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="n">hist_P</span><span class="p">[</span><span class="n">lmin</span><span class="p">:</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span><span class="o">/</span><span class="p">(</span><span class="n">rr</span><span class="o">*</span><span class="p">(</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
     
     <span class="k">if</span> <span class="n">det</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
        <span class="n">det</span><span class="o">=</span><span class="mf">1.0</span>
         
-    <span class="k">return</span> <span class="n">det</span></div>
-    
-    
+    <span class="k">return</span> <span class="n">det</span>
 
+</div>
 <div class="viewcode-block" id="L"><a class="viewcode-back" href="../../utils.html#utils.Crqa.L">[docs]</a><span class="k">def</span> <span class="nf">L</span><span class="p">(</span><span class="n">crp_matrix</span><span class="p">,</span><span class="n">hist_P</span><span class="p">,</span><span class="n">lmin</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    It computes the Average Diagonal Line Length (L)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">try</span> <span class="p">:</span>
-       <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">hist_P</span><span class="p">[</span><span class="n">lmin</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span><span class="o">==</span><span class="mi">0</span> <span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;L cannot computed, a division for zero occurred&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
-    
+    <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">hist_P</span><span class="p">[</span><span class="n">lmin</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span><span class="o">==</span><span class="mi">0</span> <span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;L cannot computed, a division for zero occurred&quot;</span><span class="p">)</span>
     
     <span class="n">l_avg</span><span class="o">=</span><span class="mf">1.0</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lmin</span><span class="p">,</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">hist_P</span><span class="p">[</span><span class="n">lmin</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">hist_P</span><span class="p">[</span><span class="n">lmin</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
-    <span class="k">return</span> <span class="n">l_avg</span></div>
+    <span class="k">return</span> <span class="n">l_avg</span>
 
-
+</div>
 <div class="viewcode-block" id="L_max"><a class="viewcode-back" href="../../utils.html#utils.Crqa.L_max">[docs]</a><span class="k">def</span> <span class="nf">L_max</span><span class="p">(</span><span class="n">crp_matrix</span><span class="p">,</span><span class="n">hist_P</span><span class="p">,</span><span class="n">lmin</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    It computes the Maximum Diagonal Line Length (L)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">l_max</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">hist_P</span><span class="o">!=</span><span class="mi">0</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span>
-    <span class="k">return</span> <span class="n">l_max</span></div>
+    <span class="k">return</span> <span class="n">l_max</span>
 
+</div>
 <div class="viewcode-block" id="Entr"><a class="viewcode-back" href="../../utils.html#utils.Crqa.Entr">[docs]</a><span class="k">def</span> <span class="nf">Entr</span><span class="p">(</span><span class="n">crp_matrix</span><span class="p">,</span><span class="n">hist_P</span><span class="p">,</span><span class="n">lmin</span><span class="p">):</span> 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    It computes the Entropy (ENTR)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">try</span> <span class="p">:</span>
-       <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_P</span><span class="p">[</span><span class="n">lmin</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span><span class="o">==</span><span class="mi">0</span> <span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;ENTR cannot computed, a division for zero occurred&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-        <span class="k">return</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_P</span><span class="p">[</span><span class="n">lmin</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span><span class="o">==</span><span class="mi">0</span> <span class="p">:</span>
+         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;ENTR cannot computed, a division for zero occurred&quot;</span><span class="p">)</span>
     
     <span class="n">hist_P_norm</span><span class="o">=</span><span class="mf">1.0</span><span class="o">*</span><span class="n">hist_P</span><span class="p">[</span><span class="n">lmin</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_P</span><span class="p">[</span><span class="n">lmin</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">crp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
     <span class="n">hist_P_norm_def</span><span class="o">=</span><span class="n">hist_P_norm</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">hist_P_norm</span><span class="p">)]</span>
     <span class="n">entr</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_P_norm_def</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">hist_P_norm_def</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">entr</span></div>
+    <span class="k">return</span> <span class="n">entr</span>
 
-
+</div>
 <div class="viewcode-block" id="length_ones_seq"><a class="viewcode-back" href="../../utils.html#utils.Crqa.length_ones_seq">[docs]</a><span class="k">def</span> <span class="nf">length_ones_seq</span><span class="p">(</span><span class="n">diag_line</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    It computes the length of a sequence of ones</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">sum</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">diag_line</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="p">])</span></div>
-
-
-
-    
-
-    
-</pre></div>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">sum</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">diag_line</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="p">])</span>
+</pre></div></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -420,7 +372,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -429,14 +381,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../HomePage.html">Home Page</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li><a href="../../HomePage.html">Home Page</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
+    <div class="footer">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Nov 06, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+      Last updated on Jan 28, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

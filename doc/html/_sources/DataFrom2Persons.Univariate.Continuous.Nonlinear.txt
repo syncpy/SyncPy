@@ -41,3 +41,22 @@ PhaseSynchro_Strobo module
     :members:
     :undoc-members:
     :show-inheritance: 
+	
+
+PhaseSynchro_Entropy module
+----------------------------------------------------------------------
+
+.. automodule:: DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy
+    :members:
+    :undoc-members:
+    :show-inheritance: 
+	
+	
+
+PhaseSynchro_Fourier module
+----------------------------------------------------------------------
+
+.. automodule:: DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier
+    :members:
+    :undoc-members:
+    :show-inheritance: 

@@ -1,0 +1,11 @@
+Parameter,Param_0,Param_1,Value
+Name,,,PhaseSynchro_Fourier
+Description,,,"It computes n:m synchronization index gamma2_nm as the intensity of the first Fourier mode of the cyclic relative phase of two univariate signals x and y
+    (in pandas DataFrame format). Gamma2_nm ranges in [0,1] where 0 means no synchronization at all and 1 means perfect synchronization."
+Type,,,Nonlinear
+Data_Type,,,Continuous
+Signal_Type,,,Univariate
+Number_User_Type,,,DataFrom2Persons
+Parameter_name,n,m,
+Parameter_type,int,int,
+Parameter_description,it is the integer for the order of synchronization, it is the integer for the order of synchronization ,

@@ -101,12 +101,7 @@ class PhaseSynchro_Strobo:
         self._n = n
         self._m = m
         self._nbins_mode = nbins_mode
-        
-        
-        if nbins_mode=='auto':
-            self._nbins = 10
-        else:
-            self._nbins = nbins
+        self._nbins = nbins
             
         return 
     
@@ -152,6 +147,13 @@ class PhaseSynchro_Strobo:
 
         if self._nbins_mode=='auto':
             self._nbins=np.exp(0.626+0.4*np.log(M-1))
+
+        try:
+            if self._nbins <= 0 : raise ValueError("Requires nbins to be a positive scalar")
+
+        except ValueError, err_msg:
+            raise ValueError(err_msg)
+            return
         
 
         #computing the analytic signal and the instantaneous phase
@@ -169,7 +171,13 @@ class PhaseSynchro_Strobo:
          
         bins=np.linspace(0,2*np.pi*self._m,self._nbins)
         bins_no=bins.size
-        
+
+        try:
+            if bins_no <= 0 : raise ValueError("Requires bins_no to be a positive scalar")
+
+        except ValueError, err_msg:
+            raise ValueError(err_msg)
+            return
         
         Lambda=np.array([])
         

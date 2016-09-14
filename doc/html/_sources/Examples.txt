@@ -112,6 +112,21 @@ PhaseSynchro_Strobo example
 .. literalinclude:: ../../examples/PhaseSynchro_Strobo.py
 
 
+PhaseSynchro_Entropy example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/PhaseSynchro_Entropy.py>`)
+
+.. literalinclude:: ../../examples/PhaseSynchro_Entropy.py
+
+
+PhaseSynchro_Fourier example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/PhaseSynchro_Fourier.py>`)
+
+.. literalinclude:: ../../examples/PhaseSynchro_Fourier.py
+
 
 
 DataFromManyPersons Univariate Continuous Linear module 
@@ -148,13 +163,26 @@ S_Estimator example
 .. literalinclude:: ../../examples/S_Estimator.py
 
 
+Multiple Granger Causality example 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(:download:`Source code <../../examples/MultipleGrangerCausality.py>`)
+
+.. literalinclude:: ../../examples/MultipleGrangerCausality.py
 
 
 
 
+DataFrom2Persons Multivariate Continuous NonLinear module 
+--------------------------------------------------------
 
 
+GSI example 
+^^^^^^^^^^^^^^^^^^^
 
+(:download:`Source code <../../examples/GSI.py>`)
+
+.. literalinclude:: ../../examples/GSI.py
 
 
 

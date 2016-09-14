@@ -4,7 +4,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>utils.Welch_psd &mdash; Home Page</title>
@@ -15,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3',
+        VERSION:     '1.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,17 +24,15 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon_isir.ico"/>
-    <link rel="top" title="Home Page" href="../../HomePage.html" />
+    <link rel="top" title="Home Page" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
 <link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
 <![endif]-->
 
   </head>
-  <body role="document">
-<div class="header" role="banner">
+  <body>
+<div class="header">
   <div class="logo">
     <a href="../../HomePage.html">
       <img class="logo" src="../../_static/hearder_image.png" alt="Logo"/>
@@ -43,7 +40,7 @@
   </div>
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -52,15 +49,15 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../HomePage.html">Home Page</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li><a href="../../HomePage.html">Home Page</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <h1>Source code for utils.Welch_psd</h1><div class="highlight"><pre>
 <span class="c">### This file is a part of the Syncpy library.</span>
@@ -109,129 +106,120 @@
 <span class="kn">from</span>   <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
 
 
-
 <div class="viewcode-block" id="Welch_psd"><a class="viewcode-back" href="../../utils.html#utils.Welch_psd.Welch_psd">[docs]</a><span class="k">def</span> <span class="nf">Welch_psd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fs</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">NFFT</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span><span class="n">detrend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  It computes the Welch&#39;s power spectral density of a real signal x (in pandas DataFrame format).</span>
-<span class="sd">  This density is as the average of the density through the epochs (segments) of x and it is corrected for the power leakage due to (the hanning) windowing.</span>
-<span class="sd">        </span>
-<span class="sd">        </span>
-<span class="sd">  :param x:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It computes the Welch&#39;s power spectral density of a real signal x (in pandas DataFrame format).</span>
+<span class="sd">    This density is as the average of the density through the epochs (segments) of x and it is corrected for the power leakage due to (the hanning) windowing.</span>
+
+
+<span class="sd">    :param x:</span>
 <span class="sd">    input signal</span>
-<span class="sd">  :type x: pd.DataFrame</span>
-<span class="sd">        </span>
-<span class="sd">  :param fs:</span>
+<span class="sd">    :type x: pd.DataFrame</span>
+
+<span class="sd">    :param fs:</span>
 <span class="sd">       it is the sampling frequency of x (expressed in Hz);</span>
-<span class="sd">  :type fs: float     </span>
-<span class="sd">  </span>
-<span class="sd">  :param NFFT: </span>
+<span class="sd">    :type fs: float</span>
+
+<span class="sd">    :param NFFT:</span>
 <span class="sd">       it is the length of each epoch (segment);</span>
-<span class="sd">  :type NFFT: int</span>
-<span class="sd">  </span>
-<span class="sd">  :param detrend:</span>
+<span class="sd">    :type NFFT: int</span>
+
+<span class="sd">    :param detrend:</span>
 <span class="sd">      it specifies how the data can be detrended. Three options are avaliable:</span>
 <span class="sd">         1. 0, none detrending;</span>
-<span class="sd">         2. 1, mean detrending; and </span>
+<span class="sd">         2. 1, mean detrending; and</span>
 <span class="sd">         3. 1, linear detrending</span>
-<span class="sd">         </span>
-<span class="sd">  :type detrend: bool</span>
-<span class="sd">  </span>
-<span class="sd">  :param noverlap:</span>
+
+<span class="sd">    :type detrend: bool</span>
+
+<span class="sd">    :param noverlap:</span>
 <span class="sd">      it is the number of samples to overlap between epochs (segments);</span>
-<span class="sd">  :type noverlap: bool</span>
-<span class="sd">  </span>
-<span class="sd">  :param plot:</span>
+<span class="sd">    :type noverlap: bool</span>
+
+<span class="sd">    :param plot:</span>
 <span class="sd">      if it is True the plot of the density function is returned. Default: False</span>
-<span class="sd">  :type plot: bool</span>
-<span class="sd">  </span>
-<span class="sd">  :returns: dict </span>
+<span class="sd">    :type plot: bool</span>
+
+<span class="sd">    :returns: dict</span>
 <span class="sd">      -- the power spectral density and the frequencies over which the coherence is computed (keys : psd, Frequency)</span>
-<span class="sd">        </span>
-<span class="sd">  &quot;&quot;&quot;</span>
 
-  <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
-  <span class="k">try</span> <span class="p">:</span>
-      <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires x to be a pd.DataFrame&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>       <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires fs to be a float&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">NFFT</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>       <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires NFFT to be an integer&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">detrend</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>   <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires detrend to be a boolean&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">noverlap</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>   <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires noverlap to be an integer&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>      <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot to be a boolean&quot;</span><span class="p">)</span>
-  <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-            <span class="k">return</span>
-     
-  <span class="s">&#39; Raise error if parameters do not respect input rules &#39;</span>
-  <span class="k">try</span> <span class="p">:</span>
-      <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">:</span>  <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires signal x to be monovariate&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">fs</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">:</span>           <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires fs to be a positive scalar&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">NFFT</span> <span class="o">&lt;=</span><span class="mi">0</span><span class="p">:</span>          <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires NFFT to be a strictly positive scalar&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">NFFT</span> <span class="o">%</span><span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires NNFT to be a multiple of 2&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">detrend</span> <span class="o">!=</span> <span class="mi">0</span>  <span class="ow">and</span> <span class="n">detrend</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">detrend</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires detrend to be 0, 1 or 2&quot;</span> <span class="p">)</span>
-  <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
-            <span class="k">return</span>
-          
-  <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">NFFT</span><span class="p">:</span>
-      <span class="c"># Optimisation de :</span>
-      <span class="c"># res_x=pd.DataFrame(0*np.arange(0,NFFT))</span>
-      <span class="n">res_x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NFFT</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">))</span>
-      <span class="n">pd_x</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">res_x</span><span class="p">)</span>
-      <span class="n">x</span><span class="o">=</span><span class="n">pd_x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-  <span class="n">window</span><span class="o">=</span><span class="n">signal</span><span class="o">.</span><span class="n">get_window</span><span class="p">(</span><span class="s">&#39;hanning&#39;</span><span class="p">,</span> <span class="n">NFFT</span><span class="p">)</span>
-  <span class="n">step</span><span class="o">=</span><span class="n">NFFT</span><span class="o">-</span><span class="n">noverlap</span>
-  <span class="n">num_wind</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="n">NFFT</span><span class="p">,</span><span class="n">step</span><span class="p">)</span>
-  <span class="n">NFreqs</span><span class="o">=</span><span class="n">NFFT</span><span class="o">//</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span>
-  <span class="n">Pxx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NFreqs</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">num_wind</span><span class="p">)))</span> 
+    <span class="s">&#39; Raise error if parameters are not in the correct type &#39;</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires x to be a pd.DataFrame&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>       <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires fs to be a float&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">NFFT</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>       <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires NFFT to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">detrend</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>   <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires detrend to be a boolean&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">noverlap</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>   <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires noverlap to be an integer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>      <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Requires plot to be a boolean&quot;</span><span class="p">)</span>
 
-  <span class="n">count</span><span class="o">=</span><span class="mi">0</span>
-  <span class="n">pos</span> <span class="o">=</span><span class="mi">0</span>
-  
-  <span class="k">while</span><span class="p">((</span><span class="n">pos</span><span class="o">+</span><span class="n">NFFT</span><span class="p">)</span><span class="o">&lt;</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-    <span class="n">end</span> <span class="o">=</span> <span class="n">pos</span><span class="o">+</span><span class="n">NFFT</span><span class="o">-</span><span class="mi">1</span>
-          
-    <span class="k">if</span> <span class="n">detrend</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-        <span class="n">windowed_x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">window</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span>        
-    <span class="k">elif</span> <span class="n">detrend</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-        <span class="n">det</span> <span class="o">=</span> <span class="n">Detrend</span><span class="o">.</span><span class="n">Detrend</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">det_type</span><span class="o">=</span><span class="s">&#39;mean&#39;</span><span class="p">)</span>
-        <span class="n">windowed_x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">window</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">det</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span>
-    <span class="k">elif</span> <span class="n">detrend</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
-        <span class="n">det</span> <span class="o">=</span> <span class="n">Detrend</span><span class="o">.</span><span class="n">Detrend</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">det_type</span><span class="o">=</span><span class="s">&#39;linear&#39;</span><span class="p">)</span>
-        <span class="n">windowed_x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">window</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">det</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span>
 
-  
-    <span class="n">FFT_windowed_x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">windowed_x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">/</span><span class="n">NFFT</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-    <span class="n">Pxx</span><span class="p">[:,</span><span class="n">count</span><span class="p">]</span><span class="o">=</span><span class="n">FFT_windowed_x</span><span class="p">[:</span><span class="n">NFreqs</span><span class="p">]</span>
+    <span class="s">&#39; Raise error if parameters do not respect input rules &#39;</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">:</span>  <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires signal x to be monovariate&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fs</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">:</span>           <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires fs to be a positive scalar&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">NFFT</span> <span class="o">&lt;=</span><span class="mi">0</span><span class="p">:</span>          <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires NFFT to be a strictly positive scalar&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">NFFT</span> <span class="o">%</span><span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires NNFT to be a multiple of 2&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">detrend</span> <span class="o">!=</span> <span class="mi">0</span>  <span class="ow">and</span> <span class="n">detrend</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">detrend</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Requires detrend to be 0, 1 or 2&quot;</span><span class="p">)</span>
 
-    <span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">step</span>
-    <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="o">+</span><span class="mi">1</span>
-            
-  <span class="k">if</span>  <span class="nb">len</span><span class="p">(</span><span class="n">num_wind</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span> 
-      <span class="n">Pxx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">Pxx</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-          
-  <span class="n">corrected_Pxx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">Pxx</span><span class="p">,(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)))</span> 
-  <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span><span class="o">/</span><span class="n">NFFT</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">NFreqs</span><span class="p">)</span>
-                        
-  <span class="k">if</span> <span class="n">plot</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
-      <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
-      <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span> 
-      <span class="n">ax</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span> 
-      <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;Psd&#39;</span><span class="p">)</span>
-      <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;Frequency(Hz)&#39;</span><span class="p">)</span>
-      <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;Power Spectral Density&#39;</span><span class="p">)</span>
-      <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
-      <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">corrected_Pxx</span><span class="p">))</span> <span class="c">#</span>
-      <span class="n">x_ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">f</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
-      <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_ticks</span><span class="p">)</span>
-      <span class="n">y_ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">corrected_Pxx</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">corrected_Pxx</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="c">#</span>
-      <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">y_ticks</span><span class="p">)</span>
-      <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">corrected_Pxx</span><span class="p">)</span> 
-      <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-         
-  <span class="n">res_welch_f</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;psd&#39;</span><span class="p">:</span> <span class="n">corrected_Pxx</span><span class="p">,</span> <span class="s">&#39;Frequency&#39;</span><span class="p">:</span> <span class="n">f</span><span class="p">}</span> 
-         
-  <span class="k">return</span> <span class="n">res_welch_f</span></div>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">NFFT</span><span class="p">:</span>
+        <span class="c"># Optimisation de :</span>
+        <span class="c"># res_x=pd.DataFrame(0*np.arange(0,NFFT))</span>
+        <span class="n">res_x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NFFT</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">))</span>
+        <span class="n">pd_x</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">res_x</span><span class="p">)</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">pd_x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">window</span><span class="o">=</span><span class="n">signal</span><span class="o">.</span><span class="n">get_window</span><span class="p">(</span><span class="s">&#39;hanning&#39;</span><span class="p">,</span> <span class="n">NFFT</span><span class="p">)</span>
+    <span class="n">step</span><span class="o">=</span><span class="n">NFFT</span><span class="o">-</span><span class="n">noverlap</span>
+    <span class="n">num_wind</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="n">NFFT</span><span class="p">,</span><span class="n">step</span><span class="p">)</span>
+    <span class="n">NFreqs</span><span class="o">=</span><span class="n">NFFT</span><span class="o">//</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">Pxx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NFreqs</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">num_wind</span><span class="p">)))</span>
+
+    <span class="n">count</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">pos</span> <span class="o">=</span><span class="mi">0</span>
+
+    <span class="k">while</span><span class="p">((</span><span class="n">pos</span><span class="o">+</span><span class="n">NFFT</span><span class="p">)</span><span class="o">&lt;</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">pos</span><span class="o">+</span><span class="n">NFFT</span><span class="o">-</span><span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">detrend</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">windowed_x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">window</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="n">detrend</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">det</span> <span class="o">=</span> <span class="n">Detrend</span><span class="o">.</span><span class="n">Detrend</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">det_type</span><span class="o">=</span><span class="s">&#39;mean&#39;</span><span class="p">)</span>
+            <span class="n">windowed_x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">window</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">det</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="n">detrend</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+            <span class="n">det</span> <span class="o">=</span> <span class="n">Detrend</span><span class="o">.</span><span class="n">Detrend</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">det_type</span><span class="o">=</span><span class="s">&#39;linear&#39;</span><span class="p">)</span>
+            <span class="n">windowed_x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">window</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">det</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span>
+
+        <span class="n">FFT_windowed_x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">windowed_x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">/</span><span class="n">NFFT</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">Pxx</span><span class="p">[:,</span><span class="n">count</span><span class="p">]</span><span class="o">=</span><span class="n">FFT_windowed_x</span><span class="p">[:</span><span class="n">NFreqs</span><span class="p">]</span>
+
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">step</span>
+        <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">num_wind</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">Pxx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">Pxx</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">corrected_Pxx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">Pxx</span><span class="p">,(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)))</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span><span class="o">/</span><span class="n">NFFT</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">NFreqs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">plot</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+        <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;Psd&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;Frequency(Hz)&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;Power Spectral Density&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">corrected_Pxx</span><span class="p">))</span> <span class="c">#</span>
+        <span class="n">x_ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">f</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_ticks</span><span class="p">)</span>
+        <span class="n">y_ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">corrected_Pxx</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">corrected_Pxx</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="c">#</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">y_ticks</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">corrected_Pxx</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="n">res_welch_f</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;psd&#39;</span><span class="p">:</span> <span class="n">corrected_Pxx</span><span class="p">,</span> <span class="s">&#39;Frequency&#39;</span><span class="p">:</span> <span class="n">f</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">res_welch_f</span>
       
       
       
@@ -244,50 +232,14 @@
 
     
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</pre></div>
+</pre></div></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -304,7 +256,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -313,14 +265,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../HomePage.html">Home Page</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li><a href="../../HomePage.html">Home Page</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
+    <div class="footer">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Nov 06, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+      Last updated on Jan 28, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

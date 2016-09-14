@@ -4,7 +4,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Nonlinear package &mdash; Home Page</title>
@@ -15,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '3',
+        VERSION:     '1.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,19 +24,17 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon_isir.ico"/>
-    <link rel="top" title="Home Page" href="HomePage.html" />
+    <link rel="top" title="Home Page" href="index.html" />
     <link rel="up" title="Continuous package" href="DataFrom2Persons.Univariate.Continuous.html" />
     <link rel="next" title="Multivariate package" href="DataFrom2Persons.Multivariate.html" />
     <link rel="prev" title="MachineLearning package" href="DataFrom2Persons.Univariate.Continuous.MachineLearning.html" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
 <link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
 <![endif]-->
 
   </head>
-  <body role="document">
-<div class="header" role="banner">
+  <body>
+<div class="header">
   <div class="logo">
     <a href="HomePage.html">
       <img class="logo" src="_static/hearder_image.png" alt="Logo"/>
@@ -45,7 +42,7 @@
   </div>
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -60,18 +57,18 @@
         <li class="right" >
           <a href="DataFrom2Persons.Univariate.Continuous.MachineLearning.html" title="MachineLearning package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="HomePage.html">Home Page</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="Documentation.html" >Documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="DataFrom2Persons.html" >DataFrom2Persons package</a> &raquo;</li>
-          <li class="nav-item nav-item-3"><a href="DataFrom2Persons.Univariate.html" >Univariate package</a> &raquo;</li>
-          <li class="nav-item nav-item-4"><a href="DataFrom2Persons.Univariate.Continuous.html" accesskey="U">Continuous package</a> &raquo;</li> 
+        <li><a href="HomePage.html">Home Page</a> &raquo;</li>
+          <li><a href="Documentation.html" >Documentation</a> &raquo;</li>
+          <li><a href="DataFrom2Persons.html" >DataFrom2Persons package</a> &raquo;</li>
+          <li><a href="DataFrom2Persons.Univariate.html" >Univariate package</a> &raquo;</li>
+          <li><a href="DataFrom2Persons.Univariate.Continuous.html" accesskey="U">Continuous package</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="module-DataFrom2Persons.Univariate.Continuous.Nonlinear">
 <span id="nonlinear-package"></span><h1>Nonlinear package<a class="headerlink" href="#module-DataFrom2Persons.Univariate.Continuous.Nonlinear" title="Permalink to this headline">¶</a></h1>
@@ -80,7 +77,7 @@
 <p><em>Module author: Giovanna Varni</em></p>
 <dl class="class">
 <dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.NonlinearCorr.NonlinearCorr">
-<em class="property">class </em><code class="descclassname">DataFrom2Persons.Univariate.Continuous.Nonlinear.NonlinearCorr.</code><code class="descname">NonlinearCorr</code><span class="sig-paren">(</span><em>nbins</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/NonlinearCorr.html#NonlinearCorr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.NonlinearCorr.NonlinearCorr" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">DataFrom2Persons.Univariate.Continuous.Nonlinear.NonlinearCorr.</tt><tt class="descname">NonlinearCorr</tt><big>(</big><em>nbins</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/NonlinearCorr.html#NonlinearCorr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.NonlinearCorr.NonlinearCorr" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the nonparametric nonlinear regression coefficient h2 describing the dependency between two univariate signals x and y (in pandas DataFrame format) in the most general way.
 It is equal to 0 when the two signals are independent, 1 when they are perfectly dependent.</p>
 <p><strong>Reference :</strong></p>
@@ -97,7 +94,7 @@ It is equal to 0 when the two signals are independent, 1 when they are perfectly
 </table>
 <dl class="method">
 <dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.NonlinearCorr.NonlinearCorr.compute">
-<code class="descname">compute</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/NonlinearCorr.html#NonlinearCorr.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.NonlinearCorr.NonlinearCorr.compute" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">compute</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/NonlinearCorr.html#NonlinearCorr.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.NonlinearCorr.NonlinearCorr.compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the nonlinear correlation coefficient h2.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -125,7 +122,7 @@ It is equal to 0 when the two signals are independent, 1 when they are perfectly
 <p><em>Module author: Giovanna Varni</em></p>
 <dl class="class">
 <dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation.MutualInformation">
-<em class="property">class </em><code class="descclassname">DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation.</code><code class="descname">MutualInformation</code><span class="sig-paren">(</span><em>n_neighbours</em>, <em>my_type=1</em>, <em>var_resc=True</em>, <em>noise=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/MutualInformation.html#MutualInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation.MutualInformation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation.</tt><tt class="descname">MutualInformation</tt><big>(</big><em>n_neighbours</em>, <em>my_type=1</em>, <em>var_resc=True</em>, <em>noise=True</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/MutualInformation.html#MutualInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation.MutualInformation" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes Mutual Information (MI) estimators starting from entropy estimates from k-nearest-neighbours distances.</p>
 <p><strong>Reference :</strong></p>
 <ul class="simple">
@@ -158,7 +155,7 @@ It is done to avoid that there are many signals points having identical coordina
 </table>
 <dl class="method">
 <dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation.MutualInformation.compute">
-<code class="descname">compute</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/MutualInformation.html#MutualInformation.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation.MutualInformation.compute" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">compute</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/MutualInformation.html#MutualInformation.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation.MutualInformation.compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes Mutual Information.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -186,7 +183,7 @@ It is done to avoid that there are many signals points having identical coordina
 <p><em>Module author: Marie Avril</em></p>
 <dl class="class">
 <dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.WindowMutualInformation">
-<em class="property">class </em><code class="descclassname">DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.</code><code class="descname">WindowMutualInformation</code><span class="sig-paren">(</span><em>n_neighbours</em>, <em>my_type=1</em>, <em>var_resc=True</em>, <em>noise=True</em>, <em>tau_max=0</em>, <em>window=0</em>, <em>win_inc=1</em>, <em>tau_inc=1</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/WindowMutualInformation.html#WindowMutualInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.WindowMutualInformation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.</tt><tt class="descname">WindowMutualInformation</tt><big>(</big><em>n_neighbours</em>, <em>my_type=1</em>, <em>var_resc=True</em>, <em>noise=True</em>, <em>tau_max=0</em>, <em>window=0</em>, <em>win_inc=1</em>, <em>tau_inc=1</em>, <em>plot=False</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/WindowMutualInformation.html#WindowMutualInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.WindowMutualInformation" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes Windowed Mutual Information (MI) estimators starting from entropy estimates from k-nearest-neighbours distances.</p>
 <p><strong>Reference :</strong></p>
 <ul class="simple">
@@ -202,7 +199,7 @@ It is done to avoid that there are many signals points having identical coordina
 <div><dl class="docutils">
 <dt>Type of the estimators will be used to compute MI. Two options (1 and 2) are available:</dt>
 <dd>1. the number of the points nx and ny is computed by taking into account only the points whose distance is stricly
-less than the distance of the k-nearest neighbours; 
+less than the distance of the k-nearest neighbours;
 2. the number of the points nx and ny is computed by taking into account only the points whose distance is equal to
 or less than the distance of the k-nearest neighbours;</dd>
 </dl>
@@ -224,7 +221,7 @@ It is done to avoid that there are many signals points having identical coordina
 </table>
 <dl class="method">
 <dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.WindowMutualInformation.compute">
-<code class="descname">compute</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/WindowMutualInformation.html#WindowMutualInformation.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.WindowMutualInformation.compute" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">compute</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/WindowMutualInformation.html#WindowMutualInformation.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.WindowMutualInformation.compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes Mutual Information.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -246,7 +243,7 @@ It is done to avoid that there are many signals points having identical coordina
 
 <dl class="method">
 <dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.WindowMutualInformation.plot_result">
-<code class="descname">plot_result</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/WindowMutualInformation.html#WindowMutualInformation.plot_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.WindowMutualInformation.plot_result" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">plot_result</tt><big>(</big><em>result</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/WindowMutualInformation.html#WindowMutualInformation.plot_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation.WindowMutualInformation.plot_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>It plots the window mutual information matrix</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -254,7 +251,7 @@ It is done to avoid that there are many signals points having identical coordina
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>result</strong> (<em>dict</em>) &#8211; Windowed Mutual Information from compute()</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">plt.figure 
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">plt.figure
 &#8211; figure plot</td>
 </tr>
 </tbody>
@@ -269,7 +266,7 @@ It is done to avoid that there are many signals points having identical coordina
 <p><em>Module author: Giovanna Varni</em></p>
 <dl class="class">
 <dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo.PhaseSynchro_Strobo">
-<em class="property">class </em><code class="descclassname">DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo.</code><code class="descname">PhaseSynchro_Strobo</code><span class="sig-paren">(</span><em>n=1</em>, <em>m=1</em>, <em>nbins_mode='auto'</em>, <em>nbins=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/PhaseSynchro_Strobo.html#PhaseSynchro_Strobo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo.PhaseSynchro_Strobo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo.</tt><tt class="descname">PhaseSynchro_Strobo</tt><big>(</big><em>n=1</em>, <em>m=1</em>, <em>nbins_mode='auto'</em>, <em>nbins=10</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/PhaseSynchro_Strobo.html#PhaseSynchro_Strobo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo.PhaseSynchro_Strobo" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes n:m synchronization index lambda_nm by using a stroboscopic approach between two univariate signals x and y
 (in pandas DataFrame format).</p>
 <p><strong>Reference :</strong>
@@ -293,7 +290,7 @@ Elsiever Science, Series Editor A.J. Hoff, Vol. , Neuro-Informatics, Editors: F.
 </table>
 <dl class="method">
 <dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo.PhaseSynchro_Strobo.compute">
-<code class="descname">compute</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/PhaseSynchro_Strobo.html#PhaseSynchro_Strobo.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo.PhaseSynchro_Strobo.compute" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">compute</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/PhaseSynchro_Strobo.html#PhaseSynchro_Strobo.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo.PhaseSynchro_Strobo.compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the synchronization index lambda_nm</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -316,13 +313,136 @@ Elsiever Science, Series Editor A.J. Hoff, Vol. , Neuro-Informatics, Editors: F.
 </dd></dl>
 
 </div>
+<div class="section" id="module-DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy">
+<span id="phasesynchro-entropy-module"></span><h2>PhaseSynchro_Entropy module<a class="headerlink" href="#module-DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy" title="Permalink to this headline">¶</a></h2>
+<p><em>Module author: Giovanna Varni</em></p>
+<dl class="class">
+<dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy.PhaseSynchro_Entropy">
+<em class="property">class </em><tt class="descclassname">DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy.</tt><tt class="descname">PhaseSynchro_Entropy</tt><big>(</big><em>n=1</em>, <em>m=1</em>, <em>nbins_mode='auto'</em>, <em>nbins=10</em>, <em>dist_cyc_rel_phase=False</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/PhaseSynchro_Entropy.html#PhaseSynchro_Entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy.PhaseSynchro_Entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>It computes n:m synchronization index rho_nm by using a Shannon entropy based approach between two univariate signals x and y
+(in pandas DataFrame format). Rho_nm ranges in [0,1] where 0 means no synchronization at all and 1 means perfect synchronization.</p>
+<p><strong>Reference :</strong>
+M. Rosenblum, A. Pikovsky, J. Kurths, C. Schafer and P. A. Tass. Phase synchronizatio:from theory to practice. In Handbook of Biological Physics,
+Elsiever Science, Series Editor A.J. Hoff, Vol. , Neuro-Informatics, Editors: F. Moss and S. Gielen, Chapter 9.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n</strong> (<em>int</em>) &#8211; it is the integer for the order of synchronization</li>
+<li><strong>m</strong> (<em>int</em>) &#8211; it is the integer for the order of synchronization</li>
+<li><strong>nbins_mode</strong> (<em>str</em>) &#8211; It can be:
+1. &#8216;auto&#8217;:the number of bis  wil be automatically estimated
+2. &#8216;man&#8217;: the number of bins (nbins) will take the value expressed in nbins parameter</li>
+<li><strong>nbins</strong> (<em>bool</em>) &#8211; it is the number of bins to be used to build phase distribution</li>
+<li><strong>dist_cyc_rel_phase</strong> &#8211; if True the plot of the distribution of the cyclic relative phase is returned. Default: False</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy.PhaseSynchro_Entropy.compute">
+<tt class="descname">compute</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/PhaseSynchro_Entropy.html#PhaseSynchro_Entropy.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy.PhaseSynchro_Entropy.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>It computes the synchronization index lambda_nm</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>pd.DataFrame</em>) &#8211; first input signal</li>
+<li><strong>y</strong> (<em>pd.DataFrame</em>) &#8211; second input signal</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict
+&#8211; rho_mn index</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy.PhaseSynchro_Entropy.plot_dist_cyc_phase">
+<tt class="descname">plot_dist_cyc_phase</tt><big>(</big><em>dist_psi_nm_hist</em>, <em>dist_psi_nm_bins</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/PhaseSynchro_Entropy.html#PhaseSynchro_Entropy.plot_dist_cyc_phase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy.PhaseSynchro_Entropy.plot_dist_cyc_phase" title="Permalink to this definition">¶</a></dt>
+<dd><p>It plots the distribution of the cyclic relative phase.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dist_psi_nm_hist</strong> (<em>np.array</em>) &#8211; the values of the histogram</li>
+<li><strong>dist_psi_nm_bins</strong> &#8211; the bin-edges</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">plt.figure 
+&#8211; figure plot</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier">
+<span id="phasesynchro-fourier-module"></span><h2>PhaseSynchro_Fourier module<a class="headerlink" href="#module-DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier" title="Permalink to this headline">¶</a></h2>
+<p><em>Module author: Giovanna Varni</em></p>
+<dl class="class">
+<dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier.PhaseSynchro_Fourier">
+<em class="property">class </em><tt class="descclassname">DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier.</tt><tt class="descname">PhaseSynchro_Fourier</tt><big>(</big><em>n=1</em>, <em>m=1</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/PhaseSynchro_Fourier.html#PhaseSynchro_Fourier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier.PhaseSynchro_Fourier" title="Permalink to this definition">¶</a></dt>
+<dd><p>It computes n:m synchronization index gamma2_nm as the intensity of the first Fourier mode of the cyclic relative phase of two univariate signals x and y
+(in pandas DataFrame format). Gamma2_nm ranges in [0,1] where 0 means no synchronization at all and 1 means perfect synchronization.</p>
+<p><strong>Reference :</strong>
+M. Rosenblum, A. Pikovsky, J. Kurths, C. Schafer and P. A. Tass. Phase synchronizatio:from theory to practice. In Handbook of Biological Physics,
+Elsiever Science, Series Editor A.J. Hoff, Vol. , Neuro-Informatics, Editors: F. Moss and S. Gielen, Chapter 9.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n</strong> (<em>int</em>) &#8211; it is the integer for the order of synchronization</li>
+<li><strong>m</strong> (<em>int</em>) &#8211; it is the integer for the order of synchronization</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier.PhaseSynchro_Fourier.compute">
+<tt class="descname">compute</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/DataFrom2Persons/Univariate/Continuous/Nonlinear/PhaseSynchro_Fourier.html#PhaseSynchro_Fourier.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier.PhaseSynchro_Fourier.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>It computes the synchronization index lambda_nm</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>pd.DataFrame</em>) &#8211; first input signal</li>
+<li><strong>y</strong> (<em>pd.DataFrame</em>) &#8211; second input signal</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict
+&#8211; gamma2_mn index</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="HomePage.html">Table Of Contents</a></h3>
   <ul>
@@ -331,6 +451,8 @@ Elsiever Science, Series Editor A.J. Hoff, Vol. , Neuro-Informatics, Editors: F.
 <li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Nonlinear.MutualInformation">MutualInformation module</a></li>
 <li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Nonlinear.WindowMutualInformation">WindowMutualInformation module</a></li>
 <li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Strobo">PhaseSynchro_Strobo module</a></li>
+<li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Entropy">PhaseSynchro_Entropy module</a></li>
+<li><a class="reference internal" href="#module-DataFrom2Persons.Univariate.Continuous.Nonlinear.PhaseSynchro_Fourier">PhaseSynchro_Fourier module</a></li>
 </ul>
 </li>
 </ul>
@@ -341,7 +463,7 @@ Elsiever Science, Series Editor A.J. Hoff, Vol. , Neuro-Informatics, Editors: F.
   <h4>Next topic</h4>
   <p class="topless"><a href="DataFrom2Persons.Multivariate.html"
                         title="next chapter">Multivariate package</a></p>
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -358,7 +480,7 @@ Elsiever Science, Series Editor A.J. Hoff, Vol. , Neuro-Informatics, Editors: F.
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -373,17 +495,17 @@ Elsiever Science, Series Editor A.J. Hoff, Vol. , Neuro-Informatics, Editors: F.
         <li class="right" >
           <a href="DataFrom2Persons.Univariate.Continuous.MachineLearning.html" title="MachineLearning package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="HomePage.html">Home Page</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="Documentation.html" >Documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="DataFrom2Persons.html" >DataFrom2Persons package</a> &raquo;</li>
-          <li class="nav-item nav-item-3"><a href="DataFrom2Persons.Univariate.html" >Univariate package</a> &raquo;</li>
-          <li class="nav-item nav-item-4"><a href="DataFrom2Persons.Univariate.Continuous.html" >Continuous package</a> &raquo;</li> 
+        <li><a href="HomePage.html">Home Page</a> &raquo;</li>
+          <li><a href="Documentation.html" >Documentation</a> &raquo;</li>
+          <li><a href="DataFrom2Persons.html" >DataFrom2Persons package</a> &raquo;</li>
+          <li><a href="DataFrom2Persons.Univariate.html" >Univariate package</a> &raquo;</li>
+          <li><a href="DataFrom2Persons.Univariate.Continuous.html" >Continuous package</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
+    <div class="footer">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Nov 06, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+      Last updated on Jan 28, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

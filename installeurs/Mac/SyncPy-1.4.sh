@@ -32,7 +32,7 @@ curl -sSL https://github.com/syncpy/SyncPy/archive/master.zip -o master.zip
 unzip -qq master.zip
 
 # Install SyncPy in /
-sudo cp -R SyncPy-master/v1.3 /SyncPy/
+sudo cp -R SyncPy-master/v1.4 /SyncPy/
 
 sudo chmod -R 777 /SyncPy/
 

@@ -4,7 +4,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Utils package &mdash; Home Page</title>
@@ -15,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '3',
+        VERSION:     '1.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,19 +24,17 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon_isir.ico"/>
-    <link rel="top" title="Home Page" href="HomePage.html" />
+    <link rel="top" title="Home Page" href="index.html" />
     <link rel="up" title="Documentation" href="Documentation.html" />
     <link rel="next" title="SyncPy library Examples" href="Examples.html" />
     <link rel="prev" title="Nonlinear package" href="DataFromManyPersons.Multivariate.Continuous.Nonlinear.html" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
 <link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
 <![endif]-->
 
   </head>
-  <body role="document">
-<div class="header" role="banner">
+  <body>
+<div class="header">
   <div class="logo">
     <a href="HomePage.html">
       <img class="logo" src="_static/hearder_image.png" alt="Logo"/>
@@ -45,7 +42,7 @@
   </div>
 </div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -60,15 +57,15 @@
         <li class="right" >
           <a href="DataFromManyPersons.Multivariate.Continuous.Nonlinear.html" title="Nonlinear package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="HomePage.html">Home Page</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="Documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
+        <li><a href="HomePage.html">Home Page</a> &raquo;</li>
+          <li><a href="Documentation.html" accesskey="U">Documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="module-utils">
 <span id="utils-package"></span><h1>Utils package<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h1>
@@ -77,7 +74,7 @@
 <span id="align-module"></span><h2>Align module<a class="headerlink" href="#module-utils.Align" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="utils.Align.Align">
-<code class="descclassname">utils.Align.</code><code class="descname">Align</code><span class="sig-paren">(</span><em>signal_1</em>, <em>signal_2</em>, <em>how='inner'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Align.html#Align"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Align.Align" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Align.</tt><tt class="descname">Align</tt><big>(</big><em>signal_1</em>, <em>signal_2</em>, <em>how='inner'</em><big>)</big><a class="reference internal" href="_modules/utils/Align.html#Align"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Align.Align" title="Permalink to this definition">¶</a></dt>
 <dd><p>It aligns two monovariate signals (in pandas DataFrame format) according to their times indexes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -113,7 +110,7 @@ How to handle indexes of the two objects for joining on index, None otherwise. D
 <span id="convertcontinuetobinary-module"></span><h2>ConvertContinueToBinary module<a class="headerlink" href="#module-utils.ConvertContinueToBinary" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="utils.ConvertContinueToBinary.ConvertContinueToBinary">
-<code class="descclassname">utils.ConvertContinueToBinary.</code><code class="descname">ConvertContinueToBinary</code><span class="sig-paren">(</span><em>signal</em>, <em>threshold=0</em>, <em>maximize=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ConvertContinueToBinary.html#ConvertContinueToBinary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ConvertContinueToBinary.ConvertContinueToBinary" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.ConvertContinueToBinary.</tt><tt class="descname">ConvertContinueToBinary</tt><big>(</big><em>signal</em>, <em>threshold=0</em>, <em>maximize=True</em><big>)</big><a class="reference internal" href="_modules/utils/ConvertContinueToBinary.html#ConvertContinueToBinary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ConvertContinueToBinary.ConvertContinueToBinary" title="Permalink to this definition">¶</a></dt>
 <dd><p>It converts a continue signal (in pandas DataFrame format) into a binany signal according to a rule defined by a threshold and a type of filter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -140,7 +137,7 @@ How to handle indexes of the two objects for joining on index, None otherwise. D
 <p><em>Module author: Giovanna Varni</em></p>
 <dl class="function">
 <dt id="utils.Cpsd.Cpsd">
-<code class="descclassname">utils.Cpsd.</code><code class="descname">Cpsd</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>fs=1.0</em>, <em>NFFT=256</em>, <em>detrend=0</em>, <em>noverlap=0</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Cpsd.html#Cpsd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Cpsd.Cpsd" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Cpsd.</tt><tt class="descname">Cpsd</tt><big>(</big><em>x</em>, <em>y</em>, <em>fs=1.0</em>, <em>NFFT=256</em>, <em>detrend=0</em>, <em>noverlap=0</em>, <em>plot=False</em><big>)</big><a class="reference internal" href="_modules/utils/Cpsd.html#Cpsd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Cpsd.Cpsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the cross power spectral density of two monovariate signals x and y (in pandas DataFrame format) by Welch&#8217;s.
 This density is as the average of the density through the epochs (segments) of x and y
 and it is corrected for the power leakage due to (the hanning) windowing.</p>
@@ -176,7 +173,7 @@ and it is corrected for the power leakage due to (the hanning) windowing.</p>
 <p><em>Module author: Giovanna Varni</em></p>
 <dl class="function">
 <dt id="utils.Crqa.Crqa">
-<code class="descclassname">utils.Crqa.</code><code class="descname">Crqa</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>m</em>, <em>t</em>, <em>e</em>, <em>distance</em>, <em>standardization</em>, <em>window</em>, <em>window_size</em>, <em>step</em>, <em>lmin</em>, <em>thw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Crqa.html#Crqa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.Crqa" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Crqa.</tt><tt class="descname">Crqa</tt><big>(</big><em>x</em>, <em>y</em>, <em>m</em>, <em>t</em>, <em>e</em>, <em>distance</em>, <em>standardization</em>, <em>window</em>, <em>window_size</em>, <em>step</em>, <em>lmin</em>, <em>thw</em><big>)</big><a class="reference internal" href="_modules/utils/Crqa.html#Crqa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.Crqa" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the following (cross)recurrence measures from the (cross)recurrence plot of two uni/multi-variate signals x and y
 (in pandas DataFrame format): Recurrence Rate (RR), Determinism (DET), Average Diagonal Line Length (L), Maximum Diagonal Line Length (L_max),
 Entropy (ENT).</p>
@@ -212,37 +209,37 @@ Entropy (ENT).</p>
 
 <dl class="function">
 <dt id="utils.Crqa.DET">
-<code class="descclassname">utils.Crqa.</code><code class="descname">DET</code><span class="sig-paren">(</span><em>crp_matrix</em>, <em>hist_P</em>, <em>rr</em>, <em>lmin</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Crqa.html#DET"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.DET" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Crqa.</tt><tt class="descname">DET</tt><big>(</big><em>crp_matrix</em>, <em>hist_P</em>, <em>rr</em>, <em>lmin</em><big>)</big><a class="reference internal" href="_modules/utils/Crqa.html#DET"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.DET" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the Determinism (DET)</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="utils.Crqa.Entr">
-<code class="descclassname">utils.Crqa.</code><code class="descname">Entr</code><span class="sig-paren">(</span><em>crp_matrix</em>, <em>hist_P</em>, <em>lmin</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Crqa.html#Entr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.Entr" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Crqa.</tt><tt class="descname">Entr</tt><big>(</big><em>crp_matrix</em>, <em>hist_P</em>, <em>lmin</em><big>)</big><a class="reference internal" href="_modules/utils/Crqa.html#Entr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.Entr" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the Entropy (ENTR)</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="utils.Crqa.L">
-<code class="descclassname">utils.Crqa.</code><code class="descname">L</code><span class="sig-paren">(</span><em>crp_matrix</em>, <em>hist_P</em>, <em>lmin</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Crqa.html#L"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.L" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Crqa.</tt><tt class="descname">L</tt><big>(</big><em>crp_matrix</em>, <em>hist_P</em>, <em>lmin</em><big>)</big><a class="reference internal" href="_modules/utils/Crqa.html#L"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.L" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the Average Diagonal Line Length (L)</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="utils.Crqa.L_max">
-<code class="descclassname">utils.Crqa.</code><code class="descname">L_max</code><span class="sig-paren">(</span><em>crp_matrix</em>, <em>hist_P</em>, <em>lmin</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Crqa.html#L_max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.L_max" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Crqa.</tt><tt class="descname">L_max</tt><big>(</big><em>crp_matrix</em>, <em>hist_P</em>, <em>lmin</em><big>)</big><a class="reference internal" href="_modules/utils/Crqa.html#L_max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.L_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the Maximum Diagonal Line Length (L)</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="utils.Crqa.RR">
-<code class="descclassname">utils.Crqa.</code><code class="descname">RR</code><span class="sig-paren">(</span><em>crp_matrix</em>, <em>thw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Crqa.html#RR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.RR" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Crqa.</tt><tt class="descname">RR</tt><big>(</big><em>crp_matrix</em>, <em>thw</em><big>)</big><a class="reference internal" href="_modules/utils/Crqa.html#RR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.RR" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the Recurrence Rate (RR)</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="utils.Crqa.length_ones_seq">
-<code class="descclassname">utils.Crqa.</code><code class="descname">length_ones_seq</code><span class="sig-paren">(</span><em>diag_line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Crqa.html#length_ones_seq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.length_ones_seq" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Crqa.</tt><tt class="descname">length_ones_seq</tt><big>(</big><em>diag_line</em><big>)</big><a class="reference internal" href="_modules/utils/Crqa.html#length_ones_seq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa.length_ones_seq" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the length of a sequence of ones</p>
 </dd></dl>
 
@@ -252,7 +249,7 @@ Entropy (ENT).</p>
 <p><em>Module author: Giovanna Varni</em></p>
 <dl class="function">
 <dt id="utils.Crqa_diag.Crqa_diag">
-<code class="descclassname">utils.Crqa_diag.</code><code class="descname">Crqa_diag</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>m</em>, <em>t</em>, <em>e</em>, <em>distance</em>, <em>standardization</em>, <em>window_size</em>, <em>lmin</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Crqa_diag.html#Crqa_diag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa_diag.Crqa_diag" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Crqa_diag.</tt><tt class="descname">Crqa_diag</tt><big>(</big><em>x</em>, <em>y</em>, <em>m</em>, <em>t</em>, <em>e</em>, <em>distance</em>, <em>standardization</em>, <em>window_size</em>, <em>lmin</em><big>)</big><a class="reference internal" href="_modules/utils/Crqa_diag.html#Crqa_diag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa_diag.Crqa_diag" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the following diagonalwise (cross) recurrence measures from the (cross)recurrence plot of two uni/multi-variate signals x and y
 (in pandas DataFrame format): Recurrence Rate (RR), Determinism (DET), Average Diagonal Line Length (L).</p>
 <p><strong>Reference :</strong></p>
@@ -291,7 +288,7 @@ Entropy (ENT).</p>
 
 <dl class="function">
 <dt id="utils.Crqa_diag.length_ones_seq">
-<code class="descclassname">utils.Crqa_diag.</code><code class="descname">length_ones_seq</code><span class="sig-paren">(</span><em>diag_line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Crqa_diag.html#length_ones_seq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa_diag.length_ones_seq" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Crqa_diag.</tt><tt class="descname">length_ones_seq</tt><big>(</big><em>diag_line</em><big>)</big><a class="reference internal" href="_modules/utils/Crqa_diag.html#length_ones_seq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Crqa_diag.length_ones_seq" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the length of a sequence of ones</p>
 </dd></dl>
 
@@ -300,7 +297,7 @@ Entropy (ENT).</p>
 <span id="detrend-module"></span><h2>Detrend module<a class="headerlink" href="#module-utils.Detrend" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="utils.Detrend.Detrend">
-<code class="descclassname">utils.Detrend.</code><code class="descname">Detrend</code><span class="sig-paren">(</span><em>signal</em>, <em>det_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Detrend.html#Detrend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Detrend.Detrend" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Detrend.</tt><tt class="descname">Detrend</tt><big>(</big><em>signal</em>, <em>det_type</em><big>)</big><a class="reference internal" href="_modules/utils/Detrend.html#Detrend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Detrend.Detrend" title="Permalink to this definition">¶</a></dt>
 <dd><p>It removes constant or linear trending in a monoviarate/multivariate signal (in pandas DataFrame format).
 In case of multivariate signal, detrending is carried out on each column of the DataFrame</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -327,7 +324,7 @@ In case of multivariate signal, detrending is carried out on each column of the 
 <p>It allows to compute several distance measures between monovariate/multivariate signals (in pandas DataFrame format).</p>
 <dl class="function">
 <dt id="utils.Distance.Mahalanobis">
-<code class="descclassname">utils.Distance.</code><code class="descname">Mahalanobis</code><span class="sig-paren">(</span><em>df1</em>, <em>df2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Distance.html#Mahalanobis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Distance.Mahalanobis" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Distance.</tt><tt class="descname">Mahalanobis</tt><big>(</big><em>df1</em>, <em>df2</em><big>)</big><a class="reference internal" href="_modules/utils/Distance.html#Mahalanobis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Distance.Mahalanobis" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the Mahalanobis distance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -349,7 +346,7 @@ In case of multivariate signal, detrending is carried out on each column of the 
 
 <dl class="function">
 <dt id="utils.Distance.Minkowski">
-<code class="descclassname">utils.Distance.</code><code class="descname">Minkowski</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>order</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Distance.html#Minkowski"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Distance.Minkowski" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Distance.</tt><tt class="descname">Minkowski</tt><big>(</big><em>x</em>, <em>y</em>, <em>order</em><big>)</big><a class="reference internal" href="_modules/utils/Distance.html#Minkowski"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Distance.Minkowski" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>It computes the Minkowski distance of order p (p cannot be less than 1).</dt>
 <dd><ol class="first last arabic simple">
@@ -383,7 +380,7 @@ In case of multivariate signal, detrending is carried out on each column of the 
 <span id="extractsignal-module"></span><h2>ExtractSignal module<a class="headerlink" href="#module-utils.ExtractSignal" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="utils.ExtractSignal.ExtractSignalFromCSV">
-<code class="descclassname">utils.ExtractSignal.</code><code class="descname">ExtractSignalFromCSV</code><span class="sig-paren">(</span><em>filename, separator=',', unit='ms', columns=['all']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ExtractSignal.html#ExtractSignalFromCSV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ExtractSignal.ExtractSignalFromCSV" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.ExtractSignal.</tt><tt class="descname">ExtractSignalFromCSV</tt><big>(</big><em>filename, separator=',', unit='ms', columns=['all']</em><big>)</big><a class="reference internal" href="_modules/utils/ExtractSignal.html#ExtractSignalFromCSV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ExtractSignal.ExtractSignalFromCSV" title="Permalink to this definition">¶</a></dt>
 <dd><p>It extracts a signal from a .csv file (organized by columns, with first one corresponding to time index)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -408,7 +405,7 @@ Default: &#8216;all&#8217;</li>
 
 <dl class="function">
 <dt id="utils.ExtractSignal.ExtractSignalFromELAN">
-<code class="descclassname">utils.ExtractSignal.</code><code class="descname">ExtractSignalFromELAN</code><span class="sig-paren">(</span><em>filename, separator=',', unit='s', columns_name=['Actor', ' ', 't_begin', 't_end', 'duration', 'Action', 'video'], total_duration=0, ele_per_sec=1, Actor='', Action='all'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ExtractSignal.html#ExtractSignalFromELAN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ExtractSignal.ExtractSignalFromELAN" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.ExtractSignal.</tt><tt class="descname">ExtractSignalFromELAN</tt><big>(</big><em>filename, separator=',', unit='s', columns_name=['Actor', ' ', 't_begin', 't_end', 'duration', 'Action', 'video'], total_duration=0, ele_per_sec=1, Actor='', Action='all'</em><big>)</big><a class="reference internal" href="_modules/utils/ExtractSignal.html#ExtractSignalFromELAN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ExtractSignal.ExtractSignalFromELAN" title="Permalink to this definition">¶</a></dt>
 <dd><p>It extracts a boolean signal from ELAN output annotations.
 It returns a boolean signal, a DataFrame with milliseconds timestamps.
 The freqency of timestamps is defined by &#8216;ele_per_sec&#8217;.
@@ -443,7 +440,7 @@ If zero is given, the total duration will be computed as the end of the last eve
 
 <dl class="function">
 <dt id="utils.ExtractSignal.ExtractSignalFromMAT">
-<code class="descclassname">utils.ExtractSignal.</code><code class="descname">ExtractSignalFromMAT</code><span class="sig-paren">(</span><em>filename, columns_index=['all'], columns_wanted_names=['all'], unit='ms'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ExtractSignal.html#ExtractSignalFromMAT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ExtractSignal.ExtractSignalFromMAT" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.ExtractSignal.</tt><tt class="descname">ExtractSignalFromMAT</tt><big>(</big><em>filename, columns_index=['all'], columns_wanted_names=['all'], unit='ms'</em><big>)</big><a class="reference internal" href="_modules/utils/ExtractSignal.html#ExtractSignalFromMAT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ExtractSignal.ExtractSignalFromMAT" title="Permalink to this definition">¶</a></dt>
 <dd><p>It extracts a signal from a .mat MATLAB file (organized by columns, with first one corresponding to time index)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -472,7 +469,7 @@ Default: &#8216;all&#8217; (&#8216;0&#8217;, &#8216;1&#8217; ...)</li>
 <span id="normalize-module"></span><h2>Normalize module<a class="headerlink" href="#module-utils.Normalize" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="utils.Normalize.Normalize">
-<code class="descclassname">utils.Normalize.</code><code class="descname">Normalize</code><span class="sig-paren">(</span><em>signal, min_value=[0], max_value=[1]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Normalize.html#Normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Normalize.Normalize" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Normalize.</tt><tt class="descname">Normalize</tt><big>(</big><em>signal, min_value=[0], max_value=[1]</em><big>)</big><a class="reference internal" href="_modules/utils/Normalize.html#Normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Normalize.Normalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>It normalizes function normalizes signal between min_value and max_value.
 If the signal is constant, the normalization converts it into the max_value.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -499,7 +496,7 @@ If the signal is constant, the normalization converts it into the max_value.</p>
 <span id="peakdetect-module"></span><h2>PeakDetect module<a class="headerlink" href="#module-utils.PeakDetect" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="utils.PeakDetect.peakdetect">
-<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis=None</em>, <em>lookahead=300</em>, <em>delta=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.PeakDetect.</tt><tt class="descname">peakdetect</tt><big>(</big><em>y_axis</em>, <em>x_axis=None</em>, <em>lookahead=300</em>, <em>delta=0</em><big>)</big><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect" title="Permalink to this definition">¶</a></dt>
 <dd><p>It discovers peaks by searching for values which are surrounded by lower
 or larger values for maxima and minima, respectively. This script is converted from/based on a MATLAB script at: 
 <a class="reference external" href="http://billauer.co.il/peakdet.html">http://billauer.co.il/peakdet.html</a></p>
@@ -532,7 +529,7 @@ np.mean(max_peaks, 0)[1] on the results to unpack one of the lists into x, y coo
 
 <dl class="function">
 <dt id="utils.PeakDetect.peakdetect_fft">
-<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect_fft</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis</em>, <em>pad_len=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_fft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_fft" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.PeakDetect.</tt><tt class="descname">peakdetect_fft</tt><big>(</big><em>y_axis</em>, <em>x_axis</em>, <em>pad_len=5</em><big>)</big><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_fft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_fft" title="Permalink to this definition">¶</a></dt>
 <dd><p>It performs a FFT calculation on the data and zero-pads the results to
 increase the time domain resolution after performing the inverse fft and
 send the data to the &#8216;peakdetect&#8217; function for peak 
@@ -579,7 +576,7 @@ x, y = zip(<a href="#id3"><span class="problematic" id="id4">*</span></a>tab)</p
 
 <dl class="function">
 <dt id="utils.PeakDetect.peakdetect_parabole">
-<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect_parabole</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis</em>, <em>points=9</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_parabole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_parabole" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.PeakDetect.</tt><tt class="descname">peakdetect_parabole</tt><big>(</big><em>y_axis</em>, <em>x_axis</em>, <em>points=9</em><big>)</big><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_parabole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_parabole" title="Permalink to this definition">¶</a></dt>
 <dd><p>IT detects local maxima and minima in a signal.
 Discovers peaks by fitting the model function: y = k (x - tau) ** 2 + m
 to the peaks. The amount of points used in the fitting is set by the
@@ -615,7 +612,7 @@ x, y = zip(<a href="#id5"><span class="problematic" id="id6">*</span></a>max_pea
 
 <dl class="function">
 <dt id="utils.PeakDetect.peakdetect_sine">
-<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect_sine</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis</em>, <em>points=9</em>, <em>lock_frequency=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_sine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_sine" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.PeakDetect.</tt><tt class="descname">peakdetect_sine</tt><big>(</big><em>y_axis</em>, <em>x_axis</em>, <em>points=9</em>, <em>lock_frequency=False</em><big>)</big><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_sine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_sine" title="Permalink to this definition">¶</a></dt>
 <dd><p>It detects local maxima and minima in a signal.
 It discovers peaks by fitting the model function:
 y = A * sin(2 * pi * f * x - tau) to the peaks. The amount of points used
@@ -658,7 +655,7 @@ x, y = zip(<a href="#id7"><span class="problematic" id="id8">*</span></a>tab)</p
 
 <dl class="function">
 <dt id="utils.PeakDetect.peakdetect_sine_locked">
-<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect_sine_locked</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis</em>, <em>points=9</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_sine_locked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_sine_locked" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.PeakDetect.</tt><tt class="descname">peakdetect_sine_locked</tt><big>(</big><em>y_axis</em>, <em>x_axis</em>, <em>points=9</em><big>)</big><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_sine_locked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_sine_locked" title="Permalink to this definition">¶</a></dt>
 <dd><p>It is a convinience function for calling the &#8216;peakdetect_sine&#8217; function with
 the lock_frequency argument as True.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -683,7 +680,7 @@ curve fitting, must be odd (default: 9)</li>
 
 <dl class="function">
 <dt id="utils.PeakDetect.peakdetect_zero_crossing">
-<code class="descclassname">utils.PeakDetect.</code><code class="descname">peakdetect_zero_crossing</code><span class="sig-paren">(</span><em>y_axis</em>, <em>x_axis=None</em>, <em>window=11</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_zero_crossing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_zero_crossing" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.PeakDetect.</tt><tt class="descname">peakdetect_zero_crossing</tt><big>(</big><em>y_axis</em>, <em>x_axis=None</em>, <em>window=11</em><big>)</big><a class="reference internal" href="_modules/utils/PeakDetect.html#peakdetect_zero_crossing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.peakdetect_zero_crossing" title="Permalink to this definition">¶</a></dt>
 <dd><p>It detects local maxima and minima in a signal.
 It discovers peaks by dividing the signal into bins and retrieving the
 maximum and minimum value of each the even and odd bins respectively.
@@ -722,7 +719,7 @@ x, y = zip(<a href="#id9"><span class="problematic" id="id10">*</span></a>tab)</
 
 <dl class="function">
 <dt id="utils.PeakDetect.zero_crossings">
-<code class="descclassname">utils.PeakDetect.</code><code class="descname">zero_crossings</code><span class="sig-paren">(</span><em>y_axis</em>, <em>window=11</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakDetect.html#zero_crossings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.zero_crossings" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.PeakDetect.</tt><tt class="descname">zero_crossings</tt><big>(</big><em>y_axis</em>, <em>window=11</em><big>)</big><a class="reference internal" href="_modules/utils/PeakDetect.html#zero_crossings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakDetect.zero_crossings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Algorithm to find zero crossings. Smoothes the curve and finds the
 zero-crossings by looking for a sign change.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -749,7 +746,7 @@ zero-crossings by looking for a sign change.</p>
 <p><em>Module author: Marie Avril</em></p>
 <dl class="function">
 <dt id="utils.PeakPicking.PeakPicking">
-<code class="descclassname">utils.PeakPicking.</code><code class="descname">PeakPicking</code><span class="sig-paren">(</span><em>matrix</em>, <em>tau_max</em>, <em>tau_inc=0</em>, <em>threshold=0</em>, <em>lookahead=300</em>, <em>delta=0</em>, <em>ele_per_sec=1</em>, <em>plot=False</em>, <em>plot_on_mat=False</em>, <em>sorted_peak=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakPicking.html#PeakPicking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakPicking.PeakPicking" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.PeakPicking.</tt><tt class="descname">PeakPicking</tt><big>(</big><em>matrix</em>, <em>tau_max</em>, <em>tau_inc=0</em>, <em>threshold=0</em>, <em>lookahead=300</em>, <em>delta=0</em>, <em>ele_per_sec=1</em>, <em>plot=False</em>, <em>plot_on_mat=False</em>, <em>sorted_peak=False</em><big>)</big><a class="reference internal" href="_modules/utils/PeakPicking.html#PeakPicking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakPicking.PeakPicking" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes peak picking algorithm to a cross-matrix (computed by WindowCrossCorrelation or WindowMutualInformation for example)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -787,7 +784,7 @@ To work well delta should be set to delta &gt;= RMSnoise * 5. Default: 0</li>
 
 <dl class="function">
 <dt id="utils.PeakPicking.PeakPicking_plot">
-<code class="descclassname">utils.PeakPicking.</code><code class="descname">PeakPicking_plot</code><span class="sig-paren">(</span><em>result</em>, <em>matrix</em>, <em>tau_max</em>, <em>ele_per_sec=1</em>, <em>plot_on_mat=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakPicking.html#PeakPicking_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakPicking.PeakPicking_plot" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.PeakPicking.</tt><tt class="descname">PeakPicking_plot</tt><big>(</big><em>result</em>, <em>matrix</em>, <em>tau_max</em>, <em>ele_per_sec=1</em>, <em>plot_on_mat=False</em><big>)</big><a class="reference internal" href="_modules/utils/PeakPicking.html#PeakPicking_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakPicking.PeakPicking_plot" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
 <div>It plots the peakpicking result. Works only with unsorted results</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
@@ -814,7 +811,7 @@ To work well delta should be set to delta &gt;= RMSnoise * 5. Default: 0</li>
 
 <dl class="function">
 <dt id="utils.PeakPicking.PeakPicking_sortResult">
-<code class="descclassname">utils.PeakPicking.</code><code class="descname">PeakPicking_sortResult</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PeakPicking.html#PeakPicking_sortResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakPicking.PeakPicking_sortResult" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.PeakPicking.</tt><tt class="descname">PeakPicking_sortResult</tt><big>(</big><em>result</em><big>)</big><a class="reference internal" href="_modules/utils/PeakPicking.html#PeakPicking_sortResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.PeakPicking.PeakPicking_sortResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>It organizes peakPicking result in order to compute statistics</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -834,7 +831,7 @@ To work well delta should be set to delta &gt;= RMSnoise * 5. Default: 0</li>
 <span id="resampleandinterpolate-module"></span><h2>ResampleAndInterpolate module<a class="headerlink" href="#module-utils.ResampleAndInterpolate" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="utils.ResampleAndInterpolate.ResampleAndInterpolate">
-<code class="descclassname">utils.ResampleAndInterpolate.</code><code class="descname">ResampleAndInterpolate</code><span class="sig-paren">(</span><em>signal</em>, <em>rule='100ms'</em>, <em>limit=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/ResampleAndInterpolate.html#ResampleAndInterpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ResampleAndInterpolate.ResampleAndInterpolate" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.ResampleAndInterpolate.</tt><tt class="descname">ResampleAndInterpolate</tt><big>(</big><em>signal</em>, <em>rule='100ms'</em>, <em>limit=None</em><big>)</big><a class="reference internal" href="_modules/utils/ResampleAndInterpolate.html#ResampleAndInterpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.ResampleAndInterpolate.ResampleAndInterpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>It resamples signal and does linear interpolation to values added by the resampling.
 Signal must have DateTime index.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -861,7 +858,7 @@ Signal must have DateTime index.</p>
 <span id="standardize-module"></span><h2>Standardize module<a class="headerlink" href="#module-utils.Standardize" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="utils.Standardize.Standardize">
-<code class="descclassname">utils.Standardize.</code><code class="descname">Standardize</code><span class="sig-paren">(</span><em>signal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Standardize.html#Standardize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Standardize.Standardize" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Standardize.</tt><tt class="descname">Standardize</tt><big>(</big><em>signal</em><big>)</big><a class="reference internal" href="_modules/utils/Standardize.html#Standardize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Standardize.Standardize" title="Permalink to this definition">¶</a></dt>
 <dd><p>It standardizes a monovariate/multivariate signals (in pandas DataFrame format) so that it has mean equal to zero and unitary variance.
 In case of a multivariate signal, standardization is carried out on each column of the DataFrame.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -882,7 +879,7 @@ In case of a multivariate signal, standardization is carried out on each column 
 <span id="trafo-module"></span><h2>Trafo module<a class="headerlink" href="#module-utils.Trafo" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="utils.Trafo.Trafo">
-<code class="descclassname">utils.Trafo.</code><code class="descname">Trafo</code><span class="sig-paren">(</span><em>signal</em>, <em>sk</em>, <em>trafo_type</em>, <em>log_base=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Trafo.html#Trafo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Trafo.Trafo" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Trafo.</tt><tt class="descname">Trafo</tt><big>(</big><em>signal</em>, <em>sk</em>, <em>trafo_type</em>, <em>log_base=2</em><big>)</big><a class="reference internal" href="_modules/utils/Trafo.html#Trafo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Trafo.Trafo" title="Permalink to this definition">¶</a></dt>
 <dd><p>It transforms a monovariate/multivariate signals (in pandas DataFrame format) in a new signal
 by applying a square root or logaritmic or inverse transformation.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -921,15 +918,24 @@ by applying a square root or logaritmic or inverse transformation.</p>
 <p><em>Module author: Giovanna Varni</em></p>
 <dl class="function">
 <dt id="utils.Welch_psd.Welch_psd">
-<code class="descclassname">utils.Welch_psd.</code><code class="descname">Welch_psd</code><span class="sig-paren">(</span><em>x</em>, <em>fs=1.0</em>, <em>NFFT=256</em>, <em>detrend=0</em>, <em>noverlap=0</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Welch_psd.html#Welch_psd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Welch_psd.Welch_psd" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Welch_psd.</tt><tt class="descname">Welch_psd</tt><big>(</big><em>x</em>, <em>fs=1.0</em>, <em>NFFT=256</em>, <em>detrend=0</em>, <em>noverlap=0</em>, <em>plot=False</em><big>)</big><a class="reference internal" href="_modules/utils/Welch_psd.html#Welch_psd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Welch_psd.Welch_psd" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes the Welch&#8217;s power spectral density of a real signal x (in pandas DataFrame format).
 This density is as the average of the density through the epochs (segments) of x and it is corrected for the power leakage due to (the hanning) windowing.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> &#8211; </td>
+</tr>
+</tbody>
+</table>
+<p>input signal
+:type x: pd.DataFrame</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x</strong> (<em>pd.DataFrame</em>) &#8211; input signal</li>
 <li><strong>fs</strong> (<em>float</em>) &#8211; it is the sampling frequency of x (expressed in Hz);</li>
 <li><strong>NFFT</strong> (<em>int</em>) &#8211; it is the length of each epoch (segment);</li>
 <li><strong>detrend</strong> (<em>bool</em>) &#8211; <dl class="docutils">
@@ -947,7 +953,7 @@ This density is as the average of the density through the epochs (segments) of x
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict 
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict
 &#8211; the power spectral density and the frequencies over which the coherence is computed (keys : psd, Frequency)</p>
 </td>
 </tr>
@@ -961,7 +967,7 @@ This density is as the average of the density through the epochs (segments) of x
 <p><em>Module author: Giovanna Varni</em></p>
 <dl class="function">
 <dt id="utils.Embedding.Embedding">
-<code class="descclassname">utils.Embedding.</code><code class="descname">Embedding</code><span class="sig-paren">(</span><em>x</em>, <em>m</em>, <em>t</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Embedding.html#Embedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Embedding.Embedding" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.Embedding.</tt><tt class="descname">Embedding</tt><big>(</big><em>x</em>, <em>m</em>, <em>t</em><big>)</big><a class="reference internal" href="_modules/utils/Embedding.html#Embedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.Embedding.Embedding" title="Permalink to this definition">¶</a></dt>
 <dd><p>It embeds the input signal x by using a dimension equal to m and
 a delay between data equal to t.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -989,7 +995,7 @@ a delay between data equal to t.</p>
 <p><em>Module author: Giovanna Varni</em></p>
 <dl class="function">
 <dt id="utils.CrossRecurrencePlot.CrossRecurrencePlot">
-<code class="descclassname">utils.CrossRecurrencePlot.</code><code class="descname">CrossRecurrencePlot</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>m</em>, <em>t</em>, <em>e</em>, <em>distance</em>, <em>standardization=False</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/CrossRecurrencePlot.html#CrossRecurrencePlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.CrossRecurrencePlot.CrossRecurrencePlot" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">utils.CrossRecurrencePlot.</tt><tt class="descname">CrossRecurrencePlot</tt><big>(</big><em>x</em>, <em>y</em>, <em>m</em>, <em>t</em>, <em>e</em>, <em>distance</em>, <em>standardization=False</em>, <em>plot=False</em><big>)</big><a class="reference internal" href="_modules/utils/CrossRecurrencePlot.html#CrossRecurrencePlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.CrossRecurrencePlot.CrossRecurrencePlot" title="Permalink to this definition">¶</a></dt>
 <dd><p>It computes and plots the (cross)recurrence plot of the uni/multivariate input signal(s) x and y (in pandas DataFrame format).</p>
 <p><strong>Reference :</strong></p>
 <ul class="simple">
@@ -1013,6 +1019,49 @@ a delay between data equal to t.</p>
 <li>&#8216;euclidean&#8217;;</li>
 <li>&#8216;maximum&#8217;;</li>
 <li>&#8216;manhattan&#8217;</li>
+<li>&#8216;fixed distance maximum norm&#8217;</li>
+</ol>
+</li>
+<li><strong>standardization</strong> (<em>bool</em>) &#8211; if True data are nomalize to zero mean and unitary variance. Default: False</li>
+<li><strong>plot</strong> &#8211; if True the plot of correlation function is returned. Default: False</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.JointRecurrencePlot">
+<span id="jointrecurrenceplot-module"></span><h2>JointRecurrencePlot     module<a class="headerlink" href="#module-utils.JointRecurrencePlot" title="Permalink to this headline">¶</a></h2>
+<p><em>Module author: Giovanna Varni</em></p>
+<dl class="function">
+<dt id="utils.JointRecurrencePlot.JointRecurrencePlot">
+<tt class="descclassname">utils.JointRecurrencePlot.</tt><tt class="descname">JointRecurrencePlot</tt><big>(</big><em>x</em>, <em>y</em>, <em>m</em>, <em>t</em>, <em>e</em>, <em>distance</em>, <em>standardization=False</em>, <em>plot=False</em><big>)</big><a class="reference internal" href="_modules/utils/JointRecurrencePlot.html#JointRecurrencePlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.JointRecurrencePlot.JointRecurrencePlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>It computes and plots the joint recurrence plot of the uni/multivariate input signal(s) x and y (in pandas DataFrame format).</p>
+<p><strong>Reference :</strong></p>
+<ul class="simple">
+<li><ol class="first upperalpha" start="14">
+<li>Marwan, M. Carmen Romano, M. Thiel and J. Kurths. &#8220;Recurrence plots for the analysis of complex systems&#8221;. Physics Reports 438(5), 2007.</li>
+</ol>
+</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>pd.DataFrame</em>) &#8211; first input signal</li>
+<li><strong>y</strong> (<em>pd.DataFrame</em>) &#8211; second input signal</li>
+<li><strong>m</strong> (<em>int</em>) &#8211; embedding dimension</li>
+<li><strong>t</strong> (<em>int</em>) &#8211; embedding delay</li>
+<li><strong>eps</strong> (<em>float</em>) &#8211; threshold for recurrence</li>
+<li><strong>distance</strong> (<em>str</em>) &#8211; <p>It specifies which distance method is used. It can assumes the following values:</p>
+<ol class="arabic">
+<li>&#8216;euclidean&#8217;;</li>
+<li>&#8216;maximum&#8217;;</li>
+<li>&#8216;manhattan&#8217;</li>
+<li>&#8216;fixed distance maximum norm&#8217;</li>
 </ol>
 </li>
 <li><strong>standardization</strong> (<em>bool</em>) &#8211; if True data are nomalize to zero mean and unitary variance. Default: False</li>
@@ -1031,7 +1080,7 @@ a delay between data equal to t.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="HomePage.html">Table Of Contents</a></h3>
   <ul>
@@ -1053,6 +1102,7 @@ a delay between data equal to t.</p>
 <li><a class="reference internal" href="#module-utils.Welch_psd">Welch_psd module</a></li>
 <li><a class="reference internal" href="#module-utils.Embedding">Embedding module</a></li>
 <li><a class="reference internal" href="#module-utils.CrossRecurrencePlot">CrossRecurrencePlot     module</a></li>
+<li><a class="reference internal" href="#module-utils.JointRecurrencePlot">JointRecurrencePlot     module</a></li>
 </ul>
 </li>
 </ul>
@@ -1063,7 +1113,7 @@ a delay between data equal to t.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Examples.html"
                         title="next chapter">SyncPy library Examples</a></p>
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -1080,7 +1130,7 @@ a delay between data equal to t.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1095,14 +1145,14 @@ a delay between data equal to t.</p>
         <li class="right" >
           <a href="DataFromManyPersons.Multivariate.Continuous.Nonlinear.html" title="Nonlinear package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="HomePage.html">Home Page</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="Documentation.html" >Documentation</a> &raquo;</li> 
+        <li><a href="HomePage.html">Home Page</a> &raquo;</li>
+          <li><a href="Documentation.html" >Documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
+    <div class="footer">
         &copy; Copyright 2015, Giovanna Varni, Marie Avril.
-      Last updated on Nov 06, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+      Last updated on Jan 28, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
