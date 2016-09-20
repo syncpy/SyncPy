@@ -56,6 +56,7 @@ News :
 Requirements
 ------------------------
 - Python 2.7
+- Mathplotlib 1.4.3
 
 Dependencies
 ------------------------
