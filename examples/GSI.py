@@ -11,6 +11,7 @@ import numpy as np              # Mathematical package
 import pandas as pd             # Time serie package
 import matplotlib.pyplot as plt # Plotting package
 sys.path.insert(0, '../src/')   # To be able to import packages from parent directory 
+sys.path.insert(0, '../src/Methods')
 
 print("\n")
 print("*****************************************************************************")
@@ -24,13 +25,15 @@ import Methods.DataFrom2Persons.Multivariate.Continuous.Nonlinear.GSI as GSI
 
 """ Define signals in pd.dataFrame format """
 
+
 #Define parameters
-N=1000
-t=np.linspace(0,4*np.pi,N)
+N=1016
+t=np.array([np.linspace(0,4*np.pi,N), np.linspace(2,5*np.pi,N)]).T
 
 #Create signals
 x=pd.DataFrame(np.sin(t), np.arange(0,N))
 y=pd.DataFrame(np.sin(3*t+10), np.arange(0,N))
+
 
 """Plot input signals"""
 plt.ion()

@@ -89,10 +89,12 @@ def Minkowski(x,y, order):
         raise ValueError(err_msg)
         return
 
+    diff=pd.DataFrame(np.vstack(x.values-y.values))
+  
     if order!=np.inf:
-       d=((x.subtract(y)**(1.0*order)).sum(axis=1))**(1.0/order)
+       d=((diff**(1.0*order)).sum(axis=1))**(1.0/order)
     else:
-       d=(x.subtract(y).abs()).max(axis=1)
+       d=(diff.abs()).max(axis=1)
         
     d=pd.DataFrame(d)
     return (d)
