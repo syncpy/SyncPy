@@ -106,6 +106,7 @@ class GSI(Method):
         x = signals[0]
         y = signals[1]
 
+
         ' Raise error if parameters are not in the correct type '
         if not(isinstance(x, pd.DataFrame)): raise TypeError("Requires x to be a pd.DataFrame")
         if not(isinstance(y, pd.DataFrame)): raise TypeError("Requires y to be a pd.DataFrame")

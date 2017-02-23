@@ -62,15 +62,15 @@ def _row_rep(s, size, i, vd, e, crp_tmp):
 
 def _rr_row_rep(s, size, vd, e, crp_tmp, curRange):
     dist_m = np.zeros((size, size))
-
+    
     for i in curRange:
         row_rep_T = pd.concat([s.iloc[i, :]] * size, axis=1, ignore_index=True)
         row_rep = row_rep_T.transpose()
 
         dist = Distance.Minkowski(row_rep, s, vd)
-
         dist_m[i, :] = dist.T
 
+ 
     dist_m_f = dist_m.flatten()
     dist_m_f.sort()
 
@@ -171,12 +171,17 @@ def JointRecurrencePlot(x,y,m,t,e,distance,standardization = False, plot = False
         vd = 1
     elif distance == 'maximum':
         vd = np.inf
-
+    
     size = x.shape[0]
+     
     crp_x_tmp = np.ones((size, size))
     crp_y_tmp = crp_x_tmp.copy()
-
+    
     curRange = range(0, size)
+    
+    x=x.reset_index(drop=True)
+    y=y.reset_index(drop=True)
+
     if distance != 'rr':
         for i in curRange:
             crp_x = _row_rep(x, size, i, vd, e, crp_x_tmp)
@@ -184,10 +189,11 @@ def JointRecurrencePlot(x,y,m,t,e,distance,standardization = False, plot = False
     else:
         crp_x = _rr_row_rep(x, size, vd, e, crp_x_tmp, curRange)
         crp_y = _rr_row_rep(y, size, vd, e, crp_y_tmp, curRange)
-
+        
+    
     jrp = (1 - crp_x)*(1 - crp_y)
     jrp = 1 - jrp
-
+    
     result = dict()
     result['jrp'] = jrp
 
