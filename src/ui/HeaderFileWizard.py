@@ -81,7 +81,8 @@ class HeaderFileWizard(QtGui.QDialog):
         for j in xrange(self.nbCols):
             signalUniques = []
             for i in xrange(start, self.nbRows):
-                signalUniques.append(self.table.item(i, j).text())
+                if self.table.item(i, j):
+                    signalUniques.append(self.table.item(i, j).text())
             if len(set(signalUniques)) <= 10: #count uniques in list
                 self.signalsType.append(1)
             else:

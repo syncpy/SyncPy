@@ -72,7 +72,7 @@ class BooleanTurnsActivity(Method):
                     'the maximal delay (in second) between the two signals activity to define synchrony')
     argsList.append('min_pause_duration', 1, float, 'minimal time (in second) for defining a pause ')
     argsList.append('ele_per_sec', 1, int, 'number of elements in one second')
-    argsList.append('duration', 1, int, 'total activity duration (in second)')
+    argsList.append('duration', -1, int, 'total activity duration (in second)')
 
 
     ''' Constructor '''
