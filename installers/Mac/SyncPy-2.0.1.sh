@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Download and install Anaconda if not installed
 if ! [ -d "$HOME/anaconda" ]; then
     echo "Getting Anaconda..."
@@ -31,7 +32,7 @@ curl -sSL https://github.com/syncpy/SyncPy/archive/master.zip -o master.zip
 unzip -qq master.zip
 
 # Install SyncPy2 in /
-sudo cp -R SyncPy-master /SyncPy2/
+sudo cp -R SyncPy-master/v2.0.1 /SyncPy/
 
 sudo chmod -R 777 /SyncPy2/
 
@@ -45,7 +46,6 @@ fi
 touch $HOME/Desktop/SyncPy2
 
 echo "#!/bin/bash" >> $HOME/Desktop/SyncPy2
-echo 'if ! [[ $PATH == *"anaconda"* ]]; then . .profile; fi' >> $HOME/Desktop/SyncPy2
 echo "cd /SyncPy2/src/" >> $HOME/Desktop/SyncPy2
 echo "python SyncPy2.py" >> $HOME/Desktop/SyncPy2
 
@@ -58,7 +58,6 @@ fi
 touch $HOME/Desktop/SyncPy2MethodWizard
 
 echo "#!/bin/bash" >> $HOME/Desktop/SyncPy2MethodWizard
-echo 'if ! [[ $PATH == *"anaconda"* ]]; then . .profile; fi' >> $HOME/Desktop/SyncPy2MethodWizard
 echo "cd /SyncPy2/src/" >> $HOME/Desktop/SyncPy2MethodWizard
 echo "python SyncPy2MethodWizard.py" >> $HOME/Desktop/SyncPy2MethodWizard
 
