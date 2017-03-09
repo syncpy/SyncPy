@@ -1,20 +1,11 @@
 #!/bin/bash
-# Download and install Anaconda if not installed
 
+# Download and install Anaconda if not installed
 if ! [ -d "$HOME/anaconda" ]; then
     echo "Getting Anaconda..."
+    wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda-2.3.0-Linux-x86_64.sh --no-check-certificate
 
-    MACHINE_TYPE=`uname -m`
-    if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-        wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda-2.3.0-Linux-x86_64.sh --no-check-certificat
-        mv Anaconda-2.3.0-Linux-x86_64.sh Anaconda_install.sh
-    else
-        wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda-2.3.0-Linux-x86.sh --no-check-certificate
-        mv Anaconda-2.3.0-Linux-x86.sh Anaconda_install.sh
-    fi
-
-
-    bash Anaconda_install.sh -b -p $HOME/anaconda
+    bash Anaconda-2.3.0-Linux-x86_64.sh -b -p $HOME/anaconda
 
     cp $HOME/.profile $HOME/.profile.syncpysave
 
@@ -22,7 +13,7 @@ if ! [ -d "$HOME/anaconda" ]; then
 
     . $HOME/.profile
 
-    rm Anaconda_install.sh
+    rm Anaconda-2.3.0-Linux-x86_64.sh
 
 else
 
@@ -37,7 +28,7 @@ wget https://github.com/syncpy/SyncPy/archive/master.zip --no-check-certificate
 unzip -qq master.zip
 
 # Install SyncPy2 in /
-sudo cp -R SyncPy-master /SyncPy2/
+sudo cp -R SyncPy-master/v2 /SyncPy/
 
 sudo chmod -R 777 /SyncPy2/
 
@@ -51,7 +42,6 @@ fi
 touch $HOME/SyncPy2
 cd ..
 echo "#!/bin/bash" >> $HOME/SyncPy2
-echo 'if ! [[ $PATH == *"anaconda"* ]]; then . .profile; fi' >> $HOME/SyncPy2
 echo "cd /SyncPy2/src/" >> $HOME/SyncPy2
 echo "python SyncPy2.py" >> $HOME/SyncPy2
 
@@ -64,7 +54,6 @@ fi
 touch $HOME/SyncPy2MethodWizard
 cd ..
 echo "#!/bin/bash" >> $HOME/SyncPy2MethodWizard
-echo 'if ! [[ $PATH == *"anaconda"* ]]; then . .profile; fi' >> $HOME/SyncPy2MethodWizard
 echo "cd /SyncPy2/src/" >> $HOME/SyncPy2MethodWizard
 echo "python SyncPy2MethodWizard.py" >> $HOME/SyncPy2MethodWizard
 
