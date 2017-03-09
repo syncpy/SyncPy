@@ -1,2 +1,0 @@
-Mathplotlib v1.5.1 has a minor bug when saving pickles graph image to disk.
-The version 1.4.3 works and can replace it in folder "Lib/site-packages" of the Python distribution
