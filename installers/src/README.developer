@@ -14,11 +14,4 @@ Create the installers
 
 /!\ You can only create the installers on Windows /!\
 
-1. Double clic on updateInstallers.bat
-
-2. Enter the version of SyncPy you want the installers to install and wait
-
-3. The installers are created in their folders, don't forget to remove old versions of installers in the folders
-
-4. (optionnal) It may remains some sedXXXXX files in the src folder, you can remove them
-   (sed.exe can't remove its temporary files in a read only folder)
+Compile windows installer (.nsi file) with NSIS (tested with NSIS 3.01)
