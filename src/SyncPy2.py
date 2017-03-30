@@ -79,6 +79,7 @@ class SyncPy2(QtGui.QMainWindow):
         self.recreateMethodList = False
         self.firstFile = ""
         self.filesHasHeaders = False
+        self.outputBaseName = None
 
 
         self.syncpyplatform = ""
@@ -237,7 +238,7 @@ class SyncPy2(QtGui.QMainWindow):
                     cn = str(self.signalsHeader[ci])
                     self.signals.append(ExtractSignalFromMAT(str(f), columns_index=ci, columns_wanted_names=[cn], matfile=matfile))
 
-        self.ui.methodWidget.compute(self.signals)
+        self.ui.methodWidget.compute(self.signals, self.getOutputBasename())
 
         self.ui.stopPushButton.setEnabled(True)
         self.ui.startPushButton.setEnabled(False)
@@ -555,6 +556,7 @@ class SyncPy2(QtGui.QMainWindow):
         self.sessionHasBeenLoaded = False
 
     def selectMethodInTree(self):
+        self.outputBaseName = None
         methodList = self.ui.methodsTreeWidget.findItems(os.path.basename(str(self.methodUsed)),
                                                          QtCore.Qt.MatchRecursive | QtCore.Qt.MatchExactly)
         for m in methodList:
@@ -765,14 +767,19 @@ class SyncPy2(QtGui.QMainWindow):
             self.signalsHeader = []
             plot.close("all")
 
+    def getOutputBasename(self):
+        if self.outputBaseName==None:
+            methodName = str(self.methodUsed).rsplit('/', 1)[1].rsplit('.', 1)[0]
+            currDay = time.strftime("%Y%m%d")
+            currTime = time.strftime("%H%M%S")
+            outDirName = self.outputDirectory + '/syncpy_out-' + currDay
+            if not (os.path.exists(outDirName)):
+                os.mkdir(outDirName)
+            self.outputBaseName = outDirName + '/' + currTime + '-' + methodName
+        return self.outputBaseName
+
     def saveOutputsToFile(self):
-        methodName = str(self.methodUsed).rsplit('/', 1)[1].rsplit('.', 1)[0]
-        currDay = time.strftime("%Y%m%d")
-        currTime = time.strftime("%H%M%S")
-        outDirName = self.outputDirectory+'/syncpy_out-'+currDay
-        if not(os.path.exists(outDirName)):
-            os.mkdir(outDirName)
-        baseName = outDirName+'/'+currTime+'-'+methodName
+        baseName = self.getOutputBasename()
         outFile = open(baseName+'-log.txt', 'w')
 
         outFile.write("Data files used:\n")
@@ -794,15 +801,14 @@ class SyncPy2(QtGui.QMainWindow):
         #outFile.write("\n\nLog output:\n")
         #outFile.write(self.ui.outputPrintEdit.toPlainText())
         outFile.close()
-        self.ui.methodWidget.writeResults(baseName)
 
         try:
             for i in plot.get_fignums():
                 f = plot.figure(i)
                 #f.set_canvas(plot.gcf().canvas)
                 #currTime = time.strftime("%d%m%Y%H%M%S")
-                filename = methodName+"-Figure"+str(i)+".png"
-                outFile = os.path.abspath(outDirName+"/"+filename)
+                filename = baseName+"-Figure"+str(i)+".png"
+                outFile = os.path.abspath(filename)
                 print "Saving fig to: %s" % outFile
                 f.savefig(outFile)
         except Exception, ex:

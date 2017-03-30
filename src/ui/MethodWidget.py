@@ -300,7 +300,8 @@ class MethodWidget(QtGui.QWidget):
                         else:
                             self.widgetsValue[arg].setPlainText(str(argumentsAsDictionary[arg]))
 
-    def compute(self, signals):
+
+    def compute(self, signals, outputBasename):
         try:
             dictionary = self.getArgumentsAsDictionary()
             self.computeProcess = self.currentMethod(**dictionary)
@@ -311,12 +312,13 @@ class MethodWidget(QtGui.QWidget):
             return
 
         self.computeProcess.errorRaised = False
-        self.computeProcess.results = multiprocessing.Queue(0)
+        self.computeProcess.setOutputFilename(outputBasename+'.csv')
+        self.computeProcess.resQueue = multiprocessing.Queue(0)
 
         self.methodResults = {}
         self.computationInterrupted = False
 
-        self.computeProcess.start(signals, self.computeProcess.results)
+        self.computeProcess.start(signals, self.computeProcess.resQueue)
         self.computeCheckTimer.start(1000)
 
     def printResult(self, stdout):
@@ -341,19 +343,6 @@ class MethodWidget(QtGui.QWidget):
         s += "]"
         return s
 
-    def writeResults(self, filename):
-        results = self.methodResults
-        keys = results.keys()
-        rows = zip(*results.values())
-        with open(filename + '.csv', 'wb') as f:
-            writer = csv.writer(f)
-            for key in keys:
-                if keys.index(key) > 0:
-                    f.write(',')
-                f.write(key)
-            f.write(os.linesep)
-            writer.writerows(rows)
-
     @pyqtSlot()
     def stopComputeProcess(self):
         self.computeProcess.terminate()
@@ -365,17 +354,17 @@ class MethodWidget(QtGui.QWidget):
         stdout = sys.stdout
         #if not self.currentMethod.computationInProgress:
         if self.computeProcess.is_alive():
-            if self.computeProcess.results.qsize() > 0:
+            if self.computeProcess.resQueue.qsize() > 0:
                 self.computeProcess.terminate()
                 time.sleep(0.1)
         if not self.computeProcess.is_alive():
             self.computeCheckTimer.stop()
             if self.computationInterrupted:
                 print "Computation interrupted!"
-            elif self.computeProcess.results.get(): #get if error occured
+            elif self.computeProcess.resQueue.get(): #get if error occured
                 stdout = sys.stderr
 
-            filename = self.computeProcess.results.get()
+            filename = self.computeProcess.resQueue.get()
             time.sleep(2)
             self.methodResults = pickle.load(file(filename))
             self.printResult(stdout)

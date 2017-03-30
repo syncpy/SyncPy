@@ -6,15 +6,19 @@ import matplotlib.pyplot as plt
 import pickle
 import sys
 from ctypes import c_char_p
-import socket
-
+import os
+import csv
+import numpy as np
+import copy
 
 def debug(farg, *args):
-    pass
-    #print farg
-    #for arg in args:
-    #   print arg
+    #pass
+    print farg
+    for arg in args:
+       print arg
 
+def isType(object, typeName):
+    return type(object) is typeName
 
 class MethodArg:
     def __init__(self, label, value, type, hint):
@@ -58,11 +62,15 @@ class Method(multiprocessing.Process):
         self._plot = plot
         self.res = {}
         self.tmpRes = None
+        self.resQueue = None
         self.results = None
+        self.outputFilename = None
 
+    def setOutputFilename(self, filename):
+        self.outputFilename = filename
 
     def start(self, signals, queue):
-        self.results = queue
+        self.resQueue = queue
         self.signals = signals
         super(Method, self).start()
 
@@ -74,8 +82,12 @@ class Method(multiprocessing.Process):
         self.errorRaised = False
         try:
             debug("Computing starts")
-            self.tmpRes = self.compute(self.signals)
+            self.results = self.compute(self.signals)
+            self.tmpRes = self.results
             debug("Computing ends")
+            debug("Writing results starts")
+            self.writeToCSV(self.results)
+            debug("Writing results ends")
         except Exception, e:
             print "Computing error: %s" % e.message
             self.tmpRes = str(e.message)
@@ -94,8 +106,8 @@ class Method(multiprocessing.Process):
 
         debug("Putting in queue : ", self.tmpRes)
 
-        self.results.put(self.errorRaised)
-        self.results.put(self.tmpRes)
+        self.resQueue.put(self.errorRaised)
+        self.resQueue.put(self.tmpRes)
 
     def plot(self):
         if self._plot == True:
@@ -104,6 +116,24 @@ class Method(multiprocessing.Process):
 
     def plot_result(self):
         pass
+
+    def writeToCSV(self, results):
+        if results != None:
+            keys = results.keys()
+            filteredKeys = [k for k in keys if type(results[k]) is np.ndarray and results[k].size > 1 ]
+            filteredResults = dict()
+            for k in filteredKeys:
+                filteredResults[k] = results[k]
+            if len(filteredResults) > 0:
+                rows = zip(*filteredResults.values())
+                with open(self.outputFilename, 'wb') as f:
+                    writer = csv.writer(f)
+                    for key in filteredKeys:
+                        if keys.index(key) > 0:
+                            f.write(',')
+                        f.write(key)
+                    f.write(os.linesep)
+                    writer.writerows(rows)
 
     def getFigures(self):
         return self.figArray
