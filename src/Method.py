@@ -85,9 +85,7 @@ class Method(multiprocessing.Process):
             self.results = self.compute(self.signals)
             self.tmpRes = self.results
             debug("Computing ends")
-            debug("Writing results starts")
-            self.writeToCSV(self.results)
-            debug("Writing results ends")
+
         except Exception, e:
             print "Computing error: %s" % e.message
             self.tmpRes = str(e.message)
@@ -108,6 +106,10 @@ class Method(multiprocessing.Process):
 
         self.resQueue.put(self.errorRaised)
         self.resQueue.put(self.tmpRes)
+
+        debug("Writing results starts")
+        self.writeToCSV(self.results)
+        debug("Writing results ends")
 
     def plot(self):
         if self._plot == True:
