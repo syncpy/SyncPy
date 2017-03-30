@@ -772,7 +772,8 @@ class SyncPy2(QtGui.QMainWindow):
         outDirName = self.outputDirectory+'/syncpy_out-'+currDay
         if not(os.path.exists(outDirName)):
             os.mkdir(outDirName)
-        outFile = open(outDirName+'/'+currTime+'-'+methodName+'-log.txt', 'w')
+        baseName = outDirName+'/'+currTime+'-'+methodName
+        outFile = open(baseName+'-log.txt', 'w')
 
         outFile.write("Data files used:\n")
         for f in self.filesSelected:
@@ -793,6 +794,7 @@ class SyncPy2(QtGui.QMainWindow):
         #outFile.write("\n\nLog output:\n")
         #outFile.write(self.ui.outputPrintEdit.toPlainText())
         outFile.close()
+        self.ui.methodWidget.writeResults(baseName)
 
         try:
             for i in plot.get_fignums():

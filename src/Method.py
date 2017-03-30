@@ -97,7 +97,6 @@ class Method(multiprocessing.Process):
         self.results.put(self.errorRaised)
         self.results.put(self.tmpRes)
 
-
     def plot(self):
         if self._plot == True:
             plt.ion()

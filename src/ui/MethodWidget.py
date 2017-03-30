@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import pickle
 import os
 from pprint import pformat, pprint
+import csv
 
 def debug(farg, *args):
     pass
@@ -340,6 +341,18 @@ class MethodWidget(QtGui.QWidget):
         s += "]"
         return s
 
+    def writeResults(self, filename):
+        results = self.methodResults
+        keys = results.keys()
+        rows = zip(*results.values())
+        with open(filename + '.csv', 'wb') as f:
+            writer = csv.writer(f)
+            for key in keys:
+                if keys.index(key) > 0:
+                    f.write(',')
+                f.write(key)
+            f.write(os.linesep)
+            writer.writerows(rows)
 
     @pyqtSlot()
     def stopComputeProcess(self):
