@@ -12,10 +12,10 @@ import numpy as np
 import copy
 
 def debug(farg, *args):
-    #pass
-    print farg
-    for arg in args:
-       print arg
+    pass
+    #print farg
+    #for arg in args:
+    #   print arg
 
 def isType(object, typeName):
     return type(object) is typeName
