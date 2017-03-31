@@ -72,9 +72,9 @@ class WindowCrossCorrelation(Method):
     :type ele_per_sec: int  
     """
     argsList = MethodArgList()
-    argsList.append('tau_max', 0, int,
+    argsList.append('tau_max', 10, int,
                     'the maximum lag (in samples) at which correlation should be computed. It is in the range [0; (length(x)+length(y)-1)/2]')
-    argsList.append('window', 0, int, 'length (in samples) of the windowed signals')
+    argsList.append('window', 10, int, 'length (in samples) of the windowed signals')
     argsList.append('win_inc', 1, int, 'amount of time (in samples) elapsed between two windows')
     argsList.append('tau_inc', 1, int, 'amount of time (in samples) elapsed between two cross-correlation')
     argsList.append('plot', False, bool, 'if True the plot of correlation function is returned')
@@ -172,22 +172,26 @@ class WindowCrossCorrelation(Method):
         return fig
            
   
-    def compute(self, x, y):
+    def compute(self, signals):
         """
          it computes correlation function
          
-        :param x:
-            first input signal
-        :type x: pd.DataFrame
-        
-        :param y:
-            second input signal
-        :type y: pd.DataFrame
+        :param signals:
+            array containing the 2 signals as pd.DataFrame
+        :type signals: list
       
         :returns: dict
             -- windowed cross correlation dictionary with (2 * tau_max + 1)/tau_inc rows and (length(x) - window - win_inc)/ win_inc columns
         """
-        
+        try:
+            if not (isinstance(signals, list)): raise TypeError("Requires signals be an array")
+            if len(signals) != 2: raise TypeError("Requires signals be an array of two elements")
+        except TypeError, err_msg:
+            raise TypeError(err_msg)
+
+        x = signals[0]
+        y = signals[1]
+
         ' Raise error if parameters are not in the correct type '
         try :
             if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
@@ -196,21 +200,21 @@ class WindowCrossCorrelation(Method):
             raise TypeError(err_msg)
             return
         
-        lx=x.size
-        ly=y.size
+        lx = x.size
+        ly = y.size
         
         'Error if x and y have not the same size'
         try :
-            if lx != ly :
+            if lx != ly:
                 raise ValueError("x and y signals must have same size")
         except ValueError, err_msg:
             raise ValueError(err_msg)
             return
         
         ' Initialize default values if not given '
-        if self._tau_max == 0 :
+        if self._tau_max == 0:
             self._tau_max = lx / 10
-        if self._window == 0 :
+        if self._window == 0:
             self._window = lx / 10
         
         rate = 'sec' if(self._ele_per_sec != 1) else 'samples'
@@ -220,17 +224,17 @@ class WindowCrossCorrelation(Method):
         cross_corr = {}
         
         i = self._tau_max
-        while i <= lx - self._window : 
+        while i <= lx - self._window:
             curr_coef_lag = np.zeros(len(lag_array))
             idx = 0
-            for k in lag_array :
-                if k <= 0 :  # For negative tau
-                    curr_x = x[i : i + self._window].values
-                    curr_y = y[i + k : i + k + self._window].values
+            for k in lag_array:
+                if k <= 0:  # For negative tau
+                    curr_x = x[i: i + self._window].values
+                    curr_y = y[i + k: i + k + self._window].values
                         
-                else :      # For positive tau
-                    curr_x = x[i - k : i - k + self._window].values
-                    curr_y = y[i : i + self._window].values
+                else:      # For positive tau
+                    curr_x = x[i - k: i - k + self._window].values
+                    curr_y = y[i: i + self._window].values
                     
                 r = 0
                 for g in range(len(curr_x)):
@@ -245,12 +249,13 @@ class WindowCrossCorrelation(Method):
             i += self._win_inc
         
         ' Save result '
-        cross_corr['Lag'] =[float(x)/self._ele_per_sec for x in lag_array]
-        
+        #results = dict()
+        #results['Lag'] = [float(x)/self._ele_per_sec for x in lag_array]
+        #results['cross_corr'] = cross_corr
         if self._plot:
             #plt.ion()
             self.plot_result(cross_corr)
-        
+        #return results
         return cross_corr
 
     @staticmethod
