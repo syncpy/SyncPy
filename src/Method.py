@@ -9,6 +9,7 @@ from ctypes import c_char_p
 import os
 import csv
 import numpy as np
+import pandas as pd
 import copy
 
 def debug(farg, *args):
@@ -16,9 +17,6 @@ def debug(farg, *args):
     #print farg
     #for arg in args:
     #   print arg
-
-def isType(object, typeName):
-    return type(object) is typeName
 
 class MethodArg:
     def __init__(self, label, value, type, hint):
@@ -85,7 +83,9 @@ class Method(multiprocessing.Process):
             self.results = self.compute(self.signals)
             self.tmpRes = self.results
             debug("Computing ends")
-
+            debug("Writing results starts")
+            self.writeToCSV(self.results)
+            debug("Writing results ends")
         except Exception, e:
             print "Computing error: %s" % e.message
             self.tmpRes = str(e.message)
@@ -107,9 +107,7 @@ class Method(multiprocessing.Process):
         self.resQueue.put(self.errorRaised)
         self.resQueue.put(self.tmpRes)
 
-        debug("Writing results starts")
-        self.writeToCSV(self.results)
-        debug("Writing results ends")
+
 
     def plot(self):
         if self._plot == True:
@@ -119,23 +117,41 @@ class Method(multiprocessing.Process):
     def plot_result(self):
         pass
 
+    def writeNpArrayToCSV(self, keys, results):
+        filteredKeys = [k for k in keys if type(results[k]) is np.ndarray and results[k].size > 1]
+        filteredResults = dict()
+        for k in filteredKeys:
+            filteredResults[k] = results[k]
+        if len(filteredResults) > 0:
+            rows = zip(*filteredResults.values())
+            filename = "{0}.{1}".format(self.outputFilename, 'csv')
+            print "Writing csv file: " + filename
+            with open(filename, 'wb') as f:
+                writer = csv.writer(f)
+                for key in filteredKeys:
+                    if filteredKeys.index(key) > 0:
+                        f.write(',')
+                    f.write(key)
+                f.write(os.linesep)
+                writer.writerows(rows)
+
+
+    def writeNpDataFramesToCSV(self, keys, results):
+        filteredKeys = [k for k in keys if
+                              type(results[k]) is pd.DataFrame and results[k].shape[1] > 1 and results[k].shape[0] >= 1]
+        for k in filteredKeys:
+            filename = "{0}-{1}.{2}".format(self.outputFilename, k, 'csv')
+            print "Writing csv file: "+filename
+            results[k].to_csv(filename)
+
     def writeToCSV(self, results):
         if results != None:
+            if type(results) is not dict:
+                print 'Result is not a dictionary no output will be saved'
+                return
             keys = results.keys()
-            filteredKeys = [k for k in keys if type(results[k]) is np.ndarray and results[k].size > 1 ]
-            filteredResults = dict()
-            for k in filteredKeys:
-                filteredResults[k] = results[k]
-            if len(filteredResults) > 0:
-                rows = zip(*filteredResults.values())
-                with open(self.outputFilename, 'wb') as f:
-                    writer = csv.writer(f)
-                    for key in filteredKeys:
-                        if keys.index(key) > 0:
-                            f.write(',')
-                        f.write(key)
-                    f.write(os.linesep)
-                    writer.writerows(rows)
+            self.writeNpArrayToCSV(keys, results)
+            self.writeNpDataFramesToCSV(keys, results)
 
     def getFigures(self):
         return self.figArray

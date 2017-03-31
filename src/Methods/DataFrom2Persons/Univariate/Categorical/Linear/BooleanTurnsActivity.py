@@ -466,8 +466,11 @@ class BooleanTurnsActivity(Method):
         
         self._turns_activity_ratios = pd.DataFrame(res_ratio_dict)
         self._turns_activity_ratios[sorted(self._turns_activity_ratios.columns)]
-        
-        return self._turns_activity, self._turns_activity_ratios
+
+        result = dict()
+        result['turns_activity'] = self._turns_activity
+        result['turns_activity_ratios'] = self._turns_activity_ratios
+        return result
 
     @staticmethod
     def getArguments():

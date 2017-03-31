@@ -312,7 +312,7 @@ class MethodWidget(QtGui.QWidget):
             return
 
         self.computeProcess.errorRaised = False
-        self.computeProcess.setOutputFilename(outputBasename+'.csv')
+        self.computeProcess.setOutputFilename(outputBasename)
         self.computeProcess.resQueue = multiprocessing.Queue(0)
 
         self.methodResults = {}

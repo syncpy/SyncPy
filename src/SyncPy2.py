@@ -221,7 +221,7 @@ class SyncPy2(QtGui.QMainWindow):
     def computeBtnEvent(self):
         # load selected signals from selected files
         self.signals = []
-
+        self.outputBaseName = None
         ismat = False
         for f in self.filesSelected:
             if f.endswith('.mat'):
