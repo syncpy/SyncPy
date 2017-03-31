@@ -63,6 +63,7 @@ class HeaderFileWizard(QtGui.QDialog):
                 headers[i] = headers[i] + "-" + str(c)
                 c = headers.count(h)
         headers.reverse()
+        headers[0] = "Time"
         return headers
 
     def initUI(self):

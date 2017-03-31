@@ -344,32 +344,7 @@ class SyncPy2(QtGui.QMainWindow):
             if len(self.signalsHeader) > 0:
                 i = 0
                 for h in self.signalsHeader:
-#                   if "time" in h.lower():
-#                        continue
-                    item = QtGui.QTableWidgetItem(h)
-
-                    if not("time" in h.lower()):
-                        item.setCheckState(0)
-                        item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsUserCheckable)
-                    else:
-                        item.setBackground(SyncPy2.COLOR_GREY)
-                    table.setItem(i, 0, item)
-                    combo = QtGui.QComboBox()
-                    combo.addItem("continuous")
-                    if not ("time" in h.lower()):
-                        combo.addItem("categorical")
-
-                    combo.setCurrentIndex(headerWizardDialog.signalsType[i])
-                    QtCore.QObject.connect(combo, QtCore.SIGNAL("currentIndexChanged(QString)"), self.setSignalsRefreshed)
-                    table.setCellWidget(i, 1, combo)
-                    icon = QtGui.QIcon(QtGui.QPixmap(self.plotImgPath))
-                    item = QtGui.QTableWidgetItem(icon, "")
-                    if not ("time" in h.lower()):
-                        item.setCheckState(0)
-                        item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsUserCheckable)
-                    else:
-                        item.setBackground(SyncPy2.COLOR_GREY)
-                    table.setItem(i, 2, item)
+                    self.setSignalItem(table, i, h, "", False, False)
                     i += 1
                 self.showStatus("Signals loaded.")
 
@@ -465,23 +440,6 @@ class SyncPy2(QtGui.QMainWindow):
     @pyqtSlot()
     def unselectAll(self):
         self.setItemsCheckState(0)
-
-    # @pyqtSlot()
-    # def checkFileItemFromRowClick(self, index):
-    #
-    #     model = QtCore.QModelIndex()
-    #
-    #     if self.ui.toolBox.currentIndex() == 0:
-    #         self.clearSignals()
-    #         self.sessionHasBeenLoaded = False
-    #         model = self.ui.inputFileslistView.model()
-    #
-    #     if model is None:
-    #         return
-    #
-    #     item = model.item(index.row())
-    #     item.setCheckState(QtCore.Qt.Unchecked if item.checkState() == QtCore.Qt.Checked else QtCore.Qt.Checked)
-    #     model.reset()
 
     @pyqtSlot()
     def checkSignalItemFromCellClick(self, index):
@@ -722,22 +680,7 @@ class SyncPy2(QtGui.QMainWindow):
         i = 0
 
         for sig in self.loadedSession["Signals"]:
-            item = QtGui.QTableWidgetItem(sig["label"])
-            item.setCheckState(sig["checkState"])
-            if sig["checkState"] == QtCore.Qt.Checked:
-                self.signalsSelected.append(sig["label"])
-            item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsUserCheckable)
-            table.setItem(i, 0, item)
-            combo = QtGui.QComboBox()
-            combo.addItem("continuous")
-            combo.addItem("categorical")
-            combo.setCurrentIndex(0 if sig["type"] == "continuous" else 1)
-            table.setCellWidget(i,1,combo)
-            icon = QtGui.QIcon(QtGui.QPixmap(self.plotImgPath))
-            item = QtGui.QTableWidgetItem(icon,"")
-            item.setCheckState(sig["plotState"])
-            item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsUserCheckable)
-            table.setItem(i, 2, item)
+            self.setSignalItem(table, i, sig["label"], sig["type"], sig["checkState"], sig["plotState"])
             i += 1
 
         #populate method list
@@ -756,6 +699,32 @@ class SyncPy2(QtGui.QMainWindow):
         for i in xrange(0, len(self.headerMap)):
             self.signalsHeader.append(self.headerMap.keys()[i])
 
+    def setSignalItem(self, table, index, label, type, checked, plotted):
+        item = QtGui.QTableWidgetItem(label)
+        isTime = "time" in label.lower()
+        if not isTime:
+            item.setCheckState(checked)
+            item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsUserCheckable)
+        else:
+            item.setBackground(SyncPy2.COLOR_GREY)
+        table.setItem(index, 0, item)
+        combo = QtGui.QComboBox()
+        combo.addItem("continuous")
+        if not isTime:
+            combo.addItem("categorical")
+            QtCore.QObject.connect(combo, QtCore.SIGNAL("currentIndexChanged(QString)"), self.setSignalsRefreshed)
+        if type and combo.findText(type):
+            combo.setCurrentIndex(combo.findText(type))
+
+        table.setCellWidget(index, 1, combo)
+        icon = QtGui.QIcon(QtGui.QPixmap(self.plotImgPath))
+        item = QtGui.QTableWidgetItem(icon, "")
+        if not isTime:
+            item.setCheckState(plotted)
+            item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsUserCheckable)
+        else:
+            item.setBackground(SyncPy2.COLOR_GREY)
+        table.setItem(index, 2, item)
 
     def clearSignals(self):
             self.warnForGoingBack(False)

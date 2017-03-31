@@ -117,6 +117,16 @@ class Method(multiprocessing.Process):
     def plot_result(self):
         pass
 
+    def writeDicNpArrayToCSV(self, keys, results):
+        filename = "{0}-{1}.{2}".format(self.outputFilename, 'ar', 'csv')
+        print "Writing csv file: " + filename
+        with open(filename, 'wb') as f:
+            for k in keys:
+                f.write("%s," % k)
+                for item in results[k]:
+                    f.write("%s," % item)
+                f.write(os.linesep)
+
     def writeNpArrayToCSV(self, keys, results):
         filteredKeys = [k for k in keys if type(results[k]) is np.ndarray and results[k].size > 1]
         filteredResults = dict()
@@ -135,7 +145,6 @@ class Method(multiprocessing.Process):
                 f.write(os.linesep)
                 writer.writerows(rows)
 
-
     def writeNpDataFramesToCSV(self, keys, results):
         filteredKeys = [k for k in keys if
                               type(results[k]) is pd.DataFrame and results[k].shape[1] > 1 and results[k].shape[0] >= 1]
@@ -150,8 +159,12 @@ class Method(multiprocessing.Process):
                 print 'Result is not a dictionary no output will be saved'
                 return
             keys = results.keys()
-            self.writeNpArrayToCSV(keys, results)
-            self.writeNpDataFramesToCSV(keys, results)
+            if len(keys) < 100:
+                self.writeNpArrayToCSV(keys, results)
+                self.writeNpDataFramesToCSV(keys, results)
+            else:
+                self.writeDicNpArrayToCSV(keys, results)
+
 
     def getFigures(self):
         return self.figArray
