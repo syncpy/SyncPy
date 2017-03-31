@@ -123,8 +123,7 @@ class Method(multiprocessing.Process):
         with open(filename, 'wb') as f:
             for k in keys:
                 f.write("%s," % k)
-                for item in results[k]:
-                    f.write("%s," % item)
+                f.write(','.join([str(r) for r in results[k]]))
                 f.write(os.linesep)
 
     def writeNpArrayToCSV(self, keys, results):
@@ -138,10 +137,7 @@ class Method(multiprocessing.Process):
             print "Writing csv file: " + filename
             with open(filename, 'wb') as f:
                 writer = csv.writer(f)
-                for key in filteredKeys:
-                    if filteredKeys.index(key) > 0:
-                        f.write(',')
-                    f.write(key)
+                f.write(','.join([str(r) for r in filteredKeys]))
                 f.write(os.linesep)
                 writer.writerows(rows)
 
