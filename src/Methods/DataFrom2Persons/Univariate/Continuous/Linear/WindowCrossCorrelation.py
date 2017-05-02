@@ -249,14 +249,14 @@ class WindowCrossCorrelation(Method):
             i += self._win_inc
         
         ' Save result '
-        #results = dict()
-        #results['Lag'] = [float(x)/self._ele_per_sec for x in lag_array]
-        #results['cross_corr'] = cross_corr
+        results = dict()
+        results['Lag'] = [float(x)/self._ele_per_sec for x in lag_array]
+        results['cross_corr'] = cross_corr
         if self._plot:
             #plt.ion()
             self.plot_result(cross_corr)
-        #return results
-        return cross_corr
+        return results
+        #return cross_corr
 
     @staticmethod
     def getArguments():

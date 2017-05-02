@@ -158,6 +158,10 @@ class Method(multiprocessing.Process):
             if len(keys) < 100:
                 self.writeNpArrayToCSV(keys, results)
                 self.writeNpDataFramesToCSV(keys, results)
+                filteredKeys = [k for k in keys if
+                                type(results[k]) is dict]
+                for k in filteredKeys:
+                    self.writeDicNpArrayToCSV(results[k].keys(), results[k])
             else:
                 self.writeDicNpArrayToCSV(keys, results)
 
