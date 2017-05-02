@@ -79,6 +79,7 @@ class WindowCrossCorrelation(Method):
     argsList.append('tau_inc', 1, int, 'amount of time (in samples) elapsed between two cross-correlation')
     argsList.append('plot', False, bool, 'if True the plot of correlation function is returned')
     argsList.append('ele_per_sec', 1, bool, 'number of element in one second')
+    #argsList.append('test', "D:/projets/2016/SyncPy-Git/src/samples/syncpy_out-20170502/121412-WindowCrossCorrelation-log.txt", file, 'test')
 
     ''' Constructor '''
     def __init__(self, tau_max = 0, window = 0 , win_inc = 1, tau_inc = 1, plot = False, ele_per_sec = 1, **kwargs):

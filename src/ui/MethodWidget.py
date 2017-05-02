@@ -35,22 +35,28 @@ class ArgumentQTextEdit(QtGui.QWidget):
         #self.setStyleSheet("QLabel { background-color : red}")
         #horizontalLayout.setAlignment(QtCore.Qt.AlignVCenter)
         if type==str or type==int or type==float:
-            self.textEdit = QtGui.QTextEdit()
-            self.textEdit.setObjectName("textEdit-" + label)
-            self.textEdit.setAutoFillBackground(True)
-            self.textEdit.setMaximumSize(QtCore.QSize(16777215, 24))
-            self.textEdit.setAcceptRichText(False)
-            self.textEdit.textChanged.connect(self.textChangedEvent)
-            horizontalLayout.addWidget(self.textEdit)
-        elif type==bool:
-            self.textEdit = QtGui.QCheckBox()
-            self.textEdit.setObjectName("checkBox-" + label)
-            horizontalLayout.addWidget(self.textEdit)
-        elif type==list:
-            self.textEdit = QtGui.QComboBox()
-            self.textEdit.setObjectName("comboBox-" + label)
-            horizontalLayout.addWidget(self.textEdit)
+            self.editWidget = QtGui.QTextEdit()
+            self.editWidget.setObjectName("textEdit-" + label)
+            self.editWidget.setAutoFillBackground(True)
+            self.editWidget.setMaximumSize(QtCore.QSize(16777215, 24))
+            self.editWidget.setAcceptRichText(False)
+            self.editWidget.textChanged.connect(self.textChangedEvent)
 
+        elif type==bool:
+            self.editWidget = QtGui.QCheckBox()
+            self.editWidget.setObjectName("checkBox-" + label)
+
+        elif type==list:
+            self.editWidget = QtGui.QComboBox()
+            self.editWidget.setObjectName("comboBox-" + label)
+
+        elif type==file:
+            self.editWidget = QtGui.QPushButton()
+            self.editWidget.setObjectName("pushButton-" + label)
+            self.editWidget.setMaximumSize(QtCore.QSize(200, 24))
+            QtCore.QObject.connect(self.editWidget, QtCore.SIGNAL("clicked()"), self.pushButtonClicked)
+
+        horizontalLayout.addWidget(self.editWidget)
         
         # control
         self.controlWidget = QtGui.QLabel()
@@ -59,6 +65,14 @@ class ArgumentQTextEdit(QtGui.QWidget):
         horizontalLayout.addWidget(self.controlWidget)
 
         self.setLayout(horizontalLayout)
+
+    @pyqtSlot()
+    def pushButtonClicked(self):
+        fileName = fileName = QtGui.QFileDialog.getOpenFileName(self,
+                        "Select a data file", "", "data File (*.csv *.tsv *.txt")
+        self.setText(fileName)
+        self.textChangedEvent()
+
 
     @pyqtSlot()
     def textChangedEvent(self):
@@ -73,7 +87,7 @@ class ArgumentQTextEdit(QtGui.QWidget):
 
     @pyqtSlot()
     def checkArgument(self):
-        textValue = self.textEdit.toPlainText()
+        textValue = self.toPlainText()
         castingTo = self.type
         try:
             castingTo(textValue)
@@ -85,37 +99,43 @@ class ArgumentQTextEdit(QtGui.QWidget):
             self.controlWidget.setToolTip(e.message)
 
     def toPlainText(self):
-        return self.textEdit.toPlainText()
+        if self.type==file:
+            return self.editWidget.text()
+        else:
+            return self.editWidget.toPlainText()
 
     def setPlainText(self, s):
-        self.textEdit.setPlainText(s)
+        if self.type==file:
+            return self.editWidget.setText(s)
+        else:
+            self.editWidget.setPlainText(s)
 
     def setText(self, s):
-        self.textEdit.setText(s)
+        self.editWidget.setText(s)
 
     def setCheckState(self, s):
-        self.textEdit.setCheckState(s)
+        self.editWidget.setCheckState(s)
 
     def checkState(self):
-        return self.textEdit.checkState()
+        return self.editWidget.checkState()
 
     def addItem(self, s):
-        self.textEdit.addItem(s)
+        self.editWidget.addItem(s)
 
     def isChecked(self):
-        return self.textEdit.isChecked()
+        return self.editWidget.isChecked()
 
     def currentText(self):
-        return self.textEdit.currentText()
+        return self.editWidget.currentText()
 
     def count(self):
-        return self.textEdit.count()
+        return self.editWidget.count()
 
     def setCurrentIndex(self,index):
-        self.textEdit.setCurrentIndex(index)
+        self.editWidget.setCurrentIndex(index)
 
     def itemText(self,i):
-        return self.textEdit.itemText(i)
+        return self.editWidget.itemText(i)
 
 
 class MethodWidget(QtGui.QWidget):
@@ -225,7 +245,7 @@ class MethodWidget(QtGui.QWidget):
             # textedit
             textEdit = ArgumentQTextEdit(argument.label, argument.type, self.parent)
 
-            if argument.type==str or argument.type==int or argument.type==float:
+            if argument.type==str or argument.type==int or argument.type==float or argument.type == file:
                 if currentData[argument.label]:
                     textEdit.setText(str(currentData[argument.label]))
                 else:
@@ -242,6 +262,8 @@ class MethodWidget(QtGui.QWidget):
                     for i in xrange(0, len(argument.value)):
                         if(textEdit.itemText(i) == currentData[argument.label]):
                             textEdit.setCurrentIndex(i)
+
+
 
             textEdit.setToolTip(argument.hint)
 

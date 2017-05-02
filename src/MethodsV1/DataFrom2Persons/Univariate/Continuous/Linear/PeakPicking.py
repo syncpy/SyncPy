@@ -150,7 +150,7 @@ class PeakPicking :
             for col in sorted(self._corr_matrix.keys()):
                 if col != 'Lag':
                     for row in range(len(self._corr_matrix[col])):
-                        corr_mat[row, idx] =  self._corr_matrix[col][row]
+                        corr_mat[row, idx] = self._corr_matrix[col][row]
                     time_window_array[idx] = float(col)
                     idx += 1
 
