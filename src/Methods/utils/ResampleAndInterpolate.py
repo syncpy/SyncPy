@@ -60,7 +60,7 @@ def ResampleAndInterpolate(signal, rule='100ms', limit=None):
         print('ERROR : signal must have DateTime type index')
         return pd.DataFrame()
     
-    signal = signal.resample(rule=rule)
+    signal = signal.resample(rule=rule).mean()
     signal.interpolate(limit=limit, inplace = True)
 
     #convert back the time series in dataFrame 

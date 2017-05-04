@@ -17,13 +17,13 @@ print("This script computes the peak picking selection of a cross correlation ma
 print("*****************************************************************************")
 
 """ Import wanted modules with every parent packages """
-import DataFrom2Persons.Univariate.Continuous.Linear.WindowCrossCorrelation as WindowCrossCorrelation
-import DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking as PeakPicking
+import Methods.DataFrom2Persons.Univariate.Continuous.Linear.WindowCrossCorrelation as WindowCrossCorrelation
+import Methods.DataFrom2Persons.Univariate.Continuous.Linear.PeakPicking as PeakPicking
 
 """ Import Utils modules """
-from utils.ExtractSignal import ExtractSignalFromCSV
-from utils.ExtractSignal import ExtractSignalFromMAT
-from utils.ResampleAndInterpolate import ResampleAndInterpolate
+from Methods.utils.ExtractSignal import ExtractSignalFromCSV
+from Methods.utils.ExtractSignal import ExtractSignalFromMAT
+from Methods.utils.ResampleAndInterpolate import ResampleAndInterpolate
 
 '''
 """ Define signals in pd.dataFrame format """
@@ -40,12 +40,19 @@ y = pd.DataFrame({'Y':np.sin(2*3.14*2*f*n/Fs)})
 """OR"""
 """ Import signals from a .csv file """
 filename = 'data_examples/2Persons_Monovariate_Continuous_data_2.csv'
+filename = 'data_examples/2PersonsMonoContData2Rsp500ms.csv'
 x = ExtractSignalFromCSV(filename, columns = ['x'], unit = 's')
 y = ExtractSignalFromCSV(filename, columns = ['y'], unit = 's')
 
 # Resample and Interpolate data to have constant frequency
-x = ResampleAndInterpolate(x, rule='500ms', limit=5)
-y = ResampleAndInterpolate(y, rule='500ms', limit=5)
+#x = ResampleAndInterpolate(x, rule='500ms', limit=5)
+#y = ResampleAndInterpolate(y, rule='500ms', limit=5)
+
+
+#filenameOut = 'data_examples/2PersonsMonoContData2Rsp500ms.csv'
+#out = pd.DataFrame({'x': x.iloc[:,0], 'y': y.iloc[:,0]}).reset_index()
+#out.drop('Time (s)', 1, inplace=True)
+#out.to_csv(filenameOut,index_label =['Time','x','y'])
 
 '''
 """OR"""
@@ -90,7 +97,7 @@ except Exception, e :
 
 """ Compute the method and get the result """
 try : 
-    cross_corr = corr.compute(x,y)
+    cross_corr = corr.compute([x, y])
 except TypeError, err :
     print("TypeError in WindowCrossCorrelation computation : \n" + str(err))
     sys.exit(-1)
@@ -113,7 +120,7 @@ plot_on_mat = True  # if True the plot of peakpicking + correlation matrix funct
 sorted_peak = True  # if True the peaks found will be organized by type of Lag and Magnitude (positive or negative). Default: False
 
 """ Instanciate the class with its attributes """
-try : 
+try:
     peak = PeakPicking.PeakPicking(cross_corr, tau_max, tau_inc, threshold, lookahead, delta, ele_per_sec, plot, plot_on_mat, sorted_peak)
 except TypeError, err :
     print("TypeError in PeakPicking constructor : \n" + str(err))
@@ -126,8 +133,8 @@ except Exception, e :
     sys.exit(-1)
 
 """ Compute the method and get the result """
-try : 
-    sorted_peaks = peak.compute()
+try:
+    sorted_peaks = peak.compute([])
 except TypeError, err :
     print("TypeError in PeakPicking computation : \n" + str(err))
     sys.exit(-1)

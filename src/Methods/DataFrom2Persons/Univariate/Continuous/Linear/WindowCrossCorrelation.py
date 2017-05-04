@@ -78,7 +78,7 @@ class WindowCrossCorrelation(Method):
     argsList.append('win_inc', 1, int, 'amount of time (in samples) elapsed between two windows')
     argsList.append('tau_inc', 1, int, 'amount of time (in samples) elapsed between two cross-correlation')
     argsList.append('plot', False, bool, 'if True the plot of correlation function is returned')
-    argsList.append('ele_per_sec', 1, bool, 'number of element in one second')
+    argsList.append('ele_per_sec', 5, int, 'number of element in one second')
     #argsList.append('test', "D:/projets/2016/SyncPy-Git/src/samples/syncpy_out-20170502/121412-WindowCrossCorrelation-log.txt", file, 'test')
 
     ''' Constructor '''
@@ -117,7 +117,7 @@ class WindowCrossCorrelation(Method):
     
     
     ''' Plot the cross matrix '''
-    def plot_result(self, result):
+    def plot_result(self, results):
         """
         It plots the window cross correlation matrix
          
@@ -130,28 +130,28 @@ class WindowCrossCorrelation(Method):
         """
         ' Raise error if parameters are not in the correct type '
         try :
-            if not(isinstance(result, dict)) : raise TypeError("Requires result to be a dictionary")
+            if not(isinstance(results, dict)) : raise TypeError("Requires result to be a dictionary")
         except TypeError, err_msg:
             raise TypeError(err_msg)
             return
         
         ' Raise error if not the good dictionary '
         try :
-            if not 'Lag' in result : raise ValueError("Requires dictionary to be the output of compute() method")
+            if not 'Lag' in results : raise ValueError("Requires dictionary to be the output of compute() method")
         except ValueError, err_msg:
             raise ValueError(err_msg)
             return
-        
-        corr_mat = np.zeros( (len(result[result.keys()[0]]), len(result)-1) )
+
+        result = results['cross_corr']
+        corr_mat = np.zeros( (len(result[result.keys()[0]]), len(result)) )
         
         idx = 0
-        time_window_array = np.zeros(len(result)-1)
+        time_window_array = np.zeros(len(result))
         for col in sorted(result.keys()):
-            if col != 'Lag':
-                for row in range(len(result[col])):
-                    corr_mat[row, idx] =  result[col][row]
-                time_window_array[idx] = float(col)
-                idx += 1
+            for row in range(len(result[col])):
+                corr_mat[row, idx] = result[col][row]
+            time_window_array[idx] = float(col)
+            idx += 1
         
         fig = plt.figure()
         ax = fig.add_subplot(111)
@@ -163,8 +163,8 @@ class WindowCrossCorrelation(Method):
         
         x_min = time_window_array[0]
         x_max = time_window_array[len(time_window_array)-1]
-        y_min = float(max(result['Lag']))
-        y_max = float(min(result['Lag']))
+        y_min = float(max(results['Lag']))
+        y_max = float(min(results['Lag']))
         cax = ax.imshow(corr_mat, interpolation='bicubic', aspect='auto', \
                         extent=[x_min, x_max,y_min,y_max], \
                         cmap=plt.cm.hot)
@@ -244,7 +244,7 @@ class WindowCrossCorrelation(Method):
                 curr_coef_lag[idx] = r/len(curr_x)
                 idx += 1
                 
-            cross_corr[float(i)/self._ele_per_sec] = curr_coef_lag
+            cross_corr[float(i)/self._ele_per_sec] = curr_coef_lag.tolist()
             
             ' go to the next window '
             i += self._win_inc
@@ -255,7 +255,7 @@ class WindowCrossCorrelation(Method):
         results['cross_corr'] = cross_corr
         if self._plot:
             #plt.ion()
-            self.plot_result(cross_corr)
+            self.plot_result(results)
         return results
         #return cross_corr
 

@@ -47,8 +47,7 @@ def _datacheck_peakdetect(x_axis, y_axis):
         x_axis = range(len(y_axis))
     
     if len(y_axis) != len(x_axis):
-        raise (ValueError, 
-                'Input vectors y_axis and x_axis must have same length')
+        raise ValueError('Input vectors y_axis and x_axis must have same length')
     
     #needs to be a numpy array
     y_axis = np.array(y_axis)

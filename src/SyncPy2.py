@@ -612,6 +612,9 @@ class SyncPy2(QtGui.QMainWindow):
         session["Method"] = str(self.methodUsed)
         session["ColumnSeparator"] = str(self.columnSeparator)
         session["MethodArgs"] = self.ui.methodWidget.getArgumentsAsDictionary()
+        for arg in session["MethodArgs"]:
+            if isinstance(session["MethodArgs"][arg], file):
+                session["MethodArgs"][arg] = str(session["MethodArgs"][arg].name)
         session["ToolBoxIndex"] = self.ui.toolBox.currentIndex()
 
         with open(fname, 'w') as f:

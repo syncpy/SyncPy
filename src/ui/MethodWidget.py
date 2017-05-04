@@ -29,6 +29,7 @@ class ArgumentQTextEdit(QtGui.QWidget):
         self.type = type
         self.timer = None
         self.isValid = False
+        self.label = label
         # horizontal layout
         horizontalLayout = QtGui.QHBoxLayout(self)
         horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -54,7 +55,10 @@ class ArgumentQTextEdit(QtGui.QWidget):
             self.editWidget = QtGui.QPushButton()
             self.editWidget.setObjectName("pushButton-" + label)
             self.editWidget.setMaximumSize(QtCore.QSize(200, 24))
-            QtCore.QObject.connect(self.editWidget, QtCore.SIGNAL("clicked()"), self.pushButtonClicked)
+            #self.editWidget.setSizePolicy(QtCore.QSizePolicy.MinimumExpanding)
+            self.editWidget.setStyleSheet("QPushButton { text-align: right; }")
+            self.editWidget.setLayoutDirection(QtCore.Qt.RightToLeft)
+            QtCore.QObject.connect(self.editWidget, QtCore.SIGNAL("clicked()"), self.selectFileDialog)
 
         horizontalLayout.addWidget(self.editWidget)
         
@@ -67,9 +71,9 @@ class ArgumentQTextEdit(QtGui.QWidget):
         self.setLayout(horizontalLayout)
 
     @pyqtSlot()
-    def pushButtonClicked(self):
+    def selectFileDialog(self):
         fileName = fileName = QtGui.QFileDialog.getOpenFileName(self,
-                        "Select a data file", "", "data File (*.csv *.tsv *.txt")
+                        "Select a data file", "", "data File (*.*)")
         self.setText(fileName)
         self.textChangedEvent()
 
@@ -90,7 +94,12 @@ class ArgumentQTextEdit(QtGui.QWidget):
         textValue = self.toPlainText()
         castingTo = self.type
         try:
-            castingTo(textValue)
+            if castingTo == file and textValue == "":
+                raise ValueError(self.label + " can't be empty")
+            elif self.label:
+                castingTo(textValue)
+            else:
+                raise ValueError(self.label+" can't be empty")
             self.controlWidget.setPixmap(MethodWidget.getOkPixmap())
             self.isValid = True
         except ValueError as e:
@@ -291,6 +300,10 @@ class MethodWidget(QtGui.QWidget):
                                 argumentsAsDictionary[arg] = False
                         elif self.widgetsValue[arg].type == list:
                             argumentsAsDictionary[arg] = str(self.widgetsValue[arg].currentText())
+                        elif self.widgetsValue[arg].type == file:
+                            textValue = self.widgetsValue[arg].toPlainText()
+                            if textValue:
+                                argumentsAsDictionary[arg] = file(textValue)
                         else:
                             textValue = self.widgetsValue[arg].toPlainText()
                             castingTo = self.argumentsMap[arg].type

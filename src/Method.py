@@ -10,7 +10,7 @@ import os
 import csv
 import numpy as np
 import pandas as pd
-import copy
+import json
 
 def debug(farg, *args):
     pass
@@ -107,8 +107,6 @@ class Method(multiprocessing.Process):
         self.resQueue.put(self.errorRaised)
         self.resQueue.put(self.tmpRes)
 
-
-
     def plot(self):
         if self._plot == True:
             plt.ion()
@@ -117,14 +115,23 @@ class Method(multiprocessing.Process):
     def plot_result(self):
         pass
 
+    def writeDictToJSON(self, dic):
+        filename = "{0}.{1}".format(self.outputFilename, 'json')
+        print "Writing json file: " + filename
+        with open(filename, 'wb') as f:
+            f.write(json.dumps(dic))
+
+    def writeArrayToFile(self, file, label, array):
+        file.write("%s," % label)
+        file.write(','.join([str(r) for r in array]))
+        file.write(os.linesep)
+
     def writeDicNpArrayToCSV(self, keys, results):
         filename = "{0}-{1}.{2}".format(self.outputFilename, 'ar', 'csv')
         print "Writing csv file: " + filename
         with open(filename, 'wb') as f:
             for k in keys:
-                f.write("%s," % k)
-                f.write(','.join([str(r) for r in results[k]]))
-                f.write(os.linesep)
+                self.writeArrayToFile(f, k, results[k])
 
     def writeNpArrayToCSV(self, keys, results):
         filteredKeys = [k for k in keys if type(results[k]) is np.ndarray and results[k].size > 1]
@@ -156,12 +163,12 @@ class Method(multiprocessing.Process):
                 return
             keys = results.keys()
             if len(keys) < 100:
-                self.writeNpArrayToCSV(keys, results)
-                self.writeNpDataFramesToCSV(keys, results)
-                filteredKeys = [k for k in keys if
-                                type(results[k]) is dict]
-                for k in filteredKeys:
-                    self.writeDicNpArrayToCSV(results[k].keys(), results[k])
+                if len(keys) > 1 and (type(results[keys[0]]) is dict
+                    or type(results[keys[1]]) is dict):
+                    self.writeDictToJSON(results)
+                else:
+                    self.writeNpArrayToCSV(keys, results)
+                    self.writeNpDataFramesToCSV(keys, results)
             else:
                 self.writeDicNpArrayToCSV(keys, results)
 
