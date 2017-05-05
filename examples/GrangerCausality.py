@@ -8,6 +8,7 @@ import sys
 import numpy as np              # Mathematical package
 import matplotlib.pyplot as plt # Plotting package
 sys.path.insert(0, '../src/')       # To be able to import from parent directory
+sys.path.insert(0, '../src/Methods')
 
 print("\n")
 print("*************************************************************************************")

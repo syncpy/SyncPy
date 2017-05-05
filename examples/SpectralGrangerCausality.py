@@ -10,6 +10,7 @@ import numpy as np              # Mathematical package
 import pandas as pd             # Time serie package
 import matplotlib.pyplot as plt # Plotting package
 sys.path.insert(0, '../src/')       # To be able to import from parent directory
+sys.path.insert(0, '../src/Methods')
 
 print("\n")
 print("*************************************************************************************")
@@ -57,7 +58,7 @@ print("An instance of the class is now created with the following parameters:\n"
 print("\n")
 print("Computing...\n")
 try : 
-	results = sgc.compute(x1,x2)
+	results = sgc.compute([x1,x2])
 except TypeError, err :
 	print("TypeError in SpectralGrangerCausality computation : \n" + str(err))
 	sys.exit(-1)
