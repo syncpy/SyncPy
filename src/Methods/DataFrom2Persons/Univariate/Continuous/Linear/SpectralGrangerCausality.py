@@ -2,10 +2,10 @@
 ### Copyright 2015, ISIR / Universite Pierre et Marie Curie (UPMC)
 ### Main contributor(s): Giovanna Varni, Marie Avril,
 ### syncpy@isir.upmc.fr
-### 
+###
 ### This software is a computer program whose for investigating
-### synchrony in a fast and exhaustive way. 
-### 
+### synchrony in a fast and exhaustive way.
+###
 ### This software is governed by the CeCILL-B license under French law
 ### and abiding by the rules of distribution of free software.  You
 ### can use, modify and/ or redistribute the software under the terms
@@ -17,7 +17,7 @@
 ### provided only with a limited warranty and the software's author,
 ### the holder of the economic rights, and the successive licensors
 ### have only limited liability.
-### 
+###
 ### In this respect, the user's attention is drawn to the risks
 ### associated with loading, using, modifying and/or developing or
 ### reproducing the software by the user in light of its specific
@@ -29,7 +29,7 @@
 ### enabling the security of their systems and/or data to be ensured
 ### and, more generally, to use and operate it in the same conditions
 ### as regards security.
-### 
+###
 ### The fact that you are presently reading this means that you have
 ### had knowledge of the CeCILL-B license and that you accept its terms.
 
@@ -46,29 +46,26 @@ from statsmodels.regression.linear_model import \
     OLS  # Class to compute autoregressive model with 'Ordinary Least Squares'  method
 from statsmodels.tsa.tsatools import lagmat2ds  # Specific function
 from statsmodels.tools.tools import add_constant  # Specific function
-
 from Method import Method, MethodArgList
 
 
-class GrangerCausality(Method):
+class SpectralGrangerCausality(Method):
     """
-    It computes a Granger causality test between two univariate signals x and y (in pandas DataFrame format). It computes
-    unidirectionnal causality test with a bivariate autoregressive model and test if the unrestricted model is statistically
-    significant compared to the restricted one. An F-test is computed and then the interpretation is up to the user.
+    It computes a Granger causality test between two univariate signals x and y (in pandas DataFrame format), in the
+    spectral domain.
 
     **Reference :**
 
-    * Anil K. Seth. A MATLAB toolbox for Granger causal connectivity analysis. Journal of Neuroscience Methods, 186(2) :262-273, February 2010.
+    * Adam B. Barrett, Michael Murphy, Marie-Aurelie Bruno, Quentin Noirhomme, Melanie Boly, Steven Laureys, and Anil K. Seth. Granger Causality Analysis of Steady-State Electroencephalographic Signals during Propofol-Induced Anaesthesia. PLoS ONE, 7(1) :e29072, January 2012.
 
-    :param max_lag:
-        The number of maximum lag (in samples) with which the autoregressive model will be computed.
+    :param max_lag: The number of maximum lag (in samples) with which the autoregressive model will be computed.
         It ranges in [1;length(x)]. Default : 1.
     :type max_lag: int
 
     :param criterion: A string that contains the name of the selected criterion to estimate optimal number of lags value.
         Two choices are possible :
             1.'bic' (Bayesian Information Criterion);
-            2.'aic' (Akaike Information Criterion)
+            2.'aic' (Akaike information criterion)
         Default : 'bic'
     :type criterion: str
 
@@ -78,14 +75,13 @@ class GrangerCausality(Method):
     """
     argsList = MethodArgList()
     argsList.append('max_lag', 1, int,
-                    'The number of maximum lag (in samples) with which the autoregressive model will be computed')
+                    'The number of maximum lag (in samples) with which the autoregressive model will be computed. It ranges in [1;length(x)]')
     argsList.append('criterion', ['bic', 'aic'], list, 'criterion to estimate optimal number of lags value')
     argsList.append('plot', False, bool, ' plot of correlation function ')
-
     ''' Constructor '''
 
     def __init__(self, max_lag=1, criterion='bic', plot=False, **kwargs):
-        super(GrangerCausality, self).__init__(plot, **kwargs)
+        super(SpectralGrangerCausality, self).__init__(plot, **kwargs)
         ' Raise error if parameters are not in the correct type '
         try:
             if not (isinstance(plot, bool)): raise TypeError("Requires plot to be a bool")
@@ -109,18 +105,29 @@ class GrangerCausality(Method):
         self._criterion = criterion
         self._plot = plot
 
-    def plot_result(self, result):
+        ' Attributes that will be initialised when the compute method is called '
+        self._OLS_restricted_x = None
+        self._OLS_unrestricted_x = None
+        self._OLS_restricted_y = None
+        self._OLS_unrestricted_y = None
+        self._freq = None
+        self._F_xy = None
+        self._F_value = 0
+        self._p_value = 0
+        self._olag = 0
+
+    def plot_result(self):
         """
-        It plots the results of AR process for both restricted and unrestricted models :
+        It plots the results of SpectralGrangerCausality Test : F y->x is computed for each frequency (Hz), and then plotted
 
         :param result:
-            Granger Causality result from compute()
+            Spectral Granger Causality result from compute()
         :type result: dict
 
         :returns: plt.figure
-            -- A figure that contains all the subplots
+            -- A figure that contains the plot
         """
-
+        result = self.res
         ' Raise error if parameters are not in the correct type '
         try:
             if not (isinstance(result, dict)): raise TypeError("Requires result to be a dictionary")
@@ -130,35 +137,29 @@ class GrangerCausality(Method):
 
         ' Raise error if not the good dictionary '
         try:
-            if not 'predicted_signal_restricted' in result: raise ValueError(
-                "Requires dictionary to be the output of compute() method")
-            if not 'predicted_signal_unrestricted' in result: raise ValueError(
-                "Requires dictionary to be the output of compute() method")
+            if not 'Freq' in result: raise ValueError("Requires dictionary to be the output of compute() method")
+            if not 'F_xy' in result: raise ValueError("Requires dictionary to be the output of compute() method")
         except ValueError, err_msg:
             raise ValueError(err_msg)
             return
 
-        # Define 2 subplots
-        figure, ax = plt.subplots(2, sharex=True)
+        # Define a plot figure
+        fig = plt.figure()
+
+        # Define 1 subplots
+        ax1 = fig.add_subplot(111)
 
         # Option on axis 1
-        ax[0].grid(True)
-        ax[0].set_title('Predicted signal - Restricted model')
-        ax[0].set_xlabel('Samples')
-        ax[0].set_ylabel('Amplitude')
+        ax1.grid(True)
+        ax1.set_title('F y->x expressed as a log ratio')
+        ax1.set_xlabel('Frequency (Hz)')
+        ax1.set_ylabel('Value')
 
-        # Option on axis 2
-        ax[1].grid(True)
-        ax[1].set_title('Predicted signal - Unrestricted model')
-        ax[1].set_xlabel('Samples')
-        ax[1].set_ylabel('Amplitude')
-
-        # Plot signals :
-        ax[0].plot(result['predicted_signal_restricted'], color='blue')
-        ax[1].plot(result['predicted_signal_unrestricted'], color='green')
+        # Plot
+        ax1.plot(result['Freq'], result['F_xy'], color='black')
 
         # Return figure
-        return figure
+        return fig
 
     ''' Computes GrangerCausality tests '''
 
@@ -172,7 +173,7 @@ class GrangerCausality(Method):
         :type signals: list
 
         :returns: dict
-            -- F-values and P-values.
+            -- F_xy
         """
         try:
             if not (isinstance(signals, list)): raise TypeError("Requires signals be an array")
@@ -198,8 +199,13 @@ class GrangerCausality(Method):
             raise ValueError(err_msg)
             return
 
+        ' FIRST PART - Computing OLS models '
         # Saving the size of signals (they all supposed to have the same size)
         T = len(x)
+
+        # Saving Sampling rate :
+        Delta = x.index[1] - x.index[0]
+        self._Time_sampling = Delta.total_seconds()
 
         # Converting DataFrames to arrays :
         signal_to_predict = np.array(x).reshape(len(x))
@@ -207,6 +213,7 @@ class GrangerCausality(Method):
 
         # Concatenate the two signals in a (nobs,2) array
         X = np.array([signal_to_predict, helping_signal]).T
+        Y = np.array([helping_signal, signal_to_predict]).T
 
         # Arrays that will contain BIC or AIC values according to the given criterion :
         C_r = np.zeros((self._max_lag, 1))
@@ -232,59 +239,85 @@ class GrangerCausality(Method):
                 C_r[lag - 1] = OLS_restricted.aic
                 C_u[lag - 1] = OLS_unrestricted.aic
 
-            # Determine the optimal 'lag' according to 'bic' or 'aic' criterion :
+        # Determine the optimal 'lag' according to 'bic' or 'aic' criterion :
         olag_r = C_r.argmin() + 1
         olag_u = C_u.argmin() + 1
         olag = min(olag_r, olag_u)
+        self._olag = olag
 
-        # Computing OLS models with the optimal 'lag'
+        # Computing OLS models of 'x' signal with the optimal 'lag'
         data = lagmat2ds(X, olag, trim='both', dropex=1)
         dataown = add_constant(data[:, 1:(olag + 1)], prepend=False)
         datajoint = add_constant(data[:, 1:], prepend=False)
-        OLS_restricted = OLS(data[:, 0], dataown).fit()
-        OLS_unrestricted = OLS(data[:, 0], datajoint).fit()
+        self._OLS_restricted_x = OLS(data[:, 0], dataown).fit()
+        self._OLS_unrestricted_x = OLS(data[:, 0], datajoint).fit()
 
-        # Computing log ratio :
-        ratio = np.log(np.var(OLS_restricted.resid) / np.var(OLS_unrestricted.resid))
+        # Computing OLS models of 'y' signal with the optimal 'lag'
+        data = lagmat2ds(Y, olag, trim='both', dropex=1)
+        dataown = add_constant(data[:, 1:(olag + 1)], prepend=False)
+        datajoint = add_constant(data[:, 1:], prepend=False)
+        self._OLS_restricted_y = OLS(data[:, 0], dataown).fit()
+        self._OLS_unrestricted_y = OLS(data[:, 0], datajoint).fit()
 
-        # Doing the F-TEST:
-        F_value = (
-        (OLS_restricted.ssr - OLS_unrestricted.ssr) / OLS_unrestricted.ssr / olag * OLS_unrestricted.df_resid)
-        p_value = stats.f.sf(F_value, olag, OLS_unrestricted.df_resid)
+        # Doing the F-TEST: !!! I don't know if it's necessary here !!!
+        self._F_value = ((
+                         self._OLS_restricted_x.ssr - self._OLS_unrestricted_x.ssr) / self._OLS_unrestricted_x.ssr / olag * self._OLS_unrestricted_x.df_resid)
+        self._p_value = stats.f.sf(self._F_value, olag, self._OLS_unrestricted_x.df_resid)
 
-        # Computing predicted signal with restricted model :
-        predicted_signal_restricted = np.zeros(T)
-        predicted_signal_restricted[0:olag] = np.copy(X[0:olag, 0])
+        ' SECOND PART : Spectral domain causality '
 
-        for i in range(olag, T):
-            predicted_signal_restricted[i] = np.dot(X[(i - 1) - np.array(range(0, olag)), 0],
-                                                    OLS_restricted.params[0:olag])
+        # Preparing matrix
+        K = T
+        A_f = np.zeros((K, 2, 2), dtype=complex)  # Coefficients matrix - spectral domain
+        A_t = np.zeros((olag, 2, 2))  # Coefficients matrix - time domain
+        A_tmp = np.zeros((olag, 2, 2), dtype=complex)  # Tmp matrix
+        I = np.identity(2)  # Identity matrix
 
-        # Computing predicted signal with unrestricted model :
-        predicted_signal_unrestricted = np.zeros(T)
-        predicted_signal_unrestricted[0:olag] = np.copy(X[0:olag, 0])
+        T_s = self._Time_sampling  # Sampling time
+        f = np.linspace(0, 1 / (2 * T_s), K)  # Frequencies
+        freq = np.copy(f)  # Saving frequency (Hz) into object (for plot)
+        z = np.exp(-1j * 2 * np.pi * T_s * f)  # complexe value associated with f
 
-        for i in range(olag, T):
-            for k in range(0, 2):
-                predicted_signal_unrestricted[i] = predicted_signal_unrestricted[i] + np.dot(
-                    X[(i - 1) - np.array(range(0, olag)), k], OLS_unrestricted.params[k * olag:(k + 1) * olag])
+        # Assembling parameters :
+        for k in range(0, olag):
+            A_t[k][0][0] = self._OLS_unrestricted_x.params[k]
+            A_t[k][0][1] = self._OLS_unrestricted_x.params[k + olag]
+            A_t[k][1][0] = self._OLS_unrestricted_y.params[k + olag]
+            A_t[k][1][1] = self._OLS_unrestricted_y.params[k]
 
-        results = dict()
-        results['F_value'] = F_value
-        results['p_value'] = p_value
-        results['ratio'] = ratio
-        results['optimal_lag'] = olag
-        results['predicted_signal_restricted'] = predicted_signal_restricted
-        results['predicted_signal_unrestricted'] = predicted_signal_unrestricted
+        # Computing A(w) :
+        for i in range(0, K):
+            for k in range(0, olag):
+                A_tmp[k] = A_t[k] * (z[i] ** k)
+            A_f[i] = I - sum(A_tmp)
+
+        # Computing H(w) as the inverse of A(w):
+        H_w = np.zeros((K, 2, 2), dtype=complex)  # Transfert matrix for each w
+        for i in range(0, K):
+            H_w[i] = np.linalg.inv(A_f[i])
+
+        # Computing F y->x :
+        SIG = np.cov(self._OLS_unrestricted_x.resid, self._OLS_unrestricted_y.resid)  # Covariance matrix
+        F_xy = np.zeros(K)  # F y->x value
+
+        for i in range(0, K):
+            Sxx = SIG[0][0] * (H_w[i][0][0].real ** 2 + H_w[i][0][0].imag ** 2) + SIG[1][1] * (
+            H_w[i][0][1].real ** 2 + H_w[i][0][1].imag ** 2)
+            Den = SIG[0][0] * (H_w[i][0][0].real ** 2 + H_w[i][0][0].imag ** 2)
+            F_xy[i] = np.log(Sxx / Den)
+
+        self.res = dict()
+        self.res['Freq'] = freq
+        self.res['F_xy'] = F_xy
 
         self.plot()
 
-        return results
+        return self.res
 
     @staticmethod
     def getArguments():
-        return GrangerCausality.argsList.getMethodArgs()
+        return SpectralGrangerCausality.argsList.getMethodArgs()
 
     @staticmethod
     def getArgumentsAsDictionary():
-        return GrangerCausality.argsList.getArgumentsAsDictionary()
+        return SpectralGrangerCausality.argsList.getArgumentsAsDictionary()
