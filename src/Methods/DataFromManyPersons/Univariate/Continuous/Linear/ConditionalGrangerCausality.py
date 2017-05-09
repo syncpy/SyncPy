@@ -214,8 +214,8 @@ class ConditionalGrangerCausality(Method):
             for j in range(0,len(signals)):
                 if (i != j):
                     gc = GC.GrangerCausality(max_lag = self._max_lag, criterion = self._criterion, plot = False)
-                    gc.compute(signals[i],signals[j])
-                    if gc._ratio > 0 and gc._p_value < 0.01:
+                    res = gc.compute([signals[i],signals[j]])
+                    if res['ratio'] > 0 and res['p_value'] < 0.01:
                         print "Results : signal",j+1,"->",i+1,"detected"
                         M_direct[i,j] = 1
 
