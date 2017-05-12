@@ -40,8 +40,8 @@ plt.ion()
 nrows = len(Signals)
 figure, ax = plt.subplots(nrows, sharex=True)
 idx = 0 
-for col in  range(len(Signals)) :
-    ax[idx].grid(True) # Display a grid
+for col in range(len(Signals)):
+    ax[idx].grid(True)		# Display a grid
     ax[idx].set_title('Input signal : ' + str(Signals[col].columns[0]))
     ax[idx].plot(Signals[col].index, Signals[col].iloc[:,0])
     idx += 1
@@ -79,7 +79,7 @@ print("\n")
 print("Computing...\n")
 
 try : 
-	results = gc.compute(x1,x2)
+	results = gc.compute([x1,x2])
 except TypeError, err :
 	print("TypeError in GrangerCausality computation : \n" + str(err))
 	sys.exit(-1)

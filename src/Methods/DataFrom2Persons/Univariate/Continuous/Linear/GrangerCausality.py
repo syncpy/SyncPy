@@ -108,19 +108,17 @@ class GrangerCausality(Method):
         self._max_lag = max_lag
         self._criterion = criterion
         self._plot = plot
+        self.res = None
 
-    def plot_result(self, result):
+
+    def plot_result(self):
         """
         It plots the results of AR process for both restricted and unrestricted models :
-
-        :param result:
-            Granger Causality result from compute()
-        :type result: dict
 
         :returns: plt.figure
             -- A figure that contains all the subplots
         """
-
+        result = self.res
         ' Raise error if parameters are not in the correct type '
         try:
             if not (isinstance(result, dict)): raise TypeError("Requires result to be a dictionary")
@@ -277,6 +275,7 @@ class GrangerCausality(Method):
         results['predicted_signal_restricted'] = predicted_signal_restricted
         results['predicted_signal_unrestricted'] = predicted_signal_unrestricted
 
+        self.res = results
         self.plot()
 
         return results
