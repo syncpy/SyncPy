@@ -11,6 +11,14 @@ import os
 import subprocess
 import sys
 import time
+import urllib2
+from urllib2 import urlopen
+import zipfile
+import distutils.core
+import shutil
+import ssl
+import requests
+from PyQt4.QtGui import QApplication
 
 sys.path.insert(0, '.')
 sys.path.insert(0, 'Methods')
@@ -100,6 +108,7 @@ class SyncPy2(QtGui.QMainWindow):
         self.appVersion = self.getFromConfig('app.version')
         self.appName = self.getFromConfig('app.name')
         self.syncpyver = self.getFromConfig('sessionVersion')
+        self.lastUpdate = self.getFromConfig('lastUpdate')
 
         self.plotImgPath = self.getFromConfig("plotImgPath")
 
@@ -138,6 +147,7 @@ class SyncPy2(QtGui.QMainWindow):
         self.ui.actionSaveSession.triggered.connect(self.saveSession)
         self.ui.actionGIT.triggered.connect(self.openGIT)
         self.ui.actionAbout.triggered.connect(self.openAbout)
+        self.ui.actionUpdate.triggered.connect(self.checkUpdates)
         self.ui.actionSaveSessionOver.triggered.connect(self.resaveSession)
         self.ui.actionLoadSession.triggered.connect(self.loadSession)
         self.ui.clearLogPushButton.clicked.connect(self.clearLogBtnEvent)
@@ -897,6 +907,84 @@ class SyncPy2(QtGui.QMainWindow):
             if not fileName.endsWith('.csv'):
                 fileName = fileName+'.csv'
             seletedSignals.to_csv(path_or_buf=fileName,header=True,sep=';')
+
+    @pyqtSlot()
+    def checkUpdates(self):
+        # get  last commit number
+        context = ssl._create_unverified_context()
+        url = 'https://api.github.com/repos/syncpy/SyncPy/commits?per_page=1'
+        try:
+            response = urlopen(url, timeout=2, context=context).read()
+        except (urllib2.HTTPError, urllib2.URLError):
+            QtGui.QMessageBox.information(self, 'SyncPy Updater','Unable to reach the server, check your internet connexion.')
+            return
+            
+        data = json.loads(response.decode())
+        # if difference, ask for update
+        if data[0]["sha"] != self.lastUpdate:
+            updateMsg = "New update available, do you want to update now?"
+            reply = QtGui.QMessageBox.question(self, 'SyncPy Updater', 
+                             updateMsg, QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+
+            # download last git archive
+            # extract it
+            # copy files
+            # update last update number
+            # ask for restart syncpy
+            if reply == QtGui.QMessageBox.Yes:
+                updateWindow = QtGui.QDialog(self)
+                updateWindow.setWindowTitle("SyncPy Updater")
+                updateWindow.setFixedSize(350,75)
+                pb = QtGui.QProgressBar(updateWindow)
+                pb.setTextVisible(False)
+                pb.setGeometry(0, 0, 350, 25)
+                pb.setRange(0, 100)
+                pb.setProperty("value", 0)
+                lb = QtGui.QLabel(updateWindow)
+                lb.setGeometry(0, 30, 350, 25)
+                lb.setText("Downloading update...")
+                updateWindow.show()
+                updateWindow.setWindowModality(QtCore.Qt.ApplicationModal)
+                updateWindow.setModal(True)
+                
+                url = "https://github.com/syncpy/SyncPy/archive/master.zip"
+                file_name = url.split('/')[-1]
+                r = requests.get(url)
+                file_size = len(r.content)
+                file_size_dl = 0
+                with open(file_name, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=512): 
+                        if chunk: # filter out keep-alive new chunks
+                            file_size_dl += 512
+                            pb.setValue(file_size_dl * 100. / file_size)
+                            QApplication.processEvents()
+                            f.write(chunk)
+                    f.close()
+                
+                lb.setText("Installing update...")
+                
+                zip_ref = zipfile.ZipFile(file_name, 'r')
+                zip_ref.extractall("update")
+                zip_ref.close()
+                
+                time.sleep(1)
+                
+                distutils.dir_util.copy_tree("update/SyncPy-master", "../")
+                shutil.rmtree("update")
+                os.remove("master.zip")
+                
+                self.config = ConfigParser.RawConfigParser()
+                self.config.read('conf.ini')
+                self.config.set('SyncPy2','lastUpdate',data[0]["sha"])
+                self.lastUpdate = data[0]["sha"]
+                with open('conf.ini', 'w') as configfile:
+                    self.config.write(configfile)
+                                
+                updateWindow.close()  
+
+                QtGui.QMessageBox.information(self, 'SyncPy Updater','Update complete, restart SyncPy to apply changes.')
+        else:
+            QtGui.QMessageBox.information(self, 'SyncPy Updater','No update found')
 
 
 if __name__ == "__main__":
