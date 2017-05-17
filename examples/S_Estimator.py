@@ -10,6 +10,7 @@ import numpy as np              # Mathematical package
 import pandas as pd             # Time serie package
 import matplotlib.pyplot as plt # Plotting package
 sys.path.insert(0, '../src/')       # To be able to import from parent directory
+sys.path.insert(0, '../src/Methods')
 
 print("\n")
 print("*************************************************************************************")
@@ -18,7 +19,7 @@ print("This script computes Synchronization indexes for multiple monovariate sig
 print("*************************************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFromManyPersons.Univariate.Continuous.Linear.S_Estimator as S_Estimator
+import MethodsV1.DataFromManyPersons.Univariate.Continuous.Linear.S_Estimator as S_Estimator
 from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ExtractSignal import ExtractSignalFromMAT
 from utils.Standardize import Standardize

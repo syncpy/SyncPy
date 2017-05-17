@@ -39,13 +39,13 @@ plt.ion()
 
 nrows = len(Signals)
 figure, ax = plt.subplots(nrows, sharex=True)
-idx = 0 
+idx = 0
 for col in range(len(Signals)):
     ax[idx].grid(True)		# Display a grid
     ax[idx].set_title('Input signal : ' + str(Signals[col].columns[0]))
     ax[idx].plot(Signals[col].index, Signals[col].iloc[:,0])
     idx += 1
-    
+
 ax[idx-1].set_xlabel('Time')
 
 

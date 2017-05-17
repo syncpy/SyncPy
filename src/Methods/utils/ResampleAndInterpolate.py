@@ -56,7 +56,7 @@ def ResampleAndInterpolate(signal, rule='100ms', limit=None):
         -- resampled signal with linear interpolation of added data
     """
 
-    if(type(signal.index[0]) != pd.tslib.Timestamp):
+    if(type(signal.index[0]) != pd.Timestamp):
         print('ERROR : signal must have DateTime type index')
         return pd.DataFrame()
     
