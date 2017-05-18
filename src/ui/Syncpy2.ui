@@ -58,8 +58,8 @@ p, li { white-space: pre-wrap; }
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>422</width>
-             <height>491</height>
+             <width>191</width>
+             <height>153</height>
             </rect>
            </property>
            <attribute name="label">
@@ -180,7 +180,7 @@ p, li { white-space: pre-wrap; }
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>422</width>
+             <width>394</width>
              <height>491</height>
             </rect>
            </property>
@@ -291,8 +291,8 @@ p, li { white-space: pre-wrap; }
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>422</width>
-             <height>491</height>
+             <width>109</width>
+             <height>216</height>
             </rect>
            </property>
            <attribute name="label">
@@ -463,6 +463,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="actionGIT"/>
     <addaction name="actionAbout"/>
+    <addaction name="actionUpdate"/>
    </widget>
    <addaction name="menuCharger_une_session"/>
    <addaction name="menuAbout"/>
@@ -494,6 +495,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionUpdate">
+   <property name="text">
+    <string>Update</string>
    </property>
   </action>
  </widget>
