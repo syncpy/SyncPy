@@ -93,7 +93,7 @@ class Method(multiprocessing.Process):
 
         if True or len(self.tmpRes) > 10:
             debug("Result is long")
-            f = tempfile.TemporaryFile(prefix="Syncpy-"+self.name, delete=False)
+            f = tempfile.NamedTemporaryFile(prefix="Syncpy-"+self.name, delete=False)
             pickle.dump(self.tmpRes, f)
             self.tmpRes = f.name
 
