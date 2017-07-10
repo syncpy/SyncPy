@@ -812,7 +812,7 @@ class SyncPy2(QtGui.QMainWindow):
 
         onlyUtils = False
         # populate root folder
-        if self.nFilesSelected == 1 :
+        if self.nFilesSelected == 1:
             if self.nSignalsSelected == 1:
                 print "Error: No method available for one signal only"
                 return
@@ -820,20 +820,23 @@ class SyncPy2(QtGui.QMainWindow):
                 rootFolder += "/DataFrom2Persons/Univariate"
             elif self.nSignalsSelected > 2:
                 #ici on propose toutes les methodes et l'utilisateur doit choisir si uni ou multivariate
-                rootFolder += "/DataFrom2Persons"
+                rootFolder += ""
         elif self.nFilesSelected == 2:
             if self.nSignalsSelected == 1:
                 rootFolder += "/DataFrom2Persons/Univariate"
             elif self.nSignalsSelected > 1:
                 rootFolder += "/DataFrom2Persons/Multivariate"
         elif self.nFilesSelected > 2:
-            if self.nSignalsSelected > 0:
-                rootFolder += "/DataFromManyPersons"
+            if self.nSignalsSelected == 1:
+                rootFolder += "/DataFromManyPersons/Univariate"
+            elif self.nSignalsSelected > 1:
+                rootFolder += "/DataFromManyPersons/Multivariate"
 
-        if self.typeSum == 0:
-            rootFolder += "/Continuous"
-        elif self.typeSum == self.nSignalsSelected:
-            rootFolder += "/Categorical"
+        if rootFolder.count('/') > 1:
+            if self.typeSum == 0:
+                rootFolder += "/Continuous"
+            elif self.typeSum == self.nSignalsSelected:
+                rootFolder += "/Categorical"
 
         rootItem = QtGui.QTreeWidgetItem(self.ui.methodsTreeWidget, [rootFolder])
         self.loadMethodsFromFolder(rootFolder, rootItem)
@@ -844,6 +847,8 @@ class SyncPy2(QtGui.QMainWindow):
         for (path, subdirs, files) in os.walk(curPath, topdown=True):
             if curPath == path:
                 for directory in subdirs:
+                    if curPath=="Methods" and not(directory.startswith("Data")):
+                        continue
                     item = QtGui.QTreeWidgetItem(tree, [directory])
                     item.setIcon(0, folderIcon)
                     self.loadMethodsFromFolder(path + '/' + directory, item)

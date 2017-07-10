@@ -36,14 +36,14 @@
 """
 .. moduleauthor:: Giovanna Varni
 """
-
+import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from math import exp
+from Method import Method, MethodArgList
 
-
-class Omega_Complexity:
+class Omega_Complexity(Method):
     """
     It computes Omega complexity among many monovariate signals (organized as a list of pandas DataFrame).
     It is a measure based on spatial principal component analysis (SPCA) carried out on the covariance matrix of the DataFrame. It ranges in [0,N], where 1 stands for maximum synchrony, N minimum synchrony.
@@ -53,14 +53,17 @@ class Omega_Complexity:
     * Wackermann, J. Beyond mapping: estimating complexityof multichannel EEG recordings. Acta Neurobiol. Exp., 1996, 56:197-208.
  
     """
- 
+    argsList = MethodArgList()
  
     ''' Constructor '''
-    def __init__(self,):
+    def __init__(self, plot = False, **kwargs):
+        super(Omega_Complexity, self).__init__(plot, **kwargs)
         pass
-        
+
+    def plot_result(self):
+        pass
     
-    def compute(self, *signals):
+    def compute(self, signals):
         """
         It computes the Omega complexity for multiple monovariate signals (organized as a list).
         If input signals are multivariates, only the first column of the signal is considered
@@ -115,6 +118,14 @@ class Omega_Complexity:
         results['omega'] = omega
         
         return results
+
+    @staticmethod
+    def getArguments():
+        return Omega_Complexity.argsList.getMethodArgs()
+
+    @staticmethod
+    def getArgumentsAsDictionary():
+        return Omega_Complexity.argsList.getArgumentsAsDictionary()
          
 
             

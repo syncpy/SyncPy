@@ -37,17 +37,16 @@
 .. moduleauthor:: Marie Avril
 """
 
-import numpy as np # For math operation
-import pandas as pd # For DataFrame 
-import matplotlib.pyplot as plt # For plotting
-import matplotlib.dates as mdates # For plotting dates and timeFormat
-from numpy.linalg import inv #for inversing a matrix
+import numpy as np# For math operation
+import pandas as pd# For DataFrame
 
 #Import Welch module for computing spectrum
-from utils import Welch_psd
-from utils import Cpsd
+from Methods.utils import Welch_psd
+from Methods.utils import Cpsd
 
-class PartialCoherence:
+from Method import Method, MethodArgList
+
+class PartialCoherence(Method):
     """
     It computes the partial coherence in a list of signals, 3 signals at a time.
     
@@ -74,16 +73,23 @@ class PartialCoherence:
     number of samples to overlap between epochs. Default: 0
   :type noverlap: int
     """
+    argsList = MethodArgList()
+    argsList.append('fs', 1.0, float,
+                    'Sampling frequency (in Hz) of the input signal')
+    argsList.append('NFFT', 256, int, 'Length of each epoch (in samples)')
+    argsList.append('detrend', [0, 1], list, 'Specifies which kind of detrending should be computed on data. Ranges in [0;1] (0 for constant, 1 for linear)')
+    argsList.append('noverlap', 0, int, 'Number of samples to overlap between epochs')
 
     ''' Constructor '''
-    def __init__(self, fs=1.0, NFFT=256, detrend=0, noverlap=0):
-        
+    def __init__(self, fs=1.0, NFFT=256, detrend=0, noverlap=0, plot=False, **kwargs):
+        super(PartialCoherence, self).__init__(plot, **kwargs)
         #In the constructor we can check that params have corrects values and initialize stuff
         
         ' Raise error if parameters are not in the correct type '
         try :
           if not(isinstance(fs, float))     : raise TypeError("Requires fs to be an float")
           if not(isinstance(NFFT, int))     : raise TypeError("Requires NFFT to be an integer")
+          if isinstance(detrend, str)       : detrend = int(detrend)
           if not(isinstance(detrend, int))  : raise TypeError("Requires detrend to be an integer")
           if not(isinstance(noverlap, int)) : raise TypeError("Requires noverlap to be an integer")
         except TypeError, err_msg:
@@ -104,22 +110,26 @@ class PartialCoherence:
         self.NFFT=NFFT
         self.detrend=detrend
         self.noverlap=noverlap
+        self.partial_coherence = {}
+        self.res = None
         
         return
 
+    def plot_result(self):
+        pass
         
     def compute_partial_cross_spectrum(self, X, Y, Z):
         """
          It computes partial cross-spectrum between X and Y given all the linear information of Z 
-         
+
         :param X:
             first signal
         :type X: pd.DataFrame
-        
+
         :param Y:
             second signal
         :type Y: pd.DataFrame
-        
+
         :param Z:
             third signal
         :type Z: pd.DataFrame
@@ -128,18 +138,18 @@ class PartialCoherence:
             -- partial cross-spectrum 
         """
 
-        S_zz = Welch_psd.Welch_psd(Z,self.fs, self.NFFT,self.detrend,self.noverlap,False)['psd']
-        
-        S_xy = Cpsd.Cpsd(X,Y,self.fs, self.NFFT,self.detrend,self.noverlap,False)['psd']
-        S_xz = Cpsd.Cpsd(X,Z,self.fs, self.NFFT,self.detrend,self.noverlap,False)['psd']
-        S_yz = Cpsd.Cpsd(Y,Z,self.fs, self.NFFT,self.detrend,self.noverlap,False)['psd']
+        S_zz = Welch_psd.Welch_psd(Z, self.fs, self.NFFT, self.detrend, self.noverlap, False)['psd']
+
+        S_xy = Cpsd.Cpsd(X, Y, self.fs, self.NFFT,self.detrend,self.noverlap,False)['psd']
+        S_xz = Cpsd.Cpsd(X, Z, self.fs, self.NFFT,self.detrend,self.noverlap,False)['psd']
+        S_yz = Cpsd.Cpsd(Y, Z, self.fs, self.NFFT,self.detrend,self.noverlap,False)['psd']
 
         S_xy_z = S_xy - S_xz*S_zz* S_yz
 
         return S_xy_z
     
     
-    def compute(self, *signals):
+    def compute(self, signals):
         """
          It computes the partial coherence between each signals. 
          
@@ -153,8 +163,8 @@ class PartialCoherence:
         """
         
         ' Raise error if parameters are not in the correct type '
-        try :
-            for i in range(len(signals)) :
+        try:
+            for i in range(len(signals)):
                 if not(isinstance(signals[i], pd.DataFrame)): raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame.")
         except TypeError, err_msg:
             raise TypeError(err_msg)
@@ -193,10 +203,17 @@ class PartialCoherence:
             
             self.partial_coherence.update({z : K_xy})
 
-        return self.partial_coherence 
-        
+        self.res = dict()
+        self.res['pCoherence'] = self.partial_coherence
 
-            
-        
+        return self.res
+
+    @staticmethod
+    def getArguments():
+        return PartialCoherence.argsList.getMethodArgs()
+
+    @staticmethod
+    def getArgumentsAsDictionary():
+        return PartialCoherence.argsList.getArgumentsAsDictionary()
         
         

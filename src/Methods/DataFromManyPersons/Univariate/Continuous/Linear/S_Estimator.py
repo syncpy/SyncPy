@@ -42,10 +42,10 @@ import pandas as pd # For DataFrame
 import matplotlib.pyplot as plt # Plotting package
 from math import ceil
 
-from utils import Standardize
+from Methods.utils import Standardize
+from Method import Method, MethodArgList
 
-
-class S_Estimator:
+class S_Estimator(Method):
     """
     S_Estimator computes the S-Estimator, Genuine and Random Synchronization index among multiple monovariate signals (organized as a list of pandas DataFrame). 
     
@@ -62,12 +62,15 @@ class S_Estimator:
     :param plot:
         if True the plot of surrogates signals is returned. Default: False
     :type plot: bool
-    
     """
+    argsList = MethodArgList()
+    argsList.append('surr_nb_iter', 100, int,
+                    'Number of surrogate iterations.')
+    argsList.append('plot', False, bool, 'plot of surrogates signals is returned')
 
     ''' Constructor '''
-    def __init__(self, surr_nb_iter = 100, plot = False):
-        
+    def __init__(self, surr_nb_iter = 100, plot = False, **kwargs):
+        super(S_Estimator, self).__init__(plot, **kwargs)
         #In the constructor we can check that params have corrects values and initialize stuff
         
         ' Raise error if parameters are not in the correct type '
@@ -296,7 +299,7 @@ class S_Estimator:
         return df_X_surr, X_surr_average_eig
   
   
-    def compute(self, *signals):
+    def compute(self, signals):
         """
          Computes SSI for multiple monovariate signals (organized as a list).
          If input signals are multivariates, only the first column of the signal is considered
@@ -370,14 +373,17 @@ class S_Estimator:
         SI['RSI'] = self.getSynchronizationIndex(lambda_3)
         SI['surrogate_signal'] = df_X_surr
         
-        if(self._plot) :
-            plt.ion()
+        if self._plot:
             self.plot_result(SI)
 
-        return  SI 
-        
+        return SI
 
-            
-        
+    @staticmethod
+    def getArguments():
+        return S_Estimator.argsList.getMethodArgs()
+
+    @staticmethod
+    def getArgumentsAsDictionary():
+        return S_Estimator.argsList.getArgumentsAsDictionary()
         
         
