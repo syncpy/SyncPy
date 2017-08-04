@@ -122,7 +122,7 @@ class oneclassSVMimitation(Method):
         self.K = K
         self.threshold = threshold
 
-    def compute(self, signals):
+    def compute(self, *signals):
         """
         return recurrence Matrix
         """
@@ -227,26 +227,44 @@ class oneclassSVMimitation(Method):
 
         return Rij, Dij
 
-    def plot_result(self, interpol='nearest'):
-        """
-        This method is not fully functional. it is used for test purposes only
-        """
-        x = []
-        y = []
-        plt.rcParams.update(plt.rcParamsDefault)
+    # def plot_result2(self, interpol='nearest'):
+        # """
+        # This method is not fully functional. it is used for test purposes only
+        # """
+        # x = []
+        # y = []
+        # plt.rcParams.update(plt.rcParamsDefault)
 
 
-        for index, v in np.ndenumerate(self.res['Rij']):
-            if v == 1:
-                x.append(index[0])
-                y.append(index[1])
+        # for index, v in np.ndenumerate(self.res['Rij']):
+            # if v == 1:
+                # x.append(index[0])
+                # y.append(index[1])
 
-        H, xedges, yedges = np.histogram2d(x, y, normed=True)
-        extent = [yedges[0], yedges[-1], xedges[-1], xedges[0]]
-        plt.imshow(H, extent=extent, interpolation=interpol)
-        #        plt.colorbar()
+        # H, xedges, yedges = np.histogram2d(x, y, normed=True)
+        # extent = [yedges[0], yedges[-1], xedges[-1], xedges[0]]
+        # plt.imshow(H, extent=extent, interpolation=interpol)
+       
+        # plt.gca().invert_yaxis()
+     
+        # return plt.figure()
+		
+    def plot_result(self,threshold=0.01,w=200):
+        
+        max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
+        DijS = max_scaler.fit_transform(self.res['Dij'])
+        RijS= np.where(DijS - threshold < 0, 1, 0) 
+        for i in range(RijS.shape[0]):
+            for j in range(RijS.shape[1]):
+                if not(j>=i-w and j<=i+w):
+                    RijS[i][j] =0
+        fig=plt.figure()             
+        plt.imshow(RijS,cmap='Reds',  interpolation='nearest')
         plt.gca().invert_yaxis()
-        #plt.show()
+        plt.xlabel('frames')
+        plt.ylabel('frames')
+        plt.show()
+     
         return plt.figure()
 
     def load_process_data(self):
