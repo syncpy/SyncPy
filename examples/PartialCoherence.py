@@ -11,6 +11,7 @@ import pandas as pd             # Time serie package
 import matplotlib.pyplot as plt # Plotting package
 sys.path.insert(0, '../src')       # To be able to import from parent directory
 
+
 print("\n")
 print("***********************************************************************")
 print("This script computes Partial Coherence for multiple monovariate signals \n" + 
@@ -18,9 +19,9 @@ print("This script computes Partial Coherence for multiple monovariate signals \
 print("***********************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFromManyPersons.Univariate.Continuous.Linear.PartialCoherence as PartialCoherence
-from utils.ExtractSignal import ExtractSignalFromCSV
-from utils.ExtractSignal import ExtractSignalFromMAT
+import Methods.DataFromManyPersons.Univariate.Continuous.Linear.PartialCoherence as PartialCoherence
+from Methods.utils.ExtractSignal import ExtractSignalFromCSV
+
 
 '''
 """ Define signals in pd.dataFrame format """
@@ -98,7 +99,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    partial_coherence = pc.compute(*signals)
+    partial_coherence = pc.compute(signals)['pCoherence']
 except TypeError, err :
     print("TypeError in PartialCoherence computation : \n" + str(err))
     sys.exit(-1)

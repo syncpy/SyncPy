@@ -19,7 +19,7 @@ print("This script computes Synchronization indexes for multiple monovariate sig
 print("*************************************************************************************")
 
 """ Import wanted module with every parent packages """
-import MethodsV1.DataFromManyPersons.Univariate.Continuous.Linear.S_Estimator as S_Estimator
+import Methods.DataFromManyPersons.Univariate.Continuous.Linear.S_Estimator as S_Estimator
 from utils.ExtractSignal import ExtractSignalFromCSV
 from utils.ExtractSignal import ExtractSignalFromMAT
 from utils.Standardize import Standardize
@@ -98,7 +98,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    estimators = s_estimator.compute(*signals)
+    estimators = s_estimator.compute(signals)
 except TypeError, err :
     print("TypeError in S_Estimator computation : \n" + str(err))
     sys.exit(-1)

@@ -83,7 +83,7 @@ print("An instance the class is now created with the following parameters:\n" +
 
 """ Compute the method and get the result """
 try : 
-    res_turns, turns_ratio = turns.compute([user0_data, user1_data])
+    res = turns.compute([user0_data, user1_data])
 except TypeError, err :
     print("TypeError in BooleanTurnsActivity computation : \n" + str(err))
     sys.exit(-1)
@@ -99,11 +99,11 @@ print("\n")
 print("**************************************** \n")
 print('Boolean turns activity complete result :')
 print("****************************************\n")
-print(res_turns)
-print(turns_ratio)
+print(res['turns_activity'])
+print(res['turns_activity_ratio'])
 
 """ Get simple statistics of the result """
-stats = res_turns.describe()
+stats = res['turns_activity'].describe()
 
 """ Display statistics result """
 print("\n")

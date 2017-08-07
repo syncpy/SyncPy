@@ -18,10 +18,9 @@ print("This script computes Omega_Complexity for multiple monovariate signals \n
 print("**********************************************************************")
 
 """ Import wanted module with every parent packages """
-import DataFromManyPersons.Univariate.Continuous.Linear.Omega_Complexity as Omega_Complexity
-from utils.ExtractSignal import ExtractSignalFromCSV
-from utils.ExtractSignal import ExtractSignalFromMAT
-from utils.Standardize import Standardize
+import Methods.DataFromManyPersons.Univariate.Continuous.Linear.Omega_Complexity as Omega_Complexity
+from Methods.utils.ExtractSignal import ExtractSignalFromCSV
+
 
 '''
 """ Define signals in pd.dataFrame format """
@@ -88,7 +87,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    omega = omega_comp.compute(*signals)
+    omega = omega_comp.compute(signals)
 except TypeError, err :
     print("TypeError in Omega_Complexity computation : \n" + str(err))
     sys.exit(-1)
