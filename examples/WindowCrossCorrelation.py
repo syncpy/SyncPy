@@ -103,7 +103,7 @@ print("\n")
 print("Computing...")
 
 try : 
-    cross_corr = corr.compute(x,y)
+    cross_corr = corr.compute([x,y])
 except TypeError, err :
     print("TypeError in WindowCrossCorrelation computation : \n" + str(err))
     sys.exit(-1)
