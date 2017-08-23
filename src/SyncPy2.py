@@ -233,20 +233,22 @@ class SyncPy2(QtGui.QMainWindow):
         self.signals = []
         self.outputBaseName = None
         ismat = False
-        for f in self.filesSelected:
-            if f.endswith('.mat'):
-                matfile = loadmat(f)
-                ismat = True
-            for s in self.signalsSelected:
-                if not ismat:
-                    if not self.filesHasHeaders:
-                        self.signals.append(ExtractSignalFromCSV(str(f), separator=self.columnSeparator, unit='ms', columns=s, header=False, headerValues=self.signalsHeader))
+        dic = self.ui.methodWidget.getArgumentsAsDictionary()
+        if not(dic.has_key("ignoreInputSignals") and dic["ignoreInputSignals"]):
+            for f in self.filesSelected:
+                if f.endswith('.mat'):
+                    matfile = loadmat(f)
+                    ismat = True
+                for s in self.signalsSelected:
+                    if not ismat:
+                        if not self.filesHasHeaders:
+                            self.signals.append(ExtractSignalFromCSV(str(f), separator=self.columnSeparator, unit='ms', columns=s, header=False, headerValues=self.signalsHeader))
+                        else:
+                            self.signals.append(ExtractSignalFromCSV(str(f), separator=self.columnSeparator, unit='ms', columns=[str(self.headerMap[s])]))
                     else:
-                        self.signals.append(ExtractSignalFromCSV(str(f), separator=self.columnSeparator, unit='ms', columns=[str(self.headerMap[s])]))
-                else:
-                    ci = self.signalsHeader.index(s)
-                    cn = str(self.signalsHeader[ci])
-                    self.signals.append(ExtractSignalFromMAT(str(f), columns_index=ci, columns_wanted_names=[cn], matfile=matfile))
+                        ci = self.signalsHeader.index(s)
+                        cn = str(self.signalsHeader[ci])
+                        self.signals.append(ExtractSignalFromMAT(str(f), columns_index=ci, columns_wanted_names=[cn], matfile=matfile))
 
         self.ui.methodWidget.compute(self.signals, self.getOutputBasename())
 

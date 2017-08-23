@@ -19,11 +19,12 @@ def debug(farg, *args):
     #   print arg
 
 class MethodArg:
-    def __init__(self, label, value, type, hint):
+    def __init__(self, label, value, type, hint, hidden=False):
         self.label = label
         self.value = value
         self.type = type
         self.hint = hint
+        self.hidden = hidden
 
     def __repr__(self):
         return "{0}, {1}, {2}, {3}".format(self.label, self.type, self.value, self.hint)
@@ -33,8 +34,8 @@ class MethodArgList:
     def __init__(self):
         self.MethodArgs = []
 
-    def append(self, label, value, type, hint):
-        self.MethodArgs.append(MethodArg(label, value, type, hint))
+    def append(self, label, value, type, hint, hidden=False):
+        self.MethodArgs.append(MethodArg(label, value, type, hint, hidden))
 
     def getMethodArgs(self):
         return self.MethodArgs

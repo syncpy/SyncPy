@@ -275,6 +275,10 @@ class MethodWidget(QtGui.QWidget):
 
 
             textEdit.setToolTip(argument.hint)
+            if argument.hidden:
+                label.setVisible(False)
+                textEdit.setVisible(False)
+                textEdit.setDisabled(True)
 
             #layout.setWidget(i, QtGui.QFormLayout.FieldRole, textEdit)
             layout.setWidget(i, QtGui.QFormLayout.FieldRole, textEdit)
