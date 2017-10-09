@@ -100,7 +100,7 @@ print("**************************************** \n")
 print('Boolean turns activity complete result :')
 print("****************************************\n")
 print(res['turns_activity'])
-print(res['turns_activity_ratio'])
+print(res['turns_activity_ratios'])
 
 """ Get simple statistics of the result """
 stats = res['turns_activity'].describe()
