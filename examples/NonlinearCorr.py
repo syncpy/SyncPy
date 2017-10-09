@@ -89,18 +89,15 @@ print("An instance the class is now created with the following parameters:\n" +
 print("\n")
 print("Computing...")
 
-try :
-    signals = []
-    signals.append(x)
-    signals.append(y)
-    res = c.compute([x,y])
-except TypeError, err :
+try:
+    res = c.compute([x, y])
+except TypeError, err:
     print("TypeError in NonlinearCorr computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError, err:
     print("ValueError in NonlinearCorr computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception, e:
     print("Exception in NonlinearCorr computation : \n" + str(e))
     sys.exit(-1)
 
@@ -127,8 +124,8 @@ scale= False                        # scale factor to have correlaton in [-1,1]
 """ Instanciate the class with its attributes """
 print("\n")
 
-try : 
-    c=Correlation.Correlation(tau_max, plot, standardization, corr_tau_max, corr_coeff, scale)
+try:
+    c = Correlation.Correlation(tau_max, plot, standardization, corr_tau_max, corr_coeff, scale)
 except TypeError, err :
     print("TypeError in Correlation constructor : \n" + str(err))
     sys.exit(-1)
@@ -152,7 +149,7 @@ print("\n")
 print("Computing...")
 
 try :
-    res= c.compute(x, y)
+    res = c.compute([x, y])
 except TypeError, err :
     print("TypeError in Correlation computation : \n" + str(err))
     sys.exit(-1)
