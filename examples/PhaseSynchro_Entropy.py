@@ -34,8 +34,8 @@ t=np.linspace(0,4*np.pi,N)
 x=pd.DataFrame(np.sin(t), np.arange(0,N))
 y=pd.DataFrame(np.sin(3*t+10), np.arange(0,N))
 
-x.to_csv("D:/projets/SyncPy/Syncpy-2/examples/data_examples/Entropy_x.csv", sep=';', index=True, header=False)
-y.to_csv("D:/projets/SyncPy/Syncpy-2/examples/data_examples/Entropy_y.csv", sep=';', index=True, header=False)
+#x.to_csv("./Entropy_x.csv", sep=';', index=True, header=False)
+#y.to_csv("./Entropy_y.csv", sep=';', index=True, header=False)
 
 
 """Plot input signals"""
