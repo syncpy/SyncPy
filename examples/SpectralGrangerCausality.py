@@ -26,10 +26,10 @@ from utils.ResampleAndInterpolate import ResampleAndInterpolate
 import DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality as SGC
 
 """ Import signal from a .csv file """
-filename = 'data_examples/data_jouet_4.csv'
+filename = 'data_examples/1Person_Multivariate_Continuous_data.csv'
 print "\nLoading signals from csv files : ", filename,"\n"
-x1 = ExtractSignalFromCSV(filename, columns = ['x1'])
-x2 = ExtractSignalFromCSV(filename, columns = ['x2'])
+x1 = ExtractSignalFromCSV(filename, columns = ['x2'])
+x2 = ExtractSignalFromCSV(filename, columns = ['x3'])
 """ Define class attributes """
 max_lag =10	# Define the maximum lag acceptable to estimate autoregressive models
 criterion = 'bic'	# Define the criterion to estimate the optimal number of lags to estimate autoregressive models
