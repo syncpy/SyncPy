@@ -149,7 +149,7 @@ class PhaseSynchro_Strobo(Method):
         phx=np.unwrap(scipy.angle(x_analytic))
         phy=np.unwrap(scipy.angle(y_analytic))
 
-        disc_perc = np.floor(phx.shape[0] / 10.0)
+        disc_perc = int(np.floor(phx.shape[0] // 10))
 
         phx_s=phx[disc_perc-1:M-disc_perc]
         phy_s=phy[disc_perc-1:M-disc_perc]
