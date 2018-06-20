@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 ### This file is a part of the Syncpy library.
 ### Copyright 2015, ISIR / Universite Pierre et Marie Curie (UPMC)
 ### Main contributor(s): Giovanna Varni, Marie Avril,
@@ -298,12 +299,22 @@ class SpectralGrangerCausality(Method):
 
         # Computing F y->x :
         SIG = np.cov(self._OLS_unrestricted_x.resid, self._OLS_unrestricted_y.resid)  # Covariance matrix
+        # From Jorge Manuel Sánchez
+        H_w_norm = np.zeros((K, 2, 2), dtype=complex)
+        for i in range(0, K):
+            H_w_norm[i][0][0] = H_w[i][0][0] + SIG[0][1] / SIG[0][0] * H_w[i][0][1]
+            H_w_norm[i][0][1] = H_w[i][0][1]
+            H_w_norm[i][1][0] = H_w[i][1][0] + SIG[0][1] / SIG[0][0] * H_w[i][1][1]
+            H_w_norm[i][1][1] = H_w[i][1][1]
+        # Sigma2 = SIG[0][0]
+        SIG_11_norm = SIG[1][1] - SIG[0][1] ** 2 / SIG[0][0]
+
+        # Computing F y->x :
         F_xy = np.zeros(K)  # F y->x value
 
         for i in range(0, K):
-            Sxx = SIG[0][0] * (H_w[i][0][0].real ** 2 + H_w[i][0][0].imag ** 2) + SIG[1][1] * (
-            H_w[i][0][1].real ** 2 + H_w[i][0][1].imag ** 2)
-            Den = SIG[0][0] * (H_w[i][0][0].real ** 2 + H_w[i][0][0].imag ** 2)
+            Sxx = SIG[0][0] * (H_w_norm[i][0][0].real ** 2 + H_w_norm[i][0][0].imag ** 2) + SIG_11_norm * ( H_w[i][0][1].real ** 2 + H_w[i][0][1].imag ** 2)
+            Den = SIG[0][0] * (H_w_norm[i][0][0].real ** 2 + H_w_norm[i][0][0].imag ** 2)
             F_xy[i] = np.log(Sxx / Den)
 
         self.res = dict()
