@@ -57,7 +57,7 @@ def Detrend(signal,det_type):
     try :
         if not(isinstance(signal, pd.DataFrame)) : raise TypeError("Requires signal to be a pd.DataFrame")
         if not(isinstance(det_type, str))      : raise TypeError("Requires det_type to be a string")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
         raise TypeError(err_msg)
         return
     
@@ -65,7 +65,7 @@ def Detrend(signal,det_type):
     ' Raise error if parameters do not respect input rules '
     try : 
         if det_type!='mean' and det_type!='linear' : raise ValueError("Requires det_type to be 'mean' or 'linear'")
-    except ValueError, err_msg:
+    except ValueError as err_msg:
         raise ValueError(err_msg)
         return
     

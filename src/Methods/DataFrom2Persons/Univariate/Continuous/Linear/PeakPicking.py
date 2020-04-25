@@ -133,7 +133,7 @@ class PeakPicking(Method):
             if not(isinstance(plot, bool))          : raise TypeError("Requires plot to be a boolean")
             if not(isinstance(plot_on_mat, bool))   : raise TypeError("Requires plot_on_mat to be an boolean")
             if not(isinstance(sorted_peak, bool))   : raise TypeError("Requires sorted_peak to be an boolean")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
 
@@ -148,7 +148,7 @@ class PeakPicking(Method):
             if tau_inc < 0  or tau_inc > tau_max : raise ValueError("Requires tau_inc to be a positive scalar inferior to tau_max length")
             if threshold <0 or threshold  > 1 : raise ValueError("Requires threshold to be between 0 and 1")
             if ele_per_sec <= 0 : raise ValueError("Requires ele_per_sec to be a strictly positive scalar")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
         

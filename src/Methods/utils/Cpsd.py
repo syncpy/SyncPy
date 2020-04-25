@@ -96,7 +96,7 @@ def Cpsd(x,y,fs=1.0, NFFT=256, detrend=0,noverlap=0, plot=False):
       if not(isinstance(detrend, int)):   raise TypeError("Requires detrend to be a boolean")
       if not(isinstance(noverlap, int)):   raise TypeError("Requires noverlap to be an integer")
       if not(isinstance(plot, bool)):      raise TypeError("Requires plot to be a boolean")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
             raise TypeError(err_msg)
             return
      
@@ -108,7 +108,7 @@ def Cpsd(x,y,fs=1.0, NFFT=256, detrend=0,noverlap=0, plot=False):
       if NFFT <=0:          raise ValueError("Requires NFFT to be a strictly positive scalar")
       if NFFT %2 != 0:      raise ValueError("Requires NNFT to be a multiple of 2")
       if detrend != 0  and detrend != 1 and detrend != 2 : raise ValueError("Requires detrend to be 0, 1 or 2" )
-    except ValueError, err_msg:
+    except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 

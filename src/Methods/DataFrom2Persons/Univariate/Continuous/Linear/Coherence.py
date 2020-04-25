@@ -97,14 +97,14 @@ class Coherence(Method):
       if not(isinstance(detrend, int))  : raise TypeError("Requires detrend to be an integer")
       if not(isinstance(noverlap, int)) : raise TypeError("Requires noverlap to be an integer")
       if not(isinstance(plot, bool))    : raise TypeError("Requires plot to be a boolean")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
       raise TypeError(err_msg)
       return
     
     ' Raise error if parameters do not respect input rules '
     try : 
       if (detrend != 0)  and (detrend != 1) and (detrend != 2): raise ValueError("Requires detrend to be 0 or 1 or 2" )
-    except ValueError, err_msg:
+    except ValueError as err_msg:
       raise ValueError(err_msg)
       return
           
@@ -130,7 +130,7 @@ class Coherence(Method):
     ' Raise error if parameters are not in the correct type '
     try :
         if not(isinstance(result, dict)) : raise TypeError("Requires result to be a dictionary")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
         raise TypeError(err_msg)
         return
       
@@ -138,7 +138,7 @@ class Coherence(Method):
     try : 
         if not 'Frequency' in result : raise ValueError("Requires dictionary to be the output of compute() method")
         if not 'Coherence' in result : raise ValueError("Requires dictionary to be the output of compute() method")
-    except ValueError, err_msg:
+    except ValueError as err_msg:
         raise ValueError(err_msg)
         return
           
@@ -180,7 +180,7 @@ class Coherence(Method):
     try :
         if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
         if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
         raise TypeError(err_msg)
         return
     

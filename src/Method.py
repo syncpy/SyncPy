@@ -87,8 +87,8 @@ class Method(multiprocessing.Process):
             debug("Writing results starts")
             self.writeToCSV(self.results)
             debug("Writing results ends")
-        except Exception, e:
-            print "Computing error: %s" % e.message
+        except Exception as e:
+            print ("Computing error: %s" % e.message)
             self.tmpRes = str(e.message)
             self.errorRaised = True
 
@@ -118,7 +118,7 @@ class Method(multiprocessing.Process):
 
     def writeDictToJSON(self, dic):
         filename = "{0}.{1}".format(self.outputFilename, 'json')
-        print "Writing json file: " + filename
+        print ("Writing json file: " + filename)
         with open(filename, 'wb') as f:
             f.write(json.dumps(dic))
 
@@ -129,7 +129,7 @@ class Method(multiprocessing.Process):
 
     def writeDicNpArrayToCSV(self, keys, results):
         filename = "{0}-{1}.{2}".format(self.outputFilename, 'ar', 'csv')
-        print "Writing csv file: " + filename
+        print ("Writing csv file: " + filename)
         with open(filename, 'wb') as f:
             for k in keys:
                 self.writeArrayToFile(f, k, results[k])
@@ -142,7 +142,7 @@ class Method(multiprocessing.Process):
         if len(filteredResults) > 0:
             rows = zip(*filteredResults.values())
             filename = "{0}.{1}".format(self.outputFilename, 'csv')
-            print "Writing csv file: " + filename
+            print ("Writing csv file: " + filename)
             with open(filename, 'wb') as f:
                 writer = csv.writer(f)
                 f.write(','.join([str(r) for r in filteredKeys]))
@@ -154,13 +154,13 @@ class Method(multiprocessing.Process):
                               type(results[k]) is pd.DataFrame and results[k].shape[1] > 1 and results[k].shape[0] >= 1]
         for k in filteredKeys:
             filename = "{0}-{1}.{2}".format(self.outputFilename, k, 'csv')
-            print "Writing csv file: "+filename
+            print ("Writing csv file: "+filename)
             results[k].to_csv(filename)
 
     def writeToCSV(self, results):
         if results != None:
             if type(results) is not dict:
-                print 'Result is not a dictionary no output will be saved'
+                print ('Result is not a dictionary no output will be saved')
                 return
             keys = results.keys()
             if len(keys) < 100:

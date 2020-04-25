@@ -75,7 +75,7 @@ def ExtractSignalFromCSV(filename, separator=',', unit='ms', columns=['all'], he
         if not(isinstance(columns, list)): raise TypeError("Requires columns to be a list.")
         for i in range(len(columns)):
             if not(isinstance(columns[i],int)) and not(isinstance(columns[i],str)) : raise TypeError("Requires columns values to be a str or int.")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
         raise TypeError(err_msg)
         return
     
@@ -161,7 +161,7 @@ def ExtractSignalFromELAN(filename, separator=',', unit='s', columns_name = ['Ac
         if not(isinstance(ele_per_sec, int)): raise TypeError("Requires ele_per_sec to be an int.")
         if not(isinstance(Actor, str)): raise TypeError("Requires Actor to be a str.")
         if not(isinstance(Action, str)): raise TypeError("Requires Action to be an str.")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
         raise TypeError(err_msg)
         return
     
@@ -254,14 +254,14 @@ def ExtractSignalFromMAT(filename, columns_index=['all'], columns_wanted_names=[
         for i in range(len(columns_wanted_names)):
             if columns_wanted_names != ['all'] and not(isinstance(columns_wanted_names[i],str)): raise TypeError("Requires columns_wanted_names values to be str.")
         if not(isinstance(unit, str)): raise TypeError("Requires unit to be a str.")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
         raise TypeError(err_msg)
         return
      
     try :
         if columns_index != ['all'] and columns_wanted_names != ['all'] and len(columns_index)!=len(columns_wanted_names) : raise ValueError("If columns indexes are defined, columns_wanted_names must have the same size")
         if  columns_wanted_names != ['all'] and len(columns_index)!=len(columns_wanted_names) : raise ValueError("columns_wanted_names must have the same size as columns_index")
-    except ValueError, err_msg:
+    except ValueError as err_msg:
             raise ValueError(err_msg)
             return 
             

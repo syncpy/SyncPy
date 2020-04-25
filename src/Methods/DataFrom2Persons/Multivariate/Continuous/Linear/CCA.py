@@ -169,14 +169,14 @@ class CCA(Method):
         ' Raise error if parameters are not in the correct type '
         try:
             if not (isinstance(result, dict)): raise TypeError("Requires result to be a dictionary")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
 
         ' Raise error if not the good dictionary '
         try:
             if not 'storage' in result: raise ValueError("Requires storage to be the output of compute() method")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 
@@ -243,7 +243,7 @@ class CCA(Method):
         try:
             if not (isinstance(x, pd.DataFrame)): raise TypeError("Requires x to be a pd.DataFrame")
             if not (isinstance(y, pd.DataFrame)): raise TypeError("Requires y to be a pd.DataFrame")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         x = Standardize.Standardize(x)
@@ -318,4 +318,3 @@ class CCA(Method):
     @staticmethod
     def getArgumentsAsDictionary():
         return CCA.argsList.getArgumentsAsDictionary()
-

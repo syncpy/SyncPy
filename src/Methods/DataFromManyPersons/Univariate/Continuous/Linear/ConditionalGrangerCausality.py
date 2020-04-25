@@ -2,10 +2,10 @@
 ### Copyright 2015, ISIR / Universite Pierre et Marie Curie (UPMC)
 ### Main contributor(s): Giovanna Varni, Marie Avril,
 ### syncpy@isir.upmc.fr
-### 
+###
 ### This software is a computer program whose for investigating
-### synchrony in a fast and exhaustive way. 
-### 
+### synchrony in a fast and exhaustive way.
+###
 ### This software is governed by the CeCILL-B license under French law
 ### and abiding by the rules of distribution of free software.  You
 ### can use, modify and/ or redistribute the software under the terms
@@ -17,7 +17,7 @@
 ### provided only with a limited warranty and the software's author,
 ### the holder of the economic rights, and the successive licensors
 ### have only limited liability.
-### 
+###
 ### In this respect, the user's attention is drawn to the risks
 ### associated with loading, using, modifying and/or developing or
 ### reproducing the software by the user in light of its specific
@@ -29,7 +29,7 @@
 ### enabling the security of their systems and/or data to be ensured
 ### and, more generally, to use and operate it in the same conditions
 ### as regards security.
-### 
+###
 ### The fact that you are presently reading this means that you have
 ### had knowledge of the CeCILL-B license and that you accept its terms.
 
@@ -41,7 +41,7 @@ import numpy as np 										# For math operation
 import pandas as pd										# For DataFrame
 from scipy import stats									# For computing p-value
 import matplotlib.pyplot as plt							# Plotting package
-import networkx as nx									
+import networkx as nx
 
 from statsmodels.regression.linear_model import OLS 	# Class to compute autoregressive model with 'Ordinary Least Squares'  method
 from statsmodels.tsa.tsatools import lagmat2ds			# Specific function
@@ -82,7 +82,7 @@ class ConditionalGrangerCausality(Method):
                     'The number of maximum lag (in samples) with which the autoregressive model will be computed. It ranges in [1;length(x)]')
     argsList.append('criterion', ['bic', 'aic'], list, 'criterion to estimate optimal number of lags value')
     argsList.append('plot', False, bool, ' plot of correlation function ')
-	
+
     ''' Constructor '''
     def __init__(self, max_lag = 1, criterion = 'bic', plot = False, **kwargs):
         super(ConditionalGrangerCausality, self).__init__(plot, **kwargs)
@@ -92,7 +92,7 @@ class ConditionalGrangerCausality(Method):
             if not(isinstance(criterion, str)) : raise TypeError("Requires criterion to be a str")
             if not(isinstance(max_lag, int))   : raise TypeError("Requires max_lag to be an int")
             if not(isinstance(plot,bool))     : raise TypeError("Requires plot to be a bool")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
 
@@ -101,7 +101,7 @@ class ConditionalGrangerCausality(Method):
         try :
             if max_lag <= 0 : raise ValueError("Requires max_lag to be a strictly positive scalar")
             if criterion != 'bic' and criterion !='aic' : raise ValueError("Requires criterion to be 'bic' or 'aic'")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 
@@ -126,14 +126,14 @@ class ConditionalGrangerCausality(Method):
         ' Raise error if parameters are not in the correct type '
         try :
             if not(isinstance(result, dict)) : raise TypeError("Requires result to be a dictionary")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
 
         ' Raise error if not the good dictionary '
         try :
             if not 'link_matrix' in result : raise ValueError("Requires dictionary to be the output of compute() method")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 
@@ -185,7 +185,7 @@ class ConditionalGrangerCausality(Method):
             for i in range(0, len(signals)) :
                 if not(isinstance(signals[i], pd.DataFrame)) : raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame, ")
 
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
 
@@ -193,7 +193,7 @@ class ConditionalGrangerCausality(Method):
         try:
             for i in range(0, len(signals)):
                 if len(signals[0]) != len(signals[i]) : raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as signal 1")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 
@@ -216,7 +216,7 @@ class ConditionalGrangerCausality(Method):
                     gc = GC.GrangerCausality(max_lag = self._max_lag, criterion = self._criterion, plot = False)
                     res = gc.compute([signals[i],signals[j]])
                     if res['ratio'] > 0 and res['p_value'] < 0.01:
-                        print "Results : signal",j+1,"->",i+1,"detected"
+                        print ("Results : signal",j+1,"->",i+1,"detected")
                         M_direct[i,j] = 1
 
         # Computing the FULL VAR model :
@@ -288,7 +288,7 @@ class ConditionalGrangerCausality(Method):
                             var_noise = np.var(OLS_.resid)
                             ratio = np.log(var_noise/VAR_noise_matrix[j,j])
                             if ratio <= 0:
-                                print "signal",j+1,"->",i+1," is mediated by signal",k+1
+                                print ("signal",j+1,"->",i+1," is mediated by signal",k+1)
                                 M_direct[i,j] = 0
                                 M_final[i,k] = 1
                                 M_final[k,j] = 1

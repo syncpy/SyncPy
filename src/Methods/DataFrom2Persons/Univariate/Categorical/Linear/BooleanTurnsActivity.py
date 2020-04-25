@@ -83,7 +83,7 @@ class BooleanTurnsActivity(Method):
             if not(isinstance(min_pause_duration, float)) : raise TypeError("Requires min_pause_duration to be an integer")
             if not(isinstance(ele_per_sec, int))          : raise TypeError("Requires ele_per_sec to be an integer")
             if not(isinstance(duration, int))             : raise TypeError("Requires duration to be an integer")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
@@ -92,7 +92,7 @@ class BooleanTurnsActivity(Method):
             if min_pause_duration < 0 : raise ValueError("Requires min_pause_duration to be a positive scalar")
             if ele_per_sec <= 0 : raise ValueError("Requires ele_per_sec to be a strictly positive scalar")
             if duration!=-1 and duration <= 0 : raise ValueError("Requires duration to be a strictly positive scalar (or -1)")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 
@@ -161,7 +161,7 @@ class BooleanTurnsActivity(Method):
         try :
             if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
             if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
@@ -173,7 +173,7 @@ class BooleanTurnsActivity(Method):
         try :
             if lx != ly :
                 raise ValueError("x and y signals must have same size")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 

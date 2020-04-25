@@ -77,14 +77,14 @@ class S_Estimator(Method):
         try :
             if not(isinstance(surr_nb_iter, int)) : raise TypeError("Requires surr_nb_iter to be an integer")
             if not(isinstance(plot, bool))        : raise TypeError("Requires plot to be a boolean")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
         ' Raise error if parameters do not respect input rules '
         try : 
             if surr_nb_iter <= 0 : raise ValueError("Requires surr_nb_iter to be a strictly positive scalar")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
         
@@ -109,14 +109,14 @@ class S_Estimator(Method):
         ' Raise error if parameters are not in the correct type '
         try :
             if not(isinstance(result, dict)) : raise TypeError("Requires result to be a dictionary")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
         ' Raise error if not the good dictionary '
         try : 
             if not 'surrogate_signal' in result : raise ValueError("Requires dictionary to be the output of compute() method")            
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
         
@@ -316,7 +316,7 @@ class S_Estimator(Method):
         try :
             for i in range(len(signals)) :
                 if not(isinstance(signals[i], pd.DataFrame)): raise TypeError("Requires signal " + str(i+1) + " to be a pd.DataFrame.")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
@@ -325,7 +325,7 @@ class S_Estimator(Method):
             for i in range(0,len(signals)):
                 if len(signals[0]) != len(signals[i]) : raise ValueError("All the signals must have the same size. Signal " + str(i+1) + " does not have the same size as first signal.")
                 if signals[0].index.tolist() != signals[i].index.tolist() : raise ValueError("All the signals must have the same time indexes. Signal " + str(i+1) + " does not have the same time index as first signal.")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 

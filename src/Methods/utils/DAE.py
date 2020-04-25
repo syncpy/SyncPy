@@ -42,7 +42,7 @@ import numpy as np
 try:
     import tensorflow as tf
 except ImportError:
-    print 'Need to install the "tensorflow" module (available on Linux and MacOs only for python 2.7) : "pip install tensorflow" or with Anaconda "conda install tensorflow"'
+    print ('Need to install the "tensorflow" module (available on Linux and MacOs only for python 2.7) : "pip install tensorflow" or with Anaconda "conda install tensorflow"')
     exit()
 
 tf.reset_default_graph()
@@ -111,7 +111,7 @@ def DAE(data, Archi, noise=Gaussian, batch_size=500, pre_pross=True, training_ep
     mem = psutil.virtual_memory()
     ramGbAvailable = mem.available >> 30
     if ramGbAvailable == 0:
-        print "\nWARNING : running with less than 1Gb RAM available, processing will probably fail !\n"
+        print ("\nWARNING : running with less than 1Gb RAM available, processing will probably fail !\n")
 
     input_size = data.shape[1]
     Archi = np.array(Archi)
@@ -206,5 +206,3 @@ def DAE(data, Archi, noise=Gaussian, batch_size=500, pre_pross=True, training_ep
         return E_Weights, E_Biases, D_Weights, D_Biases
     else:
         return E_Weights, E_Biases
-
-

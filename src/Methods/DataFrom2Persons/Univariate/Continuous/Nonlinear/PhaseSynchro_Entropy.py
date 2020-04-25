@@ -95,7 +95,7 @@ class PhaseSynchro_Entropy(Method):
             if not(isinstance(m, int))   : raise TypeError("Requires m to be a np.array of integers")
             if not (isinstance(nbins_mode, str)) : raise TypeError("Requires nbins_mode to be a string")
             if not(isinstance(nbins, int))      : raise TypeError("Requires nbins to be an integer")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
@@ -106,7 +106,7 @@ class PhaseSynchro_Entropy(Method):
             if nbins_mode!='auto' and nbins_mode!='man' : raise ValueError("Requires nbins_mode to be a 'auto' or 'man'")
             if nbins <= 0 : raise ValueError("Requires nbins to be a positive scalar")
             
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
     
@@ -157,7 +157,7 @@ class PhaseSynchro_Entropy(Method):
         try:
             if not (isinstance(signals, list)): raise TypeError("Requires signals be an array")
             if len(signals) != 2: raise TypeError("Requires signals be an array of two elements")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
 
         x = signals[0]
@@ -167,7 +167,7 @@ class PhaseSynchro_Entropy(Method):
         try :
             if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
             if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
@@ -176,7 +176,7 @@ class PhaseSynchro_Entropy(Method):
         try :
             if (x.shape[0]==0) or (y.shape[0]== 0) : raise ValueError("Empty signal")
             if x.shape[0]!=y.shape[0] : raise ValueError("The two signals have different length")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
     

@@ -77,7 +77,7 @@ class PhaseSynchro_Fourier(Method):
         try :
             if not(isinstance(n, int)) : raise TypeError("Requires n to be an integer")
             if not(isinstance(m, int))   : raise TypeError("Requires m to be an integer")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
@@ -85,7 +85,7 @@ class PhaseSynchro_Fourier(Method):
         try : 
             if n <= 0 : raise ValueError("Requires n to have a size greater than 0")
             if m <= 0 : raise ValueError("Requires n to have a size greater than 0")            
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
     
@@ -110,7 +110,7 @@ class PhaseSynchro_Fourier(Method):
         try:
             if not (isinstance(signals, list)): raise TypeError("Requires signals be an array")
             if len(signals) != 2: raise TypeError("Requires signals be an array of two elements")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
 
         x = signals[0]
@@ -120,7 +120,7 @@ class PhaseSynchro_Fourier(Method):
         try :
             if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
             if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
@@ -129,7 +129,7 @@ class PhaseSynchro_Fourier(Method):
         try :
             if (x.shape[0]==0) or (y.shape[0]== 0) : raise ValueError("Empty signal")
             if x.shape[0]!=y.shape[0] : raise ValueError("The two signals have different length")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
         

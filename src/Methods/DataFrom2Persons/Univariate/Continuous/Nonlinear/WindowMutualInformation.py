@@ -123,7 +123,7 @@ class WindowMutualInformation(Method):
             if not(isinstance(win_inc, int))     : raise TypeError("Requires win_inc to be an integer")
             if not(isinstance(tau_inc, int))     : raise TypeError("Requires tau_inc to be an integer")
             if not(isinstance(plot, bool))       : raise TypeError("Requires plot to be a boolean")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
@@ -135,7 +135,7 @@ class WindowMutualInformation(Method):
             if window  < 0 : raise ValueError("Requires window to be a positive scalar")
             if win_inc < 0  or win_inc >= window : raise ValueError("Requires win_inc to be a positive scalar inferior to window length" )
             if tau_inc < 0  or tau_inc > tau_max : raise ValueError("Requires tau_inc to be a positive scalar inferior to tau_max length")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
         
@@ -166,14 +166,14 @@ class WindowMutualInformation(Method):
         ' Raise error if parameters are not in the correct type '
         try :
             if not(isinstance(result, dict)) : raise TypeError("Requires result to be a dictionary")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
         ' Raise error if not the good dictionary '
         try :
             if not 'Lag' in result : raise ValueError("Requires dictionary to be the output of compute() method")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
             
@@ -229,7 +229,7 @@ class WindowMutualInformation(Method):
         try :
             if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
             if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
@@ -240,7 +240,7 @@ class WindowMutualInformation(Method):
         try :
             if lx != ly :
                 raise ValueError("x and y signals must have same size")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
         

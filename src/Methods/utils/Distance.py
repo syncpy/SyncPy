@@ -69,7 +69,7 @@ def Minkowski(x,y, order):
     try :
         if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
         if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
         raise TypeError(err_msg)
         return
     
@@ -77,7 +77,7 @@ def Minkowski(x,y, order):
     try :
         if x.shape[1]!=y.shape[1] :
             raise ValueError("The two points have different size")
-    except ValueError, err_msg:
+    except ValueError as err_msg:
         raise ValueError(err_msg)
         return
     
@@ -85,7 +85,7 @@ def Minkowski(x,y, order):
     ' Raise error if parameters do not respect input rules '
     try : 
         if order < 0 : raise ValueError("Requires order to be a positive scalar greater than 0")
-    except ValueError, err_msg:
+    except ValueError as err_msg:
         raise ValueError(err_msg)
         return
 

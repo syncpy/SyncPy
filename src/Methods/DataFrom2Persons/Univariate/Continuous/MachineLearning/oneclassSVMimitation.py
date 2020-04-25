@@ -113,7 +113,7 @@ class oneclassSVMimitation(Method):
             if not (isinstance(K, int)): raise TypeError("Requires K to be an integer")
             if not (isinstance(threshold, float)): raise TypeError("Requires threshold to be a float")
             if not (isinstance(plot, bool)): raise TypeError("Requires plot to be a boolean")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
 
@@ -244,27 +244,27 @@ class oneclassSVMimitation(Method):
         # H, xedges, yedges = np.histogram2d(x, y, normed=True)
         # extent = [yedges[0], yedges[-1], xedges[-1], xedges[0]]
         # plt.imshow(H, extent=extent, interpolation=interpol)
-       
+
         # plt.gca().invert_yaxis()
-     
+
         # return plt.figure()
-		
+
     def plot_result(self,threshold=0.01,w=200):
-        
+
         max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
         DijS = max_scaler.fit_transform(self.res['Dij'])
-        RijS= np.where(DijS - threshold < 0, 1, 0) 
+        RijS= np.where(DijS - threshold < 0, 1, 0)
         for i in range(RijS.shape[0]):
             for j in range(RijS.shape[1]):
                 if not(j>=i-w and j<=i+w):
                     RijS[i][j] =0
-        fig=plt.figure()             
+        fig=plt.figure()
         plt.imshow(RijS,cmap='Reds',  interpolation='nearest')
         plt.gca().invert_yaxis()
         plt.xlabel('frames')
         plt.ylabel('frames')
         plt.show()
-     
+
         return plt.figure()
 
     def load_process_data(self):
@@ -282,7 +282,7 @@ class oneclassSVMimitation(Method):
             data1 = pd.read_csv(self.vid1file, header=None, sep=r"\s+", skiprows=3)
             data2 = pd.read_csv(self.vid2file, header=None, sep=r"\s+", skiprows=3)
         except IOError as e:
-            print "I/O error({0}): {1}".format(e.errno, e.strerror)
+            print ("I/O error({0}): {1}".format(e.errno, e.strerror))
 
         'drop useless columns'
 
@@ -318,4 +318,3 @@ class oneclassSVMimitation(Method):
     @staticmethod
     def getArgumentsAsDictionary():
         return oneclassSVMimitation.argsList.getArgumentsAsDictionary()
-

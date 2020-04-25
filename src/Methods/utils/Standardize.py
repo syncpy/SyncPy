@@ -52,7 +52,7 @@ def Standardize(signal):
     ' Raise error if parameters are not in the correct type '
     try :
         if not(isinstance(signal, pd.DataFrame)) : raise TypeError("Requires signal to be a pd.DataFrame")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
         raise TypeError(err_msg)
         return
     

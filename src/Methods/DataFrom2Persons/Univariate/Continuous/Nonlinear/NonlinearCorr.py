@@ -73,14 +73,14 @@ class NonlinearCorr(Method):
 
         try :
             if not(isinstance(nbins, int)) : raise TypeError("Requires tau_max to be an integer")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
         ' Raise error if parameters do not respect input rules '
         try : 
             if nbins <= 0 : raise ValueError("Requires nbins to be a positive integer different from 0")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
         
@@ -108,7 +108,7 @@ class NonlinearCorr(Method):
         try :
             if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
             if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             self.__class__.computationInProgress = False
             raise TypeError(err_msg)
             return

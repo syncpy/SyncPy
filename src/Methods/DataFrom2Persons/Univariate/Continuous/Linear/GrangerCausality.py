@@ -91,7 +91,7 @@ class GrangerCausality(Method):
             if not (isinstance(plot, bool)): raise TypeError("Requires plot to be a bool")
             if not (isinstance(criterion, str)): raise TypeError("Requires criterion to be a str")
             if not (isinstance(max_lag, int)): raise TypeError("Requires max_lag to be an int")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
 
@@ -100,7 +100,7 @@ class GrangerCausality(Method):
         try:
             if max_lag <= 0: raise ValueError("Requires max_lag to be a strictly positive scalar")
             if criterion != 'bic' and criterion != 'aic': raise ValueError("Requires criterion to be 'bic' or 'aic'")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 
@@ -122,7 +122,7 @@ class GrangerCausality(Method):
         ' Raise error if parameters are not in the correct type '
         try:
             if not (isinstance(result, dict)): raise TypeError("Requires result to be a dictionary")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
 
@@ -132,7 +132,7 @@ class GrangerCausality(Method):
                 "Requires dictionary to be the output of compute() method")
             if not 'predicted_signal_unrestricted' in result: raise ValueError(
                 "Requires dictionary to be the output of compute() method")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 
@@ -175,7 +175,7 @@ class GrangerCausality(Method):
         try:
             if not (isinstance(signals, list)): raise TypeError("Requires signals be an array")
             if len(signals) != 2: raise TypeError("Requires signals be an array of two elements")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
 
         x = signals[0]
@@ -185,14 +185,14 @@ class GrangerCausality(Method):
         try:
             if not (isinstance(x, pd.DataFrame)): raise TypeError("Requires x to be a pd.DataFrame")
             if not (isinstance(y, pd.DataFrame)): raise TypeError("Requires y to be a pd.DataFrame")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
 
         ' Raise error if DataFrames have not the same length '
         try:
             if len(x) != len(y): raise ValueError("x and y signals must have same length")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
 

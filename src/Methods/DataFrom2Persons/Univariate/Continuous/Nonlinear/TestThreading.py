@@ -27,20 +27,20 @@ class TestThreading(Method):
     def compute(self, signals):
         try :
             if not(isinstance(self.timeToSleep, int)) : raise TypeError("Requires time to be an integer")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             self.errorRaised = True
             return "Error: "+str(err_msg)
 
         ' Raise error if parameters do not respect input rules '
         try :
             if self.timeToSleep <= 0 : raise ValueError("Requires time to be a positive integer different from 0")
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             self.errorRaised = True
             return "Error: "+str(err_msg)
 
-        print self.timeToSleep
-        print self.plot
-        print self.type
+        print (self.timeToSleep)
+        print (self.plot)
+        print (self.type)
 
         count = 0
         x = signals[0]
@@ -49,7 +49,7 @@ class TestThreading(Method):
             try:
                 time.sleep(1)
                 count += 1
-            except Exception, e:
+            except Exception as e:
                 self.errorRaised = True
                 return "Error: "+str(e)
         res = []

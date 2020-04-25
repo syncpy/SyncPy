@@ -65,13 +65,13 @@ def Embedding(x,m,t):
     ' Raise error if parameters are not in the correct type '
     try :
         if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
-    except TypeError, err_msg:
+    except TypeError as err_msg:
             raise TypeError(err_msg)
             return
     try : 
         if m <= 0 : raise ValueError("Requires m to be positive and greater than 0") 
         if t <= 0 : raise ValueError("Requires t to be positive and  greater from 0")
-    except ValueError, err_msg:
+    except ValueError as err_msg:
             raise ValueError(err_msg)
             return    
     
@@ -79,7 +79,7 @@ def Embedding(x,m,t):
     try:
         if ((x.shape[0]-t*(m-1)) < 1):
                raise ValueError("m or t values are too big")
-    except ValueError, err_msg:
+    except ValueError as err_msg:
         raise ValueError(err_msg)
         return
     

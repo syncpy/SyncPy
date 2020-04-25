@@ -94,7 +94,7 @@ class MutualInformation(Method):
             if not(isinstance(my_type, int))      : raise TypeError("Requires my_type to be an integer")
             if not(isinstance(var_resc, bool))    : raise TypeError("Requires var_resc to be a boolean")
             if not(isinstance(noise, bool))    : raise TypeError("Requires noise to be a boolean")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
@@ -102,7 +102,7 @@ class MutualInformation(Method):
         try :
             if n_neighbours<=0: raise ValueError("Requires n_neighbours to be a positive integer greater than 0")
             if my_type != 1  and my_type != 2 : raise ValueError("Requires my_type to be to be 1 or 2" )
-        except ValueError, err_msg:
+        except ValueError as err_msg:
             raise ValueError(err_msg)
             return
         
@@ -134,7 +134,7 @@ class MutualInformation(Method):
         try :
             if not(isinstance(x, pd.DataFrame)) : raise TypeError("Requires x to be a pd.DataFrame")
             if not(isinstance(y, pd.DataFrame)) : raise TypeError("Requires y to be a pd.DataFrame")
-        except TypeError, err_msg:
+        except TypeError as err_msg:
             raise TypeError(err_msg)
             return
         
