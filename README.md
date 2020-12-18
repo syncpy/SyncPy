@@ -8,6 +8,7 @@ Pierre et Marie Curie (UPMC), Paris 6, France.
 SyncPy library is currently under development in the framework of the 
 SMART Labex Project (http://www.smart-labex.fr)
 
+*This fork has minor edits to make it work with Python 3*
 
 Motivation
 ------------------------
@@ -67,7 +68,7 @@ News :
 
 Requirements
 ------------------------
-- Python 2.7
+- Python 3.6
 - Mathplotlib 1.4.3
 
 Dependencies
