@@ -3,5 +3,5 @@ This package allows to compute synchronisation between continuous/categorical mo
 from two persons. 
 """
 
-__all__ = ['Univariate', 'Multivariate', 'Utils']
+__all__ = ['Univariate', 'Multivariate', 'utils']
 

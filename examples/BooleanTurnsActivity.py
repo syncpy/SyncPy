@@ -65,13 +65,13 @@ print("\n")
 
 try : 
     turns = BooleanTurnsActivity.BooleanTurnsActivity(max_latency, min_pause_duration, ele_per_sec, duration)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in BooleanTurnsActivity constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in BooleanTurnsActivity constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in BooleanTurnsActivity constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -84,13 +84,13 @@ print("An instance the class is now created with the following parameters:\n" +
 """ Compute the method and get the result """
 try : 
     res = turns.compute([user0_data, user1_data])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in BooleanTurnsActivity computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in BooleanTurnsActivity computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in BooleanTurnsActivity computation : \n" + str(e))
     sys.exit(-1)
 
@@ -112,4 +112,5 @@ print('Boolean turns activity statistics :')
 print("***********************************\n")
 print(stats)
 
-raw_input("Push ENTER key to exit.")
+
+input("Push ENTER key to exit.")

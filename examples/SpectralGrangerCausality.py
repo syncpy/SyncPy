@@ -27,7 +27,7 @@ import DataFrom2Persons.Univariate.Continuous.Linear.SpectralGrangerCausality as
 
 """ Import signal from a .csv file """
 filename = 'data_examples/1Person_Multivariate_Continuous_data.csv'
-print "\nLoading signals from csv files : ", filename,"\n"
+print("\nLoading signals from csv files : ", filename,"\n")
 x1 = ExtractSignalFromCSV(filename, columns = ['x2'])
 x2 = ExtractSignalFromCSV(filename, columns = ['x3'])
 """ Define class attributes """
@@ -40,13 +40,13 @@ print("\n")
 
 try : 
 	sgc = SGC.SpectralGrangerCausality(max_lag = max_lag, criterion = criterion, plot = plot)
-except TypeError, err :
+except TypeError as err :
 	print("TypeError in SpectralGrangerCausality constructor : \n" + str(err))
 	sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
 	print("ValueError in SpectralGrangerCausality constructor : \n" + str(err))
 	sys.exit(-1)
-except Exception, e :
+except Exception as e:
 	print("Exception in SpectralGrangerCausality constructor : \n" + str(e))
 	sys.exit(-1)
 
@@ -59,21 +59,21 @@ print("\n")
 print("Computing...\n")
 try : 
 	results = sgc.compute([x1,x2])
-except TypeError, err :
+except TypeError as err:
 	print("TypeError in SpectralGrangerCausality computation : \n" + str(err))
 	sys.exit(-1)
-except ValueError, err :
+except ValueError as err:
 	print("ValueError in SpectralGrangerCausality computation : \n" + str(err))
 	sys.exit(-1)
-except Exception, e :
+except Exception as e:
 	print("Exception in SpectralGrangerCausality computation : \n" + str(e))
 	sys.exit(-1)
 
 # Displaying results :
-print "Computing autoregressive model 'restricted' and 'unrestricted' via the 'Ordinary Least Squares' method\n"
+print("Computing autoregressive model 'restricted' and 'unrestricted' via the 'Ordinary Least Squares' method\n")
 
-print "According to",sgc._criterion,", the optimal number of lag estimated is :", sgc._olag,"\n"
+print("According to",sgc._criterion,", the optimal number of lag estimated is :", sgc._olag,"\n")
 
-print "Printing RESULTS  ...\n"
+print("Printing RESULTS  ...\n")
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")

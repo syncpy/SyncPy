@@ -41,15 +41,14 @@
 
 from sklearn import svm
 import matplotlib.pyplot as plt
-from sklearn.cross_validation import KFold
+from sklearn.model_selection import KFold
 from sklearn.cluster import KMeans
 from sklearn import preprocessing
 from sklearn import metrics
 from time import time
 import numpy as np
 import pandas as pd
-# import sys, ossns
-# import seaborn as
+import io
 from Method import Method, MethodArgList
 
 
@@ -88,8 +87,8 @@ class oneclassSVMimitation(Method):
 """
 
     argsList = MethodArgList()
-    argsList.append('vid1file', '', file, 'the  path the first video ')
-    argsList.append('vid2file', '', file, 'the path to the second video ')
+    argsList.append('vid1file', '', io.IOBase, 'the  path the first video ')
+    argsList.append('vid2file', '', io.IOBase, 'the path to the second video ')
     argsList.append('K', 100, int,
                     ' number of words in the codebook or the codewords or visual vocabulary or K means number of clusters')
     argsList.append('threshold', 0.1, float, 'threshold on oneClassSVM scores ')
@@ -108,8 +107,8 @@ class oneclassSVMimitation(Method):
 
         ' Raise error if parameters are not in the correct type '
         try:
-            if not (isinstance(vid1file, file)): raise TypeError("Requires vid1file to be an file")
-            if not (isinstance(vid2file, file)): raise TypeError("Requires vid2file to be an file")
+            if not (isinstance(vid1file, io.IOBase)): raise TypeError("Requires vid1file to be an file")
+            if not (isinstance(vid2file, io.IOBase)): raise TypeError("Requires vid2file to be an file")
             if not (isinstance(K, int)): raise TypeError("Requires K to be an integer")
             if not (isinstance(threshold, float)): raise TypeError("Requires threshold to be a float")
             if not (isinstance(plot, bool)): raise TypeError("Requires plot to be a boolean")

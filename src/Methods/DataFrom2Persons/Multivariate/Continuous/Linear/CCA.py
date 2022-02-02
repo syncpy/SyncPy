@@ -38,13 +38,12 @@
 """
 .. moduleauthor:: Jean Zagdoun
 """
+import io
 import warnings
 
 with warnings.catch_warnings():
     warnings.simplefilter("ignore", category=RuntimeWarning)
-from Method import Method, MethodArgList
-from utils import Standardize
-from utils.ExtractSignal import ExtractSignalFromCSV
+
 import numpy as np
 from numpy.linalg import eig
 from numpy.linalg import inv
@@ -54,6 +53,10 @@ from math import sqrt
 import pandas as pd
 from math import ceil
 from matplotlib import pyplot as plt
+
+from Method import Method, MethodArgList
+from utils import Standardize
+from utils.ExtractSignal import ExtractSignalFromCSV
 
 
 class CCA(Method):
@@ -104,9 +107,9 @@ class CCA(Method):
 
     argsList = MethodArgList()
     argsList.append('ignoreInputSignals', True, bool, 'Data really comes from the file below', True)
-    argsList.append('xData_filename', '', file,
+    argsList.append('xData_filename', '', io.IOBase,
                     'First data set in cvs format')
-    argsList.append('yData_filename', '', file,
+    argsList.append('yData_filename', '', io.IOBase,
                     'Second data set in cvs format')
     argsList.append('nbr_correlations', 0, int, 'number of maximised correlations wanted')
     argsList.append('Synchrony', False, bool, 'Do we look for optimal Synchrony')
@@ -118,21 +121,21 @@ class CCA(Method):
         ' Init '
         super(CCA, self).__init__(plot, **kwargs)
         if xData is None:
-            if not (xData_filename and isinstance(xData_filename, file)) \
+            if not (xData_filename and isinstance(xData_filename, io.IOBase)) \
                     or len(xData_filename.name) == 0: raise TypeError("Requires xData_filename to be a file")
 
         if yData is None:
-            if not (yData_filename and isinstance(yData_filename, file)) \
+            if not (yData_filename and isinstance(yData_filename, io.IOBase)) \
                     or len(yData_filename.name) == 0: raise TypeError("Requires yData_filename to be a file")
 
         if not (isinstance(nbr_correlations, int)): raise TypeError("Requires m to be an integer")
         # other rule for parameters
         if nbr_correlations < 0: raise ValueError("Requires m to be positive or greater than 0")
 
-        if isinstance(xData_filename, file):
+        if isinstance(xData_filename, io.IOBase):
             xData = pd.DataFrame.from_csv(xData_filename)
 
-        if isinstance(yData_filename, file):
+        if isinstance(yData_filename, io.IOBase):
             yData = pd.DataFrame.from_csv(yData_filename)
         if not (isinstance(Synchrony, bool)): raise TypeError("Synchrony must be a boolean")
         if not (isinstance(plot, bool)): raise TypeError("plot must be a boolean")

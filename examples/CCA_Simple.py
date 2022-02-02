@@ -43,13 +43,13 @@ nbr_correlations = 0
 
 try :
     c = CCA.CCA(nbr_correlations, xData=x, yData=y)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Correlation constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Correlation constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in Correlation constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -62,13 +62,13 @@ print("Computing...")
 
 try :
     res = c.compute([])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Correlation computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Correlation computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in Correlation computation : \n" + str(e))
     sys.exit(-1)
 
@@ -98,5 +98,5 @@ print("*************************************************************************
 print("\nIf you want to see exactly what kind of role does those variable have you can look at canonical loadings\n")
 print("For more documentation see :\"Robust methods for data reduction\" by Alessio Farcomeni and Luca Greco ")
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 plt.close("all")

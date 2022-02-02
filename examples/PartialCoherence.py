@@ -77,13 +77,13 @@ noverlap = 0    # number of points to overlap between epochs
 print("\n")
 try : 
     pc = PartialCoherence.PartialCoherence(fs, NFFT, detrend, noverlap)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in PartialCoherence constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in PartialCoherence constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in PartialCoherence constructor : \n" + str(e))
     sys.exit(-1)
     
@@ -100,13 +100,13 @@ print("Computing...")
 
 try : 
     partial_coherence = pc.compute(signals)['pCoherence']
-except TypeError, err :
+except TypeError as err :
     print("TypeError in PartialCoherence computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in PartialCoherence computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in PartialCoherence computation : \n" + str(e))
     sys.exit(-1)
 
@@ -119,4 +119,4 @@ for i in partial_coherence.keys():
     print(str(sorted(partial_coherence[i].keys())) + " given " + str(i)+ ", ")
     print("\n")
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")

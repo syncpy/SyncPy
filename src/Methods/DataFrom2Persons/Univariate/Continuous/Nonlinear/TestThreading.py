@@ -5,10 +5,11 @@ import numpy as np
 sys.path.insert(0, '../src/')
 
 from Method import Method, MethodArgList
-from PyQt4 import QtCore
-from PyQt4.QtCore import QObject, pyqtSignal, pyqtSlot
 
 class TestThreading(Method):
+    """
+    This is just a Test Module
+    """
     argsList = MethodArgList()
     argsList.append('timeToSleep', 2, int, 'seconds to sleep')
     argsList.append('plot', False, bool, 'plot or not')

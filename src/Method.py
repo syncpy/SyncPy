@@ -14,9 +14,9 @@ import json
 
 def debug(farg, *args):
     pass
-    #print farg
+    #print(farg)
     #for arg in args:
-    #   print arg
+    #   print(arg)
 
 class MethodArg:
     def __init__(self, label, value, type, hint, hidden=False):
@@ -88,8 +88,8 @@ class Method(multiprocessing.Process):
             self.writeToCSV(self.results)
             debug("Writing results ends")
         except Exception as e:
-            print ("Computing error: %s" % e.message)
-            self.tmpRes = str(e.message)
+            print("Computing error: {}".format(e))
+            self.tmpRes = str(e)
             self.errorRaised = True
 
         if True or len(self.tmpRes) > 10:
@@ -101,7 +101,7 @@ class Method(multiprocessing.Process):
         for i in plt.get_fignums():
             debug("Putting fig in queue : %d"% i)
             f = plt.figure(i)
-            pickle.dump(f, file('tmp%d.plot' % i, 'w'))
+            pickle.dump(f, open('tmp%d.plot' % i, 'wb'))
 
         debug("Putting in queue : ", self.tmpRes)
 
@@ -119,18 +119,18 @@ class Method(multiprocessing.Process):
     def writeDictToJSON(self, dic):
         filename = "{0}.{1}".format(self.outputFilename, 'json')
         print ("Writing json file: " + filename)
-        with open(filename, 'wb') as f:
+        with open(filename, 'w') as f:
             f.write(json.dumps(dic))
 
     def writeArrayToFile(self, file, label, array):
-        file.write("%s," % label)
+        file.write("{},".format(label))
         file.write(','.join([str(r) for r in array]))
         file.write(os.linesep)
 
     def writeDicNpArrayToCSV(self, keys, results):
         filename = "{0}-{1}.{2}".format(self.outputFilename, 'ar', 'csv')
         print ("Writing csv file: " + filename)
-        with open(filename, 'wb') as f:
+        with open(filename, 'w') as f:
             for k in keys:
                 self.writeArrayToFile(f, k, results[k])
 
@@ -142,8 +142,8 @@ class Method(multiprocessing.Process):
         if len(filteredResults) > 0:
             rows = zip(*filteredResults.values())
             filename = "{0}.{1}".format(self.outputFilename, 'csv')
-            print ("Writing csv file: " + filename)
-            with open(filename, 'wb') as f:
+            print("Writing csv file: " + filename)
+            with open(filename, 'w') as f:
                 writer = csv.writer(f)
                 f.write(','.join([str(r) for r in filteredKeys]))
                 f.write(os.linesep)
@@ -154,18 +154,17 @@ class Method(multiprocessing.Process):
                               type(results[k]) is pd.DataFrame and results[k].shape[1] > 1 and results[k].shape[0] >= 1]
         for k in filteredKeys:
             filename = "{0}-{1}.{2}".format(self.outputFilename, k, 'csv')
-            print ("Writing csv file: "+filename)
+            print("Writing csv file: "+filename)
             results[k].to_csv(filename)
 
     def writeToCSV(self, results):
-        if results != None:
+        if results:
             if type(results) is not dict:
-                print ('Result is not a dictionary no output will be saved')
+                print('Result is not a dictionary no output will be saved')
                 return
-            keys = results.keys()
+            keys = list(results.keys())
             if len(keys) < 100:
-                if len(keys) > 1 and (type(results[keys[0]]) is dict
-                    or type(results[keys[1]]) is dict):
+                if len(keys) > 1 and (type(results[keys[0]]) is dict or type(results[keys[1]]) is dict):
                     self.writeDictToJSON(results)
                 else:
                     self.writeNpArrayToCSV(keys, results)

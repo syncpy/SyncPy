@@ -42,7 +42,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import itertools
 
-import Standardize
+import utils.Standardize
 import Distance
 import Embedding
 

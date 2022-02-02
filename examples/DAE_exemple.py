@@ -6,34 +6,41 @@ Created on Thu Jul 27 15:40:52 2017
 @author: Jean Zagdoun
 """
 import sys
+import matplotlib.pyplot as plt
+import numpy as np
+
 sys.path.insert(0, '../src/')   # To be able to import packages from parent directory
 sys.path.insert(0, '../src/Methods')
 
-import numpy as np
+from utils.DAE import DAE
+
 try:
     import tensorflow as tf
 except ImportError:
-    print 'Need to install the "tensorflow" module (available on Linux and MacOS only for python 2.7) : "pip install tensorflow" or with Anaconda "conda install tensorflow"'
+    print('Need to install the "tensorflow" module (available on Linux and MacOS only for python 2.7) : "pip install tensorflow" or with Anaconda "conda install tensorflow"')
     exit()
 
-tf.reset_default_graph()
+#tf.reset_default_graph() # python-2.7, TensorFlow 1.x
+tf.compat.v1.reset_default_graph() # python-3.x, TensorFlow 2.7
 
-import matplotlib.pyplot as plt
 
 # Import MNIST data
-from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("MNIST_data", one_hot=True)
+#from tensorflow.examples.tutorials.mnist import input_data
+#mnist = input_data.read_data_sets("MNIST_data", one_hot=True)
+mnist = tf.keras.datasets.mnist
 
 examples_to_show = 10
-from utils.DAE import DAE
 
 
 
-data = mnist.train.next_batch(50000)[0]
-P , M, S, T = DAE(data, [225,121], batch_size=500, pre_pross=False, decoder=True)
+#data = mnist.train.next_batch(50000)[0]
+data = mnist.load_data()
+P, M, S, T = DAE(data, [225,121], batch_size=500, pre_pross=False, decoder=True)
 
 #you want to recover the session from DAE to be able to use the weights and train them if you want to
-sess = tf.get_default_session()
+#sess = tf.get_default_session() # python-2.7, TensorFlow 1.x
+sess = tf.compat.v1.get_default_session() # python-3.x, TensorFlow 2.7
+
 
 
 
@@ -89,5 +96,5 @@ for i in range(10):
 f.show()
 plt.draw()
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
     

@@ -41,7 +41,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from MutualInformation import MutualInformation
+from .MutualInformation import MutualInformation
 from Method import Method, MethodArgList
 
 
@@ -176,15 +176,17 @@ class WindowMutualInformation(Method):
         except ValueError as err_msg:
             raise ValueError(err_msg)
             return
-            
-        mi_mat = np.zeros( (len(result[result.keys()[0]]), len(result)-1) )
+
+        keys = list(result.keys())
+        keys = [float(x) for x in keys if x != 'Lag']
+        mi_mat = np.zeros( (len(result[keys[0]]), len(result)-1) )
         
         idx = 0
         time_window_array = np.zeros(len(result)-1)
-        for col in sorted(result.keys()):
+        for col in sorted(keys):
             if col != 'Lag':
                 for row in range(len(result[col])):
-                    mi_mat[row, idx] =  result[col][row]
+                    mi_mat[row, idx] = result[col][row]
                 time_window_array[idx] = float(col)
                 idx += 1
         

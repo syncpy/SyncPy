@@ -76,7 +76,7 @@ class PhaseSynchro_Entropy(Method):
     
     :param dist_cyc_rel_phase:
         if True the plot of the distribution of the cyclic relative phase is returned. Default: False
-    :type nbins: bool
+    :type dist_cyc_rel_phase: bool
 
     """
     argsList = MethodArgList()

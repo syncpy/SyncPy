@@ -1,46 +1,80 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'test_interface.ui'
-#
-# Created by: PyQt4 UI code generator 4.11.4
-#
-# WARNING! All changes made in this file will be lost!
+### This file was generated for use with the Syncpy library.
+### Copyright 2022, ISIR / Universite Pierre et Marie Curie (UPMC)
+### syncpy@isir.upmc.fr
+###
+### Main contributor(s): Philippe Gauthier
+###
+### This software is a computer program whose for investigating
+### synchrony in a fast and exhaustive way.
+###
+### This software is governed by the CeCILL-B license under French law
+### and abiding by the rules of distribution of free software.  You
+### can use, modify and/ or redistribute the software under the terms
+### of the CeCILL-B license as circulated by CEA, CNRS and INRIA at the
+### following URL "http://www.cecill.info".
 
+### As a counterpart to the access to the source code and rights to
+### copy, modify and redistribute granted by the license, users are
+### provided only with a limited warranty and the software's author,
+### the holder of the economic rights, and the successive licensors
+### have only limited liability.
+###
+### In this respect, the user's attention is drawn to the risks
+### associated with loading, using, modifying and/or developing or
+### reproducing the software by the user in light of its specific
+### status of free software, that may mean that it is complicated to
+### manipulate, and that also therefore means that it is reserved for
+### developers and experienced professionals having in-depth computer
+### knowledge. Users are therefore encouraged to load and test the
+### software's suitability as regards their requirements in conditions
+### enabling the security of their systems and/or data to be ensured
+### and, more generally, to use and operate it in the same conditions
+### as regards security.
+###
+### The fact that you are presently reading this means that you have
+### had knowledge of the CeCILL-B license and that you accept its terms.
+
+import io
 import json
 import os
 import subprocess
 import sys
 import time
-import urllib2
-from urllib2 import urlopen
+import urllib.request, urllib.error, urllib.parse
+from urllib.request import urlopen
 import zipfile
 import distutils.core
 import shutil
 import ssl
 import requests
-from PyQt4.QtGui import QApplication
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem, QPixmap
 
 sys.path.insert(0, '.')
 sys.path.insert(0, 'Methods')
 
-from PyQt4 import QtCore, QtGui, uic
-from PyQt4.QtCore import pyqtSlot
-from PyQt4.QtGui import QStyle, QFileDialog
+from PyQt5 import QtCore, QtGui, uic
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QApplication, QStyle, QFileDialog, QMainWindow, QDialog, QDesktopWidget, QMessageBox, \
+    QTableWidgetItem, QComboBox, QTreeWidgetItem, QProgressBar, QLabel, QMenu
 
 #from src import Method
 import matplotlib
-matplotlib.use('Qt4Agg')
+matplotlib.use('Qt5Agg')
 from ui.HeaderFileWizard import HeaderFileWizard
 from ui.MethodWidget import MethodWidget
 from ui.OutLog import OutLog
 from ui.Tools import Tools
 from ui.SyncpyAbout import SyncpyAbout
+
 import matplotlib.pyplot as plot
 import pandas as pd
 import webbrowser
 from scipy.io import loadmat
 from collections import OrderedDict
-import ConfigParser
+
+import configparser
 
 from Methods.utils.ExtractSignal import ExtractSignalFromCSV
 from Methods.utils.ExtractSignal import ExtractSignalFromMAT
@@ -52,21 +86,21 @@ except AttributeError:
         return s
 
 try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
+    _encoding = QApplication.UnicodeUTF8
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+        return QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+        return QApplication.translate(context, text, disambig)
 
 
 # Main Window Class
-class SyncPy2(QtGui.QMainWindow):
+class SyncPy2(QMainWindow):
     COLOR_GREY = QtGui.QColor(200, 200, 200)
 
     def __init__(self):
-        QtGui.QDialog.__init__(self)
-        geo = QtGui.QDesktopWidget().availableGeometry()
+        QDialog.__init__(self)
+        geo = QDesktopWidget().availableGeometry()
         self.maxHeight = geo.height() - 100
         self.maxWidth = geo.width() - 50
 
@@ -103,7 +137,7 @@ class SyncPy2(QtGui.QMainWindow):
             self.syncpyplatform = "u"
 
         #load config file
-        self.config = ConfigParser.RawConfigParser()
+        self.config = configparser.RawConfigParser()
         self.config.read('conf.ini')
         self.appVersion = self.getFromConfig('app.version')
         self.appName = self.getFromConfig('app.name')
@@ -117,7 +151,8 @@ class SyncPy2(QtGui.QMainWindow):
 
         table = self.ui.inputSignalsWidget
         table.setColumnCount(3)
-        headers = QtCore.QStringList("Name")
+        headers = []
+        headers.append("Name")
         headers.append("Type")
         headers.append("Plot")
         table.setHorizontalHeaderLabels(headers)
@@ -125,10 +160,10 @@ class SyncPy2(QtGui.QMainWindow):
         # --------- Add standards icons to main button ---------
         self.ui.startPushButton.setEnabled(False)
         self.ui.stopPushButton.setEnabled(False)
-        self.ui.startPushButton.setIcon(QtGui.qApp.style().standardIcon(QStyle.SP_CommandLink))
-        self.ui.stopPushButton.setIcon(QtGui.qApp.style().standardIcon(QStyle.SP_BrowserStop))
-        self.ui.openOutputPushButton.setIcon(QtGui.qApp.style().standardIcon(QStyle.SP_DirIcon))
-        self.ui.headerWizardButton.setIcon(QtGui.qApp.style().standardIcon(QStyle.SP_FileDialogContentsView))
+        self.ui.startPushButton.setIcon(self.style().standardIcon(QStyle.SP_CommandLink))
+        self.ui.stopPushButton.setIcon(self.style().standardIcon(QStyle.SP_BrowserStop))
+        self.ui.openOutputPushButton.setIcon(self.style().standardIcon(QStyle.SP_DirIcon))
+        self.ui.headerWizardButton.setIcon(self.style().standardIcon(QStyle.SP_FileDialogContentsView))
 
         # --------- redirect outputs to log widget ---------
         sys.stdout = OutLog(self.ui.outputPrintEdit, sys.stdout)
@@ -138,8 +173,7 @@ class SyncPy2(QtGui.QMainWindow):
         self.ui.methodWidget = MethodWidget(self.ui.methodsArgsGroupBox)
 
         # --------- Events connections ---------
-        QtCore.QObject.connect(self.ui.methodsTreeWidget, QtCore.SIGNAL('itemClicked(QTreeWidgetItem*, int)'),
-                               self.treeItemSelected)
+        self.ui.methodsTreeWidget.itemPressed.connect(self.treeItemSelected)
         self.ui.openOutputPushButton.clicked.connect(self.openOutputFolder)
         self.ui.plotSignalsButton.clicked.connect(self.plotSignals)
         self.ui.startPushButton.clicked.connect(self.computeBtnEvent)
@@ -157,26 +191,16 @@ class SyncPy2(QtGui.QMainWindow):
         self.ui.headerWizardButton.clicked.connect(self.headerWizardEvent)
         self.ui.exportSignalsButton.clicked.connect(self.exportSelectedSignals)
 
-        #QtCore.QObject.connect(self.ui.inputFileslistView, QtCore.SIGNAL('pressed(QModelIndex)'), self.checkFileItemFromRowClick)
-        QtCore.QObject.connect(self.ui.inputSignalsWidget, QtCore.SIGNAL('pressed(QModelIndex)'), self.checkSignalItemFromCellClick)
-        #QtCore.QObject.connect(self.ui.inputSignalsWidget, QtCore.SIGNAL('pressed(QModelIndex)'), self.selectItem)
+        self.ui.inputSignalsWidget.cellPressed.connect(self.checkSignalItemFromCellClick)
         # right click menu on toolbox
-        #self.ui.toolBox.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        #QtCore.QObject.connect(self.ui.toolBox, QtCore.SIGNAL("customContextMenuRequested(QPoint)"),self.openMenuToolbox)
         self.ui.inputFileslistView.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        QtCore.QObject.connect(self.ui.inputFileslistView, QtCore.SIGNAL("customContextMenuRequested(QPoint)"),
-                               self.openMenuToolbox)
+        self.ui.inputFileslistView.customContextMenuRequested.connect(self.openMenuToolbox)
 
         self.ui.inputSignalsWidget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        QtCore.QObject.connect(self.ui.inputSignalsWidget, QtCore.SIGNAL("customContextMenuRequested(QPoint)"),
-                               self.openMenuToolbox)
+        self.ui.inputSignalsWidget.customContextMenuRequested.connect(self.openMenuToolbox)
 
-        #self.ui.methodWidget.currentMethod.finished.connect(self.enableButtons)
 
-        QtCore.QObject.connect(self.ui.methodWidget, QtCore.SIGNAL('computationFinished()'),
-                               self.enableButtons)
-
-        self.ui.inputSignalsWidget.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+        self.ui.methodWidget.computationFinished.connect(self.enableButtons)
 
         self.ui.show()
         self.ui.toolBox.setCurrentIndex(0)
@@ -212,14 +236,14 @@ class SyncPy2(QtGui.QMainWindow):
             return
 
         # Create a menu
-        menu = QtGui.QMenu("Menu", self)
+        menu = QMenu("Menu", self)
         menu.addAction("Check All", self.selectAll)
         menu.addAction("Uncheck All", self.unselectAll)
         # Show the context menu.
         menu.exec_(self.ui.toolBox.mapToGlobal(position))
 
-    @pyqtSlot()
-    def treeItemSelected(self, item, col):
+    @pyqtSlot(QTreeWidgetItem, int)
+    def treeItemSelected(self, item, idx):
         fullPath = item.text(1)
         if fullPath != '':
             self.ui.methodWidget.clearArgumentList()
@@ -234,7 +258,7 @@ class SyncPy2(QtGui.QMainWindow):
         self.outputBaseName = None
         ismat = False
         dic = self.ui.methodWidget.getArgumentsAsDictionary()
-        if not(dic.has_key("ignoreInputSignals") and dic["ignoreInputSignals"]):
+        if not("ignoreInputSignals" in dic and dic["ignoreInputSignals"]):
             for f in self.filesSelected:
                 if f.endswith('.mat'):
                     matfile = loadmat(f)
@@ -330,7 +354,7 @@ class SyncPy2(QtGui.QMainWindow):
 
         isHeaderInFile = self.filesHasHeaders
         headerWizardDialog = HeaderFileWizard(self, str(self.firstFile), self.config, self.signalsHeader, isHeaderInFile)
-        if headerWizardDialog.exec_() == QtGui.QDialog.Accepted:
+        if headerWizardDialog.exec_() == QDialog.Accepted:
             self.signalsHeader = headerWizardDialog.getHeaders()
             self.filesHasHeaders = headerWizardDialog.hasHeaders()
 
@@ -362,7 +386,7 @@ class SyncPy2(QtGui.QMainWindow):
 
     @pyqtSlot()
     def outputFolderButtonEvent(self):
-        self.outputDirectory = os.path.relpath(str(QtGui.QFileDialog.getExistingDirectory(self, "Select Output Directory")))
+        self.outputDirectory = os.path.relpath(str(QFileDialog.getExistingDirectory(self, "Select Output Directory")))
         self.ui.outputFolderText.setPlainText(self.outputDirectory)
 
     @pyqtSlot()
@@ -373,7 +397,7 @@ class SyncPy2(QtGui.QMainWindow):
             self.outputDirectory = self.loadedSession["OutputDirectory"]
             self.columnSeparator = str(self.loadedSession["ColumnSeparator"])
         else:
-            dir = QtGui.QFileDialog.getExistingDirectory(self, "Select Directory")
+            dir = QFileDialog.getExistingDirectory(self, "Select Directory")
             if dir:
                 self.selectedDirectory = os.path.relpath(str(dir))
 
@@ -391,9 +415,9 @@ class SyncPy2(QtGui.QMainWindow):
                            if f.endswith('.csv') or f.endswith('.mat') or f.endswith('.tsv')]
         dataNames = []
         dataNames += [f for f in os.listdir(self.selectedDirectory) if f.endswith('.csv') or f.endswith('.mat') or f.endswith('.tsv')]
-        model = QtGui.QStandardItemModel(self.ui.inputFileslistView)
+        model = QStandardItemModel(self.ui.inputFileslistView)
         for f in dataNames:
-            item = QtGui.QStandardItem(f)
+            item = QStandardItem(f)
             item.setCheckable(True)
             item.setEditable(False)
             model.appendRow(item)
@@ -441,7 +465,7 @@ class SyncPy2(QtGui.QMainWindow):
         if self.ui.toolBox.currentIndex() == 1:
             table = self.ui.inputSignalsWidget
             col = table.currentColumn()
-            for i in xrange(0, table.rowCount()):
+            for i in range(0, table.rowCount()):
                 item = table.item(i, col)
                 item.setCheckState(state)
 
@@ -453,17 +477,16 @@ class SyncPy2(QtGui.QMainWindow):
     def unselectAll(self):
         self.setItemsCheckState(0)
 
-    @pyqtSlot()
-    def checkSignalItemFromCellClick(self, index):
-
+    @pyqtSlot(int, int)
+    def checkSignalItemFromCellClick(self, row, col):
         if self.ui.toolBox.currentIndex() == 1:
             table = self.ui.inputSignalsWidget
-            item = table.item(index.row(), index.column())
+            item = table.item(row, col)
             if item.background() != SyncPy2.COLOR_GREY:
                 item.setCheckState(QtCore.Qt.Unchecked if item.checkState() == QtCore.Qt.Checked else QtCore.Qt.Checked)
 
     def warnForGoingBack(self, warn):
-        self.ui.warningWidget.setShown(warn)
+        self.ui.warningWidget.setVisible(warn)
 
     @pyqtSlot()
     def changeSelectedTab(self):
@@ -533,7 +556,7 @@ class SyncPy2(QtGui.QMainWindow):
             if m.text(1) == self.methodUsed:
                 self.ui.methodsTreeWidget.scrollToItem(methodList[0])
                 m.setSelected(True)
-                self.treeItemSelected(m, 0)
+                self.treeItemSelected(m,0)
 
     def getSelectedFiles(self):
         # number of files selected
@@ -611,7 +634,7 @@ class SyncPy2(QtGui.QMainWindow):
 
         session["Signals"] = []
         table = self.ui.inputSignalsWidget
-        for i in xrange(0, table.rowCount()):
+        for i in range(0, table.rowCount()):
             item = table.item(i, 0)
             checkState = item.checkState()
             type = table.cellWidget(i, 1).currentText()
@@ -624,9 +647,10 @@ class SyncPy2(QtGui.QMainWindow):
         session["Method"] = str(self.methodUsed)
         session["ColumnSeparator"] = str(self.columnSeparator)
         session["MethodArgs"] = self.ui.methodWidget.getArgumentsAsDictionary()
-        for arg in session["MethodArgs"]:
-            if isinstance(session["MethodArgs"][arg], file):
-                session["MethodArgs"][arg] = str(session["MethodArgs"][arg].name)
+        if session["MethodArgs"]:
+            for arg in session["MethodArgs"]:
+                if isinstance(session["MethodArgs"][arg], io.IOBase):
+                    session["MethodArgs"][arg] = str(session["MethodArgs"][arg].name)
         session["ToolBoxIndex"] = self.ui.toolBox.currentIndex()
 
         with open(fname, 'w') as f:
@@ -650,7 +674,8 @@ class SyncPy2(QtGui.QMainWindow):
             return
 
         if self.loadedSession["SyncPyVer"] != self.syncpyver:
-            print "Unable to load session, SyncPy version mismatch (session "+self.loadedSession["SyncPyVer"]+" vs current "+self.syncpyver+")"
+            print(("Unable to load session, SyncPy version mismatch (session " + self.loadedSession[
+                "SyncPyVer"] + " vs current " + self.syncpyver+")"))
             return
 
         if self.loadedSession["SyncPyPlat"] != self.syncpyplatform:
@@ -672,7 +697,7 @@ class SyncPy2(QtGui.QMainWindow):
 
             message += ")"
 
-            print message
+            print(message)
             return
 
         self.ui.actionSaveSessionOver.setText("Save over '" + os.path.basename(str(fname)) + "'")
@@ -681,7 +706,7 @@ class SyncPy2(QtGui.QMainWindow):
         try:
             self.setInputFolder()
         except:
-            print "Error loading session: Unable to find input files"
+            print("Error loading session: Unable to find input files")
             self.sessionHasBeenLoaded = False
             self.ui.actionSaveSessionOver.setEnabled(False)
             return
@@ -711,11 +736,11 @@ class SyncPy2(QtGui.QMainWindow):
 
         self.headerMap = self.loadedSession["HeaderMap"]
 
-        for i in xrange(0, len(self.headerMap)):
-            self.signalsHeader.append(self.headerMap.keys()[i])
+        for i in range(0, len(self.headerMap)):
+            self.signalsHeader.append(list(self.headerMap.keys())[i])
 
     def setSignalItem(self, table, index, label, type, checked, plotted):
-        item = QtGui.QTableWidgetItem(label)
+        item = QTableWidgetItem(label)
         isTime = "time" in label.lower()
         if not isTime:
             item.setCheckState(checked)
@@ -723,17 +748,17 @@ class SyncPy2(QtGui.QMainWindow):
         else:
             item.setBackground(SyncPy2.COLOR_GREY)
         table.setItem(index, 0, item)
-        combo = QtGui.QComboBox()
+        combo = QComboBox()
         combo.addItem("continuous")
         if not isTime:
             combo.addItem("categorical")
-            QtCore.QObject.connect(combo, QtCore.SIGNAL("currentIndexChanged(QString)"), self.setSignalsRefreshed)
+            combo.currentIndexChanged.connect(self.setSignalsRefreshed)
         if type and combo.findText(type):
             combo.setCurrentIndex(combo.findText(type))
 
         table.setCellWidget(index, 1, combo)
-        icon = QtGui.QIcon(QtGui.QPixmap(self.plotImgPath))
-        item = QtGui.QTableWidgetItem(icon, "")
+        icon = QIcon(QPixmap(self.plotImgPath))
+        item = QTableWidgetItem(icon, "")
         if not isTime:
             item.setCheckState(plotted)
             item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsUserCheckable)
@@ -776,30 +801,21 @@ class SyncPy2(QtGui.QMainWindow):
 
         outFile.write("\n\nMethod used:\n")
         outFile.write("\t"+self.methodUsed+"\n")
-
         outFile.write("\n\nResults:\n")
 
         res = self.ui.methodWidget.getResult()
         outFile.write("\t" + str(res) + "\n")
-
-        #outFile.write("\n\nLog output:\n")
-        #outFile.write(self.ui.outputPrintEdit.toPlainText())
         outFile.close()
 
         try:
             for i in plot.get_fignums():
                 f = plot.figure(i)
-                #f.set_canvas(plot.gcf().canvas)
-                #currTime = time.strftime("%d%m%Y%H%M%S")
                 filename = baseName+"-Figure"+str(i)+".png"
-                outFile = os.path.abspath(filename)
-                print "Saving fig to: %s" % outFile
-                f.savefig(outFile)
-        except Exception, ex:
-            print "Exception while saving plot to '{0}'\n{1}".format(filename, ex.message)
+                f.savefig(os.path.abspath(filename))
+        except Exception as ex:
+            print(f"Exception while saving plot to '{filename}'\n{ex.message}")
 
     def createMethodList(self):
-        #self.ui.methodsTreeWidget.clear()
         rootFolder = "Methods"
 
         # number of files selected
@@ -816,7 +832,7 @@ class SyncPy2(QtGui.QMainWindow):
         # populate root folder
         if self.nFilesSelected == 1:
             if self.nSignalsSelected == 1:
-                print "Error: No method available for one signal only"
+                print("Error: No method available for one signal only")
                 return
             elif self.nSignalsSelected == 2:
                 rootFolder += "/DataFrom2Persons/Univariate"
@@ -840,25 +856,26 @@ class SyncPy2(QtGui.QMainWindow):
             elif self.typeSum == self.nSignalsSelected:
                 rootFolder += "/Categorical"
 
-        rootItem = QtGui.QTreeWidgetItem(self.ui.methodsTreeWidget, [rootFolder])
+        rootItem = QTreeWidgetItem(self.ui.methodsTreeWidget, [rootFolder])
         self.loadMethodsFromFolder(rootFolder, rootItem)
 
     def loadMethodsFromFolder(self, curPath, tree):
-        folderIcon = QtGui.qApp.style().standardIcon(QStyle.SP_DirIcon)
-        methodIcon = QtGui.qApp.style().standardIcon(QStyle.SP_MediaPlay)
+        folderIcon = self.style().standardIcon(QStyle.SP_DirIcon)
+        methodIcon = self.style().standardIcon(QStyle.SP_MediaPlay)
+        excluded_chars = ('_', '.')
         for (path, subdirs, files) in os.walk(curPath, topdown=True):
             if curPath == path:
                 for directory in subdirs:
-                    if curPath=="Methods" and not(directory.startswith("Data")):
+                    if curPath == "Methods" and not(directory.startswith("Data")) or directory[0] in excluded_chars:
                         continue
-                    item = QtGui.QTreeWidgetItem(tree, [directory])
+                    item = QTreeWidgetItem(tree, [directory])
                     item.setIcon(0, folderIcon)
                     self.loadMethodsFromFolder(path + '/' + directory, item)
 
                 for name in files:
                     if (not name.startswith("__")) and name.endswith(".py"):
                         methodName = name
-                        item = QtGui.QTreeWidgetItem(tree, [methodName])
+                        item = QTreeWidgetItem(tree, [methodName])
                         #storing full path hidden for convenience
                         item.setText(1, curPath+'/'+methodName)
                         item.setIcon(0, methodIcon)
@@ -905,10 +922,10 @@ class SyncPy2(QtGui.QMainWindow):
 
         fileName = ''
 
-        fileName = QtGui.QFileDialog.getSaveFileName(self)
+        fileName = QFileDialog.getSaveFileName(self)
 
         if not fileName:
-            print "Error export signals: No filename provided"
+            print("Error export signals: No filename provided")
             return
         else:
             if not fileName.endsWith('.csv'):
@@ -922,32 +939,32 @@ class SyncPy2(QtGui.QMainWindow):
         url = 'https://api.github.com/repos/syncpy/SyncPy/commits?per_page=1'
         try:
             response = urlopen(url, timeout=2, context=context).read()
-        except (urllib2.HTTPError, urllib2.URLError):
-            QtGui.QMessageBox.information(self, 'SyncPy Updater','Unable to reach the server, check your internet connexion.')
+        except (urllib.error.HTTPError, urllib.error.URLError):
+            QMessageBox.information(self, 'SyncPy Updater','Unable to reach the server, check your internet connexion.')
             return
             
         data = json.loads(response.decode())
         # if difference, ask for update
         if data[0]["sha"] != self.lastUpdate:
             updateMsg = "New update available, do you want to update now?"
-            reply = QtGui.QMessageBox.question(self, 'SyncPy Updater', 
-                             updateMsg, QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+            reply = QMessageBox.question(self, 'SyncPy Updater',
+                             updateMsg, QMessageBox.Yes, QMessageBox.No)
 
             # download last git archive
             # extract it
             # copy files
             # update last update number
             # ask for restart syncpy
-            if reply == QtGui.QMessageBox.Yes:
-                updateWindow = QtGui.QDialog(self)
+            if reply == QMessageBox.Yes:
+                updateWindow = QDialog(self)
                 updateWindow.setWindowTitle("SyncPy Updater")
                 updateWindow.setFixedSize(350,75)
-                pb = QtGui.QProgressBar(updateWindow)
+                pb = QProgressBar(updateWindow)
                 pb.setTextVisible(False)
                 pb.setGeometry(0, 0, 350, 25)
                 pb.setRange(0, 100)
                 pb.setProperty("value", 0)
-                lb = QtGui.QLabel(updateWindow)
+                lb = QLabel(updateWindow)
                 lb.setGeometry(0, 30, 350, 25)
                 lb.setText("Downloading update...")
                 updateWindow.show()
@@ -980,7 +997,7 @@ class SyncPy2(QtGui.QMainWindow):
                 shutil.rmtree("update")
                 os.remove("master.zip")
                 
-                self.config = ConfigParser.RawConfigParser()
+                self.config = configparser.RawConfigParser()
                 self.config.read('conf.ini')
                 self.config.set('SyncPy2','lastUpdate',data[0]["sha"])
                 self.lastUpdate = data[0]["sha"]
@@ -989,9 +1006,9 @@ class SyncPy2(QtGui.QMainWindow):
                                 
                 updateWindow.close()  
 
-                QtGui.QMessageBox.information(self, 'SyncPy Updater','Update complete, restart SyncPy to apply changes.')
+                QMessageBox.information(self, 'SyncPy Updater','Update complete, restart SyncPy to apply changes.')
         else:
-            QtGui.QMessageBox.information(self, 'SyncPy Updater','No update found')
+            QMessageBox.information(self, 'SyncPy Updater','No update found')
 
 
 if __name__ == "__main__":
@@ -999,8 +1016,6 @@ if __name__ == "__main__":
     # on Linux set X11 windows thread safe or crash
     if sys.platform == 'linux2':
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_X11InitThreads)
-    app = QtGui.QApplication(sys.argv)
-    #MainWindow = QtGui.QMainWindow()
+    app = QApplication(sys.argv)
     ui = SyncPy2()
-    #ui.show()
     sys.exit(app.exec_())

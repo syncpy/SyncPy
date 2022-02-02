@@ -24,10 +24,10 @@ class Tools:
 
         maxSignalLen = 250000
 
-        for i in xrange(0, nbNames-1):
+        for i in range(0, nbNames-1):
             time = signals[i].index
             timelabel = signals[i].index.names[0].encode("utf-8")
-            for j in xrange(0, nbFiles-1):
+            for j in range(0, nbFiles-1):
                 axarr[i, j].set_title(names[i])
                 axarr[i, j].set_xlabel(timelabel)
                 axarr[i, j].plot(time, signals[i+j], label=names[i])
@@ -64,18 +64,18 @@ class Tools:
         figureName = basename(fileName) + " - " + name
 
         l = len(signal)
-        if(l > maxSignalLen):
-            print "Warning: signal "+name+" too large to plot, decimating to preview"
+        if l > maxSignalLen:
+            print("Warning: signal "+name+" too large to plot, decimating to preview")
             decimation_factor = l/maxSignalLen
-            print decimation_factor
+            print(decimation_factor)
             s = signal.as_matrix()
-            s = np.max(s.reshape(-1,decimation_factor),axis=1)
+            s = np.max(s.reshape(-1, decimation_factor), axis=1)
             t = time.values
-            t = np.max(t.reshape(-1,decimation_factor),axis=1)
+            t = np.max(t.reshape(-1, decimation_factor), axis=1)
             plot.figure(figureName)
             plot.plot(t, s, label=name)
         else:
             plot.figure(figureName)
-            plot.plot(time, signal, label=name)
+            plot.plot(time.values, signal.values, label=name)
 
         #plot.show()

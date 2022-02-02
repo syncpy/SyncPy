@@ -175,7 +175,7 @@ class EventSync(Method):
       axarr[0].set_title('Synchrony and time delay pattern')
       axarr[0].set_xlabel('Samples')
       axarr[1].set_xlabel('Samples')
-      axarr[0].set_ylim(0,np.nanmax(result['Q']))
+      axarr[0].set_ylim(0, np.nanmax(result['Q']))
       axarr[0].plot(x, result['Q'], label="Synchrony (Qn)")
       axarr[1].set_ylim(np.nanmin(result['q']),np.nanmax(result['q']))
       axarr[1].plot(x, result['q'], label="Time delay pattern (qn)")
@@ -265,6 +265,7 @@ class EventSync(Method):
         """
 
         if self.tau == 1:
+            maxint = np.int32(2**31-1)
             lag_tau_array = np.zeros((len(t_peak_x), len(t_peak_y)), dtype=np.int)
 
             dx = np.zeros(len(t_peak_x) + 1, dtype=np.int)
@@ -272,11 +273,11 @@ class EventSync(Method):
             dx[1:-1] = (t_peak_x[1:] - t_peak_x[:-1]) / 2
             dy[1:-1] = (t_peak_y[1:] - t_peak_y[:-1]) / 2
 
-            dx[0] = sys.maxint
-            dy[0] = sys.maxint
+            dx[0] = maxint
+            dy[0] = maxint
 
-            dx[len(t_peak_x)] = sys.maxint
-            dy[len(t_peak_y)] = sys.maxint
+            dx[len(t_peak_x)] = maxint
+            dy[len(t_peak_y)] = maxint
 
             for ix in range(0, len(t_peak_x)):
                 for iy in range(0, len(t_peak_y)):
@@ -636,7 +637,7 @@ class EventSync(Method):
       if self.tau==0:
          try :
             if self.lag_tau >= min_diff :
-                raise ValueError("lag_tau should be smaller than this value %d: " %min_diff)
+                raise ValueError("lag_tau should be smaller than this value {}: ".format(min_diff))
          except ValueError as err_msg:
             raise ValueError(err_msg)
             return

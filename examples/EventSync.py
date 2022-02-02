@@ -49,15 +49,15 @@ y = ExtractSignalFromCSV(filename, columns = ['1'])
 
 
 '''
-s=np.arange(0,x.shape[0])
+s = np.arange(0, x.shape[0])
 
 plt.ion()
 f, axarr = plt.subplots(2, sharex=True)
 axarr[0].set_title('Input signals')
 axarr[0].set_xlabel('Samples')
 axarr[1].set_xlabel('Samples')
-axarr[0].stem(s,x,label="x")
-axarr[1].stem(s, y, label="y")
+axarr[0].stem(s, x.values,label="x")
+axarr[1].stem(s, y.values, label="y")
 axarr[0].legend(loc='best')
 axarr[1].legend(loc='best')
 
@@ -72,15 +72,15 @@ plot= False                        # plot of Q and q
 """ Instanciate the class with its attributes """
 print("\n")
 
-try : 
-    c=EventSync.EventSync(atype, tau, lag_tau, window, plot)
-except TypeError, err :
+try:
+    c = EventSync.EventSync(atype, tau, lag_tau, window, plot)
+except TypeError as err:
     print("TypeError in EventSync constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err:
     print("ValueError in EventSync constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e:
     print("Exception in EventSync constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -98,13 +98,13 @@ print("Computing...")
 
 try : 
     res= c.compute([x, y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in EventSync computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in EventSync computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in EventSync computation : \n" + str(e))
     sys.exit(-1)
 
@@ -136,13 +136,13 @@ print("\n")
 
 try : 
     c=EventSync.EventSync(atype, tau, lag_tau, window, plot)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in EventSync constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in EventSync constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in EventSync constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -161,13 +161,13 @@ print("Computing...")
 
 try : 
     res= c.compute([x, y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in EventSync computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in EventSync computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in EventSync computation : \n" + str(e))
     sys.exit(-1)
 
@@ -182,5 +182,5 @@ print(res['Q'])
 print("q:")
 print(res['q'])
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 

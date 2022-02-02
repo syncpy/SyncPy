@@ -42,9 +42,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import itertools
 
-import Standardize
-import Distance
-import Embedding
+from ..utils import Standardize
+from ..utils import Distance
+from .Embedding import Embedding
 
 
 def _row_rep(s, size, i, vd, e, crp_tmp):

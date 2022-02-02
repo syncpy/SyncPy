@@ -1,16 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from PyQt4 import QtCore, QtGui, uic
-from PyQt4.QtCore import QStringList, QString
-from PyQt4.QtGui import QTableWidgetItem
+from PyQt5 import QtCore, QtGui, uic
+from PyQt5.QtWidgets import QTableWidgetItem, QDialog
 from scipy.io import loadmat, whosmat
 from collections import OrderedDict
 import numpy as np
-import ConfigParser
+import configparser
 
 # Main Window Class
-class HeaderFileWizard(QtGui.QDialog):
+class HeaderFileWizard(QDialog):
     def __init__(self, widget, filename, config, signalsHeader = None, isHeaderInFile = True):
         super(HeaderFileWizard, self).__init__(widget)
         self.filename = filename
@@ -54,7 +53,7 @@ class HeaderFileWizard(QtGui.QDialog):
 
     @staticmethod
     def makeUniques(headers):
-        headers = map(HeaderFileWizard.strip, headers)
+        headers = list(map(HeaderFileWizard.strip, headers))
         headers.reverse()
         for h in headers:
             c = headers.count(h)
@@ -79,9 +78,9 @@ class HeaderFileWizard(QtGui.QDialog):
         if self.isHeaderInFile:
             start = 1
 
-        for j in xrange(self.nbCols):
+        for j in range(self.nbCols):
             signalUniques = []
-            for i in xrange(start, self.nbRows):
+            for i in range(start, self.nbRows):
                 if self.table.item(i, j):
                     signalUniques.append(self.table.item(i, j).text())
             if len(set(signalUniques)) <= 10: #count uniques in list
@@ -101,14 +100,14 @@ class HeaderFileWizard(QtGui.QDialog):
             if isinstance(val, np.ndarray):
                 mdata = val
 
-        for j in xrange(self.nbCols):
+        for j in range(self.nbCols):
             headerLabel = str(mdata[0 ,j])
             item = QTableWidgetItem(headerLabel)
             item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable)
             self.table.setHorizontalHeaderItem(j, item)
 
-        for i in xrange(self.nbRows):
-                for j in xrange(self.nbCols):
+        for i in range(self.nbRows):
+                for j in range(self.nbCols):
                     item = QTableWidgetItem(str(mdata[i ,j]))
                     item.setFlags(QtCore.Qt.ItemIsSelectable)
                     self.table.setItem(i, j, item)
@@ -123,7 +122,7 @@ class HeaderFileWizard(QtGui.QDialog):
             linebckp = line.rstrip('\n')
             self.originalHeader = linebckp.split(self.separator)
             if len(headers) == 0:
-                headers = filter(None, linebckp.split(self.separator))
+                headers = list(filter(None, linebckp.split(self.separator)))
 
             self.nbRows = 30#5
             self.nbCols = len(headers)
@@ -133,7 +132,7 @@ class HeaderFileWizard(QtGui.QDialog):
             #makes header uniques
             headers = HeaderFileWizard.makeUniques(headers)
 
-            for j in xrange(self.nbCols):
+            for j in range(self.nbCols):
                 headerLabel = headers[j].strip()
                 item = QTableWidgetItem(headerLabel)
                 item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable)
@@ -141,9 +140,9 @@ class HeaderFileWizard(QtGui.QDialog):
 
             #self.table.setHorizontalHeaderLabels(headerList)
 
-            for i in xrange(self.nbRows):
+            for i in range(self.nbRows):
                 line = f.readline()
-                for j in xrange(self.nbCols):
+                for j in range(self.nbCols):
                     values = line.split(self.separator)
                     if j < len(values):
                         item = QTableWidgetItem(values[j])
@@ -165,14 +164,14 @@ class HeaderFileWizard(QtGui.QDialog):
 
     def getHeaders(self):
         self.signalsHeader = []
-        for j in xrange(self.nbCols):
+        for j in range(self.nbCols):
             self.signalsHeader.append(str(self.table.takeHorizontalHeaderItem(j).text()))
 
         return self.signalsHeader
 
     def getHeaderMap(self):
         self.headerMap = OrderedDict()
-        for j in xrange(self.nbCols):
+        for j in range(self.nbCols):
             self.headerMap[str(self.signalsHeader[j])] = str(self.originalHeader[j])
 
         return self.headerMap

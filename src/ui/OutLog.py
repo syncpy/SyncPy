@@ -1,4 +1,4 @@
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8

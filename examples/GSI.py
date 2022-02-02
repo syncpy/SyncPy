@@ -11,7 +11,8 @@ import numpy as np              # Mathematical package
 import pandas as pd             # Time serie package
 import matplotlib.pyplot as plt # Plotting package
 sys.path.insert(0, '../src/')   # To be able to import packages from parent directory 
-sys.path.insert(0, '../src/Methods')
+
+import Methods.utils.Standardize
 
 print("\n")
 print("*****************************************************************************")
@@ -41,8 +42,8 @@ f, axarr = plt.subplots(2, sharex=True)
 axarr[0].set_title('Input signals')
 axarr[0].set_xlabel('Samples')
 axarr[1].set_xlabel('Samples')
-axarr[0].plot(range(0,N), x, label="x")
-axarr[1].plot(range(0,N), y, label="y", color='r')
+axarr[0].plot(range(0,N), x.values, label="x")
+axarr[1].plot(range(0,N), y.values, label="y", color='r')
 axarr[0].legend(loc='best')
 axarr[1].legend(loc='best')
 
@@ -57,13 +58,13 @@ print("\n")
 
 try:
     c = GSI.GSI(m, t, rr)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in GSI : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in GSI : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in GSI : \n" + str(e))
     sys.exit(-1)
 
@@ -82,13 +83,13 @@ print("Computing...")
 
 try : 
     res = c.compute([x, y])
-except TypeError, err:
+except TypeError as err:
     print("TypeError in GSI computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err:
+except ValueError as err:
     print("ValueError in GSI computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e:
+except Exception as e:
     print("Exception in GSI computation : \n" + str(e))
     sys.exit(-1)
 
@@ -102,7 +103,7 @@ print("GSI:")
 print(res)
 print("\n")
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 plt.close("all")
 
 

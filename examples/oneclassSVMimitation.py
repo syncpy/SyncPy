@@ -58,13 +58,13 @@ print("\n")
 
 try : 
    c=oneclassSVMimitation.oneclassSVMimitation(vid1file,vid2file,K,threshold=thr)   
-except TypeError, err:
+except TypeError as err:
     print("TypeError in oneclassSVMimitation constructor : \n" + str(err))
     sys.exit(-1)
-except  ValueError, err:
+except  ValueError as err:
     print("ValueError in oneclassSVMimitation constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e:
+except Exception as e:
     print("Exception in oneclassSVMimitation constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -81,13 +81,13 @@ print("Computing...")
 
 try : 
     res= c.compute()
-except  TypeError,err :
+except  TypeError as err :
     print("TypeError in oneclassSVMimitation computation : \n" + str(err))
     sys.exit(-1)
-except ValueError,err :
+except ValueError as err :
     print("ValueError in oneclassSVMimitation computation : \n" + str(err))
     sys.exit(-1)
-except   Exception,e :
+except   Exception as e :
     print("Exception in oneclassSVMimitation computation : \n" + str(e))
     sys.exit(-1)
 
@@ -104,7 +104,7 @@ print("Please keep in mind that the results depends on your choice of K and thre
 c.plot_result()
 
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 plt.close("all")
 
 

@@ -73,13 +73,13 @@ x = pd.DataFrame(x)
 
 try :
     c = CCA.CCA(nbr_correlations, xData=x, yData=y, Synchrony=True,plot=True)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Coherence constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Coherence constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in Coherence constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -108,6 +108,6 @@ print('Synchrony between facial expression and speech is maximised at a delay of
 print("***********************************************************************************************************************\n")
 
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 
 

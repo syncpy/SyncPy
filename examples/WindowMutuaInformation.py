@@ -37,8 +37,8 @@ ax.grid(True)
 ax.set_xlabel('Time (s)')
 ax.set_ylabel('signals')
 ax.set_title('Input signals')
-ax.plot(n , y, label='y')
-ax.plot(n , x, label='x')
+ax.plot(n, y.values, label='y')
+ax.plot(n, x.values, label='x')
 plt.legend(bbox_transform=plt.gcf().transFigure)
 
 """ Define class attributes of the wanted method """
@@ -58,13 +58,13 @@ plot = True              # if True the plot of correlation function is returned.
 print("\n")
 try : 
     wmi = WindowMutualInformation.WindowMutualInformation(n_neighbours, my_type, var_res,noise, tau_max, window, window_inc, tau_inc, plot)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in WindowMutualInformation constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in WindowMutualInformation constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in WindowMutualInformation constructor : \n" + str(e))
     sys.exit(-1)
     
@@ -87,13 +87,13 @@ print("Computing...")
 
 try : 
     win_MI = wmi.compute([x,y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in WindowMutualInformation computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in WindowMutualInformation computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in WindowMutualInformation computation : \n" + str(e))
     sys.exit(-1)
 
@@ -105,4 +105,4 @@ print('Window Mutual Information result :')
 print("********************************* \n")
 #print(win_MI)
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")

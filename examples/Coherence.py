@@ -13,6 +13,7 @@ import pandas as pd         # Time serie package
 import matplotlib.pyplot as plt # Plotting package
 sys.path.insert(0, '../src/')   # To be able to import packages from parent directory
 sys.path.insert(0, '../src/Methods')
+sys.path.insert(0, '../src/Methods/utils')
 
 print("\n")
 print("****************************************************************************************")
@@ -28,7 +29,7 @@ import DataFrom2Persons.Univariate.Continuous.Linear.Coherence as Coherence
 
 
 """ Import Utils modules """
-from utils import Standardize
+import utils.Standardize
 from utils.ExtractSignal import ExtractSignalFromCSV
 
 
@@ -60,8 +61,8 @@ f, axarr = plt.subplots(2, sharex=True)
 axarr[0].set_title('Input signals')
 axarr[0].set_xlabel('Samples')
 axarr[1].set_xlabel('Samples')
-axarr[0].plot(t, x, label="x")
-axarr[1].plot(t, y, label="y", color='r')
+axarr[0].plot(t, x.values, label="x")
+axarr[1].plot(t, y.values, label="y", color='r')
 axarr[0].legend(loc='best')
 axarr[1].legend(loc='best')
 
@@ -77,13 +78,13 @@ print("\n")
 
 try : 
     c = Coherence.Coherence(Fs, NFFT, detrend, noverlap, plot=True)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Coherence constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Coherence constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in Coherence constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -100,13 +101,13 @@ print("Computing...")
 
 try : 
     res = c.compute([x,y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Coherence computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Coherence computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in Coherence computation : \n" + str(e))
     sys.exit(-1)
 
@@ -118,5 +119,5 @@ print("****************************************\n")
 print(res['Coherence'])
 print(res['Frequency'])
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 

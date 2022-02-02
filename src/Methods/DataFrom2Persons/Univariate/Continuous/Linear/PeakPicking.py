@@ -36,6 +36,7 @@
 """
 .. moduleauthor:: Marie Avril
 """
+import io
 
 import numpy as np
 import pandas as pd
@@ -93,7 +94,7 @@ class PeakPicking(Method):
     :type sorted_peak: bool
     """
     argsList = MethodArgList()
-    argsList.append('corr_matrix_filename', '', file,
+    argsList.append('corr_matrix_filename', '', io.IOBase,
                     'Data json file containing matrix of cross correlation computed by WindowCrossCorrelation module (windowed cross correlation DataFrame with (2 * tau_max + 1)/tau_inc rows and (length(x) - window - win_inc)/ win_inc colums)')
     argsList.append('tau_max', 10, int,
                     'The maximum lag (in samples) at which correlation should be computed. It is in the range [0; (length(x)+length(y)-1)/2]')
@@ -120,7 +121,7 @@ class PeakPicking(Method):
         ' Raise error if parameters are not in the correct type '
         try:
             if corr_matrix is None :
-                if not(corr_matrix_filename and isinstance(corr_matrix_filename, file)) \
+                if not(corr_matrix_filename and isinstance(corr_matrix_filename, io.IOBase)) \
                         or len(corr_matrix_filename.name) == 0: raise TypeError("Requires corr_matrix_file to be a file")
             if corr_matrix_filename is None:
                 if not(isinstance(corr_matrix, dict)): raise TypeError("Requires corr_matrix to be a dictionary")
@@ -141,7 +142,7 @@ class PeakPicking(Method):
             corr_matrix = dict()
         ' Raise error if parameters do not respect input rules '
         try:
-            if isinstance(corr_matrix_filename, file):
+            if isinstance(corr_matrix_filename, io.IOBase):
                 corr_matrix = json.load(corr_matrix_filename)
                 if len(corr_matrix) == 0: raise ValueError("Requires json file '"+corr_matrix_filename+"' to not be empty")
             if tau_max < 0 : raise ValueError("Requires tau_max to be a positive scalar")
@@ -176,7 +177,8 @@ class PeakPicking(Method):
 
         corr_matrix = self._corr_matrix['cross_corr']
         if self._plot_on_mat :
-            corr_mat = np.zeros((len(corr_matrix[corr_matrix.keys()[0]]), len(corr_matrix)))
+            keys = list(corr_matrix.keys())
+            corr_mat = np.zeros((len(corr_matrix[keys[0]]), len(corr_matrix)))
         
             idx = 0
             time_window_array = np.zeros(len(corr_matrix))

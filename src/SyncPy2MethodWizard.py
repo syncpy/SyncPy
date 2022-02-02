@@ -11,15 +11,15 @@ import importlib
 import re
 
 
-from PyQt4 import QtCore, QtGui, uic
-from PyQt4.QtCore import pyqtSlot, QString
-from PyQt4.QtGui import QStandardItem
-from PyQt4.QtGui import QFileDialog
-from Method import Method,MethodArg,MethodArgList
+from PyQt5 import QtCore, QtGui, uic
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QStandardItem
+from PyQt5.QtWidgets import QFileDialog
+from .Method import Method, MethodArg, MethodArgList
 from string import Template
-from ui.SyncpyAbout import SyncpyAbout
-import ui.PythonSyntax
-import ConfigParser
+from .ui.SyncpyAbout import SyncpyAbout
+
+import configparser
 
 sys.path.insert(0, '.')
 sys.path.insert(0, 'Methods')
@@ -43,7 +43,7 @@ class SyncPy2MethodWizard(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QDialog.__init__(self)
 
-        self.config = ConfigParser.RawConfigParser()
+        self.config = configparser.RawConfigParser()
         self.config.read('conf.ini')
 
         self.ui = uic.loadUi("ui/SyncpyMethodWizard.ui", self)
@@ -268,7 +268,7 @@ class SyncPy2MethodWizard(QtGui.QMainWindow):
                         self.ui.linearComboBox.setCurrentIndex(self.ui.linearComboBox.findText(path[4]))
 
             # dynamic instrospection of the Class
-            print "Loading Class {0}".format(moduleToLoad)
+            print("Loading Class {0}".format(moduleToLoad))
             currentMethod = getattr(importlib.import_module(str(moduleToLoad)), str(className))
 
             if currentMethod.__doc__:
@@ -298,7 +298,7 @@ class SyncPy2MethodWizard(QtGui.QMainWindow):
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
-    print sys.argv
+    print((sys.argv))
     MainWindow = QtGui.QMainWindow()
     ui = SyncPy2MethodWizard()
 

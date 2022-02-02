@@ -37,7 +37,6 @@
 .. moduleauthor:: Giovanna Varni
 """
 import sys
-sys.path.insert(0, '../src/')
 
 
 import numpy as np # For math operation
@@ -45,6 +44,7 @@ import pandas as pd # For DataFrame
 import matplotlib.pyplot as plt # For plotting
 import matplotlib.dates as mdates # For plotting dates and timeFormat
 from Methods.utils import JointRecurrencePlot
+
 
 from Method import Method, MethodArgList
 

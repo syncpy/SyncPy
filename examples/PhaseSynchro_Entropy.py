@@ -44,8 +44,8 @@ f, axarr = plt.subplots(2, sharex=True)
 axarr[0].set_title('Input signals')
 axarr[0].set_xlabel('Samples')
 axarr[1].set_xlabel('Samples')
-axarr[0].plot(range(0,N), x, label="x")
-axarr[1].plot(range(0,N), y, label="y", color='r')
+axarr[0].plot(range(0,N), x.values, label="x")
+axarr[1].plot(range(0,N), y.values, label="y", color='r')
 axarr[0].legend(loc='best')
 axarr[1].legend(loc='best')
 
@@ -62,13 +62,13 @@ print("\n")
 
 try : 
     c=PhaseSynchro_Entropy.PhaseSynchro_Entropy(n ,m, nbins_mode, nbins,plot )
-except TypeError, err :
+except TypeError as err :
     print("TypeError in PhaseSynchro_Entropy constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in PhaseSynchro_Entropy constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in PhaseSynchro_Entropy constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -87,13 +87,13 @@ print("Computing...")
 
 try : 
     res= c.compute([x, y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in PhaseSynchro_Entropy computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in PhaseSynchro_Entropy computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in PhaseSynchro_Entropy computation : \n" + str(e))
     sys.exit(-1)
 
@@ -108,7 +108,7 @@ print("rho_nm:")
 print(res)
 print("\n")
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 plt.close("all")
 
 

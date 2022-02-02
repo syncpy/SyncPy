@@ -53,8 +53,8 @@ f, axarr = plt.subplots(2, sharex=True)
 axarr[0].set_title('Input signals')
 axarr[0].set_xlabel('Samples')
 axarr[1].set_xlabel('Samples')
-axarr[0].plot(range(0,n), x, label="x")
-axarr[1].plot(range(0,n), y, label="y", color='r')
+axarr[0].plot(range(0,n), x.values, label="x")
+axarr[1].plot(range(0,n), y.values, label="y", color='r')
 axarr[0].legend(loc='best')
 axarr[1].legend(loc='best')
 
@@ -71,13 +71,13 @@ print("\n")
 
 try : 
     c=MutualInformation.MutualInformation(n_neighbours,var_res,noise)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in MutualInformation constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in MutualInformation constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in MutualInformation constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -93,13 +93,13 @@ print("Computing...")
 
 try :
     res1 = c.compute([x,y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in MutualInformation computation : \n" + str(e))
     sys.exit(-1)
 
@@ -111,13 +111,13 @@ print("\n")
 
 try : 
     c=MutualInformation.MutualInformation(n_neighbours,var_res,noise)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in MutualInformation constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in MutualInformation constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in MutualInformation constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -133,13 +133,13 @@ print("Computing...")
 
 try : 
     res2= c.compute([x, y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in MutualInformation computation : \n" + str(e))
     sys.exit(-1)
 
@@ -179,13 +179,13 @@ print("\n")
 
 try : 
     c=MutualInformation.MutualInformation(n_neighbours,var_res,noise)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in MutualInformation constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in MutualInformation constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in MutualInformation constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -201,13 +201,13 @@ print("Computing...")
 
 try : 
     res1= c.compute([x1, y1])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in MutualInformation computation : \n" + str(e))
     sys.exit(-1)
     
@@ -219,13 +219,13 @@ print("\n")
 
 try : 
     c=MutualInformation.MutualInformation(n_neighbours,var_res,noise)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in MutualInformation constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in MutualInformation constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in MutualInformation constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -241,13 +241,13 @@ print("Computing...")
 
 try : 
     res2= c.compute([x1, y1])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in MutualInformation computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in MutualInformation computation : \n" + str(e))
     sys.exit(-1)
 
@@ -262,5 +262,5 @@ print("\n")
 print("MutualInformation estimator 2:")
 print(res2)
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 plt.close("all")

@@ -55,8 +55,8 @@ f, axarr = plt.subplots(2, sharex=True)
 axarr[0].set_title('Input signals')
 axarr[0].set_xlabel('Samples')
 axarr[1].set_xlabel('Samples')
-axarr[0].plot(t, x, label="x")
-axarr[1].plot(t, y, label="y", color='r')
+axarr[0].plot(t, x.values, label="x")
+axarr[1].plot(t, y.values, label="y", color='r')
 axarr[0].legend(loc='best')
 axarr[1].legend(loc='best')
 
@@ -71,13 +71,13 @@ print("\n")
 
 try : 
     c = NonlinearCorr.NonlinearCorr(nbins)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in NonlinearCorr constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in NonlinearCorr constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in NonlinearCorr constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -91,13 +91,13 @@ print("Computing...")
 
 try:
     res = c.compute([x, y])
-except TypeError, err:
+except TypeError as err:
     print("TypeError in NonlinearCorr computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err:
+except ValueError as err:
     print("ValueError in NonlinearCorr computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e:
+except Exception as e:
     print("Exception in NonlinearCorr computation : \n" + str(e))
     sys.exit(-1)
 
@@ -126,13 +126,13 @@ print("\n")
 
 try:
     c = Correlation.Correlation(tau_max, plot, standardization, corr_tau_max, corr_coeff, scale)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Correlation constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Correlation constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e:
     print("Exception in Correlation constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -150,13 +150,13 @@ print("Computing...")
 
 try :
     res = c.compute([x, y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Correlation computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Correlation computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in Correlation computation : \n" + str(e))
     sys.exit(-1)
 
@@ -165,15 +165,15 @@ print("\n")
 print("**************************************** \n")
 print('Correlation complete result :\n')
 print("****************************************\n")
-print("Pearson's correlation coefficient %f:" %(res['corr_coeff']))
+print("Pearson's correlation coefficient {}:".format(res['corr_coeff']))
 print("\n")
 
-print ("As expected the two coefficient provide different results, \n" +
+print("As expected the two coefficient provide different results, \n" +
        "that is high value of nonlinear correlation coefficient and \n" +
        "low value of linear correlation coefficient.")
 
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 plt.close("all")
 
 

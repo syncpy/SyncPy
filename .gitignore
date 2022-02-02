@@ -1,18 +1,7 @@
 
-\.idea/\.name
+\.idea/**
 
-\.idea/encodings\.xml
-
-\.idea/misc\.xml
-
-\.idea/modules\.xml
-
-\.idea/SyncPy-Git\.iml
-
-\.idea/vcs\.xml
-
-\.idea/workspace\.xml
-
+src/samples/syncpy_out-**
 *.pyc
 
 noPublish/

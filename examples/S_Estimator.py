@@ -79,13 +79,13 @@ plot_surrogate = True
 print("\n")
 try : 
     s_estimator = S_Estimator.S_Estimator(surr_nb_iter, plot_surrogate)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in S_Estimator constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in S_Estimator constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in S_Estimator constructor : \n" + str(e))
     sys.exit(-1)
     
@@ -99,13 +99,13 @@ print("Computing...")
 
 try : 
     estimators = s_estimator.compute(signals)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in S_Estimator computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in S_Estimator computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in S_Estimator computation : \n" + str(e))
     sys.exit(-1)
 
@@ -118,4 +118,4 @@ for i in estimators.keys():
     print(i + " : " + str(estimators[i]))
 print("\n")
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")

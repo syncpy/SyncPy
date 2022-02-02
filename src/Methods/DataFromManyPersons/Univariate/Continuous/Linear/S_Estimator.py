@@ -269,7 +269,9 @@ class S_Estimator(Method):
                 ''' 2 - Filtering '''
                 Xi_surr_fft = np.fft.rfft(Xi_surr)
                 Xi_surr_ampli = np.abs(Xi_surr_fft)
-                Xi_surr_phase = Xi_surr_fft / Xi_surr_ampli
+                Xi_surr_phase=0
+                if Xi_surr_ampli!=0:
+                    Xi_surr_phase = Xi_surr_fft / Xi_surr_ampli
                 
                 # Save surrogate amplitude 
                 X_surr_ampli.update({col : Xi_surr_ampli})
@@ -279,7 +281,7 @@ class S_Estimator(Method):
                 
                 ''' 3 - Rescaling '''
                 ranks = s.argsort().argsort() # get sorted indexes
-                for j in xrange(Xi_surr.shape[0]):
+                for j in range(Xi_surr.shape[0]):
                     Xi_surr[j] = X_sorted[col][ranks[j]] # replace smallest Xi_surr by smallets Xi etc...
                 X_surr.update({col : Xi_surr})
                 

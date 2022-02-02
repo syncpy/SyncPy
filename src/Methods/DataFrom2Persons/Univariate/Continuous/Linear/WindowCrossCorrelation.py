@@ -39,9 +39,10 @@
 
 import numpy as np
 import pandas as pd
-from Method import Method, MethodArgList
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+
+from Method import Method, MethodArgList
 
 class WindowCrossCorrelation(Method):
     """
@@ -143,7 +144,9 @@ class WindowCrossCorrelation(Method):
             return
 
         result = results['cross_corr']
-        corr_mat = np.zeros( (len(result[result.keys()[0]]), len(result)) )
+        keys = list(result.keys())
+
+        corr_mat = np.zeros((len(result[keys[0]]), len(result)))
         
         idx = 0
         time_window_array = np.zeros(len(result))

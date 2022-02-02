@@ -70,13 +70,13 @@ plt.legend(bbox_transform=plt.gcf().transFigure)
 print("\n")
 try : 
     omega_comp = Omega_Complexity.Omega_Complexity()
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Omega_Complexity constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Omega_Complexity constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in Omega_Complexity constructor : \n" + str(e))
     sys.exit(-1)
     
@@ -88,13 +88,13 @@ print("Computing...")
 
 try : 
     omega = omega_comp.compute(signals)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Omega_Complexity computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Omega_Complexity computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in Omega_Complexity computation : \n" + str(e))
     sys.exit(-1)
 
@@ -107,4 +107,4 @@ for i in omega.keys():
     print(i + " : " + str(omega[i]))
 print("\n")
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")

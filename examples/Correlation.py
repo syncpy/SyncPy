@@ -62,8 +62,8 @@ axarr[0].set_title('Input signals')
 axarr[0].set_xlabel('Samples')
 axarr[1].set_xlabel('Samples')
 
-axarr[0].plot(n, x, label="x")
-axarr[1].plot(n, y, label="y", color='r')
+axarr[0].plot(n, x.values, label="x")
+axarr[1].plot(n, y.values, label="y", color='r')
 axarr[0].legend(loc='best')
 axarr[1].legend(loc='best')
 
@@ -83,13 +83,13 @@ print("\n")
 
 try : 
     c=Correlation.Correlation(tau_max, plot, standardization, corr_tau_max, corr_coeff, scale)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Correlation constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Correlation constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in Correlation constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -107,13 +107,13 @@ print("Computing...")
 
 try : 
     res= c.compute([x, y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in Correlation computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in Correlation computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in Correlation computation : \n" + str(e))
     sys.exit(-1)
 
@@ -124,10 +124,10 @@ print('Correlation complete result :')
 print("****************************************\n")
 print("Correlation function array:")
 print(res['corr_funct'])
-print("Maximum value of the correlation %f and lag (in samples) %d:" %(res['max_corr'],res['t_max']))
-print("Pearson's correlation coefficient %f:" %(res['corr_coeff']))
+print("Maximum value of the correlation {0} and lag (in samples) {1}:".format(res['max_corr'], res['t_max']))
+print("Pearson's correlation coefficient {}:".format(res['corr_coeff']))
 
 
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 plt.close("all")

@@ -45,8 +45,9 @@ except ImportError:
     print ('Need to install the "tensorflow" module (available on Linux and MacOs only for python 2.7) : "pip install tensorflow" or with Anaconda "conda install tensorflow"')
     exit()
 
-tf.reset_default_graph()
-sess = tf.InteractiveSession()
+#tf.reset_default_graph() # python-2.7, TensorFlow 1.x
+tf.compat.v1.reset_default_graph() # python-3.x, TensorFlow 2.7
+sess = tf.compat.v1.InteractiveSession()
 
 
 def Gaussian(x):
@@ -113,57 +114,58 @@ def DAE(data, Archi, noise=Gaussian, batch_size=500, pre_pross=True, training_ep
     if ramGbAvailable == 0:
         print ("\nWARNING : running with less than 1Gb RAM available, processing will probably fail !\n")
 
-    input_size = data.shape[1]
+    #input_size = data.shape[1]
+    input_size = data[0][0].shape[1]
     Archi = np.array(Archi)
     l = Archi.size
-    E_Weights = {};
+    E_Weights = {}
     E_Biases = {}
-    D_Weights = {};
+    D_Weights = {}
     D_Biases = {}
-    I_P = {};
-    cost = {};
+    I_P = {}
+    cost = {}
     opt = {}
 
     """placeholders initialisation"""
     for i in range(l):
         if i == 0:
-            I_P['P' + str(i)] = tf.placeholder(tf.float32, [batch_size, input_size])
+            I_P['P' + str(i)] = tf.compat.v1.placeholder(tf.float32, [batch_size, input_size])
         else:
-            I_P['P' + str(i)] = tf.placeholder(tf.float32, [batch_size, Archi[i - 1]])
+            I_P['P' + str(i)] = tf.compat.v1.placeholder(tf.float32, [batch_size, Archi[i - 1]])
 
     """Weights and Biases initialisation for the Encoding process"""
     for i in range(1, l + 1):
         if i == 1:
-            E_Weights['W' + str(i)] = tf.Variable(tf.random_normal([input_size, Archi[i - 1]], 0, 0.1))
+            E_Weights['W' + str(i)] = tf.Variable(tf.random.normal([input_size, Archi[i - 1]], 0, 0.1))
         else:
-            E_Weights['W' + str(i)] = tf.Variable(tf.random_normal([Archi[i - 2], Archi[i - 1]], 0, 0.1))
+            E_Weights['W' + str(i)] = tf.Variable(tf.random.normal([Archi[i - 2], Archi[i - 1]], 0, 0.1))
     for i in range(1, l + 1):
-        E_Biases['B' + str(i)] = tf.Variable(tf.random_normal([Archi[i - 1]], 0, 0.1))
+        E_Biases['B' + str(i)] = tf.Variable(tf.random.normal([Archi[i - 1]], 0, 0.1))
 
     """Weights and Biases initialisation for the Decoding process"""
     for i in range(1, l + 1):
         if i == 1:
-            D_Weights['W' + str(i)] = tf.Variable(tf.random_normal([Archi[i - 1], input_size], 0, 0.1))
+            D_Weights['W' + str(i)] = tf.Variable(tf.random.normal([Archi[i - 1], input_size], 0, 0.1))
         else:
-            D_Weights['W' + str(i)] = tf.Variable(tf.random_normal([Archi[i - 1], Archi[i - 2]], 0, 0.1))
+            D_Weights['W' + str(i)] = tf.Variable(tf.random.normal([Archi[i - 1], Archi[i - 2]], 0, 0.1))
     for i in range(1, l + 1):
         if i == 1:
-            D_Biases['B' + str(i)] = tf.Variable(tf.random_normal([input_size], 0, 0.1))
+            D_Biases['B' + str(i)] = tf.Variable(tf.random.normal([input_size], 0, 0.1))
         else:
-            D_Biases['B' + str(i)] = tf.Variable(tf.random_normal([Archi[i - 2]], 0, 0.1))
+            D_Biases['B' + str(i)] = tf.Variable(tf.random.normal([Archi[i - 2]], 0, 0.1))
 
     """definition of the cost functions"""
     for i in range(l):
         E = encoding_process(I_P['P' + str(i)], E_Weights['W' + str(i + 1)], E_Biases['B' + str(i + 1)])
         D = decoding_process(E, D_Weights['W' + str(i + 1)], D_Biases['B' + str(i + 1)])
-        cost['c' + str(i)] = tf.reduce_mean(tf.pow(I_P['P' + str(i)] - D, 2))
+        cost['c' + str(i)] = tf.reduce_mean(input_tensor=tf.pow(I_P['P' + str(i)] - D, 2))
 
     """definition of the optimizers"""
     for i in range(l):
-        opt['o' + str(i)] = tf.train.AdamOptimizer(learning_rate).minimize(cost['c' + str(i)])
+        opt['o' + str(i)] = tf.compat.v1.train.AdamOptimizer(learning_rate).minimize(cost['c' + str(i)])
 
     """training process"""
-    init = tf.global_variables_initializer()
+    init = tf.compat.v1.global_variables_initializer()
     sess.run(init)
     total_batch = int(data.shape[0] / batch_size)
     for i in range(l):
@@ -198,7 +200,7 @@ def DAE(data, Archi, noise=Gaussian, batch_size=500, pre_pross=True, training_ep
             E_Biases[key] = tf.Variable(val)
             l.append(E_Biases[key])
 
-        init = tf.variables_initializer(l)
+        init = tf.compat.v1.variables_initializer(l)
         sess.run(init)
 
     """return """

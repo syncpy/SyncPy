@@ -42,7 +42,7 @@ import numpy as np
 import pandas as pd
 from   scipy import signal
 
-import Detrend
+from . import Detrend
 
 
 def Cpsd(x,y,fs=1.0, NFFT=256, detrend=0,noverlap=0, plot=False):

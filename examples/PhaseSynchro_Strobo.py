@@ -40,8 +40,8 @@ f, axarr = plt.subplots(2, sharex=True)
 axarr[0].set_title('Input signals')
 axarr[0].set_xlabel('Samples')
 axarr[1].set_xlabel('Samples')
-axarr[0].plot(range(0,N), x, label="x")
-axarr[1].plot(range(0,N), y, label="y", color='r')
+axarr[0].plot(range(0,N), x.values, label="x")
+axarr[1].plot(range(0,N), y.values, label="y", color='r')
 axarr[0].legend(loc='best')
 axarr[1].legend(loc='best')
 
@@ -58,13 +58,13 @@ print("\n")
 
 try : 
     c=c=PhaseSynchro_Strobo.PhaseSynchro_Strobo(n,m, nbins)
-except TypeError, err :
+except TypeError as err :
     print("TypeError in PhaseSynchro_Strobo constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in PhaseSynchro_Strobo constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in PhaseSynchro_Strobo constructor : \n" + str(e))
     sys.exit(-1)
 
@@ -81,13 +81,13 @@ print("Computing...")
 
 try : 
     res= c.compute([x, y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in PhaseSynchro_Strobo computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in PhaseSynchro_Strobo computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in PhaseSynchro_Strobo computation : \n" + str(e))
     sys.exit(-1)
 
@@ -102,7 +102,7 @@ print("lambda_nm:")
 print(res)
 print("\n")
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")
 plt.close("all")
 
 

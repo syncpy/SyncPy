@@ -64,8 +64,8 @@ ax = fig.add_subplot(111)
 ax.grid(True)
 ax.set_xlabel('Samples')
 ax.set_title('Input signals')
-ax.plot(n, x, label=x.columns[0])
-ax.plot(n, y, label=y.columns[0])
+ax.plot(n, x.values, label=x.columns[0])
+ax.plot(n, y.values, label=y.columns[0])
 plt.legend(bbox_transform=plt.gcf().transFigure)
 
 """ Define class attributes of the wanted method """
@@ -80,13 +80,13 @@ ele_per_sec = 5     # number of element in one second
 print("\n")
 try : 
     corr = WindowCrossCorrelation.WindowCrossCorrelation(tau_max, window, window_inc, tau_inc, plot, ele_per_sec)
-except TypeError, err:
+except TypeError as err:
     print("TypeError in WindowCrossCorrelation constructor : \n" + str(err))
     sys.exit(-1)
-except ValueError, err:
+except ValueError as err:
     print("ValueError in WindowCrossCorrelation constructor : \n" + str(err))
     sys.exit(-1)
-except Exception, e:
+except Exception as e:
     print("Exception in WindowCrossCorrelation constructor : \n" + str(e))
     sys.exit(-1)
     
@@ -104,13 +104,13 @@ print("Computing...")
 
 try : 
     cross_corr = corr.compute([x,y])
-except TypeError, err :
+except TypeError as err :
     print("TypeError in WindowCrossCorrelation computation : \n" + str(err))
     sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
     print("ValueError in WindowCrossCorrelation computation : \n" + str(err))
     sys.exit(-1)
-except Exception, e :
+except Exception as e :
     print("Exception in WindowCrossCorrelation computation : \n" + str(e))
     sys.exit(-1)
 
@@ -121,4 +121,4 @@ print('Window Cross correlation result :')
 print("********************************* \n")
 print(cross_corr)
 
-raw_input("Push ENTER key to exit.")
+input("Push ENTER key to exit.")

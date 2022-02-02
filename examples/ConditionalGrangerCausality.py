@@ -25,7 +25,7 @@ import DataFromManyPersons.Univariate.Continuous.Linear.ConditionalGrangerCausal
 
 """ Import signal from a .csv file """
 filename = 'data_examples/1Person_Multivariate_Continous_data.csv'
-print "\nLoading signals from csv files : ", filename,"\n"
+print("\nLoading signals from csv files : ", filename,"\n")
 x1 = ExtractSignalFromCSV(filename, columns = ['x1'])
 x2 = ExtractSignalFromCSV(filename, columns = ['x2'])
 x3 = ExtractSignalFromCSV(filename, columns = ['x3'])
@@ -41,13 +41,13 @@ plot = True			# Authorize the plot of the results
 print("\n")
 try : 
 	cgc = CGC.ConditionalGrangerCausality(max_lag = max_lag, criterion = criterion, plot = plot)
-except TypeError, err :
+except TypeError as err :
 	print("TypeError in ConditionalGrangerCausality constructor : \n" + str(err))
 	sys.exit(-1)
-except ValueError, err :
+except ValueError as err :
 	print("ValueError in ConditionalGrangerCausality constructor : \n" + str(err))
 	sys.exit(-1)
-except Exception, e :
+except Exception as e :
 	print("Exception in ConditionalGrangerCausality constructor : \n" + str(e))
 	sys.exit(-1)
 
@@ -61,16 +61,16 @@ print("\n")
 print("Computing...\n")
 try : 
 	results = cgc.compute([x1,x2,x3,x4])
-except TypeError, err :
+except TypeError as err :
 	print("TypeError in ConditionalGrangerCausality computation : \n" + str(err))
 	sys.exit(-1)
 
-except ValueError, err :
+except ValueError as err :
 	print("ValueError in ConditionalGrangerCausality computation : \n" + str(err))
 	sys.exit(-1)
 
-except Exception, e :
+except Exception as e :
 	print("Exception in ConditionalGrangerCausality computation : \n" + str(e))
 	sys.exit(-1)
 	
-raw_input("Press any key to exit")
+input("Press any key to exit")

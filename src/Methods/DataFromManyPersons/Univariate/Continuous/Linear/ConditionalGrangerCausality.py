@@ -158,7 +158,7 @@ class ConditionalGrangerCausality(Method):
                     G.add_edge(str(j+1),str(i+1))
 
         # Plot graphic :
-        nx.draw_networkx(G, pos = nx.spring_layout(G), with_label = True, node_size = 600, node_color = 'white', edge_color = 'black')
+        nx.draw_networkx(G, pos=nx.spring_layout(G), with_labels=True, node_size=600, node_color='white', edge_color='black')
         self._G = G
 
         # Return figure
@@ -201,31 +201,31 @@ class ConditionalGrangerCausality(Method):
         T = len(signals[0])
 
         # Converting DataFrames to arrays :
-        SIGNALS = np.zeros((T,len(signals)))
+        SIGNALS = np.zeros((T, len(signals)))
 
-        for i in range(0,len(signals)):
-            SIGNALS[:,i] = np.array(signals[i]).reshape(T)
+        for i in range(0, len(signals)):
+            SIGNALS[:, i] = np.array(signals[i]).reshape(T)
 
         # Creating Matrix to save the links between the signals :
-        M_direct = np.zeros((len(signals),len(signals)))
+        M_direct = np.zeros((len(signals), len(signals)))
 
         # Testing for direct links between signals :
-        for i in range(0,len(signals)):
-            for j in range(0,len(signals)):
-                if (i != j):
+        for i in range(0, len(signals)):
+            for j in range(0, len(signals)):
+                if i != j:
                     gc = GC.GrangerCausality(max_lag = self._max_lag, criterion = self._criterion, plot = False)
                     res = gc.compute([signals[i],signals[j]])
                     if res['ratio'] > 0 and res['p_value'] < 0.01:
-                        print ("Results : signal",j+1,"->",i+1,"detected")
-                        M_direct[i,j] = 1
+                        print("Results : signal",j+1,"->",i+1,"detected")
+                        M_direct[i, j] = 1
 
         # Computing the FULL VAR model :
 
         #First we have to determine the optimal order according to the given criterion
-        olag_AR = np.zeros((len(signals),1))
+        olag_AR = np.zeros((len(signals), 1))
 
         # For each order, computing VAR :
-        for k in range(0,len(signals)+1):
+        for k in range(0, len(signals)+1):
 
             # Permuting columns to compute VAR :
             SIGNALS = np.concatenate((SIGNALS[:,k:],SIGNALS[:,0:k]),axis = 1)
@@ -238,7 +238,7 @@ class ConditionalGrangerCausality(Method):
             #Testing each order :
             for lag in range(1, self._max_lag+1):
 
-                data = lagmat2ds(SIGNALS,lag,trim ='both', dropex = 1)
+                data = lagmat2ds(SIGNALS, lag, trim='both', dropex=1)
                 datajoint = add_constant(data[:, 1:], prepend=False)
                 OLS_ = OLS(data[:, 0], datajoint).fit()
 

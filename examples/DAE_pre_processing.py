@@ -9,7 +9,7 @@ Created on Thu Jul 27 15:40:52 2017
 try:
     import tensorflow as tf
 except ImportError:
-    print 'Need to install the "tensorflow" module (available on Linux and MacOS only for python 2.7) : "pip install tensorflow" or with Anaconda "conda install tensorflow"'
+    print('Need to install the "tensorflow" module (available on Linux and MacOS only for python 2.7) : "pip install tensorflow" or with Anaconda "conda install tensorflow"')
     exit()
 
 import sys
