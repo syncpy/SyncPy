@@ -12,12 +12,13 @@ import re
 
 
 from PyQt5 import QtCore, QtGui, uic
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtGui import QStandardItem
-from PyQt5.QtWidgets import QFileDialog
-from .Method import Method, MethodArg, MethodArgList
+from PyQt5.QtCore import pyqtSlot, QPoint
+from PyQt5.QtGui import QStandardItem, QStandardItemModel
+from PyQt5.QtWidgets import QFileDialog, QApplication, QMainWindow, QDialog, QAbstractItemView, QMenu
+from Method import Method, MethodArg, MethodArgList
 from string import Template
-from .ui.SyncpyAbout import SyncpyAbout
+from ui.SyncpyAbout import SyncpyAbout
+from ui import syntax_pars
 
 import configparser
 
@@ -31,17 +32,17 @@ except AttributeError:
         return s
 
 try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
+    _encoding = QApplication.UnicodeUTF8
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+        return QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+        return QApplication.translate(context, text, disambig)
 
 # Main Window Class
-class SyncPy2MethodWizard(QtGui.QMainWindow):
+class SyncPy2MethodWizard(QMainWindow):
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QDialog.__init__(self)
 
         self.config = configparser.RawConfigParser()
         self.config.read('conf.ini')
@@ -54,12 +55,12 @@ class SyncPy2MethodWizard(QtGui.QMainWindow):
 
         table = self.ui.argsTable
         table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        QtCore.QObject.connect(table, QtCore.SIGNAL("customContextMenuRequested(QPoint)"),
-                               self.openMenuToolbox)
-        QtCore.QObject.connect(self.ui.argTypeComboBox, QtCore.SIGNAL("currentIndexChanged(int)"),
-                               self.setDefaultArgument)
+        table.customContextMenuRequested.connect(self.openMenuToolbox)
+        self.ui.argTypeComboBox.currentIndexChanged.connect(self.setDefaultArgument)
+        #QtCore.QObject.connect(table, QtCore.SIGNAL("customContextMenuRequested(QPoint)"),self.openMenuToolbox)
+        #QtCore.QObject.connect(self.ui.argTypeComboBox, QtCore.SIGNAL("currentIndexChanged(int)"),self.setDefaultArgument)
 
-        self.model = QtGui.QStandardItemModel()
+        self.model = QStandardItemModel()
         self.model.setColumnCount(4)
         headers = []
         headers.append("Name")
@@ -68,9 +69,11 @@ class SyncPy2MethodWizard(QtGui.QMainWindow):
         headers.append("Hint")
         self.model.setHorizontalHeaderLabels(headers)
         table.setModel(self.model)
-        table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
-        self.highlighter = ui.PythonSyntax.PythonHighlighter(self.ui.codePlainTextEdit.document())
+
+        self.highlighter = syntax_pars.PythonHighlighter(self.ui.codePlainTextEdit.document())
+        #self.highlighter = ui.PythonSyntax.PythonHighlighter(self.ui.codePlainTextEdit.document())
 
         self.showStatus("{0} (v {1}) successfully loaded".format(self.appName, self.appVersion))
         self.ui.show()
@@ -78,8 +81,8 @@ class SyncPy2MethodWizard(QtGui.QMainWindow):
     def getFromConfig(self, attribute):
         return self.config.get(self.__class__.__name__, attribute)
 
-    @pyqtSlot()
-    def setDefaultArgument(self):
+    @pyqtSlot(int)
+    def setDefaultArgument(self, idx):
         type = self.ui.argTypeComboBox.currentText()
         if type == "bool":
             self.ui.argDefaultLineEdit.setText("False")
@@ -163,11 +166,11 @@ class SyncPy2MethodWizard(QtGui.QMainWindow):
 
         self.showStatus("Python code generated")
 
-
+    @pyqtSlot(QPoint)
     def openMenuToolbox(self, position):
         row = self.ui.argsTable.indexAt(position).row()
 
-        menu = QtGui.QMenu("Menu", self)
+        menu = QMenu("Menu", self)
         menu.addAction("delete row", lambda: self.deleteRow(row))
         # Show the context menu.
         menu.exec_(self.ui.argsTable.mapToGlobal(position))
@@ -287,8 +290,8 @@ class SyncPy2MethodWizard(QtGui.QMainWindow):
                     else:
                         value = "{0}".format(arg.value)
                     item = [QStandardItem(arg.label),
-                            QStandardItem(QString(str(m.group(1)))),
-                            QStandardItem(QString(value)),
+                            QStandardItem(str(m.group(1))),
+                            QStandardItem(value),
                             QStandardItem(arg.hint)]
                     self.model.appendRow(item)
 
@@ -297,9 +300,9 @@ class SyncPy2MethodWizard(QtGui.QMainWindow):
 
 if __name__ == "__main__":
     import sys
-    app = QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     print((sys.argv))
-    MainWindow = QtGui.QMainWindow()
+    MainWindow = QMainWindow()
     ui = SyncPy2MethodWizard()
 
     sys.exit(app.exec_())

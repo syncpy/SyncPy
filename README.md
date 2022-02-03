@@ -3,7 +3,7 @@ SyncPy Python Library
 
 The SyncPy Python Library is an ongoing open-source project conceived and developed at
 the Institut des Systèmes Intelligentes et Robotique (ISIR) at the Université
-Pierre et Marie Curie (UPMC), Paris 6, France.
+Sorbonne Université, Paris 6, France.
 
 SyncPy library is currently under development in the framework of the 
 SMART Labex Project (http://www.smart-labex.fr)
@@ -55,21 +55,33 @@ The methods are organized following the structure described in the paper:
 Version 
 ------------------------
 
-Version number : 2.0
-Last update : 14/09/2016
+Version number : 3.0
+Last update : 03/02/2022
 
 
 Changes from previous version
 -----------------------------
 
 News :
-- New GUI
+- Migrating from Python 2.7, PyQt4 to Python 3.x, PyQt5
 
+Issues in "examples" folder :
+- DAE -> migrating from tensorflow 1.x to tensorflow 2.x requires work
+- oneclassSVM -> use of svm.OneClassSVM evolved and the kernel parameter seems to have evolved
+- S_Estimator -> error in computing
+
+
+Installation
+------------------------
+- Install Python 3.x, preferably from Anaconda : https://www.anaconda.com/products/individual
+- Clone or donwload this repository
+- install dependecies : pip install -r requirements.txt
+- Then you can run .py files from "examples" folder or for use with UI src/Syncpy2.py
 
 Requirements
 ------------------------
-- Python 3.6
-- Mathplotlib 1.4.3
+- Python 3.9
+- Mathplotlib 3.5.1
 
 Dependencies
 ------------------------
@@ -80,10 +92,7 @@ Dependencies
 - NetworkX: https://networkx.github.io/download.html
 - Numpy and Scipy: http://www.scipy.org/scipylib/download.html
 - Pandas: http://pandas.pydata.org/pandas-docs/stable/install.html
-- Statsmodels and Patsy: http://statsmodels.sourceforge.net/install.html 
-
-For the interface: 
-- PyQt : http://pyqt.sourceforge.net/Docs/PyQt4/installation.html 
+- Statsmodels and Patsy: http://statsmodels.sourceforge.net/install.html
 
 
 Organization
@@ -102,9 +111,11 @@ can produce pitfalls.
 
 Authors 
 ------------------------
-- Giovanna Varni
+- Marie Avril
 - Mohamed Chetouani
-- Technical help from Marie Avril, Philippe Gauthier and David Reversat
+- Philippe Gauthier
+- David Reversat
+- Giovanna Varni
 
 
 Contact
